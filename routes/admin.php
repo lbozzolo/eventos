@@ -35,6 +35,11 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'RecetaController@storeIngredientes'
     ]);
 
+    Route::delete('recetas/quitar-ingredientes/{receta}/{ingrediente}', [
+        'as' => 'recetas.destroy.ingrediente',
+        'uses' => 'RecetaController@destroyIngredientes'
+    ]);
+
     Route::resource('profiles', 'ProfileController');
     Route::resource('dietascatogenicas', 'DietasCatogenicaController');
     Route::resource('semanas', 'SemanaController');
@@ -48,6 +53,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pasos/create/{receta}', [
         'as' => 'pasos.create',
         'uses' => 'PasoController@create'
+    ]);
+
+    Route::post('pasos/create/{receta}', [
+        'as' => 'pasos.store',
+        'uses' => 'PasoController@store'
     ]);
 
     // Ingredientes

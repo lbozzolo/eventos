@@ -18,8 +18,8 @@ class CreatePreparacionesTable extends Migration
             $table->increments('id');
 
             $table->tinyInteger('posicion');
-            $table->string('descripcion');
-            $table->integer('receta_id')->unsigned();
+            $table->text('descripcion');
+            $table->integer('receta_id')->unsigned()->nullable();
 
             $table->timestamps();
         });

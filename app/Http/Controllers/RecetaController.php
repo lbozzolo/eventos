@@ -135,7 +135,15 @@ class RecetaController extends AppBaseController
 
     public function storeIngredientes(AgregarIngredientesRequest $request, Receta $receta)
     {
-        dd($receta);
+        $ingrediente = Ingrediente::find($request->ingrediente);
+
+        $receta->ingredientes()->attach($ingrediente, [
+            'medida' => ($request->medida)? $request->medida : null,
+            'cantidad' => ($request->cantidad)? $request->cantidad : null,
+            'indispensable' => ($request->indispensable)? $request->indispensabe : 0,
+        ]);
+
+        return redirect()->back();
     }
 
     public function destroy($id)

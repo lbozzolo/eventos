@@ -1,55 +1,62 @@
-<div class="card">
 
-    <div class="card-body">
+<div class="row mt-3">
 
 
+    <div class="col-lg-8">
         <div class="row">
 
-
-
-            <div class="col-lg-8">
-
-                <div class="card-header">
-                    <span>
-                        @if($item->active)
-                            <label class="badge badge-success">{!! ($gender == 'M')? 'activo' : 'activa' !!}</label>
-                        @else
-                            <label class="badge badge-danger">{!! ($gender == 'M')? 'inactivo' : 'inactiva' !!}</label>
-                        @endif
-                    </span>
-                    <label class="badge badge-dark"><i class="mdi mdi-clock"></i> {!! $item->tiempo !!} {!! ($item->tiempo > 1)? 'minutos' : 'minuto' !!}</label>
-                    <small class="mr-2" style="padding: 5px">creada el {!! $item->fecha_creado !!}</small>
-                    <h4>{!! $item->nombre !!}</h4>
-                    <p>{!! ($item->descripcion)? $item->descripcion : '' !!}</p>
-
-                </div>
-
-                <div class="card-body">
-                    <h5>Ingredientes</h5>
-                    @if($item->ingredientes->count())
-                        <ul>
-                            @foreach($item->ingredientes as $ingrediente)
-                                <li>{!! $ingrediente->nombre !!}</li>
-                            @endforeach
-                        </ul>
+            <div class="col-lg-6 col-md-6 col-sm-6 stretch-card">
+                <div class="card card-body">
+                    @if($item->mainImage())
+                        <img src="{{ route('imagenes.ver', $item->mainImage()->path) }}" class="img-responsive" style="width: 100%">
                     @else
-                        <small><em class="text-muted">todavía no se ha cargado ningún ingrediente</em></small>
+                        <div style="border: 2px dotted lightgrey; padding: 20px 30px">
+                            <p class="text-secondary">No hay imagen <br>de portada cargada.</p>
+                        </div>
                     @endif
                 </div>
+            </div>
 
-                <div class="card-body">
-                    <h5>Preparativos</h5>
+            <div class="col-lg-6 col-md-6 col-sm-6 stretch-card">
+                <div class="card card-body">
+                    @if($item->url_video)
+                        <iframe width="100%" height="275" src="{!! $item->url_video !!}"
+                                frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                        </iframe>
+                    @else
+                        <div style="border: 2px dotted lightgrey; padding: 20px 30px">
+                            <p class=" text-secondary">No hay video <br>cargado en esta receta.</p>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
+            <div class="col-lg-12 grid-margin">
+
+                <div class="card card-body mt-3">
+                    <h5>Preparativos
+                        <a href="{!! route('pasos.create', $item->id) !!}" class="btn btn-default">
+                            <i class="mdi mdi-pencil-box-outline"></i>editar</a>
+                    </h5>
                     @if($item->pasos->count())
                         <ul>
                             @foreach($item->pasos->sortBy('posicion') as $paso)
-                                <li>
-                                    <span class="lead">Paso {!! $paso->posicion !!}</span>
-                                    <p>{!! $paso->descripcion !!}</p>
-                                    @if($paso->mainImage())
-                                        <div class="card-body">
-                                            <img src="{{ route('imagenes.ver', $item->mainImage()->path) }}" class="img-responsive" style="width: 100%">
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-sm-3 col-xs-12 card" style="padding:0px">
+                                            @if($paso->mainImageThumb())
+                                                <img src="{{ route('imagenes.ver', $paso->mainImageThumb()->path) }}" style="width: 100%" >
+                                            @else
+                                                <div style="border: 2px dotted lightgrey; padding: 20px 30px">
+                                                </div>
+                                            @endif
                                         </div>
-                                    @endif
+                                        <div class="col-lg-10 col-sm-9 col-xs-12" style="padding-top: 10px">
+                                            <p class="badge badge-primary">Paso {!! $paso->posicion !!}</p>
+                                            <p>{!! $paso->descripcion !!}</p>
+                                        </div>
+
+                                    </div>
                                 </li>
                             @endforeach
                         </ul>
@@ -58,39 +65,40 @@
                     @endif
                 </div>
 
-                <div class="card-footer">
-                    <a href="{!! route($modelPlural.'.edit', $item->id) !!}" class="btn btn-outline-primary"><i class="mdi mdi-pencil"></i> Editar</a>
-                    <a href="{!! route($modelPlural.'.index') !!}" class="btn btn-default">Cancelar</a>
-                </div>
-
-            </div>
-
-            <div class="col-lg-4">
-
-                @if($item->mainImage())
-                    <div class="card-body">
-                        <img src="{{ route('imagenes.ver', $item->mainImage()->path) }}" class="img-responsive" style="width: 100%">
-                    </div>
-                @else
-                    <div class="card-body">
-                        <div style="border: 2px dotted lightgrey; padding: 20px 30px">
-                            <p class="lead text-default">No hay imagen <br>de portada cargada.</p>
-                        </div>
-                    </div>
-                @endif
-                @if($item->url_video)
-                    <div class="card-body">
-                        <h5>Video</h5>
-                        <iframe width="100%" height="250" src="{!! $item->url_video !!}"
-                                frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-                        </iframe>
-                    </div>
-                @endif
-
             </div>
 
         </div>
-
     </div>
 
+    <div class="col-lg-4 col-md-12">
+        <div class="card card-body">
+            <h5>Ingredientes
+                <a href="{!! route($modelPlural.'.create.ingredientes', $item->id) !!}" class="btn btn-default">
+                    <i class="mdi mdi-pencil-box-outline"></i>editar</a>
+            </h5>
+            @if($item->ingredientes->count())
+                <ul>
+                    @foreach($item->ingredientes as $ingrediente)
+                        <li>{!! $ingrediente->nombre !!}, {!! $ingrediente->cantidad_medida !!}</li>
+                        <li>{!! $ingrediente->nombre !!}, {!! $ingrediente->cantidad_medida !!}</li>
+                        <li>{!! $ingrediente->nombre !!}, {!! $ingrediente->cantidad_medida !!}</li>
+                        <li>{!! $ingrediente->nombre !!}, {!! $ingrediente->cantidad_medida !!}</li>
+                        <li>{!! $ingrediente->nombre !!}, {!! $ingrediente->cantidad_medida !!}</li>
+                    @endforeach
+                </ul>
+            @else
+                <small><em class="text-muted">todavía no se ha cargado ningún ingrediente</em></small>
+            @endif
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
 </div>
+

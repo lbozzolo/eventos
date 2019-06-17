@@ -22,6 +22,7 @@ class Receta extends Entity
 
     public static $rules = [
         'nombre' => 'required',
+        'descripcion' => 'max:500',
     ];
 
     public static $ingredientesRules = [
@@ -34,7 +35,7 @@ class Receta extends Entity
 
     public function ingredientes()
     {
-        return $this->belongsToMany(Ingrediente::class);
+        return $this->belongsToMany(Ingrediente::class)->withPivot('cantidad', 'medida');
     }
 
     public function pasos()

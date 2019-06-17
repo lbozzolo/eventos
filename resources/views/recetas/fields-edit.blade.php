@@ -32,7 +32,7 @@
 <div class="col-lg-5">
 
     <div class="form-group">
-        {!! Form::label('descripcion', 'Descripción:') !!}
+        {!! Form::label('descripcion', 'Descripción (opcional)') !!}
         <div>
             {!! Form::textarea('descripcion', (isset($item)? $item->description : null), ['class' => 'form-control', 'rows' => '12', 'placeholder' => 'La descripción es opcional.']) !!}
         </div>
@@ -42,5 +42,6 @@
 
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route($modelPlural.'.index') !!}" class="btn btn-default">Cancelar</a>
+{{--    <a href="{!! route($modelPlural.'.index') !!}" class="btn btn-default">Cancelar</a>--}}
+    <a href="{!! route($modelPlural.'.show', $item->id) !!}" class="btn btn-outline-secondary">Volver</a>
 </div>

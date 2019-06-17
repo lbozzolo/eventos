@@ -8,21 +8,13 @@
 
 @section('content')
 
-    <div class="card " id="form-fields">
+    <div class="card" id="form-fields">
         <div class="card-body">
 
             <h2 style="font-size: 1.2em" class="text-dark">{!! ucfirst($item->nombre) !!}</h2>
-            <h1>
-                {!! ucfirst($modelSpanish) !!} /
-                <span class="text-warning">Editar</span><br>
-                <a href="{!! route($modelPlural.'.create.ingredientes', $item->id) !!}" class="btn btn-sm btn-outline-dark">
-                    <i class="mdi mdi-food-apple"></i> Agregar Ingredientes</a>
-                <a href="{!! route('pasos.create', $item->id) !!}" class="btn btn-sm btn-outline-dark">
-                    <i class="mdi mdi-checkbox-multiple-marked-outline"></i> Editar Preparación</a>
-            </h1>
+            <h1>{!! ucfirst($modelSpanish) !!} /<span class="text-warning">Editar</span></h1>
             <div class="row">
                 <div class="card-body">
-
 
                     {!! Form::model($item, ['route' => [$modelPlural.'.update', $item->id], 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}
 
@@ -38,13 +30,46 @@
         </div>
     </div>
 
-    <div class="card col-lg-12 mt-3">
-        <div class="card-body">
-
-            @include('images.images')
-
+    <div class="row mt-3">
+        <div class="col-lg-12">
+            <div class="card card-body">
+                <a href="{!! route('pasos.create', $item->id) !!}" class="">
+                    <i class="mdi mdi-checkbox-multiple-marked-outline"></i> Editar Preparación</a>
+            </div>
         </div>
     </div>
+
+    <div class="row">
+
+        <div class="col-lg-6 mt-3 grid-margin stretch-card">
+            <div class="card card-body">
+
+                <h3>Ingredientes
+                <a href="{!! route($modelPlural.'.create.ingredientes', $item->id) !!}" class="btn btn-sm btn-outline-primary float-right">
+                    <i class="mdi mdi-pencil"></i> editar</a>
+                </h3>
+                @if($item->ingredientes->count())
+
+                    <ul>
+                        @foreach($item->ingredientes as $ingrediente)
+                            <li class="list-group-item">{!! $ingrediente->nombre !!}, {!! $ingrediente->cantidad_medida !!}</li>
+                        @endforeach
+                    </ul>
+                @endif
+
+            </div>
+        </div>
+
+        <div class="col-lg-6 mt-3 grid-margin stretch-card">
+            <div class="card card-body">
+
+                @include('images.images')
+
+            </div>
+        </div>
+
+    </div>
+
 
 @endsection
 
@@ -58,20 +83,6 @@
         $('.select2').select2({
             multiple: true
         });
-
-        $(document).ready(function() {
-            $('#summernote').summernote({
-                tabsize: 2,
-                height: 300,
-            });
-        });
-
-        $('.datepicker').datepicker({
-            format: "mm-yyyy",
-            viewMode: "months",
-            minViewMode: "months"
-        });
-
 
     </script>
 

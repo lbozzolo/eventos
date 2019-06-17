@@ -11,11 +11,10 @@
     <div class="card " id="form-fields">
         <div class="card-body">
 
+            <h2>{!! $receta->nombre !!}</h2>
             <h1>
-                {!! ucfirst($modelSpanish) !!} /
+                {!! ucfirst($modelSpanish) !!} #{!! $item->posicion !!}/
                 <span class="text-warning">Editar</span>
-                <a href="{!! route('pasos', $item->id) !!}" class="btn btn-sm btn-outline-primary">
-                    <i class="mdi mdi-checkbox-multiple-marked-outline"></i> Editar Preparación</a>
             </h1>
             <div class="row">
                 <div class="card-body">
@@ -50,26 +49,5 @@
     <script src="{{ asset('croppie/croppie.js') }}"></script>
     <script src="{{ asset('exif-js/exif.js') }}"></script>
     <script src="{{ asset('js/croppie-file-servicio.js') }}"></script>
-    <script>
-
-        $('.select2').select2({
-            multiple: true
-        });
-
-        $(document).ready(function() {
-            $('#summernote').summernote({
-                tabsize: 2,
-                height: 300,
-            });
-        });
-
-        $('.datepicker').datepicker({
-            format: "mm-yyyy",
-            viewMode: "months",
-            minViewMode: "months"
-        });
-
-
-    </script>
 
 @endsection
