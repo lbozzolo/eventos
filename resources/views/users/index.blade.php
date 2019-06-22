@@ -5,14 +5,14 @@
     <div class="card">
         <div class="card-body">
 
-            <h1>
+            <h2>
                 Usuarios
                 <a class="btn btn-primary btn-sm" href="{!! route('users.create') !!}">Agregar</a>
-            </h1>
+            </h2>
 
         </div>
     </div>
-    <div class="card mt-2">
+    <div class="card mt-3">
         <div class="card-body">
 
             @if($users->count())

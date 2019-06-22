@@ -1,14 +1,46 @@
 @extends('layouts.app')
 
+@section('css')
+
+    <style type="text/css">
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+        }
+        .video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-dialog{
+            position: relative;
+            display: table; /* This is important */
+            overflow-y: auto;
+            overflow-x: auto;
+            width: auto;
+            min-width: 300px;
+            max-width: 100%;
+        }
+
+    </style>
+
+@endsection
+
 @section('content')
 
     <div class="card">
         <div class="card-body">
-            <h1>
+            <h2>
                 {!! ucfirst($modelPlural) !!} /
                 <span class="text-warning"> # {!! $item->id !!}</span> /
-                <span class="text-info"> {!! $item->nombre !!}</span>
-            </h1>
+                <span class="text-info display-4"> {!! $item->nombre !!}</span>
+            </h2>
             <div>
                 <p>{!! ($item->descripcion)? $item->descripcion : '' !!}</p>
 
@@ -25,6 +57,7 @@
 
         </div>
     </div>
+
     @include('recetas.show_fields')
 
 @endsection

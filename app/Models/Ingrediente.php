@@ -25,15 +25,27 @@ class Ingrediente extends Entity
     public function getCantidadMedidaAttribute()
     {
         if($this->pivot->cantidad > 1){
-            if(config('sistema.medidas.'.$this->pivot->medida) == 'porción'){
-                $medida = 'porciones.';
-            } else {
-                $medida = config('sistema.medidas.'.$this->pivot->medida).'s.';
+
+            switch ($this->medida()) {
+                case "porción":
+                    $medida = 'porciones.';
+                    break;
+                case "galón":
+                    $medida = 'galones.';
+                    break;
+                default:
+                    $medida = $this->medida().'s.';
             }
+
         } else {
-            $medida = config('sistema.medidas.'.$this->pivot->medida).'.';
+            $medida = $this->medida().'.';
         }
 
         return $this->pivot->cantidad.' '.$medida;
+    }
+
+    protected function medida()
+    {
+        return config('sistema.medidas.'.$this->pivot->medida);
     }
 }

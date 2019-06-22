@@ -5,10 +5,10 @@
     <div class="card">
         <div class="card-body">
 
-            <h1>
+            <h2>
                 {!! ucfirst($modelSpanishPlural) !!}
                 <a class="btn btn-primary btn-sm" href="{!! route($modelPlural.'.create') !!}">Agregar</a>
-            </h1>
+            </h2>
 
         </div>
     </div>

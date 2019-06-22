@@ -19,8 +19,8 @@
                         {!! Form::hidden('posicion', ($receta->pasos->last())? $receta->pasos->last()->posicion + 1 : '1') !!}
                     </td>
                     <td>
-                        <div style="border: 2px dotted lightgrey; padding: 20px 30px">
-                            <p class="text-secondary">Sin imagen</p>
+                        <div style="border: 2px dotted lightgrey;" class="text-center">
+                            <img src="{!! asset('images/noimage.png') !!}" class="img-responsive" style="border-radius: 0px">
                         </div>
                     </td>
                     <td>{!! Form::textarea('descripcion', null, ['class' => 'form-control', 'rows' => '4']) !!}</td>
@@ -37,10 +37,12 @@
                     </td>
                     <td>
                         @if($paso->mainImageThumb())
-                            <img src="{{ route('imagenes.ver', $paso->mainImageThumb()->path) }}" class="" style="width: 100%; height: 100%; border-radius: 0px">
+                            <div>
+                                <img src="{{ route('imagenes.ver', $paso->mainImageThumb()->path) }}" class="img-responsive" style="width: 100%; height: 100%; border-radius: 0px">
+                            </div>
                         @else
-                            <div style="border: 2px dotted lightgrey; padding: 20px 30px">
-                                <p class="text-secondary">Sin imagen</p>
+                            <div style="border: 2px dotted lightgrey" class="text-center">
+                                <img src="{!! asset('images/noimage.png') !!}" class="img-responsive" style="border-radius: 0px">
                             </div>
                         @endif
                     </td>
@@ -91,8 +93,8 @@
                         {!! Form::hidden('posicion', ($receta->pasos->last())? $receta->pasos->last()->posicion + 1 : '1') !!}
                     </td>
                     <td>
-                        <div style="border: 2px dotted lightgrey; padding: 20px 30px">
-                            <p class="text-secondary">Sin imagen</p>
+                        <div style="border: 2px dotted lightgrey" class="text-center">
+                            <img src="{!! asset('images/noimage.png') !!}" class="img-responsive" style="border-radius: 0px">
                         </div>
                     </td>
                     <td>{!! Form::textarea('descripcion', null, ['class' => 'form-control', 'rows' => '4']) !!}</td>

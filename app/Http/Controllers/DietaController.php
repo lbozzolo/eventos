@@ -2,17 +2,10 @@
 
 namespace KetoLife\Http\Controllers;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use KetoLife\Http\Requests\CreateRecetaRequest;
-use KetoLife\Http\Requests\UpdateRecetaRequest;
-use Intervention\Image\Facades\Image as Intervention;
-use KetoLife\Models\Receta;
-use KetoLife\Repositories\RecetaRepository;
+use KetoLife\Http\Requests\CreateDietaRequest;
+use KetoLife\Http\Requests\UpdateDietaRequest;
+use KetoLife\Repositories\DietaRepository;
 use KetoLife\Http\Controllers\AppBaseController as AppBaseController;
-use phpDocumentor\Reflection\Types\Object_;
 
 class DietaController extends AppBaseController
 {
@@ -32,7 +25,7 @@ class DietaController extends AppBaseController
     private $no_results_message;
     private $data;
 
-    public function __construct(RecetaRepository $repository)
+    public function __construct(DietaRepository $repository)
     {
         $this->repo = $repository;
         $this->gender = 'F';
@@ -63,49 +56,14 @@ class DietaController extends AppBaseController
         return view($this->modelPlural.'.index')->with($this->data);
     }
 
-    public function indexTable()
-    {
-        $this->data['items'] = $this->repo->all();
-        return view($this->modelPlural.'.index-table')->with($this->data);
-    }
-
     public function create()
     {
-        $this->data['current_date'] = Carbon::today()->month.'-'.Carbon::now()->year;
         return view($this->modelPlural.'.create')->with($this->data);
     }
 
-    public function store(CreateRecetaRequest $request)
+    public function store(CreateDietaRequest $request)
     {
-        $input = $request->except(['url_pdf', 'url_cover']);
-        $input['date'] = Carbon::parse('01-'.$request->date)->format('Y-m-d');
-
-        $item = $this->repo->create($input);
-
-        if($request->file('url_pdf')){
-            $file = $request->file('url_pdf');
-
-            $nombre = $this->changeFileNameIfExists($file);
-
-            Storage::disk('public_pdf')->put($nombre,  File::get($file));
-
-            $item->url_pdf = $nombre;
-            $item->save();
-        }
-
-        if($request->file('url_cover')){
-            $file = $request->file('url_cover');
-
-            $nombre = $this->changeFileNameIfExists($file);
-
-            $image = Intervention::make($file)->resize(472.5, 827)->encode('jpg', 50);
-            $image->save(public_path('covers/'). $nombre);
-
-            //Storage::disk('local')->put('covers/'.$nombre,  File::get($file));
-
-            $item->url_cover = $nombre;
-            $item->save();
-        }
+        $item = $this->repo->create($request->all());
 
         if (!$item)
             return redirect()->back()->withErrors($this->store_failure_message);
@@ -133,44 +91,14 @@ class DietaController extends AppBaseController
         return view($this->modelPlural.'.edit')->with($this->data);
     }
 
-    public function update($id, UpdateRecetaRequest $request)
+    public function update($id, UpdateDietaRequest $request)
     {
-        $this->data['item'] = $this->repo->findWithoutFail($id);
-        $this->data['items'] = $this->repo->all();
+        $item = $this->repo->findWithoutFail($id);
 
-
-        $input = $request->except(['url_pdf', 'url_cover']);
-        $input['date'] = Carbon::parse('01-'.$request->date)->format('Y-m-d');
-
-        if (!$this->data['item'])
+        if (!$item)
             return redirect()->back()->withErrors($this->update_failure_message);
 
-        $this->data['item'] = $this->repo->update($input, $id);
-
-        if($request->file('url_pdf')){
-            $file = $request->file('url_pdf');
-
-            $nombre = $this->changeFileNameIfExists($file);
-
-            Storage::disk('public_pdf')->put($nombre,  File::get($file));
-
-            $this->data['item']->url_pdf = $nombre;
-            $this->data['item']->save();
-        }
-
-        if($request->file('url_cover')){
-            $file = $request->file('url_cover');
-
-            $nombre = $this->changeFileNameIfExists($file);
-
-            $image = Intervention::make($file)->resize(472.5, 827)->encode('jpg', 50);
-            $image->save(public_path('covers/'). $nombre);
-
-            //Storage::disk('local')->put('covers/'.$nombre,  File::get($file));
-
-            $this->data['item']->url_cover = $nombre;
-            $this->data['item']->save();
-        }
+        $this->repo->update($request->all(), $item->id);
 
         return redirect(route($this->modelPlural.'.index'))->with('ok', $this->update_success_message);
     }
@@ -185,46 +113,6 @@ class DietaController extends AppBaseController
         $this->repo->delete($id);
 
         return redirect(route($this->modelPlural.'.index'))->with('ok', $this->destroy_success_message);
-    }
-
-    public function deleteCover(Request $request, $id)
-    {
-        $this->data['item'] = $this->repo->findWithoutFail($id);
-
-        if (!$this->data['item'])
-            return redirect()->back()->withErrors($this->show_failure_message);
-
-        File::delete(storage_path("app/covers/".$this->data['item']->url_cover));
-
-        $this->data['item']->url_cover = null;
-        $this->data['item']->save();
-
-        return redirect(route($this->modelPlural.'.edit', $this->data['item']->id));
-    }
-
-    public function deletePdf($id)
-    {
-        $this->data['item'] = $this->repo->findWithoutFail($id);
-
-        if (!$this->data['item'])
-            return redirect()->back()->withErrors($this->show_failure_message);
-
-        File::delete(storage_path("app/".$this->data['item']->url_pdf));
-
-        $this->data['item']->url_pdf = null;
-        $this->data['item']->save();
-
-        return redirect(route($this->modelPlural.'.edit', $this->data['item']->id));
-    }
-
-    public function changeFileNameIfExists($file)
-    {
-        $nombre = $file->getClientOriginalName();
-        $extension = $file->guessExtension();
-
-        $nombre = preg_replace('/\\.[^.\\s]{3,4}$/', '', $nombre) . '-' . str_random(18) . '.' . $extension;
-
-        return $nombre;
     }
 
 }

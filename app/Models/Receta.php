@@ -35,7 +35,7 @@ class Receta extends Entity
 
     public function ingredientes()
     {
-        return $this->belongsToMany(Ingrediente::class)->withPivot('cantidad', 'medida');
+        return $this->belongsToMany(Ingrediente::class)->withPivot('id', 'cantidad', 'medida');
     }
 
     public function pasos()

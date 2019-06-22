@@ -4,12 +4,9 @@ namespace KetoLife\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use KetoLife\Http\Requests\AgregarIngredientesRequest;
 use KetoLife\Http\Requests\CreateRecetaRequest;
 use KetoLife\Http\Requests\UpdateRecetaRequest;
-use Intervention\Image\Facades\Image as Intervention;
 use KetoLife\Models\Ingrediente;
 use KetoLife\Models\Receta;
 use KetoLife\Repositories\RecetaRepository;
@@ -137,12 +134,34 @@ class RecetaController extends AppBaseController
     {
         $ingrediente = Ingrediente::find($request->ingrediente);
 
+        if($this->repo->ingredienteExists($receta, $ingrediente)){
+            return redirect()->back()->withErrors('El ingrediente seleccionado ya se encuentra presente en la receta');
+        }
+
         $receta->ingredientes()->attach($ingrediente, [
             'medida' => ($request->medida)? $request->medida : null,
             'cantidad' => ($request->cantidad)? $request->cantidad : null,
             'indispensable' => ($request->indispensable)? $request->indispensabe : 0,
         ]);
 
+        return redirect()->back();
+    }
+
+    public function updateIngrediente(Request $request, $id)
+    {
+        $receta = Receta::find($request->receta_id);
+
+        $receta->ingredientes()->updateExistingPivot($id, [
+            'cantidad' => $request->cantidad,
+            'medida' => $request->medida
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function destroyIngredientes(Receta $receta, $ingredienteId)
+    {
+        $receta->ingredientes()->detach($ingredienteId);
         return redirect()->back();
     }
 
@@ -157,36 +176,5 @@ class RecetaController extends AppBaseController
 
         return redirect(route($this->modelPlural.'.index'))->with('ok', $this->destroy_success_message);
     }
-
-    public function deleteCover(Request $request, $id)
-    {
-        $this->data['item'] = $this->repo->findWithoutFail($id);
-
-        if (!$this->data['item'])
-            return redirect()->back()->withErrors($this->show_failure_message);
-
-        File::delete(storage_path("app/covers/".$this->data['item']->url_cover));
-
-        $this->data['item']->url_cover = null;
-        $this->data['item']->save();
-
-        return redirect(route($this->modelPlural.'.edit', $this->data['item']->id));
-    }
-
-    public function deletePdf($id)
-    {
-        $this->data['item'] = $this->repo->findWithoutFail($id);
-
-        if (!$this->data['item'])
-            return redirect()->back()->withErrors($this->show_failure_message);
-
-        File::delete(storage_path("app/".$this->data['item']->url_pdf));
-
-        $this->data['item']->url_pdf = null;
-        $this->data['item']->save();
-
-        return redirect(route($this->modelPlural.'.edit', $this->data['item']->id));
-    }
-
 
 }

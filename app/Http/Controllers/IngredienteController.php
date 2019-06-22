@@ -2,13 +2,7 @@
 
 namespace KetoLife\Http\Controllers;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use KetoLife\Http\Requests\CreateRecetaRequest;
-use KetoLife\Http\Requests\UpdateRecetaRequest;
-use Intervention\Image\Facades\Image as Intervention;
 use KetoLife\Repositories\IngredienteRepository;
 use KetoLife\Http\Controllers\AppBaseController as AppBaseController;
 
@@ -61,18 +55,6 @@ class IngredienteController extends AppBaseController
         return view($this->modelPlural.'.index')->with($this->data);
     }
 
-    public function indexTable()
-    {
-        $this->data['items'] = $this->repo->all();
-        return view($this->modelPlural.'.index-table')->with($this->data);
-    }
-
-    public function create()
-    {
-        $this->data['current_date'] = Carbon::today()->month.'-'.Carbon::now()->year;
-        return view($this->modelPlural.'.create')->with($this->data);
-    }
-
     public function store(CreateRecetaRequest $request)
     {
         $ingrediente['nombre'] = strtolower($request->nombre);
@@ -83,68 +65,6 @@ class IngredienteController extends AppBaseController
             return redirect()->back()->withErrors($this->store_failure_message);
 
         return redirect(route($this->modelPlural.'.index'))->with('ok', $this->store_success_message);
-    }
-
-    public function show($id)
-    {
-        $this->data['item'] = $this->repo->findWithoutFail($id);
-
-        if (!$this->data['item'])
-            return redirect()->back()->withErrors($this->show_failure_message);
-
-        return view($this->modelPlural.'.show')->with($this->data);
-    }
-
-    public function edit($id)
-    {
-        $this->data['item'] = $this->repo->findWithoutFail($id);
-
-        if (empty($this->data['item']))
-            return redirect()->back()->withErrors($this->show_failure_message);
-
-        return view($this->modelPlural.'.edit')->with($this->data);
-    }
-
-    public function update($id, UpdateRecetaRequest $request)
-    {
-        $this->data['item'] = $this->repo->findWithoutFail($id);
-        $this->data['items'] = $this->repo->all();
-
-
-        $input = $request->except(['url_pdf', 'url_cover']);
-        $input['date'] = Carbon::parse('01-'.$request->date)->format('Y-m-d');
-
-        if (!$this->data['item'])
-            return redirect()->back()->withErrors($this->update_failure_message);
-
-        $this->data['item'] = $this->repo->update($input, $id);
-
-        if($request->file('url_pdf')){
-            $file = $request->file('url_pdf');
-
-            $nombre = $this->changeFileNameIfExists($file);
-
-            Storage::disk('public_pdf')->put($nombre,  File::get($file));
-
-            $this->data['item']->url_pdf = $nombre;
-            $this->data['item']->save();
-        }
-
-        if($request->file('url_cover')){
-            $file = $request->file('url_cover');
-
-            $nombre = $this->changeFileNameIfExists($file);
-
-            $image = Intervention::make($file)->resize(472.5, 827)->encode('jpg', 50);
-            $image->save(public_path('covers/'). $nombre);
-
-            //Storage::disk('local')->put('covers/'.$nombre,  File::get($file));
-
-            $this->data['item']->url_cover = $nombre;
-            $this->data['item']->save();
-        }
-
-        return redirect(route($this->modelPlural.'.index'))->with('ok', $this->update_success_message);
     }
 
     public function destroy($id)
@@ -159,34 +79,5 @@ class IngredienteController extends AppBaseController
         return redirect(route($this->modelPlural.'.index'))->with('ok', $this->destroy_success_message);
     }
 
-    public function deleteCover(Request $request, $id)
-    {
-        $this->data['item'] = $this->repo->findWithoutFail($id);
-
-        if (!$this->data['item'])
-            return redirect()->back()->withErrors($this->show_failure_message);
-
-        File::delete(storage_path("app/covers/".$this->data['item']->url_cover));
-
-        $this->data['item']->url_cover = null;
-        $this->data['item']->save();
-
-        return redirect(route($this->modelPlural.'.edit', $this->data['item']->id));
-    }
-
-    public function deletePdf($id)
-    {
-        $this->data['item'] = $this->repo->findWithoutFail($id);
-
-        if (!$this->data['item'])
-            return redirect()->back()->withErrors($this->show_failure_message);
-
-        File::delete(storage_path("app/".$this->data['item']->url_pdf));
-
-        $this->data['item']->url_pdf = null;
-        $this->data['item']->save();
-
-        return redirect(route($this->modelPlural.'.edit', $this->data['item']->id));
-    }
 
 }

@@ -35,13 +35,18 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'RecetaController@storeIngredientes'
     ]);
 
+    Route::put('recetas/editar-ingredientes/{id}', [
+        'as' => 'recetas.update.ingrediente',
+        'uses' => 'RecetaController@updateIngrediente'
+    ]);
+
     Route::delete('recetas/quitar-ingredientes/{receta}/{ingrediente}', [
         'as' => 'recetas.destroy.ingrediente',
         'uses' => 'RecetaController@destroyIngredientes'
     ]);
 
     Route::resource('profiles', 'ProfileController');
-    Route::resource('dietascatogenicas', 'DietasCatogenicaController');
+    Route::resource('dietascatogenicas', 'DietaCatogenicaController');
     Route::resource('semanas', 'SemanaController');
     Route::resource('dias', 'DiaController');
     Route::resource('comidas', 'ComidaController');
@@ -62,7 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Ingredientes
 
-    Route::resource('ingredientes', 'IngredienteController');
+    Route::resource('ingredientes', 'IngredienteController')->only(['index', 'store']);
 
     // Sliders
 

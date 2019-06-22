@@ -15,4 +15,13 @@ class RecetaRepository extends BaseRepository
     {
         return Receta::class;
     }
+
+    public function ingredienteExists($receta, $ingrediente)
+    {
+        $collection = $receta->ingredientes->filter(function ($ing) use ($ingrediente) {
+            return $ing->id == $ingrediente->id;
+        });
+
+        return $collection->count();
+    }
 }
