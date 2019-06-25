@@ -1,62 +1,61 @@
 <?php
 
-namespace KetoLife\Http\Controllers;
+namespace Kallfu\Http\Controllers;
 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
-use KetoLife\Http\Controllers\AppBaseController as AppBaseController;
+use Kallfu\Http\Controllers\AppBaseController as AppBaseController;
 use Illuminate\Support\Facades\Mail;
-use KetoLife\Models\Image;
-use KetoLife\Models\Slider;
+use Kallfu\Models\Image;
+use Kallfu\Models\Room;
+use Kallfu\Models\Service;
+use Kallfu\Models\Slider;
 
 
 class WebController extends AppBaseController
 {
-
     public function index()
     {
         $data['slider'] = Slider::where('active', '1')->first();
-        $data['images'] = ($data['slider'])? $data['slider']->images->sortByDesc('main') : '';
-        $data['countries'] = config('sistema.countries');
-        $data['provinces'] = config('sistema.provinces');
-        $data['interest_areas'] = Category::pluck('name', 'id');
-        $data['slider'] = Slider::where('active', '!=', null)->first();
-
         return view('web.home')->with($data);
     }
 
-    public function past()
+    public function services()
     {
-        $data['past_big'] = Image::where('type', 0)->where('thumbnail_id', '!=', null)->get();
-        $data['past_thumb'] = Image::where('type', 0)->where('thumbnail_id', '=', null)->get();
+        $services = Service::all()->chunk(4);
 
-        return view('web.past')->with($data);
+        foreach($services as $key => $chunk){
+            $data['services'][$key] = $chunk;
+        }
+
+        return view('web.services')->with($data);
     }
 
-    public function present()
+    public function habitaciones($type =  null)
     {
-        $data['present_big'] = Image::where('type', 1)->where('thumbnail_id', '!=', null)->get();
-        $data['present_thumb'] = Image::where('type', 1)->where('thumbnail_id', '=', null)->get();
-
-        return view('web.present')->with($data);
+        $habitacion = (Room::ofType($type)->first())? Room::ofType($type)->first() : null;
+        return view('web.habitaciones')->with(['habitacion' => $habitacion]);
     }
 
-    public function works()
-    {
-        $data['works'] = Work::all();
 
-        return view('web.works')->with($data);
+    public function nosotros()
+    {
+        return view('web.nosotros');
     }
 
-    public function sendDataApplicant(CreateApplicantRequest $request)
+    public function galeria()
     {
-        $input = $request->all();
-        $item = Applicant::create($input);
+        return view('web.galeria');
+    }
 
-        if (!$item)
-            return redirect()->back()->withErrors('Ocurrió un error. No se pudieron enviar los datos');
+    public function reservas()
+    {
+        return view('web.reservas');
+    }
 
-        return Redirect::to(URL::previous() . "#contact")->with('ok', 'Se han enviado los datos con éxito');
+    public function contacto()
+    {
+        return view('web.contacto');
     }
 
     public function postContacto(ContactRequest $request)

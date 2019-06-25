@@ -1,9 +1,9 @@
 <?php
 
-namespace KetoLife\Http\Requests;
+namespace Kallfu\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use KetoLife\User;
+use Kallfu\User;
 
 class UpdateUserRequest extends FormRequest
 {

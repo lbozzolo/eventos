@@ -1,12 +1,12 @@
 <?php
 
-namespace KetoLife;
+namespace Kallfu;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use KetoLife\Models\Dieta;
-use KetoLife\Models\Profile;
+use Kallfu\Models\Dieta;
+use Kallfu\Models\Profile;
 
 
 class User extends Authenticatable

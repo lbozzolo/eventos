@@ -1,6 +1,6 @@
 <?php
 
-namespace KetoLife\Exceptions;
+namespace Kallfu\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

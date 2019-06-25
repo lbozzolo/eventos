@@ -177,11 +177,11 @@ return [
         /*
          * Application Service Providers...
          */
-        KetoLife\Providers\AppServiceProvider::class,
-        KetoLife\Providers\AuthServiceProvider::class,
-        // KetoLife\Providers\BroadcastServiceProvider::class,
-        KetoLife\Providers\EventServiceProvider::class,
-        KetoLife\Providers\RouteServiceProvider::class,
+        Kallfu\Providers\AppServiceProvider::class,
+        Kallfu\Providers\AuthServiceProvider::class,
+        // Kallfu\Providers\BroadcastServiceProvider::class,
+        Kallfu\Providers\EventServiceProvider::class,
+        Kallfu\Providers\RouteServiceProvider::class,
 
     ],
 

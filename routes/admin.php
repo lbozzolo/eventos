@@ -16,58 +16,22 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Editions
 
-    Route::resource('dietas', 'DietaController');
 
-    Route::resource('recetas', 'RecetaController');
+    Route::resource('rooms', 'RoomController');
 
-    Route::get('recetas/index/list-table', [
-        'as' => 'recetas.index.table',
-        'uses' => 'RecetaController@indexTable'
+    Route::get('rooms/create/{type}', [
+        'as' => 'rooms.create',
+        'uses' => 'RoomController@create'
     ]);
 
-    Route::get('recetas/agregar-ingredientes/{receta}', [
-        'as' => 'recetas.create.ingredientes',
-        'uses' => 'RecetaController@createIngredientes'
-    ]);
-
-    Route::post('recetas/agregar-ingredientes/{receta}', [
-        'as' => 'recetas.store.ingredientes',
-        'uses' => 'RecetaController@storeIngredientes'
-    ]);
-
-    Route::put('recetas/editar-ingredientes/{id}', [
-        'as' => 'recetas.update.ingrediente',
-        'uses' => 'RecetaController@updateIngrediente'
-    ]);
-
-    Route::delete('recetas/quitar-ingredientes/{receta}/{ingrediente}', [
-        'as' => 'recetas.destroy.ingrediente',
-        'uses' => 'RecetaController@destroyIngredientes'
-    ]);
-
-    Route::resource('profiles', 'ProfileController');
-    Route::resource('dietascatogenicas', 'DietaCatogenicaController');
-    Route::resource('semanas', 'SemanaController');
-    Route::resource('dias', 'DiaController');
-    Route::resource('comidas', 'ComidaController');
-
-    // Preparaciones
-
-    Route::resource('pasos', 'PasoController');
-
-    Route::get('pasos/create/{receta}', [
-        'as' => 'pasos.create',
-        'uses' => 'PasoController@create'
-    ]);
-
-    Route::post('pasos/create/{receta}', [
-        'as' => 'pasos.store',
-        'uses' => 'PasoController@store'
+    Route::get('rooms/index/list-table', [
+        'as' => 'rooms.index.table',
+        'uses' => 'RoomController@indexTable'
     ]);
 
     // Ingredientes
 
-    Route::resource('ingredientes', 'IngredienteController')->only(['index', 'store']);
+    Route::resource('services', 'ServiceController');
 
     // Sliders
 

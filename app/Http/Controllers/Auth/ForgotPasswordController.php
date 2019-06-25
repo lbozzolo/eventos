@@ -1,8 +1,8 @@
 <?php
 
-namespace KetoLife\Http\Controllers\Auth;
+namespace Kallfu\Http\Controllers\Auth;
 
-use KetoLife\Http\Controllers\Controller;
+use Kallfu\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller

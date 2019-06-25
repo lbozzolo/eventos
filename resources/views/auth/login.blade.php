@@ -40,8 +40,7 @@
                     <div class="auto-form-wrapper">
 
                         <div class="card-body text-center">
-                            KETO LIFE
-                            <img src="{{ asset('images/logos/logo.png') }}" alt="logo" style="width: 100%" class="img-responsive" />
+                            <img src="{{ asset('images/logos/logo.png') }}" alt="logo" style="width: 60%" class="img-responsive" />
                         </div>
                         <div class="card-body">
                             <form action="{{ url('/login') }}" method="post">
@@ -80,7 +79,7 @@
                                 <div class="form-group d-flex justify-content-between">
                                     <div class="form-check form-check-flat mt-0">
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="remember" class="form-check-input" checked> Recordarme
+                                            <input type="checkbox" name="remember" class="form-check-input"> Recordarme
                                         </label>
                                     </div>
                                     <a href="{{ url('/password/reset') }}" class="text-small forgot-password text-black">Olvidé mi contraseña</a>

@@ -1,6 +1,6 @@
 <?php
 
-namespace KetoLife\Providers;
+namespace Kallfu\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'KetoLife\Events\Event' => [
-            'KetoLife\Listeners\EventListener',
+        'Kallfu\Events\Event' => [
+            'Kallfu\Listeners\EventListener',
         ],
     ];
 

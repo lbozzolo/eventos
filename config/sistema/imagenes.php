@@ -3,7 +3,7 @@
 
 return [
 
-    'MAX_NUMBER_IMAGES' => 5,
+    'MAX_NUMBER_IMAGES' => 15,
     'MAX_SIZE_IMAGE' => 5120000,
     'WIDTH_THUMB' => 176,
     'HEIGHT_THUMB' => 132,

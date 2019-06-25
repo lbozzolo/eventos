@@ -1,9 +1,9 @@
 <?php
 
-namespace KetoLife\Http\Requests;
+namespace Kallfu\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use KetoLife\Models\Slider;
+use Kallfu\Models\Slider;
 
 class UpdateSliderRequest extends FormRequest
 {

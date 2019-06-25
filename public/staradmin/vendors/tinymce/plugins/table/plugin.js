@@ -841,7 +841,7 @@ define(
         } else {
           startPos = endPos = null;
 
-          // Calculate start/end pos by checking for selected cells in grid recetas better with context menu
+          // Calculate start/end pos by checking for selected cells in grid rooms better with context menu
           each(grid, function (row, y) {
             each(row, function (cell, x) {
               if (isCellSelected(cell)) {
@@ -2602,7 +2602,7 @@ define(
 
 /**
  * This class handles table column and row resizing by adding divs over the columns and rows of the table.
- * These divs are then manipulated using mouse recetas to resize the underlying table.
+ * These divs are then manipulated using mouse rooms to resize the underlying table.
  *
  * @class tinymce.table.ui.ResizeBars
  * @private
@@ -3490,8 +3490,8 @@ define(
       function mouseDownHandler(e) {
         var target = e.target, body = editor.getBody();
 
-        // Since this code is working on global recetas we need to work on a global hoverTable state
-        // and make sure that the state is correct according to the recetas fired
+        // Since this code is working on global rooms we need to work on a global hoverTable state
+        // and make sure that the state is correct according to the rooms fired
         if (!editor.$.contains(body, hoverTable) && hoverTable !== body) {
           return;
         }

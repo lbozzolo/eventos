@@ -1023,7 +1023,7 @@ define(
       /**
        * Gets various content types out of a datatransfer object.
        *
-       * @param {DataTransfer} dataTransfer Receta fired on paste.
+       * @param {DataTransfer} dataTransfer Room fired on paste.
        * @return {Object} Object with mime types and data for those mime types.
        */
       function getDataTransferItems(dataTransfer) {
@@ -1059,7 +1059,7 @@ define(
        * Gets various content types out of the Clipboard API. It will also get the
        * plain text using older IE and WebKit API:s.
        *
-       * @param {ClipboardEvent} clipboardEvent Receta fired on paste.
+       * @param {ClipboardEvent} clipboardEvent Room fired on paste.
        * @return {Object} Object with mime types and data for those mime types.
        */
       function getClipboardContent(clipboardEvent) {

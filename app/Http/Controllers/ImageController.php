@@ -1,13 +1,13 @@
 <?php
 
-namespace KetoLife\Http\Controllers;
+namespace Kallfu\Http\Controllers;
 
-use KetoLife\Repositories\ImageRepository;
-use KetoLife\Http\Controllers\AppBaseController as AppBaseController;
+use Kallfu\Repositories\ImageRepository;
+use Kallfu\Http\Controllers\AppBaseController as AppBaseController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use KetoLife\Models\Image;
+use Kallfu\Models\Image;
 use Intervention\Image\Facades\Image as Intervention;
 
 class ImageController extends AppBaseController
@@ -120,7 +120,7 @@ class ImageController extends AppBaseController
             $img_thumb = Intervention::make($request->file('img'))->resize(config('sistema.imagenes.WIDTH_THUMB'), config('sistema.imagenes.HEIGHT_THUMB'));
         }
 
-        $class = 'KetoLife\Models\\'.$class;
+        $class = 'Kallfu\Models\\'.$class;
         $model = $class::find($id);
 
         // Redirección si supera el máximo de fotos permitido

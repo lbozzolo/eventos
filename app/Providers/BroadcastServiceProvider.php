@@ -1,6 +1,6 @@
 <?php
 
-namespace KetoLife\Providers;
+namespace Kallfu\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;

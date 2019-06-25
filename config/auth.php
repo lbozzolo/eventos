@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => KetoLife\User::class,
+            'model' => Kallfu\User::class,
         ],
 
         // 'users' => [

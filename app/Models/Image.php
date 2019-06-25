@@ -1,6 +1,6 @@
 <?php
 
-namespace KetoLife\Models;
+namespace Kallfu\Models;
 
 use Eloquent as Model;
 

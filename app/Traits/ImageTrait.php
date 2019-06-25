@@ -1,14 +1,13 @@
 <?php
 
-namespace KetoLife\Traits;
+namespace Kallfu\Traits;
 
 use Illuminate\Support\Facades\Validator;
-use KetoLife\Models\Image;
+use Kallfu\Models\Image;
 use Intervention\Image\Facades\Image as Intervention;
-use KetoLife\Repositories\ImageRepository;
+use Kallfu\Repositories\ImageRepository;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-
 
 trait ImageTrait
 {
@@ -20,13 +19,10 @@ trait ImageTrait
         $this->imageRepository = $imageRepo;
     }
 
-    public function destroy($id)
+    public function destroyImage($id)
     {
-        $image = $this->imageRepository->findWithoutFail($id);
+        $image = Image::find($id);
         $image_big = Image::where('thumbnail_id', $id)->first();
-
-        if (empty($image))
-            return redirect(route('images.index'))->withErrors('Imagen no encontrada');
 
         $image->forceDelete();
         $image_big->forceDelete();
@@ -34,7 +30,7 @@ trait ImageTrait
         File::delete(public_path("imagenes/".$image->path));
         File::delete(public_path("imagenes/".$image_big->path));
 
-        return redirect()->back()->with('ok', 'Imagen eliminada con éxito');
+        return;
     }
 
     public function verImage($file)
@@ -100,60 +96,33 @@ trait ImageTrait
         return redirect()->back();
     }
 
-    // Croppie
-
-    public function saveJqueryImageUpload(Request $request, $id, $class)
+    public function storeImage($file, $id, $class)
     {
-        $validator = Validator::make($request->all(), ['img' => 'required|image|max:1024000']);
-
-        if ($validator->fails())
-            return $validator->errors();
-
-        $status = "";
-
-        if(!$request->hasFile('img'))
-            return redirect()->back()->withErrors('No ha seleccionado ningún archivo');
-
-        // Resize to image thumbnail. Different size if Slider image.
-        if($class == 'Slider') {
-            $img_thumb = Intervention::make($request->file('img'))->resize(config('sistema.imagenes.SLIDER_WIDTH_THUMB'), config('sistema.imagenes.SLIDER_HEIGHT_THUMB'));
-        } else {
-            $img_thumb = Intervention::make($request->file('img'))->resize(config('sistema.imagenes.WIDTH_THUMB'), config('sistema.imagenes.HEIGHT_THUMB'));
-        }
-
-        $class = 'Lamuy\Models\\'.$class;
+        $class = env('APP_NAME').'\Models\\'.$class;
         $model = $class::find($id);
 
-        // Redirección si supera el máximo de fotos permitido
-        if($model->images->count() >= config('sistema.imagenes.MAX_NUMBER_IMAGES'))
-            return redirect()->back()->withErrors('El número máximo de fotos permitido es '.config('sistema.imagenes.MAX_NUMBER_IMAGES').'. Elimine una foto y vuelva a intentarlo');
-
-        if($request->file('img')){
-
-            $file = $request->file('img');
-
-            // Redirección si excede el máximo tamaño de imagen permitido
-            if($file->getClientSize() > config('sistema.imagenes.MAX_SIZE_IMAGE'))
-                return redirect()->back()->withErrors('La foto es demasiado grande (Debe ser menor a 5M)');
-
-            // Confirma que el archivo no exista en el destino
-            $nombre = $this->changeFileNameIfExists($file);
-
-            $imagen = Image::create(['path' => $nombre, 'main' => 0]);
-            $imagen->title = ($request->title)? $request->title : '';
-            $file->move(public_path('imagenes'), $nombre);
-
-            $model->images()->save($imagen);
-
-            $image_thumb = $this->makeThumb($img_thumb, $nombre, $model, null);
-            $imagen->thumbnail_id = $image_thumb->id;
-            $imagen->save();
-
-            $status = "uploaded";
-
+        // Resize to image thumbnail. Different size if Slider image.
+        if($class == 'Kallfu\Models\Slider') {
+            $img_thumb = Intervention::make($file)->resize(config('sistema.imagenes.SLIDER_WIDTH_THUMB'), config('sistema.imagenes.SLIDER_HEIGHT_THUMB'));
+        }elseif ($class == 'Kallfu\Models\Service') {
+            $img_thumb = Intervention::make($file)->resize(64, 64);
+        } else {
+            $img_thumb = Intervention::make($file)->resize(config('sistema.imagenes.WIDTH_THUMB'), config('sistema.imagenes.HEIGHT_THUMB'));
         }
 
-        return response($status,200);
+        // Confirma que el archivo no exista en el destino
+        $nombre = $this->changeFileNameIfExists($file);
+
+        $imagen = Image::create(['path' => $nombre, 'main' => 0]);
+        $file->move(public_path('imagenes'), $nombre);
+
+        $model->images()->save($imagen);
+
+        $image_thumb = $this->makeThumb($img_thumb, $nombre, $model, null);
+        $imagen->thumbnail_id = $image_thumb->id;
+        $imagen->save();
+
+        return $imagen;
     }
 
     public function saveWithoutModel(Request $request, $type)

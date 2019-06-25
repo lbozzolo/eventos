@@ -1,9 +1,9 @@
 <?php
 
-namespace KetoLife\Http\Requests;
+namespace Kallfu\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use KetoLife\Models\Image;
+use Kallfu\Models\Image;
 
 class UpdateImageRequest extends FormRequest
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace KetoLife\Http\Controllers\Auth;
+namespace Kallfu\Http\Controllers\Auth;
 
-use KetoLife\User;
-use KetoLife\Http\Controllers\Controller;
+use Kallfu\User;
+use Kallfu\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -58,7 +58,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \KetoLife\User
+     * @return \Kallfu\User
      */
     protected function create(array $data)
     {

@@ -22,37 +22,51 @@ Route::get('home', function () {
 });
 
 
-Route::group(['prefix' => 'web'], function () {
 
-    Route::get('/', [
-        'as' => 'home',
-        'uses' => 'WebController@index'
-    ]);
+Route::get('/', [
+    'as' => 'home',
+    'uses' => 'WebController@index'
+]);
 
-    Route::get('past', [
-        'as' => 'pictures.past',
-        'uses' => 'WebController@past'
-    ]);
+Route::get('habitaciones/{type}', [
+    'as' => 'web.habitaciones',
+    'uses' => 'WebController@habitaciones'
+]);
 
-    Route::get('/present', [
-        'as' => 'pictures.present',
-        'uses' => 'WebController@present'
-    ]);
+Route::get('servicios', [
+    'as' => 'web.services',
+    'uses' => 'WebController@services'
+]);
 
-    Route::get('/works', [
-        'as' => 'works',
-        'uses' => 'WebController@works'
-    ]);
+Route::get('nosotros', [
+    'as' => 'web.nosotros',
+    'uses' => 'WebController@nosotros'
+]);
 
-    Route::post('/enviar-datos', [
-        'as' => 'send.data.applicant',
-        'uses' => 'WebController@sendDataApplicant'
-    ]);
+Route::get('galeria', [
+    'as' => 'web.galeria',
+    'uses' => 'WebController@galeria'
+]);
+
+Route::get('reservas', [
+    'as' => 'web.reservas',
+    'uses' => 'WebController@reservas'
+]);
+
+Route::get('contacto', [
+    'as' => 'web.contacto',
+    'uses' => 'WebController@contacto'
+]);
+
+Route::post('/enviar-datos', [
+    'as' => 'send.data.applicant',
+    'uses' => 'WebController@sendDataApplicant'
+]);
 
 
-    Route::get('/home', 'WebController@index');
+Route::get('/home', 'WebController@index');
 
-});
+
 
 
 

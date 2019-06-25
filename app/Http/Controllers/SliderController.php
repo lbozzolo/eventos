@@ -1,12 +1,12 @@
 <?php
 
-namespace KetoLife\Http\Controllers;
+namespace Kallfu\Http\Controllers;
 
-use KetoLife\Http\Requests\CreateSliderRequest;
-use KetoLife\Http\Requests\UpdateSliderRequest;
-use KetoLife\Repositories\SliderRepository;
-use KetoLife\Http\Controllers\AppBaseController as AppBaseController;
-use KetoLife\Models\Slider;
+use Kallfu\Http\Requests\CreateSliderRequest;
+use Kallfu\Http\Requests\UpdateSliderRequest;
+use Kallfu\Repositories\SliderRepository;
+use Kallfu\Http\Controllers\AppBaseController as AppBaseController;
+use Kallfu\Models\Slider;
 
 class SliderController extends AppBaseController
 {

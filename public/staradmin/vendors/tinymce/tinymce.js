@@ -1147,7 +1147,7 @@ define(
     }
 
     /**
-     * This class enables you to bind/unbind native recetas to elements and normalize it's behavior across browsers.
+     * This class enables you to bind/unbind native rooms to elements and normalize it's behavior across browsers.
      */
     function EventUtils() {
       var self = this, events = {}, count, expando, hasFocusIn, hasMouseEnterLeave, mouseEnterLeave;
@@ -1166,7 +1166,7 @@ define(
        * Executes all event handler callbacks for a specific event.
        *
        * @private
-       * @param {Event} evt Receta object.
+       * @param {Event} evt Room object.
        * @param {String} id Expando id value to look for.
        */
       function executeHandlers(evt, id) {
@@ -1213,7 +1213,7 @@ define(
           return;
         }
 
-        // Create or get recetas id for the target
+        // Create or get rooms id for the target
         if (!target[expando]) {
           id = count++;
           target[expando] = id;
@@ -1225,7 +1225,7 @@ define(
         // Setup the specified scope or use the target as a default
         scope = scope || target;
 
-        // Split names and bind each event, enables you to bind multiple recetas with one call
+        // Split names and bind each event, enables you to bind multiple rooms with one call
         names = names.split(' ');
         i = names.length;
         while (i--) {
@@ -1299,7 +1299,7 @@ define(
             // Add the nativeHandler to the callback list so that we can later unbind it
             callbackList.nativeHandler = nativeHandler;
 
-            // Check if the target has native recetas support
+            // Check if the target has native rooms support
 
             if (name === "ready") {
               bindOnReady(target, nativeHandler, self);
@@ -1322,13 +1322,13 @@ define(
       };
 
       /**
-       * Unbinds the specified event by name, name and callback or all recetas on the target.
+       * Unbinds the specified event by name, name and callback or all rooms on the target.
        *
        * @method unbind
        * @param {Object} target Target node/window or custom object.
        * @param {String} names Optional event name to unbind.
        * @param {function} callback Optional callback function to unbind.
-       * @return {EventUtils} Receta utils instance.
+       * @return {EventUtils} Room utils instance.
        */
       self.unbind = function (target, names, callback) {
         var id, callbackList, i, ci, name, eventMap;
@@ -1338,7 +1338,7 @@ define(
           return self;
         }
 
-        // Unbind event or recetas if the target has the expando
+        // Unbind event or rooms if the target has the expando
         id = target[expando];
         if (id) {
           eventMap = events[id];
@@ -1380,7 +1380,7 @@ define(
               }
             }
           } else {
-            // All recetas for a specific element
+            // All rooms for a specific element
             for (name in eventMap) {
               callbackList = eventMap[name];
               removeEvent(target, callbackList.fakeName || name, callbackList.nativeHandler, callbackList.capture);
@@ -1415,9 +1415,9 @@ define(
        *
        * @method fire
        * @param {Object} target Target node/window or custom object.
-       * @param {String} name Receta name to fire.
+       * @param {String} name Room name to fire.
        * @param {Object} args Optional arguments to send to the observers.
-       * @return {EventUtils} Receta utils instance.
+       * @return {EventUtils} Room utils instance.
        */
       self.fire = function (target, name, args) {
         var id;
@@ -1452,7 +1452,7 @@ define(
        *
        * @method clean
        * @param {Object} target Target node/window object.
-       * @return {EventUtils} Receta utils instance.
+       * @return {EventUtils} Room utils instance.
        */
       self.clean = function (target) {
         var i, children, unbind = self.unbind;
@@ -1472,7 +1472,7 @@ define(
           target = target.document;
         }
 
-        // Remove recetas from each child element
+        // Remove rooms from each child element
         if (target && target.getElementsByTagName) {
           unbind(target);
 
@@ -1497,7 +1497,7 @@ define(
         events = {};
       };
 
-      // Legacy function for canceling recetas
+      // Legacy function for canceling rooms
       self.cancel = function (e) {
         if (e) {
           e.preventDefault();
@@ -4208,7 +4208,7 @@ define(
  * - Utility functions
  * - DOM traversial
  * - DOM manipulation
- * - Receta binding
+ * - Room binding
  *
  * This is not currently implemented:
  * - Dimension
@@ -8346,7 +8346,7 @@ define(
  */
 
 /**
- * This class handles loading of external stylesheets and fires recetas when these are loaded.
+ * This class handles loading of external stylesheets and fires rooms when these are loaded.
  *
  * @class tinymce.dom.StyleSheetLoader
  * @private
@@ -8673,7 +8673,7 @@ define(
       // Attributes present on all elements
       globalAttributes = "id accesskey class dir lang style tabindex title role";
 
-      // Receta attributes can be opt-in/opt-out
+      // Room attributes can be opt-in/opt-out
       /*eventAttributes = split("onabort onblur oncancel oncanplay oncanplaythrough onchange onclick onclose oncontextmenu oncuechange " +
        "ondblclick ondrag ondragend ondragenter ondragleave ondragover ondragstart ondrop ondurationchange onemptied onended " +
        "onerror onfocus oninput oninvalid onkeydown onkeypress onkeyup onload onloadeddata onloadedmetadata onloadstart " +
@@ -11263,7 +11263,7 @@ define(
        * Adds an event handler to the specified object.
        *
        * @method bind
-       * @param {Element/Document/Window/Array} target Target element to bind recetas to.
+       * @param {Element/Document/Window/Array} target Target element to bind rooms to.
        * handler to or an array of elements/ids/documents.
        * @param {String} name Name of event handler to add, for example: click.
        * @param {function} func Function to execute when the event occurs.
@@ -11283,7 +11283,7 @@ define(
           return target;
         }
 
-        // Collect all window/document recetas bound by editor instance
+        // Collect all window/document rooms bound by editor instance
         if (self.settings.collect && (target === self.doc || target === self.win)) {
           self.boundEvents.push([target, name, func, scope]);
         }
@@ -11295,8 +11295,8 @@ define(
        * Removes the specified event handler by name and function from an element or collection of elements.
        *
        * @method unbind
-       * @param {Element/Document/Window/Array} target Target element to unbind recetas on.
-       * @param {String} name Receta handler name, for example: "click"
+       * @param {Element/Document/Window/Array} target Target element to unbind rooms on.
+       * @param {String} name Room handler name, for example: "click"
        * @param {function} func Function to remove.
        * @return {bool/Array} Bool state of true if the handler was removed, or an array of states if multiple input elements
        * were passed in.
@@ -11314,7 +11314,7 @@ define(
           return target;
         }
 
-        // Remove any bound recetas matching the input
+        // Remove any bound rooms matching the input
         if (self.boundEvents && (target === self.doc || target === self.win)) {
           i = self.boundEvents.length;
 
@@ -11336,8 +11336,8 @@ define(
        * @method fire
        * @param {Node/Document/Window} target Target element or object to fire event on.
        * @param {String} name Name of the event to fire.
-       * @param {Object} evt Receta object to send.
-       * @return {Event} Receta object.
+       * @param {Object} evt Room object to send.
+       * @return {Event} Room object.
        */
       fire: function (target, name, evt) {
         return this.events.fire(target, name, evt);
@@ -11384,7 +11384,7 @@ define(
       destroy: function () {
         var self = this;
 
-        // Unbind all recetas bound to window/document by editor instance
+        // Unbind all rooms bound to window/document by editor instance
         if (self.boundEvents) {
           var i = self.boundEvents.length;
 
@@ -13619,8 +13619,8 @@ define(
 /*eslint max-depth:[2, 9] */
 
 /**
- * This class parses HTML code using pure JavaScript and executes various recetas for each item it finds. It will
- * always execute the recetas in the right order for tag soup code like <b><p></b></p>. It will also remove elements
+ * This class parses HTML code using pure JavaScript and executes various rooms for each item it finds. It will
+ * always execute the rooms in the right order for tag soup code like <b><p></b></p>. It will also remove elements
  * and attributes that doesn't fit the schema if the validate setting is enabled.
  *
  * @example
@@ -15431,7 +15431,7 @@ define(
      * @constructor
      * @method Serializer
      * @param {Object} settings Serializer settings object.
-     * @param {tinymce.Editor} editor Optional editor to bind recetas to and get schema/dom from.
+     * @param {tinymce.Editor} editor Optional editor to bind rooms to and get schema/dom from.
      */
     return function (settings, editor) {
       var dom, schema, htmlParser, tempAttrs = ["data-mce-selected"];
@@ -16498,7 +16498,7 @@ define(
           }
         }
 
-        // Ignore all recetas while resizing or if the editor instance was removed
+        // Ignore all rooms while resizing or if the editor instance was removed
         if (resizeStarted || editor.removed) {
           return;
         }
@@ -24979,7 +24979,7 @@ define(
           }
         }
 
-        // Only bind the caret recetas once
+        // Only bind the caret rooms once
         if (!ed._hasCaretEvents) {
           // Mark current caret container elements as bogus when getting the contents so we don't end up with empty elements
           markCaretContainersBogus = function () {
@@ -30734,7 +30734,7 @@ define(
  */
 
 /**
- * This class lets you add/remove and fire recetas by name on the specified scope. This makes
+ * This class lets you add/remove and fire rooms by name on the specified scope. This makes
  * it easy to add event listener logic to any class.
  *
  * @class tinymce.util.EventDispatcher
@@ -30778,8 +30778,8 @@ define(
        *
        * @method fire
        * @param {String} name Name of the event to fire.
-       * @param {Object?} args Receta arguments.
-       * @return {Object} Receta args instance passed in.
+       * @param {Object?} args Room arguments.
+       * @return {Object} Room args instance passed in.
        * @example
        * instance.fire('event', {...});
        */
@@ -30853,7 +30853,7 @@ define(
        * Binds an event listener to a specific event by name.
        *
        * @method on
-       * @param {String} name Receta name or space separated list of recetas to bind.
+       * @param {String} name Room name or space separated list of rooms to bind.
        * @param {callback} callback Callback to be executed when the event occurs.
        * @param {Boolean} first Optional flag if the event should be prepended. Use this with care.
        * @return {Object} Current class instance.
@@ -30913,7 +30913,7 @@ define(
        * // Unbind all listeners by name
        * instance.off('event');
        *
-       * // Unbind all recetas
+       * // Unbind all rooms
        * instance.off();
        */
       function off(name, callback) {
@@ -30973,7 +30973,7 @@ define(
        * and automatically unbind the event once the callback fires.
        *
        * @method once
-       * @param {String} name Receta name or space separated list of recetas to bind.
+       * @param {String} name Room name or space separated list of rooms to bind.
        * @param {callback} callback Callback to be executed when the event occurs.
        * @param {Boolean} first Optional flag if the event should be prepended. Use this with care.
        * @return {Object} Current class instance.
@@ -31061,20 +31061,20 @@ define(
     return {
       /**
        * Fires the specified event by name. Consult the
-       * <a href="/docs/advanced/recetas">event reference</a> for more details on each event.
+       * <a href="/docs/advanced/rooms">event reference</a> for more details on each event.
        *
        * @method fire
        * @param {String} name Name of the event to fire.
-       * @param {Object?} args Receta arguments.
+       * @param {Object?} args Room arguments.
        * @param {Boolean?} bubble True/false if the event is to be bubbled.
-       * @return {Object} Receta args instance passed in.
+       * @return {Object} Room args instance passed in.
        * @example
        * instance.fire('event', {...});
        */
       fire: function (name, args, bubble) {
         var self = this;
 
-        // Prevent all recetas except the remove event after the instance has been removed
+        // Prevent all rooms except the remove event after the instance has been removed
         if (self.removed && name !== "remove") {
           return args;
         }
@@ -31095,10 +31095,10 @@ define(
 
       /**
        * Binds an event listener to a specific event by name. Consult the
-       * <a href="/docs/advanced/recetas">event reference</a> for more details on each event.
+       * <a href="/docs/advanced/rooms">event reference</a> for more details on each event.
        *
        * @method on
-       * @param {String} name Receta name or space separated list of recetas to bind.
+       * @param {String} name Room name or space separated list of rooms to bind.
        * @param {callback} callback Callback to be executed when the event occurs.
        * @param {Boolean} first Optional flag if the event should be prepended. Use this with care.
        * @return {Object} Current class instance.
@@ -31113,7 +31113,7 @@ define(
 
       /**
        * Unbinds an event listener to a specific event by name. Consult the
-       * <a href="/docs/advanced/recetas">event reference</a> for more details on each event.
+       * <a href="/docs/advanced/rooms">event reference</a> for more details on each event.
        *
        * @method off
        * @param {String?} name Name of the event to unbind.
@@ -31126,7 +31126,7 @@ define(
        * // Unbind all listeners by name
        * instance.off('event');
        *
-       * // Unbind all recetas
+       * // Unbind all rooms
        * instance.off();
        */
       off: function (name, callback) {
@@ -31135,7 +31135,7 @@ define(
 
       /**
        * Bind the event callback and once it fires the callback is removed. Consult the
-       * <a href="/docs/advanced/recetas">event reference</a> for more details on each event.
+       * <a href="/docs/advanced/rooms">event reference</a> for more details on each event.
        *
        * @method once
        * @param {String} name Name of the event to bind.
@@ -32136,7 +32136,7 @@ define(
 
       /**
        * Binds a callback to the specified event. This event can both be
-       * native browser recetas like "click" or custom ones like PostRender.
+       * native browser rooms like "click" or custom ones like PostRender.
        *
        * The callback function will have two parameters the first one being the control that received the event
        * the second one will be the event object either the browsers native event object or a custom JS object.
@@ -33185,7 +33185,7 @@ define(
 
       /**
        * Binds a callback to the specified event. This event can both be
-       * native browser recetas like "click" or custom ones like PostRender.
+       * native browser rooms like "click" or custom ones like PostRender.
        *
        * The callback function will be passed a DOM event like object that enables yout do stop propagation.
        *
@@ -33984,7 +33984,7 @@ define(
           eventRootCtrl = parents[i]._eventsRoot;
         }
 
-        // Receta root wasn't found the use the root control
+        // Room root wasn't found the use the root control
         if (!eventRootCtrl) {
           eventRootCtrl = parents[parents.length - 1] || eventCtrl;
         }
@@ -35812,7 +35812,7 @@ define(
         var docElm = document.documentElement, clientWidth = docElm.clientWidth, clientHeight = docElm.clientHeight;
 
         windowResizeHandler = function () {
-          // Workaround for #7065 IE 7 fires resize recetas event though the window wasn't resized
+          // Workaround for #7065 IE 7 fires resize rooms event though the window wasn't resized
           if (!document.all || clientWidth != docElm.clientWidth || clientHeight != docElm.clientHeight) {
             clientWidth = docElm.clientWidth;
             clientHeight = docElm.clientHeight;
@@ -36560,7 +36560,7 @@ define(
        * Fires a submit event with the serialized form.
        *
        * @method submit
-       * @return {Object} Receta arguments object.
+       * @return {Object} Room arguments object.
        */
       submit: function () {
         return this.fire('submit', { data: this.toJSON() });
@@ -37827,7 +37827,7 @@ define(
     var DOM = DOMUtils.DOM, customEventRootDelegates;
 
     /**
-     * Returns the event target so for the specified event. Some recetas fire
+     * Returns the event target so for the specified event. Some rooms fire
      * only on document, some fire on documentElement etc. This also handles the
      * custom event root setting where it returns that element instead of the body.
      *
@@ -37979,7 +37979,7 @@ define(
       },
 
       /**
-       * Unbinds all native event handlers that means delegates, custom recetas bound using the Events API etc.
+       * Unbinds all native event handlers that means delegates, custom rooms bound using the Events API etc.
        *
        * @private
        */
@@ -41155,7 +41155,7 @@ define(
 
         rng = selection.getRng(true);
 
-        // Receta is blocked by some other handler for example the lists plugin
+        // Room is blocked by some other handler for example the lists plugin
         if (evt.isDefaultPrevented()) {
           return;
         }
@@ -41489,7 +41489,7 @@ define(
  */
 
 /**
- * This class handles the nodechange event dispatching both manual and through selection change recetas.
+ * This class handles the nodechange event dispatching both manual and through selection change rooms.
  *
  * @class tinymce.NodeChange
  * @private
@@ -41851,7 +41851,7 @@ define(
  */
 
 /**
- * This module calculates an absolute coordinate inside the editor body for both local and global mouse recetas.
+ * This module calculates an absolute coordinate inside the editor body for both local and global mouse rooms.
  *
  * @private
  * @class tinymce.dom.MousePosition
@@ -43114,7 +43114,7 @@ define(
        * Returns true/false if the event is prevented or not.
        *
        * @private
-       * @param {Event} e Receta object.
+       * @param {Event} e Room object.
        * @return {Boolean} true/false if the event is prevented or not.
        */
       function isDefaultPrevented(e) {
@@ -43127,7 +43127,7 @@ define(
        * The editor's selected content is encoded into this url so drag and drop between editors will work.
        *
        * @private
-       * @param {DragEvent} e Receta object
+       * @param {DragEvent} e Room object
        */
       function setMceInternalContent(e) {
         var selectionHtml, internalContent;
@@ -43153,7 +43153,7 @@ define(
        * The editor's selected content is encoded into this url so drag and drop between editors will work.
        *
        * @private
-       * @param {DragEvent} e Receta object
+       * @param {DragEvent} e Room object
        * @returns {String} mce-internal content
        */
       function getMceInternalContent(e) {
@@ -43838,7 +43838,7 @@ define(
             // Setup start position
             startRng = rngFromPoint(e.x, e.y);
             if (startRng) {
-              // Listen for selection change recetas
+              // Listen for selection change rooms
               dom.bind(doc, 'mouseup', endSelection);
               dom.bind(doc, 'mousemove', selectionChange);
 
@@ -43970,7 +43970,7 @@ define(
 
       /**
        * iOS Safari and possible other browsers have a bug where it won't fire
-       * a click event when a contentEditable is focused. This function fakes click recetas
+       * a click event when a contentEditable is focused. This function fakes click rooms
        * by using touchstart/touchend and measuring the time and distance travelled.
        */
       /*
@@ -44015,7 +44015,7 @@ define(
 
             if (!args.isDefaultPrevented()) {
               // iOS WebKit can't place the caret properly once
-              // you bind touch recetas so we need to do this manually
+              // you bind touch rooms so we need to do this manually
               // TODO: Expand to the closest word? Touble tap still works.
               editor.selection.placeCaretAt(endTouch.clientX, endTouch.clientY);
               editor.nodeChanged();
@@ -44058,7 +44058,7 @@ define(
       }
 
       /**
-       * IE cannot set custom contentType's on drag recetas, and also does not properly drag/drop between
+       * IE cannot set custom contentType's on drag rooms, and also does not properly drag/drop between
        * editors. This uses a special data:text/mce-internal URL to pass data when drag/drop between editors.
        */
       function ieInternalDragAndDrop() {
@@ -45136,7 +45136,7 @@ define(
         });
       }
 
-      // Receta is NOT preventable
+      // Room is NOT preventable
       editor.fire('SwitchMode', { mode: mode });
     }
 
@@ -45194,7 +45194,7 @@ define(
 /**
  * Include the base event class documentation.
  *
- * @include ../../../../../tools/docs/tinymce.Receta.js
+ * @include ../../../../../tools/docs/tinymce.Room.js
  */
 
 /**
@@ -45353,7 +45353,7 @@ define(
        */
       self.contentStyles = [];
 
-      // Creates all recetas like onClick, onSetContent etc see Editor.Events.js for the actual logic
+      // Creates all rooms like onClick, onSetContent etc see Editor.Events.js for the actual logic
       self.shortcuts = new Shortcuts(self);
       self.loadedCSS = {};
       self.editorCommands = new EditorCommands(self);
@@ -45961,7 +45961,7 @@ define(
       /**
        * Loads contents from the textarea or div element that got converted into an editor instance.
        * This method will move the contents from that textarea or div into the editor by using setContent
-       * so all recetas etc that method has will get dispatched as well.
+       * so all rooms etc that method has will get dispatched as well.
        *
        * @method load
        * @param {Object} args Optional content object, this gets passed around through the whole load process.
@@ -45994,7 +45994,7 @@ define(
       /**
        * Saves the contents from a editor out to the textarea or div element that got converted into an editor instance.
        * This method will move the HTML contents from the editor into that textarea or div by getContent
-       * so all recetas etc that method has will get dispatched as well.
+       * so all rooms etc that method has will get dispatched as well.
        *
        * @method save
        * @param {Object} args Optional content object, this gets passed around through the whole save process.
@@ -46492,7 +46492,7 @@ define(
       },
 
       /**
-       * Destroys the editor instance by removing all recetas, element references or other resources
+       * Destroys the editor instance by removing all rooms, element references or other resources
        * that could leak memory. This method will be called automatically when the page is unloaded
        * but you can also call it directly if you know what you are doing.
        *
@@ -46730,7 +46730,7 @@ define(
  * This class manages the focus/blur state of the editor. This class is needed since some
  * browsers fire false focus/blur states when the selection is moved to a UI dialog or similar.
  *
- * This class will fire two recetas focus and blur on the editor instances that got affected.
+ * This class will fire two rooms focus and blur on the editor instances that got affected.
  * It will also handle the restore of selection when the focus is lost and returned.
  *
  * @class tinymce.FocusManager
@@ -47819,7 +47819,7 @@ define(
       },
 
       /**
-       * Sets the active editor instance and fires the deactivate/activate recetas.
+       * Sets the active editor instance and fires the deactivate/activate rooms.
        *
        * @method setActive
        * @param {tinymce.Editor} editor Editor instance to set as the active instance.
@@ -50809,7 +50809,7 @@ define(
        * Fires a submit event with the serialized form.
        *
        * @method submit
-       * @return {Object} Receta arguments object.
+       * @return {Object} Room arguments object.
        */
       submit: function () {
         return this.fire('submit', { data: this.toJSON() });
@@ -54369,7 +54369,7 @@ define(
  */
 
 /**
- * Renders a resize handle that fires ResizeStart, Resize and ResizeEnd recetas.
+ * Renders a resize handle that fires ResizeStart, Resize and ResizeEnd rooms.
  *
  * @-x-less ResizeHandle.less
  * @class tinymce.ui.ResizeHandle

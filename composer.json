@@ -30,7 +30,7 @@
             "database/factories"
         ],
         "psr-4": {
-            "KetoLife\\": "app/"
+            "Kallfu\\": "app/"
         }
     },
     "autoload-dev": {

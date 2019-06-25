@@ -1,8 +1,8 @@
 <?php
 
-namespace KetoLife\Models;
+namespace Kallfu\Models;
 
-use KetoLife\Models\Entity as Entity;
+use Kallfu\Models\Entity as Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**

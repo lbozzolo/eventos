@@ -1,8 +1,8 @@
 <?php
 
-namespace KetoLife\Repositories;
+namespace Kallfu\Repositories;
 
-use KetoLife\Models\Slider;
+use Kallfu\Models\Slider;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**

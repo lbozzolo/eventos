@@ -1719,7 +1719,7 @@
         module.initialize();
       }
 
-      // attach recetas
+      // attach rooms
       if (module.events) {
         dom.attachEvents($note, module.events);
       }
@@ -5001,7 +5001,7 @@
     var history = new History($editable);
 
     this.initialize = function () {
-      // bind custom recetas
+      // bind custom rooms
       $editable.on('keydown', function (event) {
         if (event.keyCode === key.code.ENTER) {
           context.triggerEvent('enter', event);
@@ -5034,7 +5034,7 @@
       // init content before set event
       $editable.html(dom.html($note) || dom.emptyPara);
 
-      // [workaround] IE doesn't have input recetas for contentEditable
+      // [workaround] IE doesn't have input rooms for contentEditable
       // - see: https://goo.gl/4bfIvA
       var changeEventName = agent.isMSIE ? 'DOMCharacterDataModified DOMSubtreeModified DOMNodeInserted' : 'input';
       $editable.on(changeEventName, func.debounce(function () {
@@ -7438,7 +7438,7 @@
         });
 
         ui.onDialogHidden(self.$dialog, function () {
-          // detach recetas
+          // detach rooms
           $linkText.off('input paste keypress');
           $linkUrl.off('input paste keypress');
           $linkBtn.off('click');
@@ -7659,8 +7659,8 @@
 
   /**
    * Image popover module
-   *  mouse recetas that show/hide popover will be handled by Handle.js.
-   *  Handle.js will receive the recetas and invoke 'imagePopover.update'.
+   *  mouse rooms that show/hide popover will be handled by Handle.js.
+   *  Handle.js will receive the rooms and invoke 'imagePopover.update'.
    */
   var ImagePopover = function (context) {
     var self = this;

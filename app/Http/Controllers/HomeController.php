@@ -1,6 +1,6 @@
 <?php
 
-namespace KetoLife\Http\Controllers;
+namespace Kallfu\Http\Controllers;
 
 use Illuminate\Http\Request;
 

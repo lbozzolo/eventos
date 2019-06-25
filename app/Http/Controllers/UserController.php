@@ -1,11 +1,11 @@
 <?php
 
-namespace KetoLife\Http\Controllers;
+namespace Kallfu\Http\Controllers;
 
-use KetoLife\Http\Requests\CreateUserRequest;
-use KetoLife\Http\Requests\UpdateUserRequest;
-use KetoLife\Repositories\UserRepository;
-use KetoLife\Http\Controllers\AppBaseController as AppBaseController;
+use Kallfu\Http\Requests\CreateUserRequest;
+use Kallfu\Http\Requests\UpdateUserRequest;
+use Kallfu\Repositories\UserRepository;
+use Kallfu\Http\Controllers\AppBaseController as AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;

@@ -8,17 +8,17 @@
             </a>
         </li>
 
-        <li class="{{ Request::is('dietas*') ? 'active' : '' }} nav-item">
-            <a href="{!! route('dietas.index') !!}" class="nav-link">
-                <i class="mdi mdi-receipt menu-icon"></i>
-                <span class="menu-title">Dietas</span>
+        <li class="{{ Request::is('habitaciones*') ? 'active' : '' }} nav-item">
+            <a href="{!! route('rooms.index') !!}" class="nav-link">
+                <i class="mdi mdi-hotel menu-icon"></i>
+                <span class="menu-title">Habitaciones</span>
             </a>
         </li>
 
-        <li class="{{ Request::is('recetas*') ? 'active' : '' }} nav-item">
-            <a href="{!! route('recetas.index') !!}" class="nav-link">
-                <i class="mdi mdi-receipt menu-icon"></i>
-                <span class="menu-title">Recetas</span>
+        <li class="{{ Request::is('servicios*') ? 'active' : '' }} nav-item">
+            <a href="{!! route('services.index') !!}" class="nav-link">
+                <i class="mdi mdi-food-fork-drink menu-icon"></i>
+                <span class="menu-title">Servicios</span>
             </a>
         </li>
 

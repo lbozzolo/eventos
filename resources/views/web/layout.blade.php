@@ -5,19 +5,13 @@
     </head>
     <body>
 
+        @include('web.partials.header')
 
+        @yield('content')
 
-        <div id="preloader">
-            <div id="status"><img src="{{ asset('template-web/images/black-logo.png') }}" alt="cargando contenido.."></div>
-        </div>
-
-        <div id="home" class="clearfix">
-
-            @yield('content')
-
-        </div>
-
-        <footer>@include('web.partials.footer')</footer>
+        <footer>
+            @include('web.partials.footer')
+        </footer>
 
         @include('web.partials.scripts')
 
