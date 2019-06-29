@@ -22,13 +22,15 @@ trait ImageTrait
     public function destroyImage($id)
     {
         $image = Image::find($id);
+        $image_path = $image->path;
         $image_big = Image::where('thumbnail_id', $id)->first();
+        $image_big_path = $image_big->path;
 
         $image->forceDelete();
         $image_big->forceDelete();
 
-        File::delete(public_path("imagenes/".$image->path));
-        File::delete(public_path("imagenes/".$image_big->path));
+        File::delete(public_path("imagenes/".$image_path));
+        File::delete(public_path("imagenes/".$image_big_path));
 
         return;
     }

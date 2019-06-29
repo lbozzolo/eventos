@@ -66,15 +66,30 @@ class Image extends Model
         return 'thumb-'.$this->attributes['path'];
     }
 
+    public function scopeBigs()
+    {
+        return $this->where('thumbnail_id', '!=', null);
+    }
+
+    public function scopeThumbs()
+    {
+        return $this->where('thumbnail_id', null);
+    }
+
+    public function scopeGalleryType()
+    {
+        return $this->where('type', 1);
+    }
+
     public function imageable()
     {
         return $this->morphTo();
     }
 
-//    public function type()
-//    {
-//        return $this->belongsTo(Album::class);
-//    }
+    public function texts()
+    {
+        return $this->belongsToMany(Slider::class, 'slider_images_messages')->withPivot('main_text', 'secondary_text');
+    }
 
     
 }

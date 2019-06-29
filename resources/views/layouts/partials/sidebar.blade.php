@@ -22,6 +22,13 @@
             </a>
         </li>
 
+        <li class="{{ Request::is('galería*') ? 'active' : '' }} nav-item">
+            <a href="{!! route('galleries.index') !!}" class="nav-link">
+                <i class="mdi mdi-image-album menu-icon"></i>
+                <span class="menu-title">Galería</span>
+            </a>
+        </li>
+
         <li class="{{ Request::is('sliders*') ? 'active' : '' }} nav-item">
             <a href="{!! route('sliders.index') !!}" class="nav-link">
                 <i class="mdi mdi-folder-multiple-image menu-icon"></i>

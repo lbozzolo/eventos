@@ -5,7 +5,7 @@
 
     <section class="row final-inner-header">
         <div class="container">
-            <h2 class="this-title">Habitación {!! (isset($habitacion))? ucfirst($habitacion->type) : '' !!}</h2>
+            <h2 class="this-title">Habitación {!! (isset($habitacion))? ucfirst($habitacion->type) : $type !!}</h2>
         </div>
     </section>
 
@@ -14,9 +14,10 @@
             <div class="col-md-4 col-md-push-8"></div>
 
             <div class="col-md-12">
-
+                @if($habitacion)
                 <div class="single-room-wrapper">
 
+                    @if($habitacion->images->count())
                     <div class="room-slider-wrapper">
                         <div class="single-r-wrapper">
                             <div class="single-sl-room">
@@ -35,15 +36,21 @@
 
                         </div>
                     </div>
+                    @else
+
+                        <p class="text-secondary">Todavía no hay imágenes cargadas.</p>
+
+                    @endif
 
                     <div class="room-dec-wrapper">
                         <h2>Descripción de la Habitación</h2>
-                        {!! $habitacion->description !!}
+                        <p class="text-secondary">{!! ($habitacion->description)? $habitacion->description : 'Todavía no hay ninguna descripción de esta habitación.' !!}</p>
                     </div>
 
                     <div class="room-fac-wrapper">
                         <h2>Servicios</h2>
                         <div class="row">
+                            @if($habitacion->services->count())
                             <div class="ro-facilitie">
                                 <ul class="clearfix">
                                     @foreach($habitacion->services as $service)
@@ -62,12 +69,20 @@
                                     @endforeach
                                 </ul>
                             </div>
+                            @else
+
+                                <p class="text-secondary">Todavía no hay servicios cargados.</p>
+
+                            @endif
                         </div>
-
-
                     </div>
 
                 </div>
+                @else
+
+                    <p class="text-secondary">Todavía no hay ninguna habitación {!! $type !!} cargada</p>
+
+                @endif
             </div>
 
         </div>

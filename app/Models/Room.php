@@ -24,7 +24,7 @@ class Room extends Entity
 
     public function scopeOfType($query, $type)
     {
-        return $query->where('type', $type)->first();
+        return $query->where('type', $type);
     }
 
     // Relationships

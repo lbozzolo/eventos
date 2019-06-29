@@ -8,10 +8,7 @@
             <h2 class="this-title">Galería de imagenes</h2>
         </div>
     </section>
-    <!-- Header  Slider style-->
 
-
-    <!-- About gallery style-->
     <section class="container clearfix common-pad-inner about-info-box">
 
         <div class="row">
@@ -25,136 +22,46 @@
         </div>
     </section>
 
-    <!-- About gallery style-->
-
-
-    <!-- gallery     -->
     <section class="clearfix news-wrapper">
         <div class="container clearfix common-pad gallery-page-one" id="gallery">
 
-
             <div class="row">
-                <!-- .image-gallery -->
+
                 <div class="image-gallery" data-filter-class="gallery-sorter">
 
+                    @if(isset($gallery))
+                        @foreach($gallery->imagesBig as $image)
 
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all interoors kitchen balcony masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/1.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
+                            <div class="single-gallery anim-5-all interoors kitchen balcony masonryImage mix span-4">
+                                <div class="img-holder">
+                                    <a href="" data-toggle="modal" data-target="#modalVerImage{!! $image->id !!}">
+                                    <img src="{!! route('imagenes.ver', $image->path) !!}" alt="" height="350">
+                                    </a>
+                                </div>
+                            </div>
 
+                            <div class="modal fade" id="modalVerImage{!! $image->id !!}" style="z-index: 10000">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <img src="{{ route('imagenes.ver', $image->path) }}" class="img-responsive" alt="{!! $image->title !!}" style="width: 100%; margin: 0px auto">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                        @endforeach
+                    @endif
 
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all bedroom interoors roof drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/2.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all bedroom interoors masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/3.jpg" alt="">
-                        </div>
-
-                    </div><!-- /.single-gallery -->
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all bedroom drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/4.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-
-
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all  kitchen bathroom drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/5.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-
-
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/6.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-
-
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/7.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/8.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/9.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/10.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/11.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/12.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/13.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-
-                    <!-- .single-gallery -->
-                    <div class="single-gallery anim-5-all drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/14.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-
-                    <div class="single-gallery anim-5-all drawing masonryImage mix span-4">
-                        <div class="img-holder">
-                            <img src="images/gallery/15.jpg" alt="">
-                        </div>
-                    </div><!-- /.single-gallery -->
-                </div><!-- /.image-gallery -->
+                </div>
             </div>
+
         </div>
     </section>
-    <!-- gallery -->
 
-
-
-
-    <!-- Welcome banner  style-->
     <div class="nasir-subscribe-form-row row">
         <div class="container">
             <div class="row this-dashed">

@@ -2,7 +2,6 @@
 
 namespace Kallfu\Http\Controllers;
 
-use Carbon\Carbon;
 use Kallfu\Http\Requests\CreateRoomRequest;
 use Kallfu\Http\Requests\UpdateRoomRequest;
 use Kallfu\Models\Room;
@@ -58,10 +57,10 @@ class RoomController extends AppBaseController
 
     public function index()
     {
-        $this->data['doble'] = Room::ofType('doble');
-        $this->data['triple'] = Room::ofType('triple');
-        $this->data['cuadruple'] = Room::ofType('cuadruple');
-        $this->data['sextuple'] = Room::ofType('sextuple');
+        $this->data['doble'] = Room::ofType('doble')->first();
+        $this->data['triple'] = Room::ofType('triple')->first();
+        $this->data['cuadruple'] = Room::ofType('cuadruple')->first();
+        $this->data['sextuple'] = Room::ofType('sextuple')->first();
 
         //dd($this->data);
 

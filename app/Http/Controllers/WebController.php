@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Kallfu\Http\Controllers\AppBaseController as AppBaseController;
 use Illuminate\Support\Facades\Mail;
+use Kallfu\Models\Gallery;
 use Kallfu\Models\Image;
 use Kallfu\Models\Room;
 use Kallfu\Models\Service;
@@ -16,7 +17,9 @@ class WebController extends AppBaseController
 {
     public function index()
     {
-        $data['slider'] = Slider::where('active', '1')->first();
+        $data['slider'] = Slider::active()->first();
+        $data['rooms'] = Room::all();
+
         return view('web.home')->with($data);
     }
 
@@ -33,8 +36,8 @@ class WebController extends AppBaseController
 
     public function habitaciones($type =  null)
     {
-        $habitacion = (Room::ofType($type)->first())? Room::ofType($type)->first() : null;
-        return view('web.habitaciones')->with(['habitacion' => $habitacion]);
+        $habitacion = Room::ofType($type)->first();
+        return view('web.habitaciones')->with(['habitacion' => $habitacion, 'type' => $type]);
     }
 
 
@@ -45,7 +48,9 @@ class WebController extends AppBaseController
 
     public function galeria()
     {
-        return view('web.galeria');
+        $gallery = Gallery::active()->first();
+        //dd($gallery->images);
+        return view('web.galeria')->with(['gallery' => $gallery]);
     }
 
     public function reservas()

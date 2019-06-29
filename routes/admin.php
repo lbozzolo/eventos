@@ -10,12 +10,11 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'HomeController@index'
     ]);
 
-    // Sidebar Web
+    // Users
 
     Route::resource('users', 'UserController');
 
-    // Editions
-
+    // Rooms
 
     Route::resource('rooms', 'RoomController');
 
@@ -29,9 +28,33 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'RoomController@indexTable'
     ]);
 
-    // Ingredientes
+    // Services
 
     Route::resource('services', 'ServiceController');
+
+    // Gallery
+
+    Route::resource('galleries', 'GalleryController');
+
+    Route::get('galleries/configuracion/galerias', [
+        'as' => 'galleries.config',
+        'uses' => 'GalleryController@configuration'
+    ]);
+
+    Route::delete('galleries/delete', [
+        'as' => 'galleries.destroy',
+        'uses' => 'GalleryController@destroy'
+    ]);
+
+    Route::delete('galleries/{id}/empty', [
+        'as' => 'galleries.empty',
+        'uses' => 'GalleryController@empty'
+    ]);
+
+    Route::get('galleries/{id}/active', [
+        'as' => 'galleries.active',
+        'uses' => 'GalleryController@active'
+    ]);
 
     // Sliders
 

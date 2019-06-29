@@ -120,7 +120,8 @@ class ImageController extends AppBaseController
             $img_thumb = Intervention::make($request->file('img'))->resize(config('sistema.imagenes.WIDTH_THUMB'), config('sistema.imagenes.HEIGHT_THUMB'));
         }
 
-        $class = 'Kallfu\Models\\'.$class;
+        //$class = 'Kallfu\Models\\'.$class;
+        $class = env('APP_NAME').'\Models\\'.$class;
         $model = $class::find($id);
 
         // Redirección si supera el máximo de fotos permitido
@@ -139,6 +140,7 @@ class ImageController extends AppBaseController
             $nombre = $this->changeFileNameIfExists($file);
 
             $imagen = Image::create(['path' => $nombre, 'main' => 0]);
+
             $imagen->title = ($request->title)? $request->title : '';
 
             $file->move(public_path('imagenes'), $nombre);
