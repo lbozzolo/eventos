@@ -2,12 +2,11 @@
 
 namespace Kallfu\Http\Controllers;
 
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\URL;
 use Kallfu\Http\Controllers\AppBaseController as AppBaseController;
 use Illuminate\Support\Facades\Mail;
+use Kallfu\Http\Requests\ContactoRequest;
+use Kallfu\Http\Requests\PreReservaRequest;
 use Kallfu\Models\Gallery;
-use Kallfu\Models\Image;
 use Kallfu\Models\Room;
 use Kallfu\Models\Service;
 use Kallfu\Models\Slider;
@@ -49,7 +48,6 @@ class WebController extends AppBaseController
     public function galeria()
     {
         $gallery = Gallery::active()->first();
-        //dd($gallery->images);
         return view('web.galeria')->with(['gallery' => $gallery]);
     }
 
@@ -63,29 +61,45 @@ class WebController extends AppBaseController
         return view('web.contacto');
     }
 
-    public function postContacto(ContactRequest $request)
+    public function preReserva(PreReservaRequest $request)
     {
-        //dd($request->all());
-
         $data = array(
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'msg' => $request->msg,
-            'subject' => 'Contacto de cliente'
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'arival_date' => $request['arival_date'],
+            'departure_date' => $request['departure_date'],
+            'chooseAdults' => $request['chooseAdults'],
+            'chooseChildren' => $request['chooseChildren'],
+            'message' => $request['message'],
+            'subject' => 'Pre Reserva'
         );
 
-
-        Mail::send('emails.contacto', ['data' => $data], function($message) use ($data){
+        Mail::send('emails.reserva', ['data' => $data], function($message) use ($data){
             $message->to(config('mail.username'));
             $message->subject($data['subject']);
             $message->from($data['email']);
         });
 
         return redirect()->back()->with('ok', 'Su correo se ha enviado con éxito.');
-
-
     }
 
+    public function postContact(ContactoRequest $request)
+    {
+
+//        $data = array(
+//            'name' => $request['name'],
+//            'email' => $request['email'],
+//            'subject' => $request['subject'],
+//            'message' => $request['message']
+//        );
+//
+//        Mail::send('emails.contacto', ['data' => $data], function($message) use ($data){
+//            $message->to(config('mail.username'));
+//            $message->subject($data['subject']);
+//            $message->from($data['email']);
+//        });
+
+        return redirect()->back()->with('ok', 'Su correo se ha enviado con éxito.');
+    }
 
 }

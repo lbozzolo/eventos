@@ -58,9 +58,14 @@ Route::get('contacto', [
     'uses' => 'WebController@contacto'
 ]);
 
-Route::post('/enviar-datos', [
-    'as' => 'send.data.applicant',
-    'uses' => 'WebController@sendDataApplicant'
+Route::post('post-contact/send/email', [
+    'as' => 'web.post.contact',
+    'uses' => 'WebController@postContact'
+]);
+
+Route::post('pre-reserva', [
+    'as' => 'pre.reserva',
+    'uses' => 'WebController@preReserva'
 ]);
 
 

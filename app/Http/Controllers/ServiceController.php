@@ -103,7 +103,7 @@ class ServiceController extends AppBaseController
         $this->data['item'] = $this->repo->findWithoutFail($id);
         $this->data['items'] = $this->repo->all();
 
-        return view($this->modelPlural.'.index')->with($this->data);
+        return redirect(route($this->modelPlural.'.index'))->with($this->data);
     }
 
     public function destroy($id)

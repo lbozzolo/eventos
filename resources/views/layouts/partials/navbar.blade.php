@@ -6,7 +6,7 @@
                 <img src="{{ asset('images/logos/logo.png') }}" alt="logo" class="img-responsive" style="height: 60%"/>
             </a>
             <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}">
-                <img src="{{ asset('images/logos/favicon.png') }}" alt="logo" />
+                <img src="{{ asset('staradmin/images/icons/favicon-32x32.png') }}" alt="logo" style="height: 32px; width: 32px"/>
             </a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center" style="background-image: linear-gradient(to right, lightskyblue , steelblue);">

@@ -14,7 +14,11 @@
             <div class="col-md-8">
 
                 <div class="book-left-content input_form">
-                    <form action="sendemail.php" method="post" id="contactForm">
+
+                    @include('vendor.flash.message')
+
+                    <form action="{!! route('web.post.contact') !!}" method="post" id="contactFormulario">
+                        {{ csrf_field() }}
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 m0 col-xs-12">
                                 <span>Tu Nombre</span>
@@ -105,8 +109,8 @@
     <!-- Booking style-->
 
     <!-- TT-CONTACT-MAP -->
-    <div class="google-maps">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6298.975971304549!2d-71.0660892116049!3d-37.872269135183934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x966d044bc31b518b%3A0x2becf5356fb9f580!2s8+de+Abril%2C+Caviahue%2C+Neuqu%C3%A9n!5e0!3m2!1ses-419!2sar!4v1561036641780!5m2!1ses-419!2sar" frameborder="0" style="border:0" allowfullscreen></iframe>
+    <div class="google-maps" style="width: 100%">
+        <iframe width="100%" height="700px" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6298.975971304549!2d-71.0660892116049!3d-37.872269135183934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x966d044bc31b518b%3A0x2becf5356fb9f580!2s8+de+Abril%2C+Caviahue%2C+Neuqu%C3%A9n!5e0!3m2!1ses-419!2sar!4v1561036641780!5m2!1ses-419!2sar" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
 
     <!-- Welcome banner  style-->

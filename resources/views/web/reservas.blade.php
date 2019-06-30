@@ -11,7 +11,6 @@
     </section>
     <!-- Header  Slider style-->
 
-
     <!-- Booking style-->
     <section class="container clearfix common-pad-inner booknow">
         <div class="sec-header">
@@ -20,18 +19,33 @@
         </div>
 
         <div class="row">
+
+
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 pull-left">
 
                 <div class="book-left-content input_form">
-                    <form action="contact_process.php" method="post" id="contactBooking">
+
+                    @include('vendor.flash.message')
+
+                    <form action="{!! route('pre.reserva') !!}" method="post" id="contactBooking">
+
+                        {{ csrf_field() }}
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12 m0 col-xs-12"><input type="text" class="form-control" id="name" name="name" placeholder="Su Nombre"></div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 m0 col-xs-12"><input type="email" class="form-control" id="email" name="email" placeholder="Su Email"></div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 m0 col-xs-12">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Su Nombre">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 m0 col-xs-12">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Su Email">
+                            </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12 m0 col-xs-12"><input class="form-control datepicker-example8" placeholder="Fecha de Arribo" name="arival_date" type="text"></div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 m0 col-xs-12"><input type="text" class="form-control datepicker-example8" placeholder="Fecha de Salida" name="departure_date"></div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 m0 col-xs-12">
+                                <input class="form-control datepicker-example8" placeholder="Fecha de Arribo" name="arival_date" type="text">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 m0 col-xs-12">
+                                <input type="text" class="form-control datepicker-example8" placeholder="Fecha de Salida" name="departure_date">
+                            </div>
                         </div>
 
                         <div class="row">
