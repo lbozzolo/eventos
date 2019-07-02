@@ -112,12 +112,6 @@
     <!-- Booking style-->
 
 
-
-
-
-
-
-
     <!-- Welcome banner  style-->
     <div class="nasir-subscribe-form-row row">
         <div class="container">
@@ -135,5 +129,25 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+
+@section('js')
+
+    <script>
+
+        $(document).ready(function() {
+
+            $('.datepicker-example8').Zebra_DatePicker({
+                days: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sabado'],
+                days_abbr: ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa'],
+                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                show_select_today: false
+            });
+
+        });
+
+    </script>
 
 @endsection

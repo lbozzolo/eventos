@@ -71,7 +71,7 @@
                         </div>
                         <div class="media-contact-info">
                             <p>
-                                <a href="mailto:info@kallfu.com">info@kallfu.com</a>
+                                <a href="mailto:info@kallfu.com">reservas@kallfu.com</a>
                             </p>
                         </div>
                     </div>

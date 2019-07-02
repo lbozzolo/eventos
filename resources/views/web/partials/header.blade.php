@@ -9,7 +9,7 @@
                     <a href="#"><i class="fa fa-map-marker"></i> 8 de Abril S/n, Caviahue, Neuquén</a>
                 </li><!-- comment for inline hack
                      --><li>
-                    <a href="#"><i class="fa fa-envelope"></i> info@kallfu.com</a>
+                    <a href="#"><i class="fa fa-envelope"></i> reservas@kallfu.com</a>
                 </li>
             </ul>
         </div><!-- /.pull-left left-infos -->
@@ -43,6 +43,7 @@
                         <li><a href="{{ route('web.habitaciones', 'triple') }}">Triples</a></li>
                         <li><a href="{{ route('web.habitaciones', 'cuadruple') }}">Cuadruples</a></li>
                         <li><a href="{{ route('web.habitaciones', 'sextuple') }}">Séxtuples</a></li>
+                        <li><a href="{{ route('web.habitaciones', 'apart') }}">Apart</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('web.galeria') }}" role="button" aria-haspopup="true" aria-expanded="false">Galería </a></li>

@@ -61,6 +61,7 @@ class RoomController extends AppBaseController
         $this->data['triple'] = Room::ofType('triple')->first();
         $this->data['cuadruple'] = Room::ofType('cuadruple')->first();
         $this->data['sextuple'] = Room::ofType('sextuple')->first();
+        $this->data['apart'] = Room::ofType('apart')->first();
 
         //dd($this->data);
 

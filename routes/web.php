@@ -68,6 +68,11 @@ Route::post('pre-reserva', [
     'uses' => 'WebController@preReserva'
 ]);
 
+Route::post('newsletter', [
+    'as' => 'web.newsletter',
+    'uses' => 'WebController@newsletter'
+]);
+
 
 Route::get('/home', 'WebController@index');
 

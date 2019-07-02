@@ -2,9 +2,13 @@
 
 namespace Kallfu\Http\Controllers;
 
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Kallfu\Http\Controllers\AppBaseController as AppBaseController;
 use Illuminate\Support\Facades\Mail;
 use Kallfu\Http\Requests\ContactoRequest;
+use Kallfu\Http\Requests\CreateNewsletterRequest;
 use Kallfu\Http\Requests\PreReservaRequest;
 use Kallfu\Models\Gallery;
 use Kallfu\Models\Room;
@@ -86,20 +90,36 @@ class WebController extends AppBaseController
     public function postContact(ContactoRequest $request)
     {
 
-//        $data = array(
-//            'name' => $request['name'],
-//            'email' => $request['email'],
-//            'subject' => $request['subject'],
-//            'message' => $request['message']
-//        );
-//
-//        Mail::send('emails.contacto', ['data' => $data], function($message) use ($data){
-//            $message->to(config('mail.username'));
-//            $message->subject($data['subject']);
-//            $message->from($data['email']);
-//        });
+        $data = array(
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'subject' => $request['subject'],
+            'message' => $request['message']
+        );
+
+        Mail::send('emails.contacto', ['data' => $data], function($message) use ($data){
+            $message->to(config('mail.username'));
+            $message->subject($data['subject']);
+            $message->from($data['email']);
+        });
 
         return redirect()->back()->with('ok', 'Su correo se ha enviado con éxito.');
+    }
+
+    public function newsletter(CreateNewsletterRequest $request)
+    {
+        if($request->has('email')){
+            DB::table('newsletter')->insert(
+                [
+                    'email' => $request['email'],
+                    'created_at' => Carbon::today(),
+                    'updated_at' => Carbon::today(),
+                ]
+            );
+            return redirect()->back()->with('ok', 'Se ha suscripto con éxito');
+        }
+
+        return redirect()->back()->withErrors('Ocurrió un error. No se pudo suscribir.');
     }
 
 }

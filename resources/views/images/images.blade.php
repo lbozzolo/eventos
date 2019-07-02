@@ -52,7 +52,7 @@
 
     <div class="modal fade" id="modalVerImage{!! $image->thumbnail_id !!}">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="min-height: 200px">
                 <div class="modal-body">
                     <img src="{{ route('imagenes.ver', $image->path) }}" class="img-responsive" alt="{!! $image->title !!}" style="width: 100%; margin: 0px auto">
                 </div>
@@ -75,17 +75,13 @@
                     </button>
                     <div class="modal fade text-left" id="modalDeleteImage{!! $image->thumbnail_id !!}">
                         <div class="modal-dialog">
-                            <div class="modal-content col-lg-6 col-lg-offset-3">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">Eliminar imagen</h4>
-                                </div>
-                                <div class="modal-body">
+                            <div class="modal-content col-lg-8 col-lg-offset-3 text-center" style="border: 4px solid red">
+
+                                <div class="modal-body bg-danger text-white">
                                     <p class="text-red">¿Está seguro que desea eliminar la imagen?</p>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                                     {!! Form::open(['method' => 'DELETE', 'url' => route('images.destroy', $image->thumbnail_id)]) !!}
                                     {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
                                     {!! Form::close() !!}

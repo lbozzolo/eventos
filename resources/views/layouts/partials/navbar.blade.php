@@ -13,7 +13,7 @@
 
             <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
                 <li class="nav-item">
-                    <a href="{{ asset('web/home') }}" target="_blank" class="nav-link" style="color: white">
+                    <a href="{{ asset('/') }}" target="_blank" class="nav-link" style="color: white">
                         <i class="mdi mdi-web"></i>WebSite
                     </a>
                 </li>

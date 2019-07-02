@@ -55,12 +55,15 @@
                     <h2>MANTENTE INFORMADO  </h2>
                     <h3>Recibe todas las noticias y novedades!!</h3>
                 </div>
-                <form class="this-form input-group" action="#" method="post">
-                    <input type="email" class="form-control" placeholder="Ingrese una dirección de mail">
+                {!! Form::open(['url' => route('web.newsletter'), 'method' => 'POST', 'class' => 'this-form input-group']) !!}
+
+                    @include('vendor.flash.message')
+                    <input name="email" type="email" class="form-control" placeholder="Ingrese una dirección de mail">
                     <span class="input-group-addon">
-					<button type="submit" class="res-btn">Subscribirse</button>
-				</span>
-                </form>
+					    <button type="submit" class="res-btn">Subscribirse</button>
+				    </span>
+
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
