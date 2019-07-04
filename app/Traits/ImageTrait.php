@@ -59,10 +59,16 @@ trait ImageTrait
 
     public function changeFileNameIfExists($file)
     {
-        $nombre = $file->getClientOriginalName();
+        $regEx = '/\\.[^.\\s]{3,4}$/';
+        $string_random = str_random(28);
+
+        $originalName = $file->getClientOriginalName();
         $extension = $file->guessExtension();
 
-        $nombre = preg_replace('/\\.[^.\\s]{3,4}$/', '', $nombre) . '-' . str_random(18) . '.' . $extension;
+        $nombre = preg_replace($regEx, '', $originalName) . '-' . $string_random . '.' . $extension;
+        $nombre = str_replace(' ','',$nombre);
+        $nombre = str_replace_array('#', ['x'], $nombre);
+        $nombre = strtolower($nombre);
 
         return $nombre;
     }
