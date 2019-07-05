@@ -8,6 +8,7 @@ use Intervention\Image\Facades\Image as Intervention;
 use Kallfu\Repositories\ImageRepository;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Kallfu\Models\Service;
 
 trait ImageTrait
 {
