@@ -20,7 +20,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    @if(!empty($newsletters))
+                    @if(count($newsletters))
                     <div class="table-responsive">
 
                         <table class="table table-bordered datatables">
