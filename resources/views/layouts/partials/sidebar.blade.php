@@ -36,5 +36,12 @@
             </a>
         </li>
 
+        <li class="{{ Request::is('newsletter*') ? 'active' : '' }} nav-item">
+            <a href="{!! route('newsletter.index') !!}" class="nav-link">
+                <i class="mdi mdi-folder-multiple-image menu-icon"></i>
+                <span class="menu-title">Newsletter</span>
+            </a>
+        </li>
+
     </ul>
 </nav>

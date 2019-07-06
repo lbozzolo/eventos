@@ -32,6 +32,18 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('services', 'ServiceController');
 
+    // Newsletter
+
+    Route::get('newsletter', [
+        'as' => 'newsletter.index',
+        'uses' => 'NewsletterController@index'
+    ]);
+
+    Route::delete('newsletter/{id}/eliminar', [
+        'as' => 'newsletter.destroy',
+        'uses' => 'NewsletterController@destroy'
+    ]);
+
     // Gallery
 
     Route::resource('galleries', 'GalleryController');
