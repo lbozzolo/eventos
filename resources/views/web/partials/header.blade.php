@@ -26,7 +26,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="{{ asset('template-web/') }}index.html" class="navbar-brand">
+            <a href="{{ route('home') }}" class="navbar-brand">
                 <img alt="Awesome Image" src="{{ asset('template-web/images/header/logo2.png') }}">
             </a>
         </div>
