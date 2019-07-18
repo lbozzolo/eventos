@@ -91,7 +91,7 @@
                     <h3 class="display-4">
                         Cuádruple
                         @if($cuadruple)
-                            <a href="{!! route($modelPlural.'.edit', $triple->id) !!}" title="Editar habitación" class="float-right"><i class="mdi mdi-pencil-box-outline"></i></a>
+                            <a href="{!! route($modelPlural.'.edit', $cuadruple->id) !!}" title="Editar habitación" class="float-right"><i class="mdi mdi-pencil-box-outline"></i></a>
                         @else
                             <a href="{!! route($modelPlural.'.create', ['type' => 'cuadruple']) !!}" title="Crear habitación" class="float-right text-success"><i class="mdi mdi-plus-circle"></i></a>
                         @endif
