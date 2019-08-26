@@ -264,7 +264,7 @@
                                                                                     <td valign="middle" style='vertical-align: middle;'>
                                                                                         <div class='contentEditableContainer contentTextEditable'>
                                                                                             <div class='contentEditable' style='text-align: left;font-weight: light; color:#555555;font-size:26;line-height: 39px;font-family: Helvetica Neue;'>
-                                                                                                <h1 class='big'>AMGHI</h1>
+                                                                                                <h1 class='big'>Kallfu</h1>
                                                                                             </div>
                                                                                         </div>
                                                                                     </td>
@@ -312,6 +312,8 @@
                                                                                                 <p>FECHA DE PARTIDA: {!! $data['departure_date'] !!}</p>
                                                                                                 <p>CANTIDAD DE ADULTOS: {!! $data['chooseAdults'] !!}</p>
                                                                                                 <p>CANTIDAD DE NIÑOS: {!! $data['chooseChildren'] !!}</p>
+                                                                                                <p>EDADES DE LOS NIÑOS: {!! $data['edades'] !!}</p>
+                                                                                                <p>TELEFONO: {!! $data['telefono'] !!}</p>
                                                                                                 <p>MENSAJE: {!! $data['message'] !!}</p>
                                                                                             </div>
                                                                                         </div>

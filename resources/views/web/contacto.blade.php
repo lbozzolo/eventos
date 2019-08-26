@@ -30,6 +30,13 @@
 
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <span>Teléfono</span>
+                                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese un teléfono de contacto">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <span>Motivo</span>
                                 <input type="text" class="form-control" id="subject" name="subject" placeholder="Motivo">
                             </div>

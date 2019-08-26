@@ -264,7 +264,7 @@
                                                                                     <td valign="middle" style='vertical-align: middle;'>
                                                                                         <div class='contentEditableContainer contentTextEditable'>
                                                                                             <div class='contentEditable' style='text-align: left;font-weight: light; color:#555555;font-size:26;line-height: 39px;font-family: Helvetica Neue;'>
-                                                                                                <h1 class='big'>AMGHI</h1>
+                                                                                                <h1 class='big'>Kallfu</h1>
                                                                                             </div>
                                                                                         </div>
                                                                                     </td>
@@ -348,6 +348,7 @@
                                                                                                 <p>
                                                                                                     Enviado por {!! $data['name'] !!}<br/>
                                                                                                     {!! $data['email'] !!}<br/>
+                                                                                                    {!! $data['telefono'] !!}<br/>
                                                                                                 </p>
                                                                                             </div>
                                                                                         </div>

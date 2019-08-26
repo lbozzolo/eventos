@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use Kallfu\Http\Requests\ContactoRequest;
 use Kallfu\Http\Requests\CreateNewsletterRequest;
 use Kallfu\Http\Requests\PreReservaRequest;
+use Kallfu\Models\Email;
 use Kallfu\Models\Gallery;
 use Kallfu\Models\Room;
 use Kallfu\Models\Service;
@@ -74,6 +75,8 @@ class WebController extends AppBaseController
             'departure_date' => $request['departure_date'],
             'chooseAdults' => $request['chooseAdults'],
             'chooseChildren' => $request['chooseChildren'],
+            'edades' => $request['edades'],
+            'telefono' => $request['telefono'],
             'message' => $request['message'],
             'subject' => 'Pre Reserva'
         );
@@ -94,9 +97,10 @@ class WebController extends AppBaseController
             'name' => $request['name'],
             'email' => $request['email'],
             'subject' => $request['subject'],
+            'telefono' => $request['telefono'],
             'message' => $request['message']
         );
-
+        
         Mail::send('emails.contacto', ['data' => $data], function($message) use ($data){
             $message->to(config('mail.username'));
             $message->subject($data['subject']);
