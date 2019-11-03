@@ -119,7 +119,7 @@ class WebController extends AppBaseController
         ]);
 
         if ($validator->fails()) {
-            return redirect('post/create')
+            return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
