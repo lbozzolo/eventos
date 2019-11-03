@@ -3,6 +3,8 @@
 
 @section('content')
 
+    @include('vendor.flash.message')
+    
     @if(isset($slider))
         @include('web.partials.sliders')
     @endif
