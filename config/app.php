@@ -182,6 +182,7 @@ return [
         // Kallfu\Providers\BroadcastServiceProvider::class,
         Kallfu\Providers\EventServiceProvider::class,
         Kallfu\Providers\RouteServiceProvider::class,
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
 
     ],
 
@@ -233,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Intervention' => Intervention\Image\Facades\Image::class,
         'Form'      => Collective\Html\FormFacade::class,
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
 
     ],
 

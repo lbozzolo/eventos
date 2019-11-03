@@ -5,6 +5,7 @@ namespace Kallfu\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Kallfu\Http\Controllers\AppBaseController as AppBaseController;
 use Illuminate\Support\Facades\Mail;
 use Kallfu\Http\Requests\ContactoRequest;
@@ -112,6 +113,17 @@ class WebController extends AppBaseController
 
     public function newsletter(CreateNewsletterRequest $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'g-recaptcha-response' => 'required|recaptcha',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('post/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         if($request->has('email')){
             DB::table('newsletter')->insert(
                 [

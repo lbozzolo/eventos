@@ -58,10 +58,13 @@
                 {!! Form::open(['url' => route('web.newsletter'), 'method' => 'POST', 'class' => 'this-form input-group']) !!}
 
                     @include('vendor.flash.message')
-                    <input name="email" type="email" class="form-control" placeholder="Ingrese una dirección de mail">
-                    <span class="input-group-addon">
-					    <button type="submit" class="res-btn">Subscribirse</button>
-				    </span>
+                    <div><input name="email" type="email" class="form-control" placeholder="Ingrese una dirección de mail"></div>
+                    <div>{!! Recaptcha::render() !!}</div>
+                    <div class="text-right">
+                        <span >
+                            <button type="submit" class="res-btn">Subscribirse</button>
+                        </span>
+                    </div>
 
                 {!! Form::close() !!}
             </div>
