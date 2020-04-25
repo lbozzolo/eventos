@@ -1,6 +1,6 @@
 <?php
 
-namespace Kallfu\Models;
+namespace Eventos\Models;
 
 use Illuminate\Support\Facades\Mail;
 

@@ -1,37 +1,43 @@
-<div id="minimal-bootstrap-carousel" class="carousel default-home-slider slide carousel-fade shop-slider" data-ride="carousel">
-
-    <div class="carousel-inner" role="listbox">
-
-        @if($slider->texts->count())
-
-            @foreach($slider->texts as $key => $image)
-
-                <div class="item {!! ($key == 0)? 'active' : '' !!} slide-{!! $key + 1 !!}" style="background-image: url({!! asset('imagenes/'.$image->path) !!}); backgroudn-position: center right;">
-
-                    <div class="carousel-caption nhs-caption nhs-caption{!! $key + 5 !!}">
-                        <div class="thm-container">
-                            <div class="box valign-middle">
-                                <div class="content text-center">
-                                    <h2 data-animation="animated fadeInUp" class="this-title">{!! $image->pivot->main_text !!}</h2>
-                                    <p data-animation="animated fadeInDown">{!! $image->pivot->secondary_text !!}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            @endforeach
-
-        @endif
-
-    </div>
-
-    <a class="left carousel-control" href="#minimal-bootstrap-carousel" role="button" data-slide="prev">
-        <i class="fa fa-angle-left"></i>
-        <span class="sr-only">Anterior</span>
-    </a>
-    <a class="right carousel-control" href="#minimal-bootstrap-carousel" role="button" data-slide="next">
-        <i class="fa fa-angle-right"></i>
-        <span class="sr-only">Siguiente</span>
-    </a>
-</div>
+<section id="slider1" class="slider slider-1">
+    <div class="carousel owl-carousel carousel-arrows carousel-dots" data-slide="1" data-slide-md="1"
+         data-slide-sm="1" data-autoplay="true" data-nav="true" data-dots="true" data-space="0" data-loop="true"
+         data-speed="3000" data-transition="fade" data-animate-out="fadeOut" data-animate-in="fadeIn">
+        <div class="slide-item align-v-h bg-overlay">
+            <div class="bg-img"><img src="{!! asset('template-web/assets/images/sliders/1.jpg') !!}" alt="slide img"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
+                        <div class="slide__content">
+                            <h2 class="slide__title">CICLOS DE CHARLAS Y CONFERENCIAS
+                                SOBRE PRODUCTOS DEL CAMPO</h2>
+                        </div><!-- /.slide-content -->
+                    </div><!-- /.col-xl-9 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </div><!-- /.slide-item -->
+        <div class="slide-item align-v-h bg-overlay">
+            <div class="bg-img"><img src="{!! asset('template-web/assets/images/sliders/2.jpg') !!}" alt="slide img"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
+                        <div class="slide__content">
+                            <h2 class="slide__title">STREAMING ADAPTATIVO Y MULTIFORMATO </h2>
+                        </div><!-- /.slide-content -->
+                    </div><!-- /.col-xl-9 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </div><!-- /.slide-item -->
+        <div class="slide-item align-v-h bg-overlay">
+            <div class="bg-img"><img src="{!! asset('template-web/assets/images/sliders/3.jpg') !!}" alt="slide img"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
+                        <div class="slide__content">
+                            <h2 class="slide__title">COMUNICACION DE EVENTOS</h2>
+                        </div><!-- /.slide-content -->
+                    </div><!-- /.col-xl-9 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </div><!-- /.slide-item -->
+    </div><!-- /.carousel -->
+</section><!-- /.slider -->

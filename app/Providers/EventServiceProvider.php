@@ -1,6 +1,6 @@
 <?php
 
-namespace Kallfu\Providers;
+namespace Eventos\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'Kallfu\Events\Event' => [
-            'Kallfu\Listeners\EventListener',
+        'Eventos\Events\Event' => [
+            'Eventos\Listeners\EventListener',
         ],
     ];
 

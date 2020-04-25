@@ -1,9 +1,10 @@
 <?php
 
-namespace Kallfu\Repositories;
+namespace Eventos\Repositories;
 
-use Kallfu\User;
+use Eventos\User;
 use InfyOm\Generator\Common\BaseRepository;
+use Spatie\Permission\Models\Role;
 
 /**
  * Class ColorRepository
@@ -29,5 +30,20 @@ class UserRepository extends BaseRepository
     public function model()
     {
         return User::class;
+    }
+
+    public function getRolesExceptSuperadmin($user)
+    {
+        $query = Role::all();
+
+        if(!$user->hasRole('Superadmin')){
+            $roles = $query->filter(function($role){
+                return $role->name != 'Superadmin';
+            })->pluck('name', 'id');
+        } else {
+            $roles = $query->pluck('name', 'id');
+        }
+
+        return $roles;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kallfu\Http\Controllers;
+namespace Eventos\Http\Controllers;
 
 use Illuminate\Http\Request;
 

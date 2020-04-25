@@ -4,8 +4,7 @@
             <th>Id</th>
             <th>Nombre</th>
             <th>Email</th>
-            <th>Created_at</th>
-            <th>Updated_at</th>
+            <th>Alta</th>
             <th>Opciones</th>
         </tr>
     </thead>
@@ -16,8 +15,7 @@
                 <td>{!! $user->id !!}</td>
                 <td>{!! $user->fullname !!}</td>
                 <td>{!! $user->email !!}</td>
-                <td>{!! $user->created_at !!}</td>
-                <td>{!! $user->updated_at !!}</td>
+                <td>{!! $user->fecha_creado !!}</td>
                 <td>
 
                     <div class='btn-group'>
@@ -28,6 +26,40 @@
                         @else
                         <button type="button" class="btn btn-xs  btn-danger" disabled><i class="mdi mdi-delete mdi-18px"></i></button>
                         @endif
+                    </div>
+
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#assignRoles{!! $user->id !!}">Roles</button>
+
+                    <!-- Modal window -->
+                    <div class="modal fade" id="assignRoles{!! $user->id !!}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-md" role="document">
+                            <div class="modal-content">
+                                {!! Form::open(['url' => route('users.edit.roles', $user->id), 'method' => 'post', 'class' => 'form']) !!}
+                                <div class="modal-header">
+                                    <h4 class="modal-title w-100">
+                                        Roles de {!! $user->fullname !!}
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card-body">
+
+                                        <div class="form-group">
+                                            {!! Form::label('roles[]', 'Editar Roles') !!}<br>
+                                            {!! Form::select('roles[]', $roles, $user->roles, ['class' => 'form-control select2', 'multiple', 'style' => 'width: 100%']) !!}
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>
+                                    <button type="button" class="btn btn-grey btn-sm" data-dismiss="modal">Cerrar</button>
+                                </div>
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
                     </div>
 
 

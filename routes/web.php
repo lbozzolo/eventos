@@ -28,14 +28,44 @@ Route::get('/', [
     'uses' => 'WebController@index'
 ]);
 
-Route::get('habitaciones/{type}', [
-    'as' => 'web.habitaciones',
-    'uses' => 'WebController@habitaciones'
+Route::get('eventos', [
+    'as' => 'web.charlas',
+    'uses' => 'WebController@charlas'
 ]);
 
-Route::get('servicios', [
-    'as' => 'web.services',
-    'uses' => 'WebController@services'
+Route::get('eventos/{cliente}/{evento}/{id}', [
+    'as' => 'web.charlas.show',
+    'uses' => 'WebController@showCharla'
+]);
+
+Route::get('eventos/{cliente}/{evento}/{id}/ingresar', [
+    'as' => 'web.charlas.ingresar',
+    'uses' => 'WebController@ingresarCharla'
+]);
+
+Route::get('eventos/{cliente}/{evento}/{id}/inscripcion', [
+    'as' => 'web.charlas.inscripcion',
+    'uses' => 'WebController@inscripcion'
+]);
+
+Route::get('eventos/{cliente}/{evento}/{id}/registro', [
+    'as' => 'web.charlas.registro',
+    'uses' => 'WebController@registro'
+]);
+
+Route::post('eventos/{id}/registro', [
+    'as' => 'web.post.registro',
+    'uses' => 'WebController@postRegistro'
+]);
+
+Route::get('iniciar-sesion/{cliente?}/{evento?}/{id?}', [
+    'as' => 'web.iniciar-sesion',
+    'uses' => 'WebController@iniciarSesion'
+]);
+
+Route::post('ingresar/{charla?}', [
+    'as' => 'web.login',
+    'uses' => 'WebController@login'
 ]);
 
 Route::get('nosotros', [
@@ -43,34 +73,9 @@ Route::get('nosotros', [
     'uses' => 'WebController@nosotros'
 ]);
 
-Route::get('galeria', [
-    'as' => 'web.galeria',
-    'uses' => 'WebController@galeria'
-]);
-
-Route::get('reservas', [
-    'as' => 'web.reservas',
-    'uses' => 'WebController@reservas'
-]);
-
-Route::get('contacto', [
-    'as' => 'web.contacto',
-    'uses' => 'WebController@contacto'
-]);
-
-Route::post('post-contact/send/email', [
-    'as' => 'web.post.contact',
-    'uses' => 'WebController@postContact'
-]);
-
-Route::post('pre-reserva', [
-    'as' => 'pre.reserva',
-    'uses' => 'WebController@preReserva'
-]);
-
-Route::post('newsletter', [
-    'as' => 'web.newsletter',
-    'uses' => 'WebController@newsletter'
+Route::get('contactanos', [
+    'as' => 'web.contactanos',
+    'uses' => 'WebController@contactanos'
 ]);
 
 

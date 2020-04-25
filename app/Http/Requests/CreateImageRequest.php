@@ -1,9 +1,9 @@
 <?php
 
-namespace Kallfu\Http\Requests;
+namespace Eventos\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Kallfu\Models\Image;
+use Eventos\Models\Image;
 
 class CreateImageRequest extends FormRequest
 {

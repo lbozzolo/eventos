@@ -1,8 +1,8 @@
 <?php
 
-namespace Kallfu\Repositories;
+namespace Eventos\Repositories;
 
-use Kallfu\Models\Image;
+use Eventos\Models\Image;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**

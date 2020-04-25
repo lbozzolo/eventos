@@ -1,76 +1,177 @@
 @extends('web.layout')
 
-
 @section('content')
 
     @include('vendor.flash.message')
-    
-    @if(isset($slider))
-        @include('web.partials.sliders')
-    @endif
 
-    <section class="container clearfix common-pad nasir-style">
-        <div class="sec-header sec-header-pad">
-            <h2>Nuestras Habitaciones</h2>
-            <br>
-        </div>
-        <div class="room-slider">
-            <div class="roomsuite-slider-two">
+    @include('web.partials.sliders')
 
-                @forelse($rooms as $room)
-
-                    <div class="room-suite room-suite-htwo">
-                        <div class="item">
-                            <a href="{{ route('web.habitaciones', $room->type) }}">
-                                <div class="ro-img">
-                                    @if($room->images->count())
-                                        <img src="{{ asset('imagenes/'. $room->mainImage()->path) }}">
-                                    @else
-                                        <img src="{{ asset('images/noimage.png') }}">
-                                    @endif
-                                </div>
-                                <div class="ro-txt">
-                                    <h2>Habitación {!! ucfirst($room->type) !!}</h2>
-                                    <div class="ro-text-two">
-
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                @empty
-
-                    <span class="text-secondary">Todavía no hay ninguna habitación cargada en el sistema.</span>
-
-                @endforelse
-
-
+    <section class="blog blog-grid bg-celeste-claro">
+        <div class="container">
+            <div class="text__block">
+                <h2 class="text__block-title text-white">¿Estás pensando en realizar un evento? </h2>
+                <p class="lead text-azul-oscuro">Desde nuestra plataforma Eventum podemos realizar streaming en vivo de reuniones, seminarios y congresos, ya sea desde computadoras personales o equipos profesionales.
+                    <br>
+                    Eventum es la plataforma de streaming que lleva reuniones, seminarios y congresos a u pantalla.
+                </p>
             </div>
         </div>
     </section>
 
-    <div class="nasir-subscribe-form-row row">
+    <section>
         <div class="container">
-            <div class="row this-dashed">
-                <div class="this-texts">
-                    <h2>MANTENTE INFORMADO  </h2>
-                    <h3>Recibe todas las noticias y novedades!!</h3>
+
+            <div class="row" style="margin-bottom: 50px">
+                <div class="col-lg-12">
+                    <h2 class="text-azul-oscuro">¡Las posibilidades son infinitas! </h2>
+                    <p class="lead text-black">
+                        Puede ser grabado o en vivo, con invitados o abierto a todo aquel que quiera registrarse. <br>
+                        Permite interacción e intercambio, y te ofrece todo el material una vez finalizado tu evento.
+                    </p>
                 </div>
-                {!! Form::open(['url' => route('web.newsletter'), 'method' => 'POST', 'class' => 'this-form input-group']) !!}
+            </div>
 
-                    @include('vendor.flash.message')
-                    <div><input name="email" type="email" class="form-control" placeholder="Ingrese una dirección de mail"></div>
-                    <div>{!! Recaptcha::render() !!}</div>
-                    <div class="text-right">
-                        <span >
-                            <button type="submit" class="res-btn">Subscribirse</button>
-                        </span>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card-home">
+                            <div class="card-body">
+                                <h4 class="card-title">Seguridad <i class="fa fa-check text-dark-green"></i></h4>
+                                <p class="lead">Tenemos las mejores herramientas para que tu streaming en Eventum sea seguro y privado.</p>
+                            </div>
+                        </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="card-home">
+                            <div class="card-body">
+                                <h4 class="card-title">On Line <i class="fa fa-check text-dark-green"></i></h4>
+                                <p class="lead">Los participantes no tienen que descargarse ningún tipo de aplicación para acceder a los eventos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card-home">
+                            <div class="card-body">
+                                <h4 class="card-title">Nadie se lo pierde <i class="fa fa-check text-dark-green"></i></h4>
+                                <p class="lead">
+                                    La audiencia puede ver tu evento en vivo o acceder al material grabado y editado que quedará disponible
+                                    después de la transmisión.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card-home">
+                            <div class="card-body">
+                                <h4 class="card-title">Moderación y dirección <i class="fa fa-check text-dark-green"></i></h4>
+                                <p class="lead">
+                                    Tenés la posibilidad de elegir a una persona que modere y dirija el evento y sea el nexo para
+                                    aquellos miembros del público que quieran interactuar con los oradores.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
 
-                {!! Form::close() !!}
+                    <div class="col-lg-6">
+                        <div class="card-home">
+                            <div class="card-body">
+                                <h4 class="card-title">Interacción <i class="fa fa-check text-dark-green"></i></h4>
+                                <p class="lead">
+                                    Todos los participantes pueden hacer sus preguntas, que quedan registradas y pueden ser
+                                    respondidas en vivo o post-streaming.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card-home">
+                            <div class="card-body">
+                                <h4 class="card-title">Sin límites de espectadores en vivo <i class="fa fa-check text-dark-green"></i></h4>
+                                <p class="lead">
+                                    No ponemos limites de usuarios, ingresan tantos como deseen.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card-home">
+                            <div class="card-body">
+                                <h4 class="card-title">Estadísticas <i class="fa fa-check text-dark-green"></i></h4>
+                                <p class="lead">
+                                    En el reporte post-streaming vas a tener información concreta sobre tu audiencia: cuántos
+                                    usuarios accedieron a la transmisión en vivo o grabada, de qué ciudad son, y cuáles son sus datos de contacto.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card-home">
+                            <div class="card-body">
+                                <h4 class="card-title">Multidispositivo <i class="fa fa-check text-dark-green"></i></h4>
+                                <p class="lead">
+                                    Llevamos tu evento a celulares, tablets, computadoras y Smart TV.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+        </div>
+    </section>
+
+    <section class="blog blog-grid bg-dark-green">
+        <div class="container">
+            <div class="text__block">
+                <h2 class="text__block-title text-white">¿Quiénes somos?</h2>
+                <p class="text-azul-oscuro lead">
+                    Un grupo de profesionales especializados en producción de imagen y sonido, streaming, generación de contenidos, comunicación,
+                    manejo de redes sociales y organización de eventos, con un profundo conocimiento del sector agropecuario.
+                </p>
+                <p class="text-azul-oscuro lead" style="font-weight: 500">
+                    ¡No dudes en contactarnos! Somos Eventum. Convertimos tu necesidad en realidad.
+                </p>
             </div>
         </div>
-    </div>
+    </section>
+
+
+
+    {{--<section class="bg-dark-green pt-5 pb-3">--}}
+        {{--<div class="row">--}}
+            {{--<div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">--}}
+                {{--<div class="heading-2 text-">--}}
+                    {{--<h2 class="heading__title text-white">Charlas recientes<br></h2>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</section>--}}
+
+    <section id="blogGrid" class="blog blog-grid pb-70">
+        <div class="container">
+
+            <h2 class="text__block-title">Eventos recientes</h2>
+            <div class="row">
+
+            @foreach($proyectos as $proyecto)
+
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    @include('web.components.proyecto-card')
+                </div>
+
+            @endforeach
+
+            </div>
+        </div>
+    </section>
 
 @endsection

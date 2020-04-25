@@ -1,19 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
     <head>
         @include('web.partials.head')
     </head>
+
     <body>
 
-        @include('web.partials.header')
+        <div class="wrapper">
 
-        @yield('content')
+            @include('web.partials.header')
 
-        <footer>
+            @yield('content')
+
             @include('web.partials.footer')
-        </footer>
+
+            <button id="scrollTopBtn"><i class="fa fa-long-arrow-up"></i></button>
+
+            <div class="module__search-container">
+                <i class="fa fa-times close-search"></i>
+                <form class="module__search-form">
+                    <input type="text" class="search__input" placeholder="Type Words Then Enter">
+                    <button class="module__search-btn"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+
+        </div>
 
         @include('web.partials.scripts')
 
     </body>
+
 </html>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kallfu\Console;
+namespace Eventos\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;

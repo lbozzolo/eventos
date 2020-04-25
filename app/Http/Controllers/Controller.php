@@ -1,6 +1,6 @@
 <?php
 
-namespace Kallfu\Http\Controllers;
+namespace Eventos\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

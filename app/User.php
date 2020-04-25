@@ -1,17 +1,18 @@
 <?php
 
-namespace Kallfu;
+namespace Eventos;
 
+use Carbon\Carbon;
+use Eventos\Models\Proyecto;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Kallfu\Models\Dieta;
-use Kallfu\Models\Profile;
-
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasRoles;
     use SoftDeletes;
 
     public $table = 'users';
@@ -27,6 +28,11 @@ class User extends Authenticatable
         'name',
         'lastname',
         'email',
+        'phone',
+        'dni',
+        'pais',
+        'localidad',
+        'ocupacion',
         'password'
     ];
 
@@ -52,6 +58,26 @@ class User extends Authenticatable
         'password' => 'required|max:6'
     ];
 
+    public static $rulesInscripcion = [
+        'name' => 'required',
+        'lastname' => 'required',
+        'email' => 'required|unique:users,email|email',
+        'dni' => 'max:191',
+        'phone' => 'max:191',
+        'localidad' => 'max:255',
+        'ocupacion' => 'max:255'
+    ];
+
+    public function getFechaCreadoAttribute()
+    {
+        return Carbon::parse($this->attributes['created_at'])->format('d-m-Y');
+    }
+
+    public function getFechaEditadoAttribute()
+    {
+        return Carbon::parse($this->attributes['updated_at'])->format('d-m-Y');
+    }
+
     public function isSuperAdmin()
     {
         return ($this->email == 'lucas@verticedigital.com.ar' || $this->email == 'fernando@verticedigital.com.ar');
@@ -64,14 +90,10 @@ class User extends Authenticatable
 
     // Relationships
 
-    public function profile()
+    public function proyectos()
     {
-        return $this->hasOne(Profile::class);
+        return $this->belongsToMany(Proyecto::class)->withTimestamps();
     }
 
-    public function dietas()
-    {
-        return $this->hasMany(Dieta::class);
-    }
 
 }

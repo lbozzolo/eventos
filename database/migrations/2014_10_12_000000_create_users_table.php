@@ -20,6 +20,11 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->string('email')->unique();
+            $table->string('phone')->nullable();
+            $table->string('dni')->nullable();
+            $table->string('pais', 255)->nullable();
+            $table->string('localidad', 255)->nullable();
+            $table->string('ocupacion', 255)->nullable();
             $table->string('password');
             $table->rememberToken();
 
@@ -35,6 +40,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
         Schema::dropIfExists('users');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }

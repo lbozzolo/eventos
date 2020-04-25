@@ -1,8 +1,8 @@
 <?php
 
-namespace Kallfu\Repositories;
+namespace Eventos\Repositories;
 
-use Kallfu\Models\Slider;
+use Eventos\Models\Slider;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**

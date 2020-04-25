@@ -666,8 +666,8 @@
 
     /**
      * blank HTML for cursor position
-     * - [workaround] old IE only rooms with &nbsp;
-     * - [workaround] IE11 and other browser rooms with bogus br
+     * - [workaround] old IE only proyectos with &nbsp;
+     * - [workaround] IE11 and other browser proyectos with bogus br
      */
     var blankHTML = agent.isMSIE && agent.browserVersion < 11 ? '&nbsp;' : '<br>';
 
@@ -1719,7 +1719,7 @@
         module.initialize();
       }
 
-      // attach rooms
+      // attach proyectos
       if (module.events) {
         dom.attachEvents($note, module.events);
       }
@@ -4392,7 +4392,7 @@
     var history = new History($editable);
 
     this.initialize = function () {
-      // bind custom rooms
+      // bind custom proyectos
       $editable.on('keydown', function (event) {
         if (event.keyCode === key.code.ENTER) {
           context.triggerEvent('enter', event);
@@ -4425,7 +4425,7 @@
       // init content before set event
       $editable.html(dom.html($note) || dom.emptyPara);
 
-      // [workaround] IE doesn't have input rooms for contentEditable
+      // [workaround] IE doesn't have input proyectos for contentEditable
       // - see: https://goo.gl/4bfIvA
       var changeEventName = agent.isMSIE ? 'DOMCharacterDataModified DOMSubtreeModified DOMNodeInserted' : 'input';
       $editable.on(changeEventName, func.debounce(function () {
@@ -6829,7 +6829,7 @@
         });
 
         ui.onDialogHidden(self.$dialog, function () {
-          // detach rooms
+          // detach proyectos
           $linkText.off('input paste keypress');
           $linkUrl.off('input paste keypress');
           $linkBtn.off('click');
@@ -7050,8 +7050,8 @@
 
   /**
    * Image popover module
-   *  mouse rooms that show/hide popover will be handled by Handle.js.
-   *  Handle.js will receive the rooms and invoke 'imagePopover.update'.
+   *  mouse proyectos that show/hide popover will be handled by Handle.js.
+   *  Handle.js will receive the proyectos and invoke 'imagePopover.update'.
    */
   var ImagePopover = function (context) {
     var self = this;

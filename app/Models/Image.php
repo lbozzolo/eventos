@@ -1,6 +1,6 @@
 <?php
 
-namespace Kallfu\Models;
+namespace Eventos\Models;
 
 use Eloquent as Model;
 

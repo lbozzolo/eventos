@@ -1,6 +1,6 @@
 <?php
 
-namespace Kallfu\Http\Requests;
+namespace Eventos\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

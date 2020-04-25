@@ -1,9 +1,9 @@
 <?php
 
-namespace Kallfu\Http\Requests;
+namespace Eventos\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Kallfu\Models\Slider;
+use Eventos\Models\Slider;
 
 class UpdateSliderRequest extends FormRequest
 {

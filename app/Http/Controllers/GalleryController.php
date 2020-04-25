@@ -1,15 +1,15 @@
 <?php
 
-namespace Kallfu\Http\Controllers;
+namespace Eventos\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Kallfu\Http\Requests\CreateGalleryRequest;
-use Kallfu\Http\Requests\UpdateGalleryRequest;
-use Kallfu\Models\Image;
-use Kallfu\Models\Service;
-use Kallfu\Repositories\GalleryRepository;
-use Kallfu\Http\Controllers\AppBaseController as AppBaseController;
-use Kallfu\Traits\ImageTrait;
+use Eventos\Http\Requests\CreateGalleryRequest;
+use Eventos\Http\Requests\UpdateGalleryRequest;
+use Eventos\Models\Image;
+use Eventos\Models\Service;
+use Eventos\Repositories\GalleryRepository;
+use Eventos\Http\Controllers\AppBaseController as AppBaseController;
+use Eventos\Traits\ImageTrait;
 
 class GalleryController extends AppBaseController
 {

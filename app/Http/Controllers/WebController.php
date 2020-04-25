@@ -1,94 +1,157 @@
 <?php
 
-namespace Kallfu\Http\Controllers;
+namespace Eventos\Http\Controllers;
 
 use Carbon\Carbon;
+use Eventos\Models\Proyecto;
+use Eventos\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Kallfu\Http\Controllers\AppBaseController as AppBaseController;
+use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Illuminate\Support\Facades\Mail;
-use Kallfu\Http\Requests\ContactoRequest;
-use Kallfu\Http\Requests\CreateNewsletterRequest;
-use Kallfu\Http\Requests\PreReservaRequest;
-use Kallfu\Models\Email;
-use Kallfu\Models\Gallery;
-use Kallfu\Models\Room;
-use Kallfu\Models\Service;
-use Kallfu\Models\Slider;
+use Eventos\Http\Requests\ContactoRequest;
+use Eventos\Http\Requests\CreateNewsletterRequest;
+use Eventos\Models\Email;
+use Eventos\Models\Slider;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 
 class WebController extends AppBaseController
 {
+    use AuthenticatesUsers;
+
+    protected $redirectTo = '/home';
+    private $data;
+    public $paises = ['Argentina', 'Bolivia', 'Brasil', 'Chile', 'Ecuador', 'Paraguay', 'Uruguay'];
+
     public function index()
     {
-        $data['slider'] = Slider::active()->first();
-        $data['rooms'] = Room::all();
-
-        return view('web.home')->with($data);
+        $this->data['proyectos'] = Proyecto::all()->sortByDesc('id')->take(3);
+        return view('web.home')->with($this->data);
     }
 
-    public function services()
+    public function charlas()
     {
-        $services = Service::all()->chunk(4);
+        $this->data['proyectos'] = Proyecto::orderBy('id', 'desc')->paginate(6);
+        return view('web.charlas')->with($this->data);
+    }
 
-        foreach($services as $key => $chunk){
-            $data['services'][$key] = $chunk;
+    public function showCharla($cliente, $evento, $id)
+    {
+        $this->data['charla'] = Proyecto::findOrFail($id);
+        return view('web.show-charla')->with($this->data);
+    }
+
+    public function ingresarCharla($cliente, $evento, $id)
+    {
+        $this->data['charla'] = Proyecto::findOrFail($id);
+        $user = Auth::user();
+
+        // Si la charla es pública lo envío a la charla
+        if($this->data['charla']->publico)
+            return view('web.ingresar-charla')->with($this->data);
+
+        // Si la charla es privada lo inscribo
+        if(!$user->proyectos->contains($id))
+            $this->data['ok'] = 'Se ha inscripto en la charla exitosamente.';
+
+        $user->proyectos()->syncWithoutDetaching($id);
+
+        return view('web.ingresar-charla')->with($this->data);
+    }
+
+    public function inscripcion($cliente, $evento, $id)
+    {
+        $this->data['charla'] = Proyecto::findOrFail($id);
+
+        if(Auth::check())
+            return redirect()->route('web.charlas.ingresar', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
+
+        return view('web.charla-inscripcion')->with($this->data);
+    }
+
+    public function registro($cliente, $evento, $id)
+    {
+        $this->data['charla'] = Proyecto::findOrFail($id);
+        $this->data['paises'] = $this->paises;
+        return view('web.registro')->with($this->data);
+    }
+
+    public function postRegistro(Request $request, $id)
+    {
+        $this->data['charla'] = Proyecto::find($id);
+
+        $inputs = $request->input();
+        $inputs['password'] = Hash::make($inputs['dni']);
+
+        $user = User::create($inputs);
+        $user->assignRole('Inscripto');
+        $user->save();
+
+        Auth::attempt(['email' => $user->email, 'password' => $user->dni]);
+
+        $redirect = [
+            'cliente' => $this->data['charla']->cliente_slug,
+            'evento' => $this->data['charla']->nombre_slug,
+            'id' => $id
+        ];
+
+        return redirect()->route('web.charlas.ingresar', $redirect)->with('ok', 'Se ha inscripto en el evento exitosamente!');
+    }
+
+    public function login(Request $request, $id)
+    {
+        $this->data['charla'] = Proyecto::find($id);
+
+        $this->redirectTo = route('web.charlas.ingresar', ['cliente' => $this->data['charla']->cliente_slug, 'evento' => $this->data['charla']->nombre_slug, 'id' => $id]);
+
+        $this->validateLogin($request);
+
+
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
         }
 
-        return view('web.services')->with($data);
-    }
+        if ($this->attemptLogin($request)) {
+            return $this->sendLoginResponse($request);
+        }
+        $this->redirectTo = route('home');
 
-    public function habitaciones($type =  null)
-    {
-        $habitacion = Room::ofType($type)->first();
-        return view('web.habitaciones')->with(['habitacion' => $habitacion, 'type' => $type]);
-    }
+        $this->incrementLoginAttempts($request);
 
+
+        return $this->sendFailedLoginResponse($request);
+    }
 
     public function nosotros()
     {
         return view('web.nosotros');
     }
 
-    public function galeria()
+    public function contactanos()
     {
-        $gallery = Gallery::active()->first();
-        return view('web.galeria')->with(['gallery' => $gallery]);
+        return view('web.contactanos');
     }
 
-    public function reservas()
+    public function iniciarSesion($cliente, $evento, $id)
     {
-        return view('web.reservas');
-    }
+        $this->data['charla'] = Proyecto::find($id);
 
-    public function contacto()
-    {
-        return view('web.contacto');
-    }
+        // Si la charla es pública lo envío a la charla
+        if($this->data['charla']->publico)
+            return redirect()->route('web.charlas.ingresar', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
 
-    public function preReserva(PreReservaRequest $request)
-    {
-        $data = array(
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'arival_date' => $request['arival_date'],
-            'departure_date' => $request['departure_date'],
-            'chooseAdults' => $request['chooseAdults'],
-            'chooseChildren' => $request['chooseChildren'],
-            'edades' => $request['edades'],
-            'telefono' => $request['telefono'],
-            'message' => $request['message'],
-            'subject' => 'Pre Reserva'
-        );
+        // Si la charla es privada y está logueado lo envío a la charla
+        if(Auth::check())
+            return redirect()->route('web.charlas.ingresar', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
 
-        Mail::send('emails.reserva', ['data' => $data], function($message) use ($data){
-            $message->to(config('mail.username'));
-            $message->subject($data['subject']);
-            $message->from($data['email']);
-        });
-
-        return redirect()->back()->with('ok', 'Su correo se ha enviado con éxito.');
+        // Si la charla es privada y no está logueado lo envío al login
+        return view('web.iniciar-sesion')->with($this->data);
     }
 
     public function postContact(ContactoRequest $request)

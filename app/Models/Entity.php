@@ -1,10 +1,10 @@
 <?php
 
-namespace Kallfu\Models;
+namespace Eventos\Models;
 
 use Carbon\Carbon;
 use Eloquent as Model;
-use Kallfu\Models\Image as Image;
+use Eventos\Models\Image as Image;
 
 class Entity extends Model
 {
@@ -26,7 +26,14 @@ class Entity extends Model
 
     public function mainImage()
     {
-        return ($this->images()->where('main', 1)->first())? $this->images()->where('main', 1)->first() : $this->images->first();
+        $response = asset('images/noimage.png');
+
+        if($this->images->count()) {
+            $path = ($this->images()->where('main', 1)->first()) ? $this->images()->where('main', 1)->first()->path : $this->images->first()->path;
+            $response = asset('imagenes/'.$path);
+        }
+
+        return $response;
     }
 
     public function mainImageThumb()

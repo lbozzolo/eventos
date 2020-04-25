@@ -15,6 +15,8 @@
 <script src="{{ asset('datepicker/bootstrap-datepicker.js') }}"></script>
 <script src="{{ asset('datepicker/locales/bootstrap-datepicker.es.js') }}"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script type="text/javascript" src="{{ asset('selectize/dist/js/selectize.js') }}"></script>
 <script src="{{ asset('summernote/dist/summernote.js') }}"></script>
 

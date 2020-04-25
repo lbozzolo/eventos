@@ -1,9 +1,9 @@
 <?php
 
-namespace Kallfu\Http\Controllers\Auth;
+namespace Eventos\Http\Controllers\Auth;
 
-use Kallfu\User;
-use Kallfu\Http\Controllers\Controller;
+use Eventos\User;
+use Eventos\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -58,7 +58,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \Kallfu\User
+     * @return \Eventos\User
      */
     protected function create(array $data)
     {

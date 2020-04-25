@@ -30,6 +30,11 @@
 
 <link rel="stylesheet" type="text/css" href="{{ asset('selectize/dist/css/selectize.css') }}" />
 
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
 <link href="{{ asset('/datepicker/datepicker3.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('/css/styles.css') }}" rel="stylesheet" type="text/css" />
 
@@ -43,6 +48,18 @@
 <link rel="stylesheet" href="{{ asset('croppie/croppie.css') }}" />
 <link rel="stylesheet" href="{{ asset('summernote/dist/summernote.css') }}" />
 
+<style type="text/css">
+
+    td {
+        white-space: normal !important;
+        word-wrap: break-word;
+        line-height: normal!important;
+    }
+    table {
+        table-layout: fixed;
+    }
+
+</style>
 
 @yield('css')
 

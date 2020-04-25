@@ -1,6 +1,6 @@
 <?php
 
-namespace Kallfu\Http\Middleware;
+namespace Eventos\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

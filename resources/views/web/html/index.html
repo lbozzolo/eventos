@@ -2,232 +2,296 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Hosteria, alta montaña, Caviahue,  sauna, spa, jardín">
-    <meta name="author" content="Ansonika">
-    <title>Kallfu.com | Hostería de Alta Montaña</title>
-
-    <!-- Favicons-->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
-
-    <!-- GOOGLE WEB FONT -->
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600" rel="stylesheet">
-
-    <!-- BASE CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/menu.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-	<link href="css/vendors.css" rel="stylesheet">
-
-    <!-- YOUR CUSTOM CSS -->
-    <link href="css/custom.css" rel="stylesheet">
-	
-	<!-- MODERNIZR -->
-	<script src="js/modernizr.js"></script>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="description" content="koira - Factory and Manufacturing Html Template">
+  <link href="assets/images/favicon/favicon.png" rel="icon">
+  <title>Charlas Virtuales - La tecnología al alcance de tu mano.</title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:400,500,700%7cTeko:400,500,600,700&display=swap">
+  <link rel="stylesheet" href="assets/css/libraries.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-	
-	<div id="preloader">
-		<div data-loader="circle-side"></div>
-	</div><!-- /Preload -->
-	
-	<div id="loader_form">
-		<div data-loader="circle-side-2"></div>
-	</div><!-- /loader_form -->
-	
-	
-	<!-- /menu -->
-	
-	<div class="container-fluid full-height">
-		<div class="row row-height">
-			<div class="col-lg-6 content-left">
-				<div class="content-left-wrapper bg_hotel">
-					<div class="wrapper">
-						<a href="index.html" id="logo"><img src="img/logo.svg" alt="" width="120" height="102"></a>
-						<div id="social">
-							<ul>
-								<li><a href="#0"><i class="social_facebook"></i></a></li>
-								<li><a href="#0"><i class="social_twitter"></i></a></li>
-								<li><a href="#0"><i class="social_instagram"></i></a></li>
-							</ul>
-						</div>
-						<!-- /social -->
-						<div class="left_title">
-							<p><h3>Hostería de Alta Montaña</h3></p>
-						</div>
-					</div>
-				</div>
-				<!--/content-left-wrapper -->
-			</div>
-			<!-- /content-left -->
+  <div class="wrapper">
+    <!-- =========================
+        Header
+    =========================== -->
+    <header id="header" class="header header-transparent">
+      <nav class="navbar navbar-expand-lg sticky-navbar">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">
+            <img src="assets/images/logo/logo-light.png" class="logo-light" alt="logo">
+            <img src="assets/images/logo/logo-dark.png" class="logo-dark" alt="logo">
+          </a>
+          <button class="navbar-toggler" type="button">
+            <span class="menu-lines"><span></span></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mainNavigation">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav__item with-dropdown">
+                <a href="index.html" class="dropdown-toggle nav__item-link active">Home</a>
+              </li><!-- /.nav-item -->
+              <li class="nav__item with-dropdown">
+                <a href="nosotros.html" class="dropdown-toggle nav__item-link">Quienes Somos</a>
+              </li><!-- /.nav-item -->
+              <li class="nav__item with-dropdown">
+                <a href="charlas.html" class="dropdown-toggle nav__item-link">Charlas</a>
+              </li><!-- /.nav-item -->
+              <li class="nav__item">
+                <a href="contactanos.html" class="nav__item-link">Contactanos</a>
+              </li><!-- /.nav-item -->
+            </ul><!-- /.navbar-nav -->
+          </div><!-- /.navbar-collapse -->
+          <div class="navbar-modules">
+            <ul class="list-unstyled d-flex align-items-center modules__btns-list">
+              <!-- <li class="d-none d-lg-block"><a href="request-quote.html"
+                  class="btn btn__primary btn__bordered module__btn-request">
+                  <span>Get A Quote</span><i class="icon-arrow-right"></i>
+                </a></li> -->
+              <li class="d-none d-lg-block">
+                <div class="module__btn module__btn-phone d-flex align-items-center">
+                  <i class="icon-phone"></i>
+                  <a href="tel:5565454117">55 654 541 17</a>
+                </div>
+              </li>
+            </ul><!-- /.modules-wrapper -->
+          </div><!-- /.navbar-modules -->
+        </div><!-- /.container -->
+      </nav><!-- /.navabr -->
+    </header><!-- /.Header -->
 
-			<div class="col-lg-6 content-right" id="start">
-				<div id="wizard_container">
-					<div id="top-wizard">
-							<div id="progressbar"></div>
-						</div>
-						<!-- /top-wizard -->
-						<form id="wrapped" method="POST">
-							<input id="website" name="website" type="text" value="">
-							<!-- Leave for security protection, read docs for details -->
-							
-							<div id="middle-wizard">
-								<div class="step">
-									<h3 class="main_question"><strong>1/3</strong>Ingrese los datos de la Reserva</h3>
-									<div class="form-group">
-										<input type="text" name="dates" class="form-control required" placeholder="Check in - Check out">
-										<i class="icon-hotel-calendar_3"></i>
-									</div>
-									<div class="form-group">
-										<div class="styled-select clearfix">
-											 <select class="required ddslick" name="room_type">
-												<option value="" data-imagesrc="img/icons_select/add_bed.svg">Seleccione tipo de Habitación</option>
-												<option value="Triple" data-imagesrc="img/icons_select/single_bed.svg">Triples</option>
-												<option value="Cuadruple" data-imagesrc="img/icons_select/single_bed_lux.svg">Cuádruples</option>
-												<option value="Sextuple" data-imagesrc="img/icons_select/single_bed_lux.svg">Sextuple</option>
-												<option value="Apart Triple" data-imagesrc="img/icons_select/single_bed_lux.svg">Apart Triple</option>
-											</select>
-										</div>
-									</div>
-									<div class="row no-gutters pb-1">
-										<div class="col-6 pr-2">
-											<div class="form-group">
-												<div class="qty-buttons">
-													<input type="button" value="+" class="qtyplus" name="adults">
-													<input type="text" name="adults" id="adults" value="" class="qty form-control required" placeholder="Mayores">
-													<input type="button" value="-" class="qtyminus" name="adults">
-												</div>
-											</div>
-										</div>
-										<div class="col-6 pl-2">
-											<div class="form-group">
-												<div class="qty-buttons">
-													<input type="button" value="+" class="qtyplus" name="child">
-													<input type="text" name="child" id="child" value="" class="qty form-control required" placeholder="Menores">
-													<input type="button" value="-" class="qtyminus" name="child">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<textarea class="form-control notes" placeholder="Comentario Adicional"></textarea>
-									</div>
-								</div>
-								<!-- /step-->
-								
-								<div class="step">
-									<h3 class="main_question"><strong>2/3</strong>Seleccione Adicionales</h3>
-									<div class="form-group options clearfix">
-										<i class="icon-hotel-bottle"></i><em>Desayuno </em>
-										<label class="switch-light switch-ios float-right">
-											<input type="checkbox" value="Desayuno" name="options[]">
-											<span><span>No</span><span>Si</span></span>
-											<a></a>
-										</label>
-									</div>
-									<div class="form-group options clearfix">
-										<i class="icon-hotel-coffee"></i><em>Almuerzo </em>
-										<label class="switch-light switch-ios float-right">
-											<input type="checkbox" value="Almuerzo" name="options[]">
-											<span><span>No</span><span>Si</span></span>
-											<a></a>
-										</label>
-									</div>
-									<div class="form-group options clearfix">
-										<i class="icon-hotel-restaurant"></i><em>Cena </em>
-										<label class="switch-light switch-ios float-right">
-											<input type="checkbox" value="Cena" name="options[]">
-											<span><span>No</span><span>Si</span></span>
-											<a></a>
-										</label>
-									</div>
-									<div class="form-group options clearfix">
-										<i class="icon-hotel-car"></i><em>Traslado </em>
-										<label class="switch-light switch-ios float-right">
-											<input type="checkbox" value="Traslado" name="options[]">
-											<span><span>No</span><span>Si</span></span>
-											<a></a>
-										</label>
-									</div>
-								</div>
-								<!-- /step-->
-								
-								<div class="submit step">
-									<h3 class="main_question"><strong>3/3</strong>Ingrese sus Datos</h3>
-									<div class="form-group">
-										<input type="text" name="first_name" class="form-control required" placeholder="Nombre">
-										<i class="icon-user"></i>
-									</div>
-									<div class="form-group">
-										<input type="text" name="last_name" class="form-control required" placeholder="Apellido">
-										<i class="icon-user"></i>
-									</div>
-									<div class="form-group">
-										<input type="email" name="email" class="form-control required" placeholder="Email">
-										<i class="icon-envelope"></i>
-									</div>
-									<div class="form-group">
-										<input type="text" name="telephone" class="form-control" placeholder="Telefono">
-										<i class="icon-phone"></i>
-									</div>
-									
-								</div>
-								<!-- /step-->
-								
-							</div>
-							<!-- /middle-wizard -->
-							<div id="bottom-wizard">
-								<button type="button" name="backward" class="backward">Anterior</button>
-								<button type="button" name="forward" class="forward">Siguiente</button>
-								<button type="submit" name="process" class="submit">Enviar</button>
-							</div>
-							<!-- /bottom-wizard -->
-						</form>
-					</div>
-					<!-- /Wizard container -->
-				
-					<div class="footer">
-						
-						<em>© 2019 by <a href="http://www.verticedigital.com.ar" target="_new">Verticedigital</a></em>
-					</div>
-					<!-- Footer -->
-			</div>
-			<!-- /content-right-->
-		</div>
-		<!-- /row-->
-	</div>
-	<!-- /container-fluid -->
+    <!-- ============================
+        Slider
+    ============================== -->
+    <section id="slider1" class="slider slider-1">
+      <div class="carousel owl-carousel carousel-arrows carousel-dots" data-slide="1" data-slide-md="1"
+        data-slide-sm="1" data-autoplay="true" data-nav="true" data-dots="true" data-space="0" data-loop="true"
+        data-speed="3000" data-transition="fade" data-animate-out="fadeOut" data-animate-in="fadeIn">
+        <div class="slide-item align-v-h bg-overlay">
+          <div class="bg-img"><img src="assets/images/sliders/1.jpg" alt="slide img"></div>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
+                <div class="slide__content">
+                  <h2 class="slide__title">CICLOS DE CHARLAS Y CONFERENCIAS
+                    SOBRE PRODUCTOS DEL CAMPO</h2>
+                </div><!-- /.slide-content -->
+              </div><!-- /.col-xl-9 -->
+            </div><!-- /.row -->
+          </div><!-- /.container -->
+        </div><!-- /.slide-item -->
+        <div class="slide-item align-v-h bg-overlay">
+          <div class="bg-img"><img src="assets/images/sliders/2.jpg" alt="slide img"></div>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
+                <div class="slide__content">
+                  <h2 class="slide__title">STREAMING ADAPTATIVO Y MULTIFORMATO </h2>
+                </div><!-- /.slide-content -->
+              </div><!-- /.col-xl-9 -->
+            </div><!-- /.row -->
+          </div><!-- /.container -->
+        </div><!-- /.slide-item -->
+        <div class="slide-item align-v-h bg-overlay">
+          <div class="bg-img"><img src="assets/images/sliders/3.jpg" alt="slide img"></div>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
+                <div class="slide__content">
+                  <h2 class="slide__title">COMUNICACION DE EVENTOS</h2>
+                </div><!-- /.slide-content -->
+              </div><!-- /.col-xl-9 -->
+            </div><!-- /.row -->
+          </div><!-- /.container -->
+        </div><!-- /.slide-item -->
+      </div><!-- /.carousel -->
+    </section><!-- /.slider -->
 
-	<div class="cd-overlay-nav">
-		<span></span>
-	</div>
-	<!-- /cd-overlay-nav -->
 
-	<div class="cd-overlay-content">
-		<span></span>
-	</div>
-	<!-- /cd-overlay-content -->
+    <!-- ======================
+      Blog Grid
+    ========================= -->
+    <section id="blogGrid" class="blog blog-grid pb-70">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">
+            <div class="heading heading-2 text-center mb-50">
+              <h2 class="heading__title">Ultimos Charlas añadidas<br></h2>
+            </div><!-- /.heading -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row-->
+        <div class="row">
+          <!-- Blog Item #1 -->
+          <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="blog-item">
+              <div class="blog__img">
+                <a href="#">
+                  <img src="assets/images/blog/grid/1.jpg" alt="blog image">
+                </a>
+              </div><!-- /.entry-img -->
+              <div class="blog__content">
+                <div class="blog__meta">
+                  <span class="blog__meta-date">Jan 20, 2020</span>
+                  <div class="blog__meta-cat">
+                    <a href="#">Oil & Gas</a><a href="#">Insights</a>
+                  </div><!-- /.blog-meta-cat -->
+                </div><!-- /.blog-meta -->
+                <h4 class="blog__title"><a href="#">Producción de Maíz</a></h4>
+                <a href="#" class="btn btn__secondary btn__link">
+                  <span>Ingresar</span>
+                  <i class="icon-arrow-right"></i>
+                </a>
+              </div><!-- /.entry-content -->
+            </div><!-- /.blog-item -->
+          </div><!-- /.col-lg-4 -->
+          <!-- Blog Item #2 -->
+          <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="blog-item">
+              <div class="blog__img">
+                <a href="#">
+                  <img src="assets/images/blog/grid/2.jpg" alt="blog image">
+                </a>
+              </div><!-- /.entry-img -->
+              <div class="blog__content">
+                <div class="blog__meta">
+                  <span class="blog__meta-date">Oct 18, 2020</span>
+                  <div class="blog__meta-cat">
+                    <a href="#">Industry</a><a href="#">Construction</a>
+                  </div><!-- /.blog-meta-cat -->
+                </div><!-- /.blog-meta -->
+                <h4 class="blog__title"><a href="#">Control de Malezas</a></h4>
+                <a href="#" class="btn btn__secondary btn__link">
+                  <span>Ingresar</span>
+                  <i class="icon-arrow-right"></i>
+                </a>
+              </div><!-- /.entry-content -->
+            </div><!-- /.blog-item -->
+          </div><!-- /.col-lg-4 -->
+          <!-- Blog Item #3 -->
+          <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="blog-item">
+              <div class="blog__img">
+                <a href="#">
+                  <img src="assets/images/blog/grid/3.jpg" alt="blog image">
+                </a>
+              </div><!-- /.entry-img -->
+              <div class="blog__content">
+                <div class="blog__meta">
+                  <span class="blog__meta-date">Jan 20, 2020</span>
+                  <div class="blog__meta-cat">
+                    <a href="#">Engineering</a><a href="#">Distribution</a>
+                  </div><!-- /.blog-meta-cat -->
+                </div><!-- /.blog-meta -->
+                <h4 class="blog__title"><a href="#">Ecología y Medio Ambiente</a></h4>
+                <a href="#" class="btn btn__secondary btn__link">
+                  <span>Ingresar</span>
+                  <i class="icon-arrow-right"></i>
+                </a>
+              </div><!-- /.entry-content -->
+            </div><!-- /.blog-item -->
+          </div><!-- /.col-lg-4 -->
+        </div><!-- /.row-->
+      </div><!-- /.container -->
+    </section><!-- /.blog Grid -->
 
-	
-	
-	
-	
-	<!-- COMMON SCRIPTS -->
-	<script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/common_scripts.min.js"></script>
-	<script src="js/velocity.min.js"></script>
-	<script src="js/functions.js"></script>
+    <!-- ========================
+      Footer
+    ========================== -->
+    <footer id="footer" class="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-4 col-xl-3 footer__widget footer__widget-about">
+              <h6 class="footer__widget-title">Formas de Contacto</h6>
+              <div class="footer__widget-content">
+                <p class="color-gray">Ponte en contacto con nuestro equipo de trabajo quien te brindara mayor información.</p>
+                <p class="footer__contact-phone">
+                  <i class="icon-phone"></i>
+                  <a href="tel:5565454117">55 654 54117</a>
+                </p>
+                <p>Av. Libertador 1111, Ciudad Autónoma de Buenos Aires<br>1428 Argentina.</p>
+                <ul class="social__icons">
+                  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                </ul><!-- /.social-icons -->
+              </div>
+            </div><!-- /.col-xl-3 -->
+            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2 offset-xl-1 footer__widget footer__widget-nav">
+              
+              <div class="footer__widget-content">
+                <nav>
+                  <ul class="list-unstyled">
+                    
+                  </ul>
+                </nav>
+              </div><!-- /.footer-widget-content -->
+            </div><!-- /.col-xl-2 -->
+            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2 footer__widget footer__widget-nav">
+              
+              <div class="footer__widget-content">
+                <nav>
+                  
+                </nav>
+              </div><!-- /.footer-widget-content -->
+            </div><!-- /.col-xl-2 -->
+            <div class="col-sm-12 col-md-10 col-lg-6 col-xl-4 footer__widget footer__widget-newsletter">
+              <div class="footer__widget-content">
+                <p>Dejanos tu email y recibe nuestras novedades</p>
+                <form class="widget__newsletter-form">
+                  <div class="form-group mb-0">
+                    <input type="text" class="form-control" placeholder="Tu direccion de email">
+                    <button type="submit" class="btn btn__primary btn__hover2">
+                      <i class="icon-arrow-right"></i>
+                    </button>
+                  </div>
+                </form>
+              </div><!-- /.footer-widget-content -->
+            </div><!-- /.col-xl-4 -->
+          </div><!-- /.row -->
+        </div><!-- /.container -->
+      </div><!-- /.footer-top -->
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-md-3 col-lg-3">
+              <img src="assets/images/logo/logo-footer.png" alt="logo">
+            </div><!-- /.col-lg-3 -->
+            <div class="col-sm-12 col-md-9 col-lg-9 text-right">
+              <div class="footer__copyright">
+                <nav>
+                  <ul class="footer__copyright-links list-unstyled d-flex flex-wrap justify-content-end">
+                    <li><a href="#">Terminos & Condiciones </a></li>
+                    <li><a href="#">Politica y Privacidad</a></li>
+                  </ul>
+                </nav>
+                <p class="mb-0"> &copy; 2020 Charlasvirtuales.com.ar, Derechos en Trámite. Design by
+                  <a href="http://verticedigital.com.ar/" target="_new">Verticedigital.com.ar</a>
+                </p>
+              </div><!-- /.Footer-copyright -->
+            </div><!-- /.col-lg-9 -->
+          </div><!-- /.row -->
+        </div><!-- /.container -->
+      </div><!-- /.Footer-bottom -->
+    </footer><!-- /.Footer -->
+    <button id="scrollTopBtn"><i class="fa fa-long-arrow-up"></i></button>
 
-	<!-- Wizard script -->
-	<script src="js/booking_hotel_func.js"></script>
+    <div class="module__search-container">
+      <i class="fa fa-times close-search"></i>
+      <form class="module__search-form">
+        <input type="text" class="search__input" placeholder="Type Words Then Enter">
+        <button class="module__search-btn"><i class="fa fa-search"></i></button>
+      </form>
+    </div><!-- /.module-search-container -->
 
+  </div><!-- /.wrapper -->
+
+  <script src="assets/js/jquery-3.3.1.min.js"></script>
+  <script src="assets/js/plugins.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
+
 </html>

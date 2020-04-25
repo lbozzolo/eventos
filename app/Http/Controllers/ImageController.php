@@ -1,17 +1,19 @@
 <?php
 
-namespace Kallfu\Http\Controllers;
+namespace Eventos\Http\Controllers;
 
-use Kallfu\Repositories\ImageRepository;
-use Kallfu\Http\Controllers\AppBaseController as AppBaseController;
+use Eventos\Repositories\ImageRepository;
+use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Kallfu\Models\Image;
+use Eventos\Models\Image;
 use Intervention\Image\Facades\Image as Intervention;
+use Eventos\Traits\ImageTrait;
 
 class ImageController extends AppBaseController
 {
+    use ImageTrait;
     private $imageRepository;
 
     public function __construct(ImageRepository $imageRepo)
@@ -38,30 +40,14 @@ class ImageController extends AppBaseController
 
     public function verImage($file)
     {
-        $ruta = storage_path("imagenes\\".$file);
-
-        return response()->make(File::get($ruta),200)
-            ->header('Content-Type', 'image/jpg');
-    }
-
-    public function verCover($file)
-    {
-        $ruta = public_path("covers/".$file);
-
-        return response()->make(File::get($ruta),200)
-            ->header('Content-Type', 'image/jpg');
-    }
-
-    public function verPdf($file)
-    {
-        return response()->make(\Illuminate\Support\Facades\File::get(storage_path("app/".$file)),200)
-            ->header('Content-Type', 'application/pdf');
+        return response()->make(File::get(storage_path("imagenes\\".$file)),200)->header('Content-Type', 'image/jpg');
     }
 
     public function changeFileNameIfExists($file)
     {
         $nombre = $file->getClientOriginalName();
-        $extension = $file->guessExtension();
+//        $extension = $file->guessExtension();
+        $extension = 'jpg';
 
         $nombre = preg_replace('/\\.[^.\\s]{3,4}$/', '', $nombre) . '-' . str_random(18) . '.' . $extension;
 
@@ -103,11 +89,6 @@ class ImageController extends AppBaseController
 
     public function saveJqueryImageUpload(Request $request, $id, $class)
     {
-//        $validator = Validator::make($request->all(), ['img' => 'required|image|max:1024000']);
-//
-//        if ($validator->fails())
-//            return $validator->errors();
-
         $status = "";
 
         if(!$request->hasFile('img'))
@@ -115,13 +96,14 @@ class ImageController extends AppBaseController
 
         // Resize to image thumbnail. Different size if Slider image.
         if($class == 'Slider') {
-            $img_thumb = Intervention::make($request->file('img'))->resize(config('sistema.imagenes.SLIDER_WIDTH_THUMB'), config('sistema.imagenes.SLIDER_HEIGHT_THUMB'));
+            $img_thumb = Intervention::make($request->file('img'))
+                ->resize(config('sistema.imagenes.SLIDER_WIDTH_THUMB'), config('sistema.imagenes.SLIDER_HEIGHT_THUMB'));
         } else {
-            $img_thumb = Intervention::make($request->file('img'))->resize(config('sistema.imagenes.WIDTH_THUMB'), config('sistema.imagenes.HEIGHT_THUMB'));
+            $img_thumb = Intervention::make($request->file('img'))
+                ->resize(config('sistema.imagenes.WIDTH_THUMB'), config('sistema.imagenes.HEIGHT_THUMB'));
         }
 
-        //$class = 'Kallfu\Models\\'.$class;
-        $class = env('APP_NAME').'\Models\\'.$class;
+        $class = 'Eventos\Models\\'.$class;
         $model = $class::find($id);
 
         // Redirección si supera el máximo de fotos permitido
@@ -140,7 +122,6 @@ class ImageController extends AppBaseController
             $nombre = $this->changeFileNameIfExists($file);
 
             $imagen = Image::create(['path' => $nombre, 'main' => 0]);
-
             $imagen->title = ($request->title)? $request->title : '';
 
             $file->move(public_path('imagenes'), $nombre);
@@ -186,13 +167,14 @@ class ImageController extends AppBaseController
             // Confirma que el archivo no exista en el destino
             $nombre = $this->changeFileNameIfExists($file);
 
-            $imagen = Image::create(['path' => $nombre, 'main' => 0, 'type' => $type]);
-            $imagen->title = ($request->title)? $request->title : '';
-            $file->move(public_path('imagenes'), $nombre);
+            $imagenInt = Intervention::make($request->file('img'))->encode('jpg', 50);
 
+            $imagenInt->save(public_path('/imagenes/'). $nombre);
+            $imagen = Image::create(['path' => $nombre, 'main' => 0, 'type' => $type]);
 
             $image_thumb = $this->makeThumb($img_thumb, $nombre, null, $type);
             $imagen->thumbnail_id = $image_thumb->id;
+
             $imagen->save();
 
             $status = "uploaded";
@@ -200,6 +182,32 @@ class ImageController extends AppBaseController
         }
 
         return response($status,200);
+    }
+
+    public function subirMultiple(Request $request)
+    {
+        $messages = [
+            'filename.required' => 'No ha seleccionado ningún archivo.',
+            'filename.*.max' => 'La imagen es demasiado grande.'
+        ];
+        $this->validate($request, [
+            'filename' => 'required',
+            'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120'
+        ], $messages);
+
+        $itemId = $request['item_id'];
+        $class = $request['class'];
+
+        if($request->hasfile('filename')) {
+
+            foreach($request->file('filename') as $file) {
+                $image = $this->storeImage($file, $itemId, $class);
+                $data[] = $image->path;
+            }
+
+        }
+
+        return redirect()->back()->with('ok', 'Subida de imágenes exitosa');
     }
 
 }

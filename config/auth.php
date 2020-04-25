@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Kallfu\User::class,
+            'model' => Eventos\User::class,
         ],
 
         // 'users' => [

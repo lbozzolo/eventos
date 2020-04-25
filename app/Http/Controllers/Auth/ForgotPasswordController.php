@@ -1,8 +1,8 @@
 <?php
 
-namespace Kallfu\Http\Controllers\Auth;
+namespace Eventos\Http\Controllers\Auth;
 
-use Kallfu\Http\Controllers\Controller;
+use Eventos\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller

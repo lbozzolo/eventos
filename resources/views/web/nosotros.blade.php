@@ -1,146 +1,57 @@
 @extends('web.layout')
 
-
 @section('content')
 
-<!-- Header  Inner style-->
-<section class="row final-inner-header-nos">
-    <div class="container">
-        <h2 class="this-title">Nosotros</h2>
-    </div>
-</section>
+    <section id="pageTitle" class="page-title page-title-layout1 bg-overlay bg-parallax">
+        <div class="bg-img"><img src="{!! asset('template-web/assets/images/page-titles/1.jpg') !!}" alt="background"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7">
+                    <h1 class="pagetitle__heading">Un poco de nuestra historia</h1>
 
-<!-- Header  Slider style-->
-
-
-<!-- About Resort style-->
-<section class="container clearfix common-pad about-info-box">
-
-    <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-
-            <div class="sec-header3">
-                <h2>Un poco de nuestra Historia</h2>
-            </div>
-            <p>La Hostería Kallfu se encuentra ubicada en el centro de la Villa de alta montaña Caviahue, conocida por los bosques de Pehuenes, el lago Agrio, sus lagunas, sus cascadas  y la gran proximidad al volcán Copahue.</p>
-
-            <p>Contamos con apart. triples, habitaciones dobles, triples, cuádruples y séxtuples, desayuno incluido que se sirve en el restaurante ubicado en el mismo complejo. Acceso a la pileta climatizada, al hidromasaje y al sector de saunas.</p>
-
-            <h6>La atención por parte de sus dueños complementa las instalaciones con un servicio familiar y personalizado, demostrando un interés genuino en que cada visita se sienta consentida.</h6>
-
-            <ul>
-                <li><span>Naturaleza</span></li>
-                <li><span>Tranquilidad</span></li>
-                <li><span>Excelente Atención</span></li>
-            </ul>
-
-        </div>
-
-        <div class="col-sm-4 hidden-xs">
-
-            <div class="img-cap-effect">
-                <div class="img-box">
-                    <img src="{{ asset('template-web/images/about/1.jpg') }}" alt="">
-                    <div class="img-caption">
-
-                    </div>
                 </div>
-
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- About Resort style-->
+    <section id="aboutLayout2" class="about about-layout2 pt-120 pb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7">
+                    <div class="heading heading-2 mb-50">
 
-
-<!-- Our Resort Values style-->
-<section class="clearfix news-wrapper">
-    <div class="container clearfix common-pad">
-        <div class="row">
-
-            <div class="col-lg-6 col-md-6 col-xs-12 our-resort-value hidden-xs">
-                <div class="img-l-box"><img src="{{ asset('template-web/images/our-resort-values/1.jpg') }}" alt=""></div>
-                <div class="img-r-box"><div class="img-box1"><img src="{{ asset('template-web/images/our-resort-values/2.jpg') }}" alt=""></div><div class="img-box2"><img src="images/our-resort-values/3.jpg" alt=""></div></div>
-
-
-            </div>
-            <div class="col-lg-6 col-md-6 col-xs-12">
-
-                <div class="resort-r-value">
-                    <div class="sec-header sec-header-pad">
-                        <h2>Nuestros Valores</h2>
-                        <br>
+                        <h2 class="heading__title">Nosotros</h2>
                     </div>
-                    <div class="accordian-area">
-
-
-                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingOne">
-                                    <h4 class="panel-title">
-                                        <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseThree">
-                                            <span>Innovación y calidad al servicio del cliente.</span><i class="fa fa-minus"></i><i class="fa fa-plus"></i>
-                                        </a>
-                                    </h4>
-                                </div>
-
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <div class="about__text mr-30">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                             </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingTwo">
-                                    <h4 class="panel-title">
-                                        <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseThree">
-                                            Compromiso social y medioambiental.<i class="fa fa-minus"></i><i class="fa fa-plus"></i>
-                                        </a>
-                                    </h4>
-                                </div>
-
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingThree">
-                                    <h4 class="panel-title">
-                                        <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseThree">
-                                            Nuestra dedicación al cliente.<i class="fa fa-minus"></i><i class="fa fa-plus"></i>
-                                        </a>
-                                    </h4>
-                                </div>
-
-                            </div>
+                            <img src="{!! asset('template-web/assets/images/about/singnture.png') !!}" alt="singnture" class="signature">
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
 
                         </div>
                     </div>
-
                 </div>
-
+                <div class="col-sm-12 col-md-10 col-lg-8 col-xl-5 position-static">
+                    <div class="row mt-50 about__imgs-container">
+                        <div class="col-7">
+                            <div class="about__img">
+                                <img src="{!! asset('template-web/assets/images/about/1.jpg') !!}" alt="about" class="img-fluid w-100">
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="about__img mt-40">
+                                <img src="{!! asset('template-web/assets/images/about/2.jpg') !!}" alt="about" class="img-fluid w-100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
-
-    </div>
-
-
-</section>
-<!-- Our Resort Values style-->
-
-
-
-<!-- Welcome banner  style-->
-<div class="nasir-subscribe-form-row row">
-    <div class="container">
-        <div class="row this-dashed">
-            <div class="this-texts">
-                <h2>MANTENTE INFORMADO  </h2>
-                <h3>Recibe todas las noticias y novedades!!</h3>
-            </div>
-            <form class="this-form input-group" action="#" method="post">
-                <input type="email" class="form-control" placeholder="Ingrese una dirección de mail">
-                <span class="input-group-addon">
-                    <button type="submit" class="res-btn">Subscribirse</button>
-                </span>
-            </form>
-        </div>
-    </div>
-</div>
-
+    </section>
 
 @endsection

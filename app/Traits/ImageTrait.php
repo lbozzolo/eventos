@@ -1,11 +1,11 @@
 <?php
 
-namespace Kallfu\Traits;
+namespace Eventos\Traits;
 
 use Illuminate\Support\Facades\Validator;
-use Kallfu\Models\Image;
+use Eventos\Models\Image;
 use Intervention\Image\Facades\Image as Intervention;
-use Kallfu\Repositories\ImageRepository;
+use Eventos\Repositories\ImageRepository;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
@@ -110,18 +110,31 @@ trait ImageTrait
         $model = $class::find($id);
 
         // Resize to image thumbnail. Different size if Slider image.
-        if($class == 'Kallfu\Models\Slider') {
-            $img_thumb = Intervention::make($file)->resize(config('sistema.imagenes.SLIDER_WIDTH_THUMB'), config('sistema.imagenes.SLIDER_HEIGHT_THUMB'));
-        }elseif ($class == 'Kallfu\Models\Service') {
-            $img_thumb = Intervention::make($file)->resize(64, 64);
+        if($class == env('APP_NAME').'\Models\Slider') {
+            $img_thumb = Intervention::make($file)
+                ->resize(config('sistema.imagenes.SLIDER_WIDTH_THUMB'), null, function ($constraint){
+                    $constraint->aspectRatio();
+                });
         } else {
-            $img_thumb = Intervention::make($file)->resize(config('sistema.imagenes.WIDTH_THUMB'), config('sistema.imagenes.HEIGHT_THUMB'));
+
+            $img_thumb = Intervention::make($file);
+
+            $width = ($img_thumb->height() < $img_thumb->width())? null : config('sistema.imagenes.WIDTH_THUMB');
+            $height = ($img_thumb->height() < $img_thumb->width())? config('sistema.imagenes.HEIGHT_THUMB') : null;
+
+            $img_thumb->resize($width, $height, function ($constraint){
+                $constraint->aspectRatio();
+            });
+
+            $img_thumb->crop(config('sistema.imagenes.WIDTH_THUMB'), config('sistema.imagenes.HEIGHT_THUMB'), 0, 0);
+
         }
 
         // Confirma que el archivo no exista en el destino
         $nombre = $this->changeFileNameIfExists($file);
 
         $imagen = Image::create(['path' => $nombre, 'main' => 0]);
+
         $file->move(public_path('imagenes'), $nombre);
 
         $model->images()->save($imagen);
@@ -148,7 +161,8 @@ trait ImageTrait
         $type = ($type == 'past')? 0 : 1;
 
         // Resize to image thumbnail
-        $img_thumb = Intervention::make($request->file('img'))->resize(config('sistema.imagenes.WIDTH_THUMB'), config('sistema.imagenes.HEIGHT_THUMB'));
+        $img_thumb = Intervention::make($request->file('img'))
+            ->resize(config('sistema.imagenes.WIDTH_THUMB'), config('sistema.imagenes.HEIGHT_THUMB'));
 
         if($request->file('img')){
 

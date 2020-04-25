@@ -1,9 +1,9 @@
 <?php
 
-namespace Kallfu\Http\Requests;
+namespace Eventos\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Kallfu\User;
+use Eventos\User;
 
 class UpdateUserRequest extends FormRequest
 {

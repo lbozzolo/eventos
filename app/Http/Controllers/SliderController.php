@@ -1,14 +1,14 @@
 <?php
 
-namespace Kallfu\Http\Controllers;
+namespace Eventos\Http\Controllers;
 
-use Kallfu\Http\Requests\CreateSliderRequest;
-use Kallfu\Http\Requests\UpdateSliderRequest;
-use Kallfu\Models\Image;
-use Kallfu\Models\SliderMessage;
-use Kallfu\Repositories\SliderRepository;
-use Kallfu\Http\Controllers\AppBaseController as AppBaseController;
-use Kallfu\Models\Slider;
+use Eventos\Http\Requests\CreateSliderRequest;
+use Eventos\Http\Requests\UpdateSliderRequest;
+use Eventos\Models\Image;
+use Eventos\Models\SliderMessage;
+use Eventos\Repositories\SliderRepository;
+use Eventos\Http\Controllers\AppBaseController as AppBaseController;
+use Eventos\Models\Slider;
 
 class SliderController extends AppBaseController
 {

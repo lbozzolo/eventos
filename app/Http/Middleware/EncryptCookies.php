@@ -1,6 +1,6 @@
 <?php
 
-namespace Kallfu\Http\Middleware;
+namespace Eventos\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 

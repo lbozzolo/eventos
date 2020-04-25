@@ -16,7 +16,7 @@
 
             <span style="display: inline-block">
             <a href="" data-toggle="modal" data-target="#modalVerImage{!! $image->id !!}">
-                <img src="{{ route('imagenes.ver', $image->path) }}" alt="{!! $image->title !!}" class="img-responsive" style="{!! ($image->main == 0)? 'opacity: 0.5;' : '' !!} height: 80px">
+                <img src="{{ route('imagenes.ver', $image->path) }}" alt="{!! $image->title !!}" class="img-responsive" style="{!! ($image->main == 0)? 'opacity: 0.5;' : '' !!} height: 80px;">
             </a>
         </span>
 

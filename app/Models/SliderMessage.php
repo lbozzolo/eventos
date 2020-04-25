@@ -1,8 +1,8 @@
 <?php
 
-namespace Kallfu\Models;
+namespace Eventos\Models;
 
-use Kallfu\Models\Entity as Entity;
+use Eventos\Models\Entity as Entity;
 
 class SliderMessage extends Entity
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kallfu\Providers;
+namespace Eventos\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;

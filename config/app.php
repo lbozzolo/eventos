@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Argentina/Buenos_Aires',
 
     /*
     |--------------------------------------------------------------------------
@@ -177,11 +177,11 @@ return [
         /*
          * Application Service Providers...
          */
-        Kallfu\Providers\AppServiceProvider::class,
-        Kallfu\Providers\AuthServiceProvider::class,
-        // Kallfu\Providers\BroadcastServiceProvider::class,
-        Kallfu\Providers\EventServiceProvider::class,
-        Kallfu\Providers\RouteServiceProvider::class,
+        Eventos\Providers\AppServiceProvider::class,
+        Eventos\Providers\AuthServiceProvider::class,
+        // Eventos\Providers\BroadcastServiceProvider::class,
+        Eventos\Providers\EventServiceProvider::class,
+        Eventos\Providers\RouteServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
 
     ],

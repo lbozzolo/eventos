@@ -11,7 +11,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Vaciar directorio de imágenes
+        exec("rm -R public/imagenes/*");
+
         $this->call(UsersTableSeeder::class);
-        $this->call(ServicesTableSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(PermissionSeeder::class);
+        $this->call(EstadosSeeder::class);
+        $this->call(AuspiciantesSeeder::class);
+        //$this->call(FakerSeeders::class);
     }
 }
