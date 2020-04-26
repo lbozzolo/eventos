@@ -57,13 +57,13 @@
                             </form>
                         </li>
                         @endrole
-                    @else
-                        <li class="d-none d-lg-block text-center nav-item">
-                        <a  class="dropdown-item text-celeste-oscuro" href="{{ route('web.iniciar-sesion') }}">
-                            <i class="mdi mdi-exit-to-app"></i>
-                            Iniciar sesión
-                        </a>
-                        </li>
+                    {{--@else--}}
+                        {{--<li class="d-none d-lg-block text-center nav-item">--}}
+                        {{--<a  class="dropdown-item text-celeste-oscuro" href="{{ route('web.iniciar-sesion') }}">--}}
+                            {{--<i class="mdi mdi-exit-to-app"></i>--}}
+                            {{--Iniciar sesión--}}
+                        {{--</a>--}}
+                        {{--</li>--}}
                     @endif
 
 

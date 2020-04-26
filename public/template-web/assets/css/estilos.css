@@ -76,6 +76,10 @@ a {
     background-color: #1E407C;
 }
 
+#scrollTopBtn {
+    background-color: #149EA6;
+}
+
 /* -------------------------------------------- */
 .paises option{
     border: 2px solid red;
