@@ -19,7 +19,8 @@
                         <a href="{!! route('home') !!}" class="{{ Request::is('/') ? 'active' : '' }} dropdown-toggle nav__item-link">Home</a>
                     </li><!-- /.nav-item -->
                     <li class="nav__item with-dropdown">
-                        <a href="{!! route('web.nosotros') !!}" class="{{ Request::is('nosotros*') ? 'active' : '' }} dropdown-toggle nav__item-link">Quiénes Somos</a>
+{{--                        <a href="{!! route('web.nosotros') !!}" class="{{ Request::is('nosotros*') ? 'active' : '' }} dropdown-toggle nav__item-link">Quiénes Somos</a>--}}
+                        <a href="#quienes-somos" class="dropdown-toggle nav__item-link">Quiénes Somos</a>
                     </li><!-- /.nav-item -->
                     <li class="nav__item with-dropdown">
                         <a href="{!! route('web.charlas') !!}" class="{{ Request::is('eventos*') ? 'active' : '' }} dropdown-toggle nav__item-link">Eventos</a>

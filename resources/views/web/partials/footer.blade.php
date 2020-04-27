@@ -3,42 +3,29 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-4 col-xl-3 footer__widget footer__widget-about">
-                    <h6 class="footer__widget-title">Formas de Contacto</h6>
+                    <h6 class="footer__widget-title">Vías de Contacto</h6>
                     <div class="footer__widget-content">
                         <p class="color-gray">Para mayor información ponete en contacto con nuestro equipo de trabajo.</p>
                         <p class="footer__contact-phone">
                             <i class="icon-phone"></i>
                             <a href="tel:{!! config('sistema.data.phone') !!}">{!! config('sistema.data.phone') !!}</a>
+                            <p class="lead text-celeste-claro">{!! config('sistema.data.email') !!}</p>
                         </p>
-                        <p>Av. Libertador 1111, Ciudad Autónoma de Buenos Aires<br>1428 Argentina.</p>
+                        {{--<p>Av. Libertador 1111, Ciudad Autónoma de Buenos Aires<br>1428 Argentina.</p>--}}
                         <ul class="social__icons">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        </ul><!-- /.social-icons -->
+                            <li><a href="https://facebook.com/EventumArg" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://www.instagram.com/eventumarg/" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="https://twitter.com/eventumarg" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                        </ul>
                     </div>
-                </div><!-- /.col-xl-3 -->
-                <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2 offset-xl-1 footer__widget footer__widget-nav">
+                </div>
 
-                    <div class="footer__widget-content">
-                        <nav>
-                            <ul class="list-unstyled">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2 offset-xl-1 footer__widget footer__widget-nav"></div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2 footer__widget footer__widget-nav"></div>
 
-                            </ul>
-                        </nav>
-                    </div><!-- /.footer-widget-content -->
-                </div><!-- /.col-xl-2 -->
-                <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2 footer__widget footer__widget-nav">
-
-                    <div class="footer__widget-content">
-                        <nav>
-
-                        </nav>
-                    </div><!-- /.footer-widget-content -->
-                </div><!-- /.col-xl-2 -->
                 <div class="col-sm-12 col-md-10 col-lg-6 col-xl-4 footer__widget footer__widget-newsletter">
                     <div class="footer__widget-content">
-                        <p>Dejanos tu email y recibe nuestras novedades</p>
+                        <p>Dejanos tu email y recibí nuestras novedades</p>
                         <form class="widget__newsletter-form">
                             <div class="form-group mb-0">
                                 <input type="text" class="form-control" placeholder="Tu direccion de email">
@@ -47,11 +34,11 @@
                                 </button>
                             </div>
                         </form>
-                    </div><!-- /.footer-widget-content -->
-                </div><!-- /.col-xl-4 -->
-            </div><!-- /.row -->
-        </div><!-- /.container -->
-    </div><!-- /.footer-top -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
@@ -61,14 +48,14 @@
                 </div><!-- /.col-lg-3 -->
                 <div class="col-sm-12 col-md-9 col-lg-9 text-right">
                     <div class="footer__copyright">
-                        <nav>
-                            <ul class="footer__copyright-links list-unstyled d-flex flex-wrap justify-content-end">
-                                <li><a href="#">Terminos & Condiciones </a></li>
-                                <li><a href="#">Politica y Privacidad</a></li>
-                            </ul>
-                        </nav>
-                        <p class="mb-0"> &copy; 2020 Charlasvirtuales.com.ar, Derechos en Trámite. Desarrollado por
-                            <a href="http://verticedigital.com.ar/" target="_new">Verticedigital.com.ar</a>
+                        {{--<nav>--}}
+                            {{--<ul class="footer__copyright-links list-unstyled d-flex flex-wrap justify-content-end">--}}
+                                {{--<li><a href="#">Terminos & Condiciones </a></li>--}}
+                                {{--<li><a href="#">Politica y Privacidad</a></li>--}}
+                            {{--</ul>--}}
+                        {{--</nav>--}}
+                        <p class="mb-0"> &copy; 2020 eventum.com.ar - Derechos en Trámite - Desarrollado por
+                            <a href="http://verticedigital.com.ar/" target="_new">Vértice Digital</a>
                         </p>
                     </div><!-- /.Footer-copyright -->
                 </div><!-- /.col-lg-9 -->

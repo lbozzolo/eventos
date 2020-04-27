@@ -8,8 +8,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
                         <div class="slide__content">
-                            <h2 class="slide__title">CICLOS DE CHARLAS Y CONFERENCIAS
-                                SOBRE PRODUCTOS DEL CAMPO</h2>
+                            <h2 class="slide__title">EVENTOS ON LINE</h2>
                         </div><!-- /.slide-content -->
                     </div><!-- /.col-xl-9 -->
                 </div><!-- /.row -->
@@ -33,7 +32,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
                         <div class="slide__content">
-                            <h2 class="slide__title">COMUNICACION DE EVENTOS</h2>
+                            <h2 class="slide__title">SEGURIDAD Y PRIVACIDAD ASEGURADAS</h2>
                         </div><!-- /.slide-content -->
                     </div><!-- /.col-xl-9 -->
                 </div><!-- /.row -->

@@ -24,8 +24,7 @@
                         <div class="contact__panel-banner">
                             <img src="{!! asset('template-web/assets/images/banners/2.jpg') !!}" alt="banner img">
                             <div class="cta__banner">
-                                <p class="cta__desc"><strong>Somo un equipo dispuesto a trabajar con vos y para vos los 365 días de
-                                        09:00 AM - 19:00 PM</strong></p>
+                                <p class="cta__desc"><strong>Somos Eventum. Convertimos tu necesidad en realidad.</strong></p>
                                 <div class="contact__number d-flex align-items-center">
                                     <i class="icon-phone"></i>
                                     <a href="tel:5565454117">55 654 541 17</a>

@@ -81,6 +81,11 @@ a {
 }
 
 /* -------------------------------------------- */
+
+h1, h2, h3, h4, h5, h6 {
+    text-transform: none!important;
+}
+
 .paises option{
     border: 2px solid red;
     width: 500px;

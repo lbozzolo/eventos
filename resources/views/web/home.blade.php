@@ -12,7 +12,7 @@
                 <h2 class="text__block-title text-white">¿Estás pensando en realizar un evento? </h2>
                 <p class="lead text-azul-oscuro">Desde nuestra plataforma Eventum podemos realizar streaming en vivo de reuniones, seminarios y congresos, ya sea desde computadoras personales o equipos profesionales.
                     <br>
-                    Eventum es la plataforma de streaming que lleva reuniones, seminarios y congresos a u pantalla.
+                    Eventum es la plataforma de streaming que lleva reuniones, seminarios y congresos a tu pantalla.
                 </p>
             </div>
         </div>
@@ -125,9 +125,10 @@
                     </div>
                 </div>
 
-
         </div>
     </section>
+
+    <section  id="quienes-somos"></section>
 
     <section class="blog blog-grid bg-dark-green">
         <div class="container">
@@ -144,34 +145,22 @@
         </div>
     </section>
 
+    {{--<section id="blogGrid" class="blog blog-grid pb-70">--}}
+        {{--<div class="container">--}}
 
+            {{--<h2 class="text__block-title">Eventos recientes</h2>--}}
+            {{--<div class="row">--}}
 
-    {{--<section class="bg-dark-green pt-5 pb-3">--}}
-        {{--<div class="row">--}}
-            {{--<div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">--}}
-                {{--<div class="heading-2 text-">--}}
-                    {{--<h2 class="heading__title text-white">Charlas recientes<br></h2>--}}
+            {{--@foreach($proyectos as $proyecto)--}}
+
+                {{--<div class="col-sm-12 col-md-6 col-lg-4">--}}
+                    {{--@include('web.components.proyecto-card')--}}
                 {{--</div>--}}
+
+            {{--@endforeach--}}
+
             {{--</div>--}}
         {{--</div>--}}
     {{--</section>--}}
-
-    <section id="blogGrid" class="blog blog-grid pb-70">
-        <div class="container">
-
-            <h2 class="text__block-title">Eventos recientes</h2>
-            <div class="row">
-
-            @foreach($proyectos as $proyecto)
-
-                <div class="col-sm-12 col-md-6 col-lg-4">
-                    @include('web.components.proyecto-card')
-                </div>
-
-            @endforeach
-
-            </div>
-        </div>
-    </section>
 
 @endsection
