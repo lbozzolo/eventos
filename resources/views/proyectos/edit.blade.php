@@ -51,6 +51,10 @@
     <script>
 
         $('.select2').select2({
+            multiple: false
+        });
+
+        $('.select2m').select2({
             multiple: true
         });
 

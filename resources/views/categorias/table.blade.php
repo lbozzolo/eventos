@@ -1,7 +1,7 @@
 <table class="table">
     <thead>
     <tr>
-        <th>Id</th>
+        <th style="width: 80px">Id</th>
         <th>Nombre</th>
         <th>slug</th>
         <th>Opciones</th>

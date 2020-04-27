@@ -128,6 +128,11 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'ImageController@verPdf'
         ]);
 
+        Route::delete('pdf/{id}/destroy', [
+            'as' => 'pdf.destroy',
+            'uses' => 'ProyectoController@destroyPdf'
+        ]);
+
         // Categorias
         Route::resource('categorias', 'CategoriaController');
 

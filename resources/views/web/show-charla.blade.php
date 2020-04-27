@@ -7,15 +7,12 @@
     @include('vendor.flash.message')
 
     <section class="blog blog-single pb-5 pt-5 bg-light">
-        <div class="col-lg-12">
-            @include('web.components.cerrar-sesion')
-        </div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
 
                     <h2>
-                        <span class="text-azul-claro">Evento</span>
+                        <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
                         - {!! $charla->nombre !!} / {!! $charla->cliente->nombre !!}
                     </h2>
 
@@ -47,43 +44,15 @@
         </div>
     </section>
 
-    {{--<section id="blogSingleCentered" class="blog blog-single pb-40 pt-5">--}}
-        {{--<div class="container">--}}
-            {{--<div class="row">--}}
-
-                {{--<div class="col-sm-12 col-md-12 col-lg-8">--}}
-                    {{--<div class="blog-item">--}}
-                        {{--<div class="blog__img">--}}
-                            {{--<a href="#">--}}
-                                {{--@if($charla->iframes->count())--}}
-                                {{--<iframe width="760"--}}
-                                        {{--height="415"--}}
-                                        {{--id="iframe-primary"--}}
-                                        {{--src="https://www.youtube.com/embed/{!! $charla->iframes->first()->video_id !!}"--}}
-                                        {{--frameborder="0"--}}
-                                        {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
-                                        {{--allowfullscreen>--}}
-                                {{--</iframe>--}}
-                                {{--@endif--}}
-                            {{--</a>--}}
-                        {{--</div>--}}
-                        {{--<div>--}}
-                            {{--@foreach($charla->iframes as $iframe)--}}
-                                {{--<span title="{!! $iframe->title !!}">--}}
-                                    {{--<img src="https://img.youtube.com/vi/{!! $iframe->video_id !!}/default.jpg"--}}
-                                         {{--class="iframe-secondary"--}}
-                                         {{--style="width: 100px"--}}
-                                         {{--data-url="https://www.youtube.com/embed/{!! $iframe->video_id !!}">--}}
-                                {{--</span>--}}
-                            {{--@endforeach--}}
-                        {{--</div>--}}
-
-                    {{--</div>--}}
-
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</section>--}}
+    <section class="pt-0 pb-0 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    @include('web.components.cerrar-sesion')
+                </div>
+            </div>
+        </div>
+    </section>
 
 @endsection
 

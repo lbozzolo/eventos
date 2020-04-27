@@ -9,18 +9,18 @@
 </div>
 
 <div class="form-group col-lg-12">
-    {!! Form::label('categorias[]', 'Categorías') !!}
-    {!! Form::select('categorias[]', (isset($categorias))? $categorias : [], null, ['class' => 'form-control select2', 'multiple']) !!}
+    {!! Form::label('categorias[]', 'Categoría') !!}
+    {!! Form::select('categorias[]', (isset($categorias))? $categorias : [], null, ['class' => 'form-control select2']) !!}
 </div>
 
 <div class="form-group col-lg-12">
     {!! Form::label('cliente_id', 'Cliente') !!}
-    {!! Form::select('cliente_id', (isset($clientes))? $clientes : [], null, ['class' => 'form-control']) !!}
+    {!! Form::select('cliente_id', (isset($clientes))? $clientes : [], null, ['class' => 'form-control select2']) !!}
 </div>
 
 <div class="form-group col-lg-6">
     {!! Form::label('estado_id', 'Estado') !!}
-    {!! Form::select('estado_id', (isset($estados))? $estados : [], null, ['class' => 'form-control']) !!}
+    {!! Form::select('estado_id', (isset($estados))? $estados : [], null, ['class' => 'form-control select2']) !!}
 </div>
 
 <div class="form-group col-lg-6">
@@ -30,7 +30,7 @@
 
 <div class="form-group col-lg-12">
     {!! Form::label('auspiciantes[]', 'Auspiciantes') !!}
-    {!! Form::select('auspiciantes[]', (isset($auspiciantes))? $auspiciantes : [], null, ['class' => 'form-control select2', 'multiple']) !!}
+    {!! Form::select('auspiciantes[]', (isset($auspiciantes))? $auspiciantes : [], null, ['class' => 'form-control select2m', 'multiple']) !!}
 </div>
 
 <div class="form-group col-lg-6">

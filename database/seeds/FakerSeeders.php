@@ -12,17 +12,6 @@ class FakerSeeders extends Seeder
     public function run()
     {
 
-        DB::table('categorias')->insert([
-            [
-                'nombre' => 'Categoría 1',
-                'slug' => str_slug('Categoría 1'),
-            ],
-            [
-                'nombre' => 'Categoría 2',
-                'slug' => str_slug('Categoría 2'),
-            ],
-        ]);
-
         DB::table('clientes')->insert([
             ['nombre' => 'KWS'],
             ['nombre' => 'Cargrill'],
@@ -123,9 +112,10 @@ class FakerSeeders extends Seeder
         ]);
 
         $proyectos = \Eventos\Models\Proyecto::all();
+        $categorias = \Eventos\Models\Categoria::all();
 
         foreach($proyectos as $proyecto){
-            $proyecto->categorias()->attach([rand(1,2)]);
+            $proyecto->categorias()->attach($categorias->random());
             $proyecto->header()->create();
         }
 

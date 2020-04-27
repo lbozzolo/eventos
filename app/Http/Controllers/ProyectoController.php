@@ -265,6 +265,13 @@ class ProyectoController extends AppBaseController
         return redirect()->back()->with('ok', 'PDF guardado con éxito');
     }
 
+    public function destroyPdf(Request $request, $id)
+    {
+        $pdf = Pdf::find($id);
+        $pdf->delete();
+        return redirect()->back()->with('ok', 'PDF eliminado con éxito');
+    }
+
     public function inscripciones($id)
     {
         $proyecto = Proyecto::find($id);

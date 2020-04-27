@@ -6,29 +6,17 @@
     @include('web.components.header-charla')
 
 
-    <section class="blog blog-single pb-5 pt-5 bg-light">
-        <div class="col-lg-12">
-            @include('web.components.cerrar-sesion')
-        </div>
+    <section class="blog blog-single pb-0 pt-4 bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
 
                     @include('vendor.flash.message')
 
-                    <h2>
-                        <span class="text-azul-claro">Evento</span>
-                        - {!! $charla->nombre !!} / {!! $charla->cliente->nombre !!}
-                    </h2>
-
-                    @if($charla->publico)
-                        <span class="text-dark-green">Este evento es público.</span>
-                    @else
-                        <span class="text-dark-green">Estás inscripto a este evento.</span>
-                        {{--<a href="">Cancelar inscripción</a>--}}
-                    @endif
-
-                    @include('web.components.info-evento')
+                    <h4>
+                        <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
+                        - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
+                    </h4>
 
                 </div>
             </div>
@@ -59,6 +47,33 @@
         </div>
     </section>
 
+    <section class="pt-5 pb-5 pl-5 bg-celeste-oscuro text-white">
+        <div class="container ">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    @if($charla->publico)
+                        <span class="text-azul-claro">Este evento es público.</span>
+                    @else
+                        <span class="text-black">Estás inscripto a este evento.</span>
+                    @endif
+
+                    @include('web.components.info-evento')
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pt-0 pb-0 bg-celeste-claro text-azul-oscuro">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    @include('web.components.cerrar-sesion')
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 @endsection

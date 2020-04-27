@@ -47,19 +47,19 @@
             </a>
         </li>
 
-        <li class="{{ Request::is('sliders*') ? 'active' : '' }} nav-item">
-            <a href="{!! route('sliders.index') !!}" class="nav-link">
-                <i class="mdi menu-icon {{ Request::is('sliders*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>
-                <span class="menu-title">Sliders</span>
-            </a>
-        </li>
+        {{--<li class="{{ Request::is('sliders*') ? 'active' : '' }} nav-item">--}}
+            {{--<a href="{!! route('sliders.index') !!}" class="nav-link">--}}
+                {{--<i class="mdi menu-icon {{ Request::is('sliders*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>--}}
+                {{--<span class="menu-title">Sliders</span>--}}
+            {{--</a>--}}
+        {{--</li>--}}
 
-        <li class="{{ Request::is('newsletter*') ? 'active' : '' }} nav-item">
-            <a href="{!! route('newsletter.index') !!}" class="nav-link">
-                <i class="mdi menu-icon {{ Request::is('newsletter*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>
-                <span class="menu-title">Newsletter</span>
-            </a>
-        </li>
+        {{--<li class="{{ Request::is('newsletter*') ? 'active' : '' }} nav-item">--}}
+            {{--<a href="{!! route('newsletter.index') !!}" class="nav-link">--}}
+                {{--<i class="mdi menu-icon {{ Request::is('newsletter*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>--}}
+                {{--<span class="menu-title">Newsletter</span>--}}
+            {{--</a>--}}
+        {{--</li>--}}
 
         <li class="{{ Request::is('users*') ? 'active' : '' }} nav-item">
             <a href="{!! route('users.index') !!}" class="nav-link">

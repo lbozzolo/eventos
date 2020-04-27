@@ -42,10 +42,38 @@
 
                                         <li>
                                             <a href="{!! route('pdf.ver', $pdf->path) !!}" target="_blank">
-                                            <span class="text-primary">
-                                                <i class="mdi mdi-file-pdf-box mdi-18px"></i> {!! $pdf->title !!}
-                                            </span>
+                                                <span class="text-primary">
+                                                    <i class="mdi mdi-file-pdf-box mdi-18px"></i> {!! $pdf->title !!}
+                                                </span>
                                             </a>
+
+                                            <span title="Eliminar" type="button" data-toggle="modal" data-target="#delete{!! $pdf->id !!}" class="text-danger" style="cursor: pointer">eliminar</span>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="delete{!! $pdf->id !!}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Eliminar PDF</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>¿Desea eliminar PDF?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            {!! Form::open(['route' => ['pdf.destroy', $pdf->id], 'method' => 'delete']) !!}
+
+                                                            <button title="Eliminar" type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+                                                            {!! Form::close() !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </li>
 
                                     @empty
