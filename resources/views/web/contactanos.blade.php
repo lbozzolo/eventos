@@ -45,31 +45,31 @@
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        {!! Form::text('name', null, ['class' => 'form-control', 'placeholdeer' => 'Nombre']) !!}
+                                        {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
                                         {{--<input name="name" type="text" class="form-control" placeholder="Nombre">--}}
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        {!! Form::email('email', null, ['class' => 'form-control', 'placeholdeer' => 'Email']) !!}
+                                        {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
                                         {{--<input name="email" type="email" class="form-control" placeholder="Email">--}}
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        {!! Form::text('phone', null, ['class' => 'form-control', 'placeholdeer' => 'Teléfono']) !!}
+                                        {!! Form::text('phone', null, ['class' => 'form-control', 'placeholder' => 'Teléfono']) !!}
                                         {{--<input name="phone" type="text" class="form-control" placeholder="Telefono">--}}
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        {!! Form::text('company', null, ['class' => 'form-control', 'placeholdeer' => 'Empresa']) !!}
+                                        {!! Form::text('company', null, ['class' => 'form-control', 'placeholder' => 'Empresa']) !!}
                                         {{--<input name="company" type="text" class="form-control" placeholder="Empresa">--}}
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        {!! Form::textarea('message', null, ['class' => 'form-control', 'placeholdeer' => 'Comentario']) !!}
+                                        {!! Form::textarea('message', null, ['class' => 'form-control', 'placeholder' => 'Comentario']) !!}
                                         {{--<textarea name="message" class="form-control" placeholder="Comentario"></textarea>--}}
                                     </div>
                                 </div>
