@@ -27,32 +27,55 @@
                                 <p class="cta__desc"><strong>Somos Eventum. Convertimos tu necesidad en realidad.</strong></p>
                                 <div class="contact__number d-flex align-items-center">
                                     <i class="icon-phone"></i>
-                                    <a href="tel:5565454117">55 654 541 17</a>
+                                    <a href="tel:{!! config('sistema.data.phone') !!}">{!! config('sistema.data.phone') !!}</a>
                                 </div>
                             </div>
                         </div>
-                        <form class="contact__form-panel">
+
+                            {!! Form::open(['url' => route('web.post.contact'), 'method' => 'post', 'class' => 'contact__form-panel']) !!}
+
                             <div class="row">
+                                <div class="col-lg-12">
+                                    @include('vendor.flash.message')
+                                </div>
                                 <div class="col-sm-12 contact__form-panel-header">
                                     <h4>Envianos tus datos</h4>
                                     <p>Y uno de nuestros asesores se pondrá en contacto para poder brindarte
                                         mayor información.</p>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="form-group"><input type="text" class="form-control" placeholder="Nombre"></div>
+                                    <div class="form-group">
+                                        {!! Form::text('name', null, ['class' => 'form-control', 'placeholdeer' => 'Nombre']) !!}
+                                        {{--<input name="name" type="text" class="form-control" placeholder="Nombre">--}}
+                                    </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="form-group"><input type="email" class="form-control" placeholder="Email"></div>
+                                    <div class="form-group">
+                                        {!! Form::email('email', null, ['class' => 'form-control', 'placeholdeer' => 'Email']) !!}
+                                        {{--<input name="email" type="email" class="form-control" placeholder="Email">--}}
+                                    </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="form-group"><input type="text" class="form-control" placeholder="Telefono"></div>
+                                    <div class="form-group">
+                                        {!! Form::text('phone', null, ['class' => 'form-control', 'placeholdeer' => 'Teléfono']) !!}
+                                        {{--<input name="phone" type="text" class="form-control" placeholder="Telefono">--}}
+                                    </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="form-group"><input type="text" class="form-control" placeholder="Empresa"></div>
+                                    <div class="form-group">
+                                        {!! Form::text('company', null, ['class' => 'form-control', 'placeholdeer' => 'Empresa']) !!}
+                                        {{--<input name="company" type="text" class="form-control" placeholder="Empresa">--}}
+                                    </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        <textarea class="form-control" placeholder="Comentario"></textarea>
+                                        {!! Form::textarea('message', null, ['class' => 'form-control', 'placeholdeer' => 'Comentario']) !!}
+                                        {{--<textarea name="message" class="form-control" placeholder="Comentario"></textarea>--}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        {!! Recaptcha::render() !!}
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
@@ -61,7 +84,8 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                            {!! Form::close() !!}
+
                     </div>
                 </div>
             </div>

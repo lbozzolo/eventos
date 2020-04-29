@@ -156,18 +156,17 @@ class WebController extends AppBaseController
 
     public function postContact(ContactoRequest $request)
     {
-
         $data = array(
             'name' => $request['name'],
             'email' => $request['email'],
-            'subject' => $request['subject'],
-            'telefono' => $request['telefono'],
+            'phone' => $request['phone'],
+            'company' => $request['company'],
             'message' => $request['message']
         );
-        
+
         Mail::send('emails.contacto', ['data' => $data], function($message) use ($data){
-            $message->to(config('mail.username'));
-            $message->subject($data['subject']);
+            $message->to(config('mail.from.address'));
+            $message->subject('Email de contacto de eventum.com.ar');
             $message->from($data['email']);
         });
 
@@ -178,7 +177,6 @@ class WebController extends AppBaseController
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'g-recaptcha-response' => 'required|recaptcha',
         ]);
 
         if ($validator->fails()) {
@@ -199,6 +197,21 @@ class WebController extends AppBaseController
         }
 
         return redirect()->back()->withErrors('Ocurrió un error. No se pudo suscribir.');
+    }
+
+    public function test(Request $request)
+    {
+
+        $data = [
+            'subject' => 'Mensaje',
+            'name' => 'Fulanito de tal',
+            'email' => 'fulano@mail.com',
+            'phone' => '982748234',
+            'company' => 'Rizomagroup',
+            'message' => 'Este es el mensaje del mail'
+        ];
+
+        return view('emails.contacto')->with(['data' => $data]);
     }
 
 }

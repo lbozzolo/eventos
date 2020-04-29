@@ -11,6 +11,11 @@
 |
 */
 
+Route::get('test', [
+    'as' => 'test',
+    'uses' => 'WebController@test'
+]);
+
 require(__DIR__ . '/admin.php');
 
 Route::get('/', function () {
@@ -76,6 +81,11 @@ Route::get('nosotros', [
 Route::get('contactanos', [
     'as' => 'web.contactanos',
     'uses' => 'WebController@contactanos'
+]);
+
+Route::post('post-contact/send/email', [
+    'as' => 'web.post.contact',
+    'uses' => 'WebController@postContact'
 ]);
 
 

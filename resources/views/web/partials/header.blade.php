@@ -17,19 +17,21 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav__item with-dropdown">
                         <a href="{!! route('home') !!}" class="{{ Request::is('/') ? 'active' : '' }} dropdown-toggle nav__item-link">Home</a>
-                    </li><!-- /.nav-item -->
+                    </li>
                     <li class="nav__item with-dropdown">
 {{--                        <a href="{!! route('web.nosotros') !!}" class="{{ Request::is('nosotros*') ? 'active' : '' }} dropdown-toggle nav__item-link">Quiénes Somos</a>--}}
-                        <a href="#quienes-somos" class="dropdown-toggle nav__item-link">Quiénes Somos</a>
-                    </li><!-- /.nav-item -->
-                    <li class="nav__item with-dropdown">
-                        <a href="{!! route('web.charlas') !!}" class="{{ Request::is('eventos*') ? 'active' : '' }} dropdown-toggle nav__item-link">Eventos</a>
-                    </li><!-- /.nav-item -->
+                        <a href="{!! route('home') !!}/#quienes-somos" class="dropdown-toggle nav__item-link">Quiénes Somos</a>
+                    </li>
+
+                    {{--<li class="nav__item with-dropdown">--}}
+                        {{--<a href="{!! route('web.charlas') !!}" class="{{ Request::is('eventos*') ? 'active' : '' }} dropdown-toggle nav__item-link">Eventos</a>--}}
+                    {{--</li>--}}
+
                     <li class="nav__item">
                         <a href="{!! route('web.contactanos') !!}" class="{{ Request::is('contactanos*') ? 'active' : '' }} nav__item-link">Contactanos</a>
-                    </li><!-- /.nav-item -->
-                </ul><!-- /.navbar-nav -->
-            </div><!-- /.navbar-collapse -->
+                    </li>
+                </ul>
+            </div>
             <div class="navbar-modules">
                 <ul class="list-unstyled d-flex align-items-center modules__btns-list">
 
@@ -68,8 +70,8 @@
                     @endif
 
 
-                </ul><!-- /.modules-wrapper -->
-            </div><!-- /.navbar-modules -->
-        </div><!-- /.container -->
-    </nav><!-- /.navabr -->
-</header><!-- /.Header -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

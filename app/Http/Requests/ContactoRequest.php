@@ -27,8 +27,10 @@ class ContactoRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email',
-            'subject' => '',
+            'phone' => 'required|numeric',
+            'company' => 'max:191',
             'message' => 'max:1000',
+            'g-recaptcha-response' => 'required|recaptcha',
         ];
     }
 
@@ -38,7 +40,12 @@ class ContactoRequest extends FormRequest
             'name.required' => 'El campo nombre es obligatorio',
             'email.required' => 'El campo email es obligarorio',
             'email.email' => 'El formato del  email es incorrecto',
+            'phone.required' => 'El teléfono es obligatorio',
+            'phone.numeric' => 'El teléfono debe ser un número, sin letras ni caracteres especiales',
+            'company.max' => 'El campo de empresa no puede superar los 191 caracteres',
             'message.max' => 'El mensaje no puede exceder los 1000 caracteres',
+            'g-recaptcha-response.required' => 'No se ha podido verificar que usted no sea un robot',
+            'g-recaptcha-response.recaptcha' => 'No se ha podido verificar que usted no sea un robot',
         ];
     }
 
