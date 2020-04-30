@@ -37,20 +37,20 @@
                             <a href="{{ route('register') }}">Register</a>
                         @else
 
-                            <a  class="dropdown-item pt-3" href="{{ route('logout') }}"
+                            <span title="Cambiar contraseña" data-toggle="modal" data-target="#changePassword{!! Auth::user()->id !!}"
+                                  style="cursor: pointer"
+                                  class="text-danger dropdown-item pt-3">
+                                <i class="mdi mdi-lock"></i> Cambiar contraseña
+                            </span>
+
+                            <hr>
+
+                            <a  class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
                                 <i class="mdi mdi-exit-to-app"></i>
                                 Cerrar sesión
                             </a>
-
-                            <hr>
-
-                            <span title="Cambiar contraseña" data-toggle="modal" data-target="#changePassword{!! Auth::user()->id !!}"
-                                   style="cursor: pointer"
-                                  class="text-danger dropdown-item">
-                                <i class="mdi mdi-lock"></i> Cambiar contraseña
-                            </span>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
