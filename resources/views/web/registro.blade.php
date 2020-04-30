@@ -35,8 +35,7 @@
                         <div class="contact__panel-banner">
                             <img src="{!! asset('template-web/assets/images/banners/2.jpg') !!}" alt="banner img">
                             <div class="cta__banner">
-                                <p class="cta__desc"><strong>Somo un equipo dispuesto a trabajar con vos y para vos los 365 días de
-                                        09:00 AM - 19:00 PM</strong></p>
+                                <p class="cta__desc"><strong>Somos Eventum. Convertimos tu necesidad en realidad.</strong></p>
                                 <div class="contact__number d-flex align-items-center">
                                     <i class="icon-phone"></i>
                                     <a href="tel:{!! config('sistema.data.phone') !!}">{!! config('sistema.data.phone') !!}</a>
@@ -50,6 +49,10 @@
                                     @include('vendor.flash.message')
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <p class="text-right">
+                                        ¿Ya está registrado?
+                                        <a href="{!! route('web.iniciar-sesion', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}">Inicie sesión</a>
+                                    </p>
                                     <div class="form-group">
                                         {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus']) !!}
                                     </div>

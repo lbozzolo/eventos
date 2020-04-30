@@ -88,6 +88,15 @@ Route::post('post-contact/send/email', [
     'uses' => 'WebController@postContact'
 ]);
 
+Route::post('newsletter', [
+    'as' => 'web.newsletter',
+    'uses' => 'WebController@newsletter'
+]);
+
+Route::post('proyectos/{id}/consultar', [
+    'as' => 'proyectos.store.message',
+    'uses' => 'ProyectoController@storeMessage'
+]);
 
 Route::get('/home', 'WebController@index');
 

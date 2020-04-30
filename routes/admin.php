@@ -118,6 +118,16 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'ProyectoController@inscripciones'
         ]);
 
+        Route::get('proyectos/{id}/consultas', [
+            'as' => 'proyectos.consultas',
+            'uses' => 'ProyectoController@consultas'
+        ]);
+
+        Route::post('proyectos/{id}/consultar', [
+            'as' => 'proyectos.store.message',
+            'uses' => 'ProyectoController@storeMessage'
+        ]);
+
         Route::post('proyectos/{id}/pdf', [
             'as' => 'proyectos.store.pdf',
             'uses' => 'ProyectoController@storePDF'
@@ -141,6 +151,11 @@ Route::group(['middleware' => 'auth'], function () {
 
         // Clientes
         Route::resource('clientes', 'ClienteController');
+
+        Route::get('perfil/{id?}', [
+            'as' => 'clientes.profile',
+            'uses' => 'ClienteController@profile'
+        ]);
 
         // Auspiciantes
         Route::resource('auspiciantes', 'AuspicianteController');

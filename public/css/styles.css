@@ -6,3 +6,7 @@
 .text-black {
     color: black!important;
 }
+
+.table-condensed tbody td {
+    padding: 5px 10px;
+}

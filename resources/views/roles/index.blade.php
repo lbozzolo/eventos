@@ -15,7 +15,7 @@
                 <div class="card-body bg-white" style="background-color: white!important">
                     <div class="row">
 
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
 
                             @if($items->count())
                                 <div class="table-responsive">
@@ -27,7 +27,7 @@
 
                         </div>
 
-                        <div class="col-lg-8">
+                        <div class="col-lg-9">
 
                             <div class="card">
                                 <div class="card-header">
@@ -48,21 +48,28 @@
                                             <div class="tab-pane fade @if ($loop->first) show active @endif" id="role{!! $role->id !!}" role="tabpanel" aria-labelledby="home-tab">
 
                                                 {!! Form::open(['url' => route('roles.permissions'), 'method' => 'post']) !!}
+                                                <h2 class="pl-3">{!! $role->name !!}</h2>
                                                 {!! Form::hidden('role_id', $role->id) !!}
-                                                {!! Form::submit('Asignar Permisos Seleccionados', ['class' => 'btn btn-outline-primary btn-sm ml-3']) !!}
+{{--                                                {!! Form::submit('Asignar Permisos a '.strtoupper($role->name), ['class' => 'btn btn-outline-primary btn-sm ml-3']) !!}--}}
+                                                <button type="submit" class="btn btn-outline-primary btn-sm ml-3">
+                                                    Asignar Permisos a
+                                                    <span class="text-danger">{!! strtoupper($role->name) !!}</span>
+                                                </button>
+                                                <a href="{!! route('roles.index') !!}" class="btn btn-secondary btn-sm">Limpiar</a>
 
                                                 <div class="card-body">
                                                     <div class="row">
                                                         @foreach($permissions as $permission)
                                                             @if($permissions->count())
 
-                                                                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12" style="border: 1px solid whitesmoke; border-radius: 5px">
-                                                                    <span class="text-right">
-                                                                        @can('asignar_permisos')
-                                                                        {!! Form::checkbox('permissions[]', $permission->id, $role->hasPermissionTo($permission->name), ['id' => 'permiso'.$permission->id]) !!}
-                                                                        @endcan
-                                                                    </span>
-                                                                    <label for="permiso{!! $permission->id !!}" class="text-left {!! ($role->hasPermissionTo($permission->name))? 'text-info' : '' !!}" style="font-size: 0.8em">
+                                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="border: 1px solid whitesmoke; border-radius: 5px">
+                                                                    <label for="permiso{!! $permission->id.$role->id !!}" class="text-left {!! ($role->hasPermissionTo($permission->name))? 'text-info' : '' !!}" style="font-size: 0.8em">
+                                                                        <span class="text-right">
+                                                                            @can('asignar_permisos')
+                                                                                {!! Form::checkbox('permissions[]', $permission->id, $role->hasPermissionTo($permission->name), ['id' => 'permiso'.$permission->id.$role->id]) !!}
+                                                                            @endcan
+                                                                        </span>
+
                                                                         {!! $permission->name !!}
                                                                     </label>
                                                                 </div>

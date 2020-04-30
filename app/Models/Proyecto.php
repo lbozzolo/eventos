@@ -113,4 +113,9 @@ class Proyecto extends Entity
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
+    public function consultas()
+    {
+        return $this->hasMany(Consulta::class);
+    }
+
 }

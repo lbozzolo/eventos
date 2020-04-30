@@ -67,6 +67,10 @@ class WebController extends AppBaseController
     {
         $this->data['charla'] = Proyecto::findOrFail($id);
 
+        // Si la charla es pública lo envío a la charla
+        if($this->data['charla']->publico)
+            return view('web.ingresar-charla')->with($this->data);
+
         if(Auth::check())
             return redirect()->route('web.charlas.ingresar', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
 
@@ -179,6 +183,8 @@ class WebController extends AppBaseController
             'email' => 'required|email',
         ]);
 
+//        dd($request->all());
+
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
@@ -193,7 +199,7 @@ class WebController extends AppBaseController
                     'updated_at' => Carbon::today(),
                 ]
             );
-            return redirect()->back()->with('ok', 'Se ha suscripto con éxito');
+            return redirect()->back()->with('ok', 'Se ha suscripto a nuestro newsletter con éxito');
         }
 
         return redirect()->back()->withErrors('Ocurrió un error. No se pudo suscribir.');

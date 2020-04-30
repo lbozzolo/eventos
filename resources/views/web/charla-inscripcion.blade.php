@@ -29,7 +29,7 @@
                             </div>
                             <div class="col-sm-12 contact__form-panel-header">
                                 {{--<h4 class="text-warning">Inscripción</h4>--}}
-                                <p class="lead">Ingresá tu usuario y contraseña para inscribirte.</p>
+                                <p class="lead">Ingresá tu email y tu DNI.</p>
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-4">
                                 <div class="form-group">
@@ -38,7 +38,7 @@
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-4">
                                 <div class="form-group">
-                                    <input type="password" name="password" class="form-control" placeholder="*********">
+                                    <input type="text" name="password" class="form-control" placeholder="DNI">
                                 </div>
                             </div>
 

@@ -46,6 +46,16 @@
                                @endif
                            </td>
                        </tr>
+                        <tr>
+                            <td class="text-right text-info">Tipo</td>
+                            <td class="text-left">
+                                @if($item->publico)
+                                    <span class="badge badge-primary">Público</span>
+                                @else
+                                    <span class="badge badge-danger">Privado</span>
+                                @endif
+                            </td>
+                        </tr>
                        <tr>
                            <td class="text-right text-info">Categorías</td>
                            <td class="text-left">

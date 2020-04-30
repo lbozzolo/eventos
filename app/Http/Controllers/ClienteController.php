@@ -8,6 +8,7 @@ use Eventos\Models\Cliente;
 use Eventos\Repositories\ClienteRepository;
 use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Eventos\Traits\ImageTrait;
+use Eventos\User;
 
 class ClienteController extends AppBaseController
 {
@@ -84,6 +85,21 @@ class ClienteController extends AppBaseController
             return redirect()->back()->withErrors($this->show_failure_message);
 
         return view($this->modelPlural.'.show')->with($this->data);
+    }
+
+    public function profile($id = null)
+    {
+        $this->data['user'] = User::find($id);
+        if(!$this->data['user']->hasRole('Cliente|Superadmin'))
+            return redirect()->back()->with('warning', 'Usted no está registrado como  CLIENTE en el sistema. No hay perfil para mostrar.');
+
+//        $this->data['cliente'] = $this->data['user']->cliente;
+        $this->data['item'] = Cliente::find(1);
+
+        if(!$this->data['item'])
+            return abort(404);
+
+        return view($this->modelPlural.'.profile')->with($this->data);
     }
 
     public function edit($id)

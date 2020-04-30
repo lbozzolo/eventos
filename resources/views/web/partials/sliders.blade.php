@@ -1,4 +1,5 @@
 <section id="slider1" class="slider slider-1">
+
     <div class="carousel owl-carousel carousel-arrows carousel-dots" data-slide="1" data-slide-md="1"
          data-slide-sm="1" data-autoplay="true" data-nav="true" data-dots="true" data-space="0" data-loop="true"
          data-speed="3000" data-transition="fade" data-animate-out="fadeOut" data-animate-in="fadeIn">

@@ -74,6 +74,12 @@ class PermissionSeeder extends Seeder
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
             ],
+            [
+                'name' => 'mostrar_perfil_cliente',
+                'guard_name' => 'web',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
+            ],
         ]);
 
     }

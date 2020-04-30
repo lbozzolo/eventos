@@ -43,6 +43,23 @@
                     @include('web.components.iframe-youtube')
 
                 </div>
+                <div class="col-lg-12">
+                    <div class="card card-body">
+                        {!! Form::open(['url' => route('proyectos.store.message', $charla->id), 'method' => 'post', 'id' => 'form-consulta']) !!}
+                        @if($charla->publico)
+                        <div class="form-group">
+                            {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
+                        </div>
+                        @endif
+                        <div class="form-group">
+                            {!! Form::textarea('texto', null, ['class' => 'form-control', 'rows' => 6, 'placeholder' => 'Escriba aquí su consulta...']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::submit('Enviar', ['class' => 'btn btn-outline-dark btn-xs', 'id' => 'btnSubmit']) !!}
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -90,6 +107,15 @@
             $('#iframe-primary').attr('src', src);
 
         });
+
+        $("#btnSubmit").click(function () {
+            setTimeout(function () { disableButton(); }, 0);
+        });
+
+        function disableButton() {
+            $("#btnSubmit").prop('disabled', true);
+        };
+
 
     </script>
 

@@ -17,6 +17,15 @@
             </a>
         </li>
 
+        @can('mostrar_perfil_cliente')
+        <li class="{{ Request::is('perfil/*') ? 'active' : '' }} nav-item">
+            <a href="{!! route('clientes.profile', Auth::user()->id) !!}" class="nav-link">
+                <i class="mdi menu-icon {{ Request::is('perfil/*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>
+                <span class="menu-title">Perfil Cliente</span>
+            </a>
+        </li>
+        @endcan
+
         <li><hr></li>
 
         <li class="{{ Request::is('categorias*') ? 'active' : '' }} nav-item">
@@ -54,12 +63,12 @@
             {{--</a>--}}
         {{--</li>--}}
 
-        {{--<li class="{{ Request::is('newsletter*') ? 'active' : '' }} nav-item">--}}
-            {{--<a href="{!! route('newsletter.index') !!}" class="nav-link">--}}
-                {{--<i class="mdi menu-icon {{ Request::is('newsletter*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>--}}
-                {{--<span class="menu-title">Newsletter</span>--}}
-            {{--</a>--}}
-        {{--</li>--}}
+        <li class="{{ Request::is('newsletter*') ? 'active' : '' }} nav-item">
+            <a href="{!! route('newsletter.index') !!}" class="nav-link">
+                <i class="mdi menu-icon {{ Request::is('newsletter*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>
+                <span class="menu-title">Newsletter</span>
+            </a>
+        </li>
 
         <li class="{{ Request::is('users*') ? 'active' : '' }} nav-item">
             <a href="{!! route('users.index') !!}" class="nav-link">

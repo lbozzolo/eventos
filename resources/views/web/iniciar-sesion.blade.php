@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-4">
                                 <div class="form-group">
-                                    <input type="" name="password" class="form-control" placeholder="DNI">
+                                    <input type="text" name="password" class="form-control" placeholder="DNI">
                                 </div>
                             </div>
 

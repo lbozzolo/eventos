@@ -19,6 +19,11 @@ class Entity extends Model
         return Carbon::parse($this->attributes['updated_at'])->format('d-m-Y');
     }
 
+    public function getHoraCreadoAttribute()
+    {
+        return Carbon::parse($this->attributes['created_at'])->format('h:i A');
+    }
+
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');

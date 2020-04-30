@@ -1,6 +1,6 @@
 <div class="blog-item">
     <div class="blog__img">
-        <a href="#">
+
             @if($charla->iframes->count())
                 <iframe width="760"
                         height="415"
@@ -11,7 +11,7 @@
                         allowfullscreen>
                 </iframe>
             @endif
-        </a>
+
     </div>
     <div>
         @if($charla->iframes->count() > 1)

@@ -1,8 +1,8 @@
-<table class="table table-bordered table-condensed">
+<table class="table  table-condensed">
     <thead class="card-header">
     <tr>
         <th>Roles</th>
-        <th>Opciones</th>
+        <th class="text-right">Opciones</th>
     </tr>
     </thead>
     <tbody>
@@ -14,7 +14,7 @@
                     <td>{!! $role->name !!}</td>
                     <td>
 
-                        <div class="btn-group btn-group-sm" role="group">
+                        <div class="btn-group btn-group-xs float-right" role="group">
                             <button type="button" class="btn btn-dark btn-xs" title="EDITAR" data-toggle="modal" data-target="#editRole{!! $role->id !!}">
                                 <i class="mdi mdi-18px mdi-pencil-box"></i>
                             </button>
@@ -126,7 +126,7 @@
                     <input type="text" name="name" class="form-control" placeholder="Nombre del rol..." autocomplete="off">
                 </td>
                 <td>
-                    <button type="submit" class="btn btn-success btn-sm mb-0">Agregar</button>
+                    <button type="submit" class="btn btn-success btn-sm mb-0 float-right">Agregar</button>
                 </td>
             {!! Form::close() !!}
 

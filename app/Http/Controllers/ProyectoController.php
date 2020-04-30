@@ -3,11 +3,13 @@
 namespace Eventos\Http\Controllers;
 
 use Carbon\Carbon;
+use Eventos\Http\Requests\CreateConsultaRequest;
 use Eventos\Http\Requests\CreateProyectoRequest;
 use Eventos\Http\Requests\UpdateProyectoRequest;
 use Eventos\Models\Auspiciante;
 use Eventos\Models\Categoria;
 use Eventos\Models\Cliente;
+use Eventos\Models\Consulta;
 use Eventos\Models\Estado;
 use Eventos\Models\Header;
 use Eventos\Models\Iframe;
@@ -19,6 +21,7 @@ use Eventos\Repositories\ProyectoRepository;
 use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Eventos\Traits\ImageTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
@@ -223,6 +226,39 @@ class ProyectoController extends AppBaseController
             return redirect()->back()->withErrors('Ocurrió un error. No se pudo guardar el link del video');
 
         return redirect()->back()->with('ok', 'Video guardado con éxito');
+    }
+
+    public function consultas($id)
+    {
+        $this->data['item'] = Proyecto::find($id);
+        return view($this->modelPlural.'.consultas')->with($this->data);
+    }
+
+    public function storeMessage(CreateConsultaRequest $request, $id)
+    {
+        $proyecto = Proyecto::find($id);
+
+        $request['nombre'] = ($proyecto->publico)? $request['nombre'] : Auth::user()->fullname;
+
+        if(!$request['texto'] || !$id || !$request['nombre'] )
+            return redirect()->back();
+
+        $consultas = Consulta::where('ip_address', '=',request()->ip())->lastMessages(1)->get();
+
+        if($consultas->count())
+            return redirect()->back()->with('warning', 'Debe esperar un minuto para hacer la próxima consulta')->withInput();
+
+        $consulta = Consulta::create([
+            'proyecto_id' => $id,
+            'nombre' => $request['nombre'],
+            'texto' => $request['texto'],
+            'ip_address' => (request()->ip())? request()->ip() : null
+        ]);
+
+        if(isset($consulta) && !$consulta)
+            return redirect()->back()->withErrors('Ocurrió un error. No se pudo enviar la consulta');
+
+        return redirect()->back()->with('ok', 'Consulta enviada con éxito');
     }
 
     public function pdfs($id)

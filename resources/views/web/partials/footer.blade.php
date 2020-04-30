@@ -26,14 +26,17 @@
                 <div class="col-sm-12 col-md-10 col-lg-6 col-xl-4 footer__widget footer__widget-newsletter">
                     <div class="footer__widget-content">
                         <p>Dejanos tu email y recibí nuestras novedades</p>
-                        <form class="widget__newsletter-form">
+                        {{--<form class="widget__newsletter-form">--}}
+                            {!! Form::open(['url' => route('web.newsletter'), 'method' => 'POST', 'class' => 'widget__newsletter-form']) !!}
                             <div class="form-group mb-0">
-                                <input type="text" class="form-control" placeholder="Tu direccion de email">
+                                {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Tu direccion de email']) !!}
+                                {{--<input type="text" class="form-control" placeholder="Tu direccion de email">--}}
                                 <button type="submit" class="btn btn__primary btn__hover2">
                                     <i class="icon-arrow-right"></i>
                                 </button>
                             </div>
-                        </form>
+                            {!! Form::close() !!}
+                        {{--</form>--}}
                     </div>
                 </div>
             </div>
@@ -43,7 +46,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-3 col-lg-3">
-                    <img src="{!! asset('images/logos/logo_eventum_mono_light.png') !!}" alt="logo" height="140">
+                    <a href="{!! route('home') !!}">
+                        <img src="{!! asset('images/logos/logo_eventum_mono_light.png') !!}" alt="logo" height="140">
+                    </a>
 {{--                    <img src="{!! asset('template-web/assets/images/logo/logo-footer.png') !!}" alt="logo">--}}
                 </div><!-- /.col-lg-3 -->
                 <div class="col-sm-12 col-md-9 col-lg-9 text-right">
@@ -54,7 +59,7 @@
                                 {{--<li><a href="#">Politica y Privacidad</a></li>--}}
                             {{--</ul>--}}
                         {{--</nav>--}}
-                        <p class="mb-0"> &copy; 2020 eventum.com.ar - Derechos en Trámite - Desarrollado por
+                        <p class="mb-0"> &copy; 2020 <a href="{!! route('home') !!}">eventum.com.ar</a> - Derechos en Trámite - Desarrollado por
                             <a href="http://verticedigital.com.ar/" target="_new">Vértice Digital</a>
                         </p>
                     </div><!-- /.Footer-copyright -->
