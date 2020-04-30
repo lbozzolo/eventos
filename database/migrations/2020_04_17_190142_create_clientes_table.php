@@ -17,7 +17,7 @@ class CreateClientesTable extends Migration
             $table->increments('id');
 
             $table->string('nombre')->nullable();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
 
             $table->timestamps();
         });
