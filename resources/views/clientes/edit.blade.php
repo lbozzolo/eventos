@@ -4,7 +4,7 @@
 
     <div class="card col-lg-12 grid-margin">
         <div class="card-body">
-            <h2>{!! ucfirst($modelSpanish) !!} / <span class="text-warning">Editar</span></h2>
+            <h2>{!! ucfirst($modelSpanish) !!} / {!! $item->nombre !!} / <span class="text-warning">Editar</span></h2>
         </div>
     </div>
 

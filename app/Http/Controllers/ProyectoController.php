@@ -234,6 +234,12 @@ class ProyectoController extends AppBaseController
         return view($this->modelPlural.'.consultas')->with($this->data);
     }
 
+    public function consultasAdmin($id)
+    {
+        $this->data['item'] = Proyecto::find($id);
+        return view($this->modelPlural.'.consultas-admin')->with($this->data);
+    }
+
     public function storeMessage(CreateConsultaRequest $request, $id)
     {
         $proyecto = Proyecto::find($id);

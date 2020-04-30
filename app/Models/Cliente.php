@@ -3,6 +3,7 @@
 namespace Eventos\Models;
 
 use Eventos\Models\Entity as Entity;
+use Eventos\User;
 
 class Cliente extends Entity
 {
@@ -16,13 +17,21 @@ class Cliente extends Entity
     ];
 
     public static $rules = [
-        'nombre' => 'required'
+        'nombre' => 'required',
+        'name' => 'required',
+        'lastname' => 'required',
+        'email' => 'required|unique:users,email|email',
     ];
 
     // Relationships
     public function proyectos()
     {
         return $this->hasMany(Proyecto::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function images()

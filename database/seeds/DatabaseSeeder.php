@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
         exec("rm -R public/pdf/*");
 
         $this->call(UsersTableSeeder::class);
-        $this->call(RoleSeeder::class);
         $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
         $this->call(EstadosSeeder::class);
         $this->call(AuspiciantesSeeder::class);
         $this->call(CategoriasSeeder::class);

@@ -2,6 +2,7 @@
 
 @section('content')
 
+    @can('mostrar_perfil_cliente')
     <div class="card col-lg-12 grid-margin">
         <div class="card-body">
             <h2>{!! ucfirst($item->nombre) !!} / <span class="text-warning">Perfil</span></h2>
@@ -37,5 +38,6 @@
 
         </div>
     </div>
+    @endcan
 
 @endsection

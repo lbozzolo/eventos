@@ -3,6 +3,7 @@
 namespace Eventos;
 
 use Carbon\Carbon;
+use Eventos\Models\Cliente;
 use Eventos\Models\Proyecto;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -68,6 +69,11 @@ class User extends Authenticatable
         'ocupacion' => 'max:255'
     ];
 
+    public static $change_password_rules = [
+        'password' => 'required|min:6',
+        'password_confirmation' => 'required|min:6|same:password'
+    ];
+
     public function getFechaCreadoAttribute()
     {
         return Carbon::parse($this->attributes['created_at'])->format('d-m-Y');
@@ -93,6 +99,11 @@ class User extends Authenticatable
     public function proyectos()
     {
         return $this->belongsToMany(Proyecto::class)->withTimestamps();
+    }
+
+    public function cliente()
+    {
+        return $this->hasOne(Cliente::class);
     }
 
 

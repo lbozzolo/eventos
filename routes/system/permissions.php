@@ -1,31 +1,35 @@
 <?php
 
-Route::get('permisos/index', [
-    'as' => 'permissions.index',
-    'uses' => 'PermissionController@index'
-]);
+Route::group(['middleware' => ['can:mostrar_permisos']], function () {
 
-Route::get('permisos/create', [
-    'as' => 'permissions.create',
-    'uses' => 'PermissionController@create'
-]);
+    Route::get('permisos/index', [
+        'as' => 'permissions.index',
+        'uses' => 'PermissionController@index'
+    ]);
 
-Route::get('permisos/{id}/edit', [
-    'as' => 'permissions.edit',
-    'uses' => 'PermissionController@edit'
-]);
+    Route::get('permisos/create', [
+        'as' => 'permissions.create',
+        'uses' => 'PermissionController@create'
+    ]);
 
-Route::post('rolpermisoses/store', [
-    'as' => 'permissions.store',
-    'uses' => 'PermissionController@store'
-]);
+    Route::get('permisos/{id}/edit', [
+        'as' => 'permissions.edit',
+        'uses' => 'PermissionController@edit'
+    ]);
 
-Route::put('permisos/{id}/update', [
-    'as' => 'permissions.update',
-    'uses' => 'PermissionController@update'
-]);
+    Route::post('rolpermisoses/store', [
+        'as' => 'permissions.store',
+        'uses' => 'PermissionController@store'
+    ]);
 
-Route::delete('permisos/{id}/delete', [
-    'as' => 'permissions.delete',
-    'uses' => 'PermissionController@delete'
-]);
+    Route::put('permisos/{id}/update', [
+        'as' => 'permissions.update',
+        'uses' => 'PermissionController@update'
+    ]);
+
+    Route::delete('permisos/{id}/delete', [
+        'as' => 'permissions.delete',
+        'uses' => 'PermissionController@delete'
+    ]);
+
+});

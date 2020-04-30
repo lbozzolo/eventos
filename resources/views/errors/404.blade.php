@@ -29,7 +29,7 @@
                         {{--</div>--}}
                         <div class="row mt-5">
                             <div class="col-12 mt-xl-2">
-                                <p class="text-white font-weight-medium text-center">Vértice Digital &copy; 2018 Todos los derechos reservados.</p>
+                                <p class="text-white font-weight-medium text-center">Vértice Digital &copy; {!! \Carbon\Carbon::now()->year !!} Todos los derechos reservados.</p>
                             </div>
                         </div>
                     </div>

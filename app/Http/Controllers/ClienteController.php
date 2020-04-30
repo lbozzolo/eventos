@@ -9,6 +9,7 @@ use Eventos\Repositories\ClienteRepository;
 use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Eventos\Traits\ImageTrait;
 use Eventos\User;
+use Illuminate\Support\Facades\Hash;
 
 class ClienteController extends AppBaseController
 {
@@ -68,8 +69,14 @@ class ClienteController extends AppBaseController
 
     public function store(CreateClienteRequest $request)
     {
-        $input = $request->all();
-        $item = $this->repo->create($input);
+        $inputCliente = ['nombre' => $request['nombre']];
+        $inputUsuario = $request->except('nombre');
+        $inputUsuario['password'] = Hash::make('#Eventum1234');
+
+        $item = $this->repo->create($inputCliente);
+        $user = User::create($inputUsuario);
+
+        $user->assignRole('Cliente');
 
         if (!$item)
             return redirect()->back()->withErrors($this->store_failure_message);
@@ -89,15 +96,12 @@ class ClienteController extends AppBaseController
 
     public function profile($id = null)
     {
-        $this->data['user'] = User::find($id);
+        $this->data['user'] = User::findOrFail($id);
+
         if(!$this->data['user']->hasRole('Cliente|Superadmin'))
             return redirect()->back()->with('warning', 'Usted no está registrado como  CLIENTE en el sistema. No hay perfil para mostrar.');
 
-//        $this->data['cliente'] = $this->data['user']->cliente;
-        $this->data['item'] = Cliente::find(1);
-
-        if(!$this->data['item'])
-            return abort(404);
+        $this->data['item'] = Cliente::findOrFail(1);
 
         return view($this->modelPlural.'.profile')->with($this->data);
     }
@@ -118,6 +122,12 @@ class ClienteController extends AppBaseController
         $this->data['items'] = $this->repo->all();
 
         $inputs = $request->all();
+
+        $user = User::find($request['user_id']);
+        $user->name = $request['name'];
+        $user->lastname = $request['lastname'];
+        $user->email = $request['email'];
+        $user->save();
 
         if (!$this->data['item'])
             return redirect()->back()->withErrors($this->update_failure_message);

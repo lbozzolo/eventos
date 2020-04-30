@@ -25,6 +25,11 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
-        return User::$rules;
+        return [
+            'name' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email|unique:users,email,'.$this->user,
+        ];
     }
+
 }

@@ -11,7 +11,7 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        $entities = ['usuarios', 'estados', 'proyectos', 'categorias', 'pdfs', 'iframes', 'clientes', 'roles', 'permisos'];
+        $entities = ['usuarios', 'estados', 'proyectos', 'categorias', 'clientes', 'roles', 'permisos', 'inscriptos', 'auspiciantes'];
         $actions = ['crear', 'editar', 'eliminar', 'mostrar'];
 
         foreach($entities as $entity){
@@ -28,18 +28,6 @@ class PermissionSeeder extends Seeder
         DB::table('permissions')->insert([
             [
                 'name' => 'asignar_roles',
-                'guard_name' => 'web',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
-            ],
-            [
-                'name' => 'asignar_cursos',
-                'guard_name' => 'web',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
-            ],
-            [
-                'name' => 'quitar_cursos',
                 'guard_name' => 'web',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
@@ -76,6 +64,18 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'mostrar_perfil_cliente',
+                'guard_name' => 'web',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
+            ],
+            [
+                'name' => 'mostrar_newsletter',
+                'guard_name' => 'web',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
+            ],
+            [
+                'name' => 'cambiar_password',
                 'guard_name' => 'web',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),

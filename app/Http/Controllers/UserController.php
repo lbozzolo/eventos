@@ -2,6 +2,7 @@
 
 namespace Eventos\Http\Controllers;
 
+use Eventos\Http\Requests\ChangePasswordRequest;
 use Eventos\Http\Requests\CreateInscriptoRequest;
 use Eventos\Http\Requests\CreateUserRequest;
 use Eventos\Http\Requests\UpdateInscriptoRequest;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends AppBaseController
 {
@@ -113,17 +115,20 @@ class UserController extends AppBaseController
 
     public function create()
     {
-        return view('users.create');
+        $this->data['roles'] = Role::pluck('name', 'id');
+        return view('users.create')->with($this->data);
     }
 
     public function store(CreateUserRequest $request)
     {
-        $password = Hash::make($request->password);
-        $input = $request->except('password');
+//        dd($request->all());
+        $input = $request->except('roles');
+        $input['password'] = Hash::make($request['password']);
+        $roles = $request['roles'];
 
         $user = $this->userRepository->create($input);
-        $user->password = $password;
-        $user->save();
+
+        $user->roles()->sync($roles);
 
         return redirect(route('users.index'))->with('ok', 'Usuario creado correctamente');
     }
@@ -141,12 +146,10 @@ class UserController extends AppBaseController
 
     public function edit($id)
     {
-        $user = $this->userRepository->findWithoutFail($id);
+        $this->data['user'] = $this->userRepository->findOrFail($id);
+        $this->data['roles'] = Role::pluck('name', 'id');
 
-        if (empty($user))
-            return redirect(route('users.index'))->withErrors('Usuario no encontrado');
-
-        return view('users.edit')->with('user', $user);
+        return view('users.edit')->with($this->data);
     }
 
     public function update($id, UpdateUserRequest $request)
@@ -156,7 +159,9 @@ class UserController extends AppBaseController
         if (empty($user) || $user->email == 'lucas@verticedigital.com.ar' || $user->email == 'fernando@verticedigital.com.ar')
             return redirect(route('users.index'))->withErrors('Usuario no encontrado');
 
+        $roles = $request['roles'];
         $user = $this->userRepository->update($request->all(), $id);
+        $user->roles()->sync($roles);
 
         return redirect(route('users.index'))->with('ok', 'Usuario editado con éxito');
     }
@@ -181,5 +186,22 @@ class UserController extends AppBaseController
         $this->userRepository->delete($id);
 
         return redirect(route('users.index'))->with('ok', 'Usuario eliminado con éxito');
+    }
+
+    public function changePassword($id, ChangePasswordRequest $request)
+    {
+        $authUser = Auth::user();
+        $user = User::find($id);
+
+        if(!$authUser->id == $user->id)
+            return redirect()->back()->withErrors('Está intentando cambiar la contraseña de otro usuario');
+
+        $password = ($request->password)? Hash::make($request->password) : null;
+        $user->password = $password;
+        $user->save();
+
+        Auth::login($user);
+
+        return redirect()->back()->with('ok', 'Contraseña cambiada con éxito');
     }
 }

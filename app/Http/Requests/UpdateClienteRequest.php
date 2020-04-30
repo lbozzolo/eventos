@@ -25,6 +25,12 @@ class UpdateClienteRequest extends FormRequest
      */
     public function rules()
     {
-        return Cliente::$rules;
+        return [
+            'nombre' => 'required',
+            'name' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email|unique:users,email,'.$this->user_id,
+        ];
+
     }
 }

@@ -19,7 +19,9 @@
                         {!! $consulta->hora_creado !!}
                     </li>
                 @empty
-                    <td colspan="2">Nada</td>
+                    <td colspan="2">
+                        <em class="text-gray">Todavía no se han hecho consultas en este evento.</em>
+                    </td>
                 @endforelse
             </ul>
 
