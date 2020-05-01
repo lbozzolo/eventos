@@ -13,7 +13,8 @@
                         {!! ucfirst($modelSpanish) !!} /
                         <span class="text-warning">Editar</span>
                     </h2>
-                    <a href="{!! route('headers.show', $item->header->id) !!}" class="btn btn-outline-primary btn-sm">Configurar Header</a>
+                    <a href="{!! route('headers.show', $item->header->id) !!}" class="btn btn-outline-success btn-sm">Configurar Header</a>
+                    <a href="{!! route($modelPlural.'.consultas', $item->id) !!}" class="btn btn-outline-warning btn-sm">Consultas</a>
                     <div class="row">
                         <div class="card-body">
 

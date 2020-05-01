@@ -77,6 +77,8 @@ class ClienteController extends AppBaseController
         $user = User::create($inputUsuario);
 
         $user->assignRole('Cliente');
+        $item->user_id = $user->id;
+        $item->save();
 
         if (!$item)
             return redirect()->back()->withErrors($this->store_failure_message);

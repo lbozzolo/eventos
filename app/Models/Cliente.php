@@ -14,6 +14,7 @@ class Cliente extends Entity
 
     public $fillable = [
         'nombre',
+        'user_id'
     ];
 
     public static $rules = [

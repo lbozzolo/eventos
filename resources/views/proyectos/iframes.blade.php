@@ -41,11 +41,11 @@
     <div class="row grid-margin">
         @forelse($item->iframes as $video)
 
-            <div class="col-lg-3">
+            <div class="col-lg-6">
                 <div class="card card-body">
                     <p>{!! ($video->title)? $video->title : '[SIN TÍTULO]' !!}</p>
-                    <img src="https://img.youtube.com/vi/{!! $video->video_id !!}/default.jpg" style="width: 100%"><br>
-                    <div class="row">
+                    <iframe src="{!! $video->path !!}" style="width: 100%; height: 370px"></iframe>
+                    <div class="row mt-3">
                         <div class="col-lg-12">
                             <button class="btn btn-danger d-inline-block" title="Eliminar video" data-toggle="modal" data-target="#modalDeleteVideo{!! $video->id !!}">Eliminar</button>
                             <a href="{!! $video->path !!}" class="btn btn-secondary" target="_blank">Ver</a>

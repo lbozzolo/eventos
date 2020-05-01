@@ -1,4 +1,4 @@
-<p class="lead">
+<p class="">
     @if($charla->fecha)
         Comienza el {!! $charla->fecha !!} a las {!! $charla->hora !!}
     @else
@@ -11,4 +11,3 @@
     @empty
     @endforelse
 </p>
-<p>{!! $charla->descripcion !!}</p>

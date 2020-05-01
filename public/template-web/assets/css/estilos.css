@@ -230,13 +230,21 @@ h4 {
 }
 
 @media (min-width: 450px) and (max-width: 990px) {
+
     .logo-header {
         width: 25%;
     }
+
 }
 
 @media (max-width: 449px) {
+
     .logo-header {
         width: 100%;
     }
+
+    .img-header {
+        height: 150px;
+    }
+
 }

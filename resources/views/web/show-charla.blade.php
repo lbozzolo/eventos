@@ -11,19 +11,26 @@
             <div class="row">
                 <div class="col-lg-12">
 
-                    <h2>
-                        <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
-                        - {!! $charla->nombre !!} / {!! $charla->cliente->nombre !!}
-                    </h2>
-
-                    <div class="float-right mb-3">
-                        <a href="{!! route('web.charlas.inscripcion', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}" class="btn btn__primary btn__bordered module__btn-request mr-3">
+                    <div class="float-right mb-3 text-center">
+                        @if(!$charla->publico)
+                        <a href="{!! route('web.charlas.inscripcion', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}"
+                           class="btn btn__primary btn__bordered module__btn-request mr-3 mb-1">
                             <span>Inscribirse</span><i class="icon-arrow-right"></i>
                         </a>
-                        <a href="{!! route('web.iniciar-sesion', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}" class="btn btn__primary btn__bordered module__btn-request mr-3">
+                        @endif
+                        <a href="{!! route('web.iniciar-sesion', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}"
+                           class="btn btn__primary btn__bordered module__btn-request mr-3 mb-1">
                             <span>Ingresar</span><i class="icon-arrow-right"></i>
                         </a>
                     </div>
+
+                    <h2 class="mb-0">
+                        <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
+                        - {!! $charla->nombre !!} / {!! $charla->cliente->nombre !!}
+                    </h2>
+                    <p class="lead text-black">{!! $charla->descripcion !!}</p>
+
+
 
                     @include('web.components.info-evento')
 

@@ -1,5 +1,18 @@
 @extends('layouts.app')
 
+@section('css')
+
+    <style type="text/css">
+
+        .cr-boundary {
+            width: 1250px!important;
+            height: 300px!important;
+        }
+
+    </style>
+
+@endsection
+
 @section('content')
 
     <div class="row">

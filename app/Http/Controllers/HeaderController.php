@@ -67,7 +67,7 @@ class HeaderController extends AppBaseController
 
     public function edit($id)
     {
-        dd($id);
+        return redirect()->back();
     }
 
     public function changeFileNameIfExists($file)

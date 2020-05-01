@@ -10,7 +10,8 @@
             <div class="row">
                 @forelse($item->iframes as $video)
 
-                    <img src="https://img.youtube.com/vi/{!! $video->video_id !!}/default.jpg" style="width: 100px; margin: 5px"><br>
+                    <iframe src="{!! $video->path !!}" style="height: 200px; margin: 5px"></iframe>
+                    {{--<img src="https://img.youtube.com/vi/{!! $video->video_id !!}/default.jpg" style="width: 100px; margin: 5px"><br>--}}
 
                 @empty
 

@@ -23,24 +23,15 @@
         </div>
     </section>
 
-    <section class="blog blog-single pb-0 pt-5" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey">
-        <div class="container">
+
+
+    <section class="pb-40 pt-5">
+        <div class="pl-5 pr-5">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-sm-12 col-md-12 col-lg-12">
 
-                    @include('web.partials.auspiciantes')
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="blogSingleCentered" class="blog blog-single pb-40 pt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-8">
-
-                    @include('web.components.iframe-youtube')
+{{--                    @include('web.components.iframe-youtube')--}}
+                    @include('web.components.iframe')
 
                 </div>
                 <div class="col-lg-12">
@@ -59,6 +50,18 @@
                         </div>
                         {!! Form::close() !!}
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog blog-single pb-0 pt-5" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    @include('web.partials.auspiciantes')
+
                 </div>
             </div>
         </div>
