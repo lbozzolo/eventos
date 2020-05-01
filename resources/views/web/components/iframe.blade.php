@@ -3,7 +3,12 @@
 
         @if($charla->iframes->count())
 
-            <iframe width="100%" height="900" src="{!! $charla->iframes->first()->path !!}"></iframe>
+            <iframe
+                    width="100%"
+                    height="900"
+                    src="{!! $charla->iframes->first()->path !!}"
+                    allowfullscreen
+            ></iframe>
 
             {{--<iframe width="760"--}}
                     {{--height="415"--}}

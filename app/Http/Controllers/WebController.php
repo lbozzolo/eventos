@@ -54,6 +54,9 @@ class WebController extends AppBaseController
         if($this->data['charla']->publico)
             return view('web.ingresar-charla')->with($this->data);
 
+        if(!Auth::check())
+            return redirect()->route('web.iniciar-sesion', ['cliente' => $this->data['charla']->cliente_slug, 'evento' => $this->data['charla']->nombre_slug, 'id' => $id]);
+
         // Si la charla es privada lo inscribo
         if(!$user->proyectos->contains($id))
             $this->data['ok'] = 'Se ha inscripto en la charla exitosamente.';
@@ -96,6 +99,28 @@ class WebController extends AppBaseController
         $user->save();
 
         Auth::attempt(['email' => $user->email, 'password' => $user->dni]);
+
+        $data = array(
+
+            'fullname' => $user->fullname,
+            'evento' => $this->data['charla']->nombre,
+            'cliente' => $this->data['charla']->cliente->nombre,
+            'email' => $user->email,
+            'fecha' => $this->data['charla']->fecha,
+            'hora' => $this->data['charla']->hora,
+            'logo' => $this->data['charla']->cliente->mainImage(),
+            'url' => route('web.charlas.ingresar',[
+                    'cliente' => $this->data['charla']->cliente_slug,
+                    'evento' => $this->data['charla']->nombre_slug,
+                    'id' => $this->data['charla']->id])
+        );
+
+        Mail::send('emails.inscripcion', ['data' => $data], function($message) use ($data){
+            $message->to($data['email']);
+            $message->subject('Inscripción a evento online');
+            $message->from(config('mail.from.address'));
+        });
+
 
         $redirect = [
             'cliente' => $this->data['charla']->cliente_slug,
@@ -208,16 +233,33 @@ class WebController extends AppBaseController
     public function test(Request $request)
     {
 
-        $data = [
-            'subject' => 'Mensaje',
-            'name' => 'Fulanito de tal',
-            'email' => 'fulano@mail.com',
-            'phone' => '982748234',
-            'company' => 'Rizomagroup',
-            'message' => 'Este es el mensaje del mail'
-        ];
+//        $data = [
+//            'subject' => 'Mensaje',
+//            'name' => 'Fulanito de tal',
+//            'email' => 'fulano@mail.com',
+//            'phone' => '982748234',
+//            'company' => 'Rizomagroup',
+//            'message' => 'Este es el mensaje del mail'
+//        ];
 
-        return view('emails.contacto')->with(['data' => $data]);
+        $this->data['charla'] = Proyecto::find(1);
+        $user = User::find(1);
+
+        $data = array(
+            'fullname' => $user->fullname,
+            'evento' => $this->data['charla']->nombre,
+            'cliente' => $this->data['charla']->cliente->nombre,
+            'email' => $user->email,
+            'fecha' => $this->data['charla']->fecha,
+            'hora' => $this->data['charla']->hora,
+            'logo' => $this->data['charla']->cliente->mainImage(),
+            'url' => route('web.charlas.ingresar',[
+                'cliente' => $this->data['charla']->cliente_slug,
+                'evento' => $this->data['charla']->nombre_slug,
+                'id' => $this->data['charla']->id])
+        );
+
+        return view('emails.inscripcion')->with(['data' => $data]);
     }
 
 }

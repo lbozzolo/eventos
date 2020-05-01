@@ -10,7 +10,7 @@
                 <div class="col-lg-12">
 
                     <h2 class="text-black">
-                        <span class="text-azul-claro">Iniciar sesión</span>
+                        <span class="text-azul-claro">Identificación</span>
                         - {!! $charla->cliente->nombre !!} - {!! $charla->nombre !!}
                     </h2>
 
@@ -40,7 +40,7 @@
                             </div>
 
                             <div class="col-sm-12 col-md-12 col-lg-4">
-                                <button type="submit" class="btn btn__primary btn__block">Ingresar</button>
+                                <button type="submit" class="btn btn__primary btn__block">Siguiente</button>
                                 <h5 class="text-black" style="margin-top: 30px">
                                     ¿Todavía no estás registrado?
                                     <a href="{!! route('web.charlas.registro', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug,  'id' => $charla->id]) !!}">regitrarse</a>
