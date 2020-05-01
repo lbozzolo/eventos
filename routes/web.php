@@ -98,6 +98,11 @@ Route::post('proyectos/{id}/consultar', [
     'uses' => 'ProyectoController@storeMessage'
 ]);
 
+Route::post('consultar', [
+    'as' => 'proyectos.store.consulta',
+    'uses' => 'ProyectoController@storeConsulta'
+]);
+
 Route::get('/home', 'WebController@index');
 
 

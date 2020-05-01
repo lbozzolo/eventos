@@ -37,16 +37,28 @@
                 <div class="col-lg-12">
                     <div class="card card-body">
                         {!! Form::open(['url' => route('proyectos.store.message', $charla->id), 'method' => 'post', 'id' => 'form-consulta']) !!}
+
+                        {!! Form::hidden('proyecto_id', $charla->id) !!}
+                        <div class="form-group">
+
+                            <div id="error"></div>
+
+                            <div id="message"></div>
+
+
+                            <div class="text-success" id="table" style="display: none;"></div>
+                        </div>
                         @if($charla->publico)
                         <div class="form-group">
-                            {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
+                            {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre', 'id' => 'nombre']) !!}
                         </div>
                         @endif
                         <div class="form-group">
-                            {!! Form::textarea('texto', null, ['class' => 'form-control', 'rows' => 6, 'placeholder' => 'Escriba aquí su consulta...']) !!}
+                            {!! Form::textarea('texto', null, ['class' => 'form-control', 'rows' => 6, 'placeholder' => 'Escriba aquí su consulta...', 'id' => 'texto']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::submit('Enviar', ['class' => 'btn btn-outline-dark btn-xs', 'id' => 'btnSubmit']) !!}
+{{--                            {!! Form::submit('Enviar', ['class' => 'btn btn-outline-dark btn-xs', 'id' => 'btnSubmit']) !!}--}}
+                            <button type="button" id="btnSubmit" class="btn btn-outline-dark btn-xs">Enviar</button>
                         </div>
                         {!! Form::close() !!}
                     </div>
@@ -118,6 +130,51 @@
         function disableButton() {
             $("#btnSubmit").prop('disabled', true);
         };
+
+
+        $("#btnSubmit").click(function() {
+
+            $.ajax({
+                type: 'post',
+                url: '{!! route('proyectos.store.consulta') !!}',
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    'nombre': $('input[name=nombre]').val(),
+                    'texto': $('#texto').val(),
+                    'proyecto_id': $('input[name=proyecto_id]').val(),
+                },
+                success: function(data) {
+                    if ((data.errors)) {
+
+                        $('#message').text('');
+                        $('#box-message').hide();
+                        $('#error').html(
+                            '<div class="alert alert-danger alert-dismissible" id="box-error">' +
+                            '<button class="close" type="button" data-dismiss="alert" aria-hidden="true">x</button>' +
+                                data.errors +
+                            '</div>');
+                        $("#btnSubmit").prop('disabled', false);
+
+                    } else {
+
+                        $('#error').text('');
+                        $('#box-error').hide();
+                        $('#message').html(
+                            '<div class="alert alert-success alert-dismissible" id="box-message">' +
+                            '<button class="close" type="button" data-dismiss="alert" aria-hidden="true">x</button>' +
+                             'Consulta realizada exitosamente' +
+                            '</div>');
+
+                        $('#nombre').val('');
+                        $('#texto').val('');
+                        $("#btnSubmit").prop('disabled', false);
+
+                    }
+                },
+            });
+
+
+        });
 
 
     </script>

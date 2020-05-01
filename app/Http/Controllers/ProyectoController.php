@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class ProyectoController extends AppBaseController
 {
@@ -265,6 +266,42 @@ class ProyectoController extends AppBaseController
             return redirect()->back()->withErrors('Ocurrió un error. No se pudo enviar la consulta');
 
         return redirect()->back()->with('ok', 'Consulta enviada con éxito');
+    }
+
+    public function storeConsulta(Request $request)
+    {
+        $rules = array (
+            'nombre' => 'max:191',
+            'texto' => 'max:255',
+        );
+
+        $validator = Validator::make( $request->all(), $rules );
+
+        $consultas = Consulta::where('ip_address', '=',request()->ip())->lastMessages(1)->get();
+
+        if($consultas->count())
+            return response()->json(['errors' => ['Debe esperar un minuto para hacer la próxima consulta']]);
+
+        if ($validator->fails()) {
+
+            return response()->json(['errors' => $validator->getMessageBag()->toArray()]);
+
+        } else {
+
+            $proyecto = Proyecto::find($request->proyecto_id);
+            $nombre = ($proyecto->publico)? $request->nombre : Auth::user()->fullname;
+
+
+            $data = Consulta::create([
+                'proyecto_id' => $proyecto->id,
+                'nombre' => $nombre,
+                'texto' => $request->texto,
+                'ip_address' => (request()->ip())? request()->ip() : null
+            ]);
+
+            return response()->json( $data );
+
+        }
     }
 
     public function pdfs($id)
