@@ -3,6 +3,7 @@
 namespace Eventos\Http\Controllers;
 
 use Carbon\Carbon;
+use Eventos\Http\Requests\RegistreUserRequest;
 use Eventos\Models\Proyecto;
 use Eventos\User;
 use Illuminate\Http\Request;
@@ -87,7 +88,7 @@ class WebController extends AppBaseController
         return view('web.registro')->with($this->data);
     }
 
-    public function postRegistro(Request $request, $id)
+    public function postRegistro(RegistreUserRequest $request, $id)
     {
         $this->data['charla'] = Proyecto::find($id);
 

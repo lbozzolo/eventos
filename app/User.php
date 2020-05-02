@@ -62,7 +62,7 @@ class User extends Authenticatable
     public static $rulesInscripcion = [
         'name' => 'required',
         'lastname' => 'required',
-        'email' => 'required|unique:users,email|email',
+        'email' => 'required|email|unique:users,email',
         'dni' => 'max:191',
         'phone' => 'max:191',
         'localidad' => 'max:255',

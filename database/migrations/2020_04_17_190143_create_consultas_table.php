@@ -20,6 +20,7 @@ class CreateConsultasTable extends Migration
             $table->string('nombre')->nullable();
             $table->string('texto', 255)->nullable();
             $table->string('ip_address' )->nullable();
+            $table->tinyInteger('archivado' )->nullable();
 
             $table->timestamps();
         });

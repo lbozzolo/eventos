@@ -36,6 +36,16 @@ class Proyecto extends Entity
         return $iframes;
     }
 
+    public function scopeConsultasArchivadas()
+    {
+        return $this->consultas()->where('archivado', '=', 1)->get();
+    }
+
+    public function scopeConsultasRecientes()
+    {
+        return $this->consultas()->where('archivado', '=', null)->get();
+    }
+
     public function auspiciantesShuffle()
     {
         return $this->auspiciantes->shuffle();

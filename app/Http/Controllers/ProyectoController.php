@@ -304,6 +304,22 @@ class ProyectoController extends AppBaseController
         }
     }
 
+    public function destroyConsulta($id)
+    {
+        $consulta = Consulta::find($id);
+        $consulta->delete();
+        return redirect()->back();
+    }
+
+    public function archivarConsulta($id)
+    {
+        $consulta = Consulta::find($id);
+        $consulta->archivado = !$consulta->archivado;
+        $consulta->save();
+
+        return redirect()->back();
+    }
+
     public function pdfs($id)
     {
         $this->data['item'] = $this->repo->findWithoutFail($id);

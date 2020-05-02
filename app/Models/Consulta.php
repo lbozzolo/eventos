@@ -14,6 +14,7 @@ class Consulta extends Entity
         'nombre',
         'texto',
         'ip_address',
+        'archivado',
     ];
 
     public static $rules = [

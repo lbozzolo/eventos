@@ -80,5 +80,15 @@ Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
         'uses' => 'ProyectoController@consultas'
     ]);
 
+    Route::delete('proyectos/{id}/consultas/eliminar', [
+        'as' => 'proyectos.consultas.destroy',
+        'uses' => 'ProyectoController@destroyConsulta'
+    ]);
+
+    Route::get('proyectos/{id}/consultas/archivar', [
+        'as' => 'proyectos.consultas.archivar',
+        'uses' => 'ProyectoController@archivarConsulta'
+    ]);
+
 });
 
