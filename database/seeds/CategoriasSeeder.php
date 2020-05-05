@@ -17,6 +17,7 @@ class CategoriasSeeder extends Seeder
             ['nombre' => 'Conferencia', 'slug' => 'conferencia'],
             ['nombre' => 'Curso', 'slug' => 'curso'],
             ['nombre' => 'Debate', 'slug' => 'debate'],
+            ['nombre' => 'Jornada Técnica', 'slug' => 'jornada-tecnica'],
             ['nombre' => 'Demostración', 'slug' => 'demostracion'],
             ['nombre' => 'Congreso', 'slug' => 'congreso'],
             ['nombre' => 'Especialización', 'slug' => 'especializacion'],

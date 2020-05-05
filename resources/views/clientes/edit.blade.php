@@ -22,6 +22,7 @@
 
     <div class="card col-lg-12 grid-margin">
         <div class="card-body">
+            <p class="text-info">Se recomienda que las imágenes tengan un tamaño de 450 píxeles de ancho x 180 píxeles de alto.</p>
             @include('images.images')
         </div>
     </div>

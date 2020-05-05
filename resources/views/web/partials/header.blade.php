@@ -23,9 +23,9 @@
                         <a href="{!! route('home') !!}/#quienes-somos" class="dropdown-toggle nav__item-link">Quiénes Somos</a>
                     </li>
 
-                    {{--<li class="nav__item with-dropdown">--}}
-                        {{--<a href="{!! route('web.charlas') !!}" class="{{ Request::is('eventos*') ? 'active' : '' }} dropdown-toggle nav__item-link">Eventos</a>--}}
-                    {{--</li>--}}
+                    <li class="nav__item with-dropdown">
+                        <a href="{!! route('web.charlas') !!}" class="{{ Request::is('eventos*') ? 'active' : '' }} dropdown-toggle nav__item-link">Eventos</a>
+                    </li>
 
                     <li class="nav__item">
                         <a href="{!! route('web.contactanos') !!}" class="{{ Request::is('contactanos*') ? 'active' : '' }} nav__item-link">Contactanos</a>

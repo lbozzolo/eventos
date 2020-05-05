@@ -12,6 +12,7 @@ class Consulta extends Entity
     public $fillable = [
         'proyecto_id',
         'nombre',
+        'email',
         'texto',
         'ip_address',
         'archivado',
@@ -19,6 +20,7 @@ class Consulta extends Entity
 
     public static $rules = [
         'nombre' => 'max:191',
+        'email' => 'max:191|email',
         'texto' => 'max:255'
     ];
 

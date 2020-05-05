@@ -1,13 +1,22 @@
-<p class="">
+<div class="text-white pt-2 pb-2 pr-3">
     @if($charla->fecha)
-        Comienza el {!! $charla->fecha !!} a las {!! $charla->hora !!}
-    @else
-        Fecha y hora a confirmar
-    @endif
-    @forelse($charla->pdfs as $pdf)
-        <span>
-            <a href="{!! route('pdf.ver', $pdf->path) !!}" target="_blank" class="ml-3 btn__bordered module__btn-request btn btn-outline-dark">Programa <i class="fa fa-file-text-o"></i> </a>
+
+        <span class="mr-5 mt-2">
+            <i class="fa fa-calendar fa-24px text-azul-oscuro"></i>
+            <strong class="bg-dark-green text-white pt-2 pb-2 pl-3 pr-3" style="font-size: 1.5em">
+                {!! $charla->getNameOfDay($charla->fecha) !!}
+                {!! $charla->fecha !!}
+            </strong>
         </span>
-    @empty
-    @endforelse
-</p>
+        <span>
+            <i class="fa fa-clock-o fa-24px text-azul-oscuro"></i>
+            <strong class="pl-3" style="font-size: 1.5em">{!! $charla->hora !!} {!! ($charla->duracion)? '('.$charla->duracion.')' : '' !!}</strong>
+        </span>
+
+    @else
+
+        Fecha y hora a confirmar
+
+    @endif
+
+</div>

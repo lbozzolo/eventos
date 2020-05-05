@@ -17,13 +17,14 @@ class CreateProyectosTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
 
-            $table->text('nombre');
-            $table->text('descripcion')->nullable();
-            $table->text('responsable')->nullable();
+            $table->string('nombre');
+            $table->string('descripcion')->nullable();
+            $table->string('responsable')->nullable();
             $table->integer('cliente_id')->unsigned()->nullable();
             $table->tinyInteger('publico')->nullable();
             $table->integer('estado_id')->unsigned()->nullable();
             $table->dateTime('fecha')->nullable();
+            $table->string('duracion')->nullable();
 
             $table->timestamps();
 

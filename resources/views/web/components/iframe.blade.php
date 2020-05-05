@@ -1,14 +1,24 @@
-<div>
+<div class="text-center">
 
 
         @if($charla->iframes->count())
 
             <iframe
                     width="100%"
-                    height="900"
+                    {{--height="650"--}}
                     src="{!! $charla->iframes->first()->path !!}"
+                    frameborder="0"
                     allowfullscreen
+                    class="iframe"
             ></iframe>
+
+            {{--<iframe--}}
+                    {{--width="1280"--}}
+                    {{--height="720"--}}
+                    {{--src="{!! $charla->iframes->first()->path !!}"--}}
+                    {{--frameborder="0"--}}
+                    {{--allowfullscreen--}}
+            {{--></iframe>--}}
 
             {{--<iframe width="760"--}}
                     {{--height="415"--}}

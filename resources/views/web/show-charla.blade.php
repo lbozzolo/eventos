@@ -10,31 +10,32 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
+                    <div class="pl-3">
 
-                    <div class="float-right mb-3 text-center">
-                        @if(!$charla->publico)
-                        <a href="{!! route('web.charlas.inscripcion', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}"
-                           class="btn btn__primary btn__bordered module__btn-request mr-3 mb-1">
-                            <span>Inscribirse</span><i class="icon-arrow-right"></i>
-                        </a>
-                        @endif
-                        <a href="{!! route('web.iniciar-sesion', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}"
-                           class="btn btn__primary btn__bordered module__btn-request mr-3 mb-1">
-                            <span>Ingresar</span><i class="icon-arrow-right"></i>
-                        </a>
+                        <span class="text-azul-claro lead">{!! $charla->categorias->first()->nombre !!}</span>
+                        <h2 class="mb-0">{!! $charla->nombre !!} / {!! $charla->cliente->nombre !!}</h2>
+                        <p class="lead text-black">{!! $charla->descripcion !!}</p>
+
+                    </div>
+                    <div class="pl-3 bg-dark-green">
+                        @include('web.components.info-evento')
                     </div>
 
-                    <h2 class="mb-0">
-                        <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
-                        - {!! $charla->nombre !!} / {!! $charla->cliente->nombre !!}
-                    </h2>
-                    <p class="lead text-black">{!! $charla->descripcion !!}</p>
+                    <div class="mt-3">
+                    @forelse($charla->pdfs as $pdf)
+                        <a href="{!! route('pdf.ver', $pdf->path) !!}" target="_blank" class="mr-3 mb-1 btn__bordered module__btn-request btn btn-outline-dark">Programa <i class="fa fa-file-text-o"></i> </a>
+                    @empty
+                    @endforelse
 
-
-
-                    @include('web.components.info-evento')
+                        @include('web.components.botones-ingreso')
+                    </div>
 
                 </div>
+                {{--<div class="col-lg-4">--}}
+                    {{--<div class="pt-2 mb-3">--}}
+                        {{--@include('web.components.botones-ingreso')--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
     </section>

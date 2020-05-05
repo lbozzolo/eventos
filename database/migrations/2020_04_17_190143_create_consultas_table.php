@@ -18,6 +18,7 @@ class CreateConsultasTable extends Migration
 
             $table->integer('proyecto_id')->unsigned();
             $table->string('nombre')->nullable();
+            $table->string('email')->nullable();
             $table->string('texto', 255)->nullable();
             $table->string('ip_address' )->nullable();
             $table->tinyInteger('archivado' )->nullable();

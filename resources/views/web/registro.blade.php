@@ -19,7 +19,7 @@
 
                     <p class="lead">
                         Registrate y obtené tu pase a esta charla y muchas más.<br>
-                        <span class="text-celeste-oscuro">Sólo tendrás que registrarte una vez para inscribirte en todos los eventos que desees.</span>
+                        <span class="text-celeste-oscuro h4">Sólo tendrás que registrarte una vez para inscribirte en todos los eventos que desees.</span>
                     </p>
 
                 </div>

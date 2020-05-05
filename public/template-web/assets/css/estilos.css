@@ -220,7 +220,7 @@ h4 {
 .img-header {
     padding: 0px;
     margin: 0px;
-    height: 350px;
+    height: 160px;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -229,10 +229,144 @@ h4 {
     width: 45%;
 }
 
+.iframe {
+    height: 550px;
+}
+
+.fa-24px {
+    font-size: 24px;
+}
+
+.fa-36px {
+    font-size: 36px;
+}
+
 @media (min-width: 450px) and (max-width: 990px) {
 
     .logo-header {
         width: 25%;
+    }
+
+
+
+}
+
+@media (min-width: 1500px) and (max-width: 1599px) {
+
+    .iframe {
+        height: 550px;
+    }
+
+}
+
+@media (min-width: 1400px) and (max-width: 1499px) {
+
+    .iframe {
+        height: 500px;
+    }
+
+}
+
+@media (min-width: 1300px) and (max-width: 1399px) {
+
+    .iframe {
+        height: 450px;
+    }
+
+}
+
+@media (min-width: 1200px) and (max-width: 1299px) {
+
+    .iframe {
+        height: 420px;
+    }
+
+}
+
+@media (min-width: 1086px) and (max-width: 1199px) {
+
+    .iframe {
+        height: 400px;
+    }
+
+}
+
+@media (min-width: 991px) and (max-width: 1085px) {
+
+    .iframe {
+        height: 380px;
+    }
+
+}
+
+@media (min-width: 900px) and (max-width: 990px) {
+
+    .iframe {
+        height: 550px;
+    }
+
+}
+
+@media (min-width: 800px) and (max-width: 899px) {
+
+    .iframe {
+        height: 500px;
+    }
+
+}
+
+@media (min-width: 700px) and (max-width: 799px) {
+
+    .iframe {
+        height: 450px;
+    }
+
+}
+
+@media (min-width: 600px) and (max-width: 699px) {
+
+    .iframe {
+        height: 400px;
+    }
+
+}
+
+@media (min-width: 550px) and (max-width: 599px) {
+
+    .iframe {
+        height: 350px;
+    }
+
+}
+
+@media (min-width: 500px) and (max-width: 549px) {
+
+    .iframe {
+        height: 320px;
+    }
+
+}
+
+@media (min-width: 450px) and (max-width: 499px) {
+
+    .iframe {
+        height: 300px;
+    }
+
+}
+
+@media (min-width: 400px) and (max-width: 449px) {
+
+    .iframe {
+        height: 230px;
+    }
+
+}
+
+@media (min-width: 300px) and (max-width: 399px) {
+
+    .iframe {
+        height: 200px;
     }
 
 }
@@ -246,5 +380,7 @@ h4 {
     .img-header {
         height: 150px;
     }
+
+
 
 }

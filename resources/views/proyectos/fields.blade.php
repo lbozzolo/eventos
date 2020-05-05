@@ -1,11 +1,11 @@
 <div class="form-group col-lg-12">
     {!! Form::label('nombre', 'Nombre') !!}
-    {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
+    {!! Form::text('nombre', null, ['class' => 'form-control', 'style' => 'border: 1px solid #aaa']) !!}
 </div>
 
 <div class="form-group col-lg-12">
     {!! Form::label('descripcion', 'Descripción') !!}
-    {!! Form::textarea('descripcion', null, ['class' => 'form-control', 'rows' => '5']) !!}
+    {!! Form::textarea('descripcion', null, ['class' => 'form-control', 'rows' => '5', 'style' => 'border: 1px solid #aaa']) !!}
 </div>
 
 <div class="form-group col-lg-12">
@@ -18,15 +18,21 @@
     {!! Form::select('cliente_id', (isset($clientes))? $clientes : [], null, ['class' => 'form-control select2']) !!}
 </div>
 
-<div class="form-group col-lg-6">
+<div class="form-group col-lg-4">
     {!! Form::label('estado_id', 'Estado') !!}
     {!! Form::select('estado_id', (isset($estados))? $estados : [], null, ['class' => 'form-control select2']) !!}
 </div>
 
-<div class="form-group col-lg-6">
+<div class="form-group col-lg-4">
     {!! Form::label('fecha', 'Fecha y hora') !!}
-    {!! Form::text('fecha', (isset($item))? $item->fecha : null, ['class' => 'form-control', 'id' => 'flatpickr' , 'autocomplete' => 'off', 'style' => 'background-color: white']) !!}
+    {!! Form::text('fecha', (isset($item))? $item->fecha : null, ['class' => 'form-control', 'id' => 'flatpickr' , 'autocomplete' => 'off', 'style' => 'background-color: white; border: 1px solid #aaa']) !!}
 </div>
+
+<div class="form-group col-lg-4">
+    {!! Form::label('duracion', 'Duración') !!}
+    {!! Form::text('duracion', (isset($item))? $item->duracion : null, ['class' => 'form-control', 'placeholder' => '2 hs', 'style' => 'background-color: white; border: 1px solid #aaa']) !!}
+</div>
+
 
 <div class="form-group col-lg-12">
     {!! Form::label('auspiciantes[]', 'Auspiciantes') !!}

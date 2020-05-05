@@ -6,17 +6,17 @@
     @include('web.components.header-charla')
 
 
-    <section class="blog blog-single pb-0 pt-4 bg-light">
+    <section class="blog blog-single pb-0 pt-4">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
 
                     @include('vendor.flash.message')
 
-                    <h4>
-                        <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
-                        - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
-                    </h4>
+                    {{--<h4>--}}
+                        {{--<span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>--}}
+                        {{--- {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})--}}
+                    {{--</h4>--}}
 
                 </div>
             </div>
@@ -25,42 +25,28 @@
 
 
 
-    <section class="pb-40 pt-5">
-        <div class="pl-5 pr-5">
+    <section class="pb-40 pt-2">
+        <div class="pl-2 pr-2">
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-12 col-md-12 col-lg-7">
 
-{{--                    @include('web.components.iframe-youtube')--}}
-                    @include('web.components.iframe')
+                        @include('web.components.iframe')
 
                 </div>
-                <div class="col-lg-12">
-                    <div class="card card-body">
-                        {!! Form::open(['url' => route('proyectos.store.message', $charla->id), 'method' => 'post', 'id' => 'form-consulta']) !!}
+                <div class="col-lg-5">
+                    <div style="margin-top: 0px; padding-top: 0px">
 
-                        {!! Form::hidden('proyecto_id', $charla->id) !!}
-                        <div class="form-group">
+                        <div class="card-body">
 
-                            <div id="error"></div>
+                            <h4>
+                                <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
+                                - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
+                            </h4>
 
-                            <div id="message"></div>
+                            @include('web.components.consulta')
 
-
-                            <div class="text-success" id="table" style="display: none;"></div>
                         </div>
-                        @if($charla->publico)
-                        <div class="form-group">
-                            {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre', 'id' => 'nombre']) !!}
-                        </div>
-                        @endif
-                        <div class="form-group">
-                            {!! Form::textarea('texto', null, ['class' => 'form-control', 'rows' => 6, 'placeholder' => 'Escriba aquí su consulta...', 'id' => 'texto']) !!}
-                        </div>
-                        <div class="form-group">
-{{--                            {!! Form::submit('Enviar', ['class' => 'btn btn-outline-dark btn-xs', 'id' => 'btnSubmit']) !!}--}}
-                            <button type="button" id="btnSubmit" class="btn btn-outline-dark btn-xs">Enviar</button>
-                        </div>
-                        {!! Form::close() !!}
+
                     </div>
                 </div>
             </div>
@@ -140,6 +126,7 @@
                 data: {
                     '_token': $('input[name=_token]').val(),
                     'nombre': $('input[name=nombre]').val(),
+                    'email': $('input[name=email]').val(),
                     'texto': $('#texto').val(),
                     'proyecto_id': $('input[name=proyecto_id]').val(),
                 },

@@ -25,19 +25,28 @@
                     @forelse($item->consultasRecientes()->sortByDesc('id') as $consulta)
                         <li class="list-unstyled">
 
-                            <div class=' float-right'>
-                                <a href="{!! route('proyectos.consultas.archivar', [$consulta->id]) !!}" class='btn btn-dark btn-xs mb-1' title="Archivar">
-                                    archivar</a><br>
-                                <button title="Eliminar" type="button" data-toggle="modal" data-target="#delete{!! $consulta->id !!}" class="btn btn-xs  btn-danger">
-                                    eliminar</button>
+                            <div class="card grid-margin">
+                                <div class="card-header">
+                                    <span class="float-right">{!! ($consulta->email)? $consulta->email : '' !!}</span>
+                                    <span>
+                                        {!! ucfirst($consulta->nombre) !!}
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    {!! ucfirst($consulta->texto) !!}
+                                </div>
+                                <div class="card-footer">
+                                    <div class='float-right'>
+                                        <a href="{!! route('proyectos.consultas.archivar', [$consulta->id]) !!}" class='btn btn-dark btn-xs' title="Archivar">
+                                            archivar</a>
+                                        <button title="Eliminar" type="button" data-toggle="modal" data-target="#delete{!! $consulta->id !!}" class="btn btn-xs btn-danger">
+                                            eliminar</button>
+                                    </div>
+                                    <span>
+                                        {!! $consulta->fecha_creado !!} • {!! $consulta->hora_creado !!}
+                                    </span>
+                                </div>
                             </div>
-
-                            <blockquote class="blockquote">
-                                <p class="mb-0">{!! ucfirst($consulta->texto) !!}</p>
-                                <footer class="blockquote-footer">{!! ucfirst($consulta->nombre) !!}
-                                    <cite title="Source Title">• {!! $consulta->fecha_creado !!} a las {!! $consulta->hora_creado !!}</cite>
-                                </footer>
-                            </blockquote>
 
                         </li>
                     @empty
@@ -87,17 +96,27 @@
                 <ul class="list-unstyled">
                     @forelse($item->consultasArchivadas()->sortByDesc('id') as $consulta)
                         <li>
-                            <div class=' float-right'>
-                                <button title="Eliminar" type="button" data-toggle="modal" data-target="#delete{!! $consulta->id !!}" class="btn btn-xs  btn-danger">
-                                    eliminar</button>
-                            </div>
 
-                            <blockquote class="blockquote" style="border-color: gray">
-                                <p class="mb-0">{!! ucfirst($consulta->texto) !!}</p>
-                                <footer class="blockquote-footer">{!! ucfirst($consulta->nombre) !!}
-                                    <cite title="Source Title">• {!! $consulta->hora_creado !!}</cite>
-                                </footer>
-                            </blockquote>
+                            <div class="card grid-margin">
+                                <div class="card-header">
+                                    <span class="float-right">{!! ($consulta->email)? $consulta->email : '' !!}</span>
+                                    <span>
+                                        {!! ucfirst($consulta->nombre) !!}
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    {!! ucfirst($consulta->texto) !!}
+                                </div>
+                                <div class="card-footer">
+                                    <div class='float-right'>
+                                        <button title="Eliminar" type="button" data-toggle="modal" data-target="#delete{!! $consulta->id !!}" class="btn btn-xs btn-danger">
+                                            eliminar</button>
+                                    </div>
+                                    <span>
+                                        {!! $consulta->fecha_creado !!} • {!! $consulta->hora_creado !!}
+                                    </span>
+                                </div>
+                            </div>
 
                         </li>
                     @empty

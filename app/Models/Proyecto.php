@@ -22,10 +22,23 @@ class Proyecto extends Entity
         'estado_id',
         'publico',
         'fecha',
+        'duracion',
     ];
 
     public static $rules = [
-        '' => '',
+        'nombre' => 'required|max:191',
+        'descripcion' => 'required|max:191',
+        'duracion' => 'required',
+    ];
+
+    public $daysSpanish = [
+        0 => 'domingo',
+        1 => 'lunes',
+        2 => 'martes',
+        3 => 'miércoles',
+        4 => 'jueves',
+        5 => 'viernes',
+        6 => 'sábado',
     ];
 
     public function iframesRestantes()
@@ -34,6 +47,13 @@ class Proyecto extends Entity
         $iframes->shift();
 
         return $iframes;
+    }
+
+    public function getNameOfDay($date)
+    {
+        $fecha = Carbon::parse($date);
+
+        return ucfirst($this->daysSpanish[$fecha->dayOfWeek]);
     }
 
     public function scopeConsultasArchivadas()

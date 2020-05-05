@@ -9,7 +9,7 @@ class Header extends Entity
     public $table = 'headers';
 
     public $image_croppie_width = 1200;
-    public $image_croppie_height = 250;
+    public $image_croppie_height = 150;
 
     public $fillable = [
         'proyecto_id'

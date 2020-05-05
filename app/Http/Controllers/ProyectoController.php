@@ -272,6 +272,7 @@ class ProyectoController extends AppBaseController
     {
         $rules = array (
             'nombre' => 'max:191',
+            'email' => 'max:191|email',
             'texto' => 'max:255',
         );
 
@@ -290,11 +291,13 @@ class ProyectoController extends AppBaseController
 
             $proyecto = Proyecto::find($request->proyecto_id);
             $nombre = ($proyecto->publico)? $request->nombre : Auth::user()->fullname;
+            $email = ($proyecto->publico)? $request->email : Auth::user()->email;
 
 
             $data = Consulta::create([
                 'proyecto_id' => $proyecto->id,
                 'nombre' => $nombre,
+                'email' => $email,
                 'texto' => $request->texto,
                 'ip_address' => (request()->ip())? request()->ip() : null
             ]);
