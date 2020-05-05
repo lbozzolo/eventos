@@ -10,7 +10,7 @@
         </span>
         <span>
             <i class="fa fa-clock-o fa-24px text-azul-oscuro"></i>
-            <strong class="pl-3" style="font-size: 1.5em">{!! $charla->hora !!} {!! ($charla->duracion)? '('.$charla->duracion.')' : '' !!}</strong>
+            <strong class="pl-3" style="font-size: 1.5em">{!! $charla->hora !!} hs {!! ($charla->duracion)? '('.$charla->duracion.')' : '' !!}</strong>
         </span>
 
     @else
