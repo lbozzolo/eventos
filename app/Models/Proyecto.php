@@ -103,7 +103,7 @@ class Proyecto extends Entity
 
     public function getHoraAttribute()
     {
-        return Carbon::parse($this->attributes['fecha'])->format('h:i A');
+        return Carbon::parse($this->attributes['fecha'])->format('H:i');
     }
 
     // Relationships
