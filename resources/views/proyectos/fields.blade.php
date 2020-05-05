@@ -25,7 +25,7 @@
 
 <div class="form-group col-lg-4">
     {!! Form::label('fecha', 'Fecha y hora') !!}
-    {!! Form::text('fecha', (isset($item))? $item->fecha : null, ['class' => 'form-control', 'id' => 'flatpickr' , 'autocomplete' => 'off', 'style' => 'background-color: white; border: 1px solid #aaa']) !!}
+    {!! Form::text('fecha', (isset($item))? $item->fecha_formatted : null, ['class' => 'form-control', 'id' => 'flatpickr' , 'autocomplete' => 'off', 'style' => 'background-color: white; border: 1px solid #aaa']) !!}
 </div>
 
 <div class="form-group col-lg-4">

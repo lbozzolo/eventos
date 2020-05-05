@@ -86,6 +86,21 @@ class Proyecto extends Entity
         return Carbon::parse($this->attributes['fecha'])->format('d-m-Y');
     }
 
+    public function getFechaFormattedAttribute()
+    {
+        return Carbon::parse($this->attributes['fecha'])->format('d-m-Y H:i');
+    }
+
+    public function getFechaFormattedViewAttribute()
+    {
+        return Carbon::parse($this->attributes['fecha'])->format('Y-m-d H:i');
+    }
+
+    public function getFechaCompletaAttribute()
+    {
+        return Carbon::parse($this->attributes['fecha']);
+    }
+
     public function getHoraAttribute()
     {
         return Carbon::parse($this->attributes['fecha'])->format('h:i A');

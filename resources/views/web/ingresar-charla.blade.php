@@ -2,9 +2,7 @@
 
 @section('content')
 
-
     @include('web.components.header-charla')
-
 
     <section class="blog blog-single pb-0 pt-4">
         <div class="container">
@@ -13,18 +11,12 @@
 
                     @include('vendor.flash.message')
 
-                    {{--<h4>--}}
-                        {{--<span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>--}}
-                        {{--- {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})--}}
-                    {{--</h4>--}}
-
                 </div>
             </div>
         </div>
     </section>
 
-
-
+    @if(\Carbon\Carbon::tomorrow()->format('Y-m-d H:i') > $charla->fecha_formatted_view)
     <section class="pb-40 pt-2">
         <div class="pl-2 pr-2">
             <div class="row">
@@ -52,6 +44,7 @@
             </div>
         </div>
     </section>
+    @endif
 
     <section class="blog blog-single pb-0 pt-5" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey">
         <div class="container">

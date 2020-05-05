@@ -136,7 +136,9 @@ class ProyectoController extends AppBaseController
         $this->data['items'] = $this->repo->all();
 
         $inputs = $request->all();
-        $inputs['fecha'] = Carbon::parse($inputs['fecha'])->format('Y-m-d h:i');
+        $inputs['fecha'] = Carbon::parse($inputs['fecha'])->format('Y-m-d H:i');
+
+//        dd($inputs['fecha']);
 
         if(!isset($inputs['publico']))
             $inputs['publico'] = null;

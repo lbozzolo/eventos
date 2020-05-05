@@ -51,7 +51,7 @@
 
         flatpickr('#flatpickr', {
             enableTime: true,
-            dateFormat: 'd-m-Y h:i'
+            dateFormat: 'd-m-Y h:i K'
         });
 
     </script>
