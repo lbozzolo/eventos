@@ -16,6 +16,12 @@ class Auspiciante extends Entity
         'nombre', 'url'
     ];
 
+    public static $rules = [
+        'nombre' => 'required|max:191',
+        'url' => 'max:191',
+    ];
+
+
     // Relationships
     public function proyectos()
     {

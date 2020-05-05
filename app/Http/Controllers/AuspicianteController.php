@@ -2,6 +2,7 @@
 
 namespace Eventos\Http\Controllers;
 
+use Eventos\Http\Requests\CreateAuspicianteRequest;
 use Eventos\Http\Requests\CreateClienteRequest;
 use Eventos\Http\Requests\UpdateClienteRequest;
 use Eventos\Models\Auspiciante;
@@ -65,7 +66,7 @@ class AuspicianteController extends AppBaseController
         return view($this->modelPlural.'.create')->with($this->data);
     }
 
-    public function store(CreateClienteRequest $request)
+    public function store(CreateAuspicianteRequest $request)
     {
         $input = $request->all();
         $item = $this->repo->create($input);
@@ -96,7 +97,7 @@ class AuspicianteController extends AppBaseController
         return view($this->modelPlural.'.edit')->with($this->data);
     }
 
-    public function update($id, UpdateClienteRequest $request)
+    public function update($id, CreateAuspicianteRequest $request)
     {
         $this->data['item'] = $this->repo->findWithoutFail($id);
         $this->data['items'] = $this->repo->all();
