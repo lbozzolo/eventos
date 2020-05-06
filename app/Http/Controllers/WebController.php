@@ -99,6 +99,8 @@ class WebController extends AppBaseController
         $user->assignRole('Inscripto');
         $user->save();
 
+        $user->proyectos()->syncWithoutDetaching($id);
+
         Auth::attempt(['email' => $user->email, 'password' => $user->dni]);
 
         $data = array(
