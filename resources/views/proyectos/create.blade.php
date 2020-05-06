@@ -49,10 +49,16 @@
             multiple: true
         });
 
+        // flatpickr('#flatpickr', {
+        //     enableTime: true,
+        //     dateFormat: 'd-m-Y h:i K'
+        // });
+
         flatpickr('#flatpickr', {
             enableTime: true,
-            dateFormat: 'd-m-Y h:i K'
-        });
+            dateFormat: 'd-m-Y H:i',
+            time_24hr: true
+        })
 
     </script>
 

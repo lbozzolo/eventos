@@ -9,10 +9,10 @@
             <div class="row">
                 <div class="col-lg-12">
 
-                    <h2 class="text-black">
+                    <h2 class="text-black" style="display: inline-block">
                         <span class="text-azul-claro">Ingresar</span>
-                        - {!! $charla->cliente->nombre !!} - {!! $charla->nombre !!}
                     </h2>
+                    <p class="text-black lead">{!! $charla->cliente->nombre !!} - {!! $charla->nombre !!}</p>
 
                 </div>
                 <div class="col-lg-12">

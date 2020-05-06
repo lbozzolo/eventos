@@ -13,7 +13,7 @@
                         {!! ucfirst($modelSpanish) !!} /
                         <span class="text-warning">{!! $item->nombre !!}</span>
                     </h2>
-                    <a href="{!! route($modelPlural.'.edit', [$item->id]) !!}" class="btn btn-outline-primary">Editar</a>
+                    <a href="{!! route($modelPlural.'.edit', ['id' => $item->id]) !!}" class="btn btn-outline-primary">Editar</a>
                     <a href="{!! route('headers.show', $item->header->id) !!}" class="btn btn-outline-success btn-sm">Configurar Header</a>
                     <a href="{!! route($modelPlural.'.consultas', $item->id) !!}" class="btn btn-outline-warning btn-sm">Consultas</a>
                     <table class="table">
