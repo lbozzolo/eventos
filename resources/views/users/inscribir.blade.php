@@ -4,7 +4,8 @@
 
     <div class="card col-lg-12 grid-margin">
         <div class="card-body">
-            <h1>Inscripciones / <span class="text-warning">Inscribir</span></h1>
+            <h2>Inscripciones / <span class="text-warning">Inscribir</span></h2>
+            <a class="btn btn-outline-primary btn-sm ml-3" href="{!! route('users.inscribir.desde.usuarios') !!}">Inscribir desde lista de usuarios</a>
         </div>
     </div>
 

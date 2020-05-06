@@ -13,6 +13,7 @@ use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Eventos\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -60,6 +61,46 @@ class UserController extends AppBaseController
         $this->data['paises'] = $this->paises;
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
         return view('users.inscribir')->with($this->data);
+    }
+
+    public function inscribirDesdeUsuarios()
+    {
+        $this->data['items'] = $this->data['items'] = User::role('Inscripto')->get();
+        $this->data['paises'] = $this->paises;
+        $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
+        return view('users.inscribir-desde-usuarios')->with($this->data);
+    }
+
+    public function storeInscripcionesDesdeUsuarios(Request $request)
+    {
+        $user = User::find($request['user_id']);
+//        $user->proyectos()->sync($request['proyectos']);
+
+        $this->data['charla'] = Proyecto::find($request['proyecto_id']);
+        $user->proyectos()->syncWithoutDetaching($request['proyecto_id']);
+
+        $data = array(
+
+            'fullname' => $user->fullname,
+            'evento' => $this->data['charla']->nombre,
+            'cliente' => $this->data['charla']->cliente->nombre,
+            'email' => $user->email,
+            'fecha' => $this->data['charla']->fecha,
+            'hora' => $this->data['charla']->hora,
+            'logo' => $this->data['charla']->cliente->mainImage(),
+            'url' => route('web.charlas.ingresar',[
+                'cliente' => $this->data['charla']->cliente_slug,
+                'evento' => $this->data['charla']->nombre_slug,
+                'id' => $this->data['charla']->id])
+        );
+
+        Mail::send('emails.inscripcion', ['data' => $data], function($message) use ($data){
+            $message->to($data['email']);
+            $message->subject('Inscripción a evento online');
+            $message->from(config('mail.from.address'));
+        });
+
+        return redirect()->back()->with('ok', 'Usuario inscripto con éxito');
     }
 
     public function storeInscripciones(CreateInscriptoRequest $request)

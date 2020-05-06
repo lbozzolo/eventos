@@ -17,6 +17,11 @@ Route::group(['middleware' => ['can:mostrar_inscriptos']], function () {
         'uses' => 'UserController@inscribir'
     ]);
 
+    Route::get('inscribir-desde-listado-de-usuarios', [
+        'as' => 'users.inscribir.desde.usuarios',
+        'uses' => 'UserController@inscribirDesdeUsuarios'
+    ]);
+
     Route::get('inscripciones/{id}/show', [
         'as' => 'users.inscripciones.show',
         'uses' => 'UserController@inscripcionesShow'
@@ -35,6 +40,11 @@ Route::group(['middleware' => ['can:mostrar_inscriptos']], function () {
     Route::post('inscripciones/inscribir', [
         'as' => 'users.inscripciones.store',
         'uses' => 'UserController@storeInscripciones'
+    ]);
+
+    Route::post('inscripciones/inscribir-desde-listado-de-usuarios', [
+        'as' => 'users.inscripciones.store.desde.usuarios',
+        'uses' => 'UserController@storeInscripcionesDesdeUsuarios'
     ]);
 
 });
