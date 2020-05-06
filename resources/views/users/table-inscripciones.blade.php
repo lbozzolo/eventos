@@ -1,7 +1,7 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th style="width: 50px">Id</th>
+        <th style="width: 80px">Id</th>
         <th>Nombre</th>
         <th>Contacto</th>
         <th>Inscripciones</th>

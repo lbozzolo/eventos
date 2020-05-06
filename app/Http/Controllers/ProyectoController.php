@@ -57,12 +57,12 @@ class ProyectoController extends AppBaseController
         $this->modelSpanish = 'proyecto';
         $this->modelSpanishPlural = 'proyectos';
         $this->store_success_message = ($this->gender == 'M')? ucfirst($this->modelSpanish).' creado con éxito' : ucfirst($this->modelSpanish).' creada con éxito';
-        $this->store_failure_message = ($this->gender == 'M')? 'Ocurrió un error. No se pudo crear el'.ucfirst($this->modelSpanish) : 'Ocurrió un error. No se pudo crear la'.ucfirst($this->modelSpanish);
-        $this->show_failure_message = ($this->gender == 'M')? 'No se encontró el'.ucfirst($this->modelSpanish.' especificado') : 'No se encontró la'.ucfirst($this->modelSpanish.' especificada');
+        $this->store_failure_message = ($this->gender == 'M')? 'Ocurrió un error. No se pudo crear el '.ucfirst($this->modelSpanish) : 'Ocurrió un error. No se pudo crear la'.ucfirst($this->modelSpanish);
+        $this->show_failure_message = ($this->gender == 'M')? 'No se encontró el '.ucfirst($this->modelSpanish.' especificado') : 'No se encontró la'.ucfirst($this->modelSpanish.' especificada');
         $this->update_success_message = ($this->gender == 'M')? ucfirst($this->modelSpanish).' actualizado con éxito' : ucfirst($this->modelSpanish).' actualizada con éxito';
-        $this->update_failure_message = ($this->gender == 'M')? 'Ocurrió un error. No se pudo actualizar el'.ucfirst($this->modelSpanish).' especificado' : 'Ocurrió un error. No se pudo actualizar la'.ucfirst($this->modelSpanish).' especificada';
+        $this->update_failure_message = ($this->gender == 'M')? 'Ocurrió un error. No se pudo actualizar el '.ucfirst($this->modelSpanish).' especificado' : 'Ocurrió un error. No se pudo actualizar la'.ucfirst($this->modelSpanish).' especificada';
         $this->destroy_success_message = ($this->gender == 'M')? ucfirst($this->modelSpanish).' eliminado con éxito' : ucfirst($this->modelSpanish).' eliminada con éxito';
-        $this->destroy_failure_message = ($this->gender == 'M')? 'Ocurrió un error. No se pudo eliminar el'.ucfirst($this->modelSpanish).' especificado' : 'Ocurrió un error. No se pudo eliminar la'.ucfirst($this->modelSpanish).' especificada';
+        $this->destroy_failure_message = ($this->gender == 'M')? 'Ocurrió un error. No se pudo eliminar el '.ucfirst($this->modelSpanish).' especificado' : 'Ocurrió un error. No se pudo eliminar la'.ucfirst($this->modelSpanish).' especificada';
         $this->no_results_message = ($this->gender == 'M')? 'No hay ningún '.$this->modelSpanish. ' cargado en el sistema.' : 'No hay ninguna '. $this->modelSpanish . ' cargada en el sistema.';
 
         $this->data['model'] = $this->model;
@@ -117,10 +117,7 @@ class ProyectoController extends AppBaseController
 
     public function edit($id)
     {
-        $this->data['item'] = $this->repo->findWithoutFail($id);
-
-        if (empty($this->data['item']))
-            return redirect()->back()->withErrors($this->show_failure_message);
+        $this->data['item'] = Proyecto::findorfail($id);
 
         $this->data['estados'] = Estado::pluck('nombre', 'id');
         $this->data['categorias'] = Categoria::pluck('nombre', 'id');

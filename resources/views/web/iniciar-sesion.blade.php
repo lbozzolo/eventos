@@ -10,7 +10,7 @@
                 <div class="col-lg-12">
 
                     <h2 class="text-black">
-                        <span class="text-azul-claro">Identificación</span>
+                        <span class="text-azul-claro">Ingresar</span>
                         - {!! $charla->cliente->nombre !!} - {!! $charla->nombre !!}
                     </h2>
 
