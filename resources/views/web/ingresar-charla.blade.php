@@ -16,34 +16,70 @@
         </div>
     </section>
 
-    @if(\Carbon\Carbon::tomorrow()->format('Y-m-d H:i') > $charla->fecha_formatted_view)
-    <section class="pb-40 pt-2">
-        <div class="pl-2 pr-2">
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-7">
+    @if(\Carbon\Carbon::now()->format('Y-m-d H:i') > $charla->fecha_formatted_view)
 
-                        @include('web.components.iframe')
+        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours(6)->format('Y-m-d H:i'))
+        <section class="pb-40 pt-2">
+            <div class="pl-2 pr-2">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-7">
 
+                            @include('web.components.iframe')
+
+                    </div>
+                    <div class="col-lg-5">
+                        <div style="margin-top: 0px; padding-top: 0px">
+
+                            <div class="card-body">
+
+                                <h4>
+                                    <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
+                                    - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
+                                </h4>
+
+                                @include('web.components.consulta')
+
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-5">
-                    <div style="margin-top: 0px; padding-top: 0px">
+            </div>
+        </section>
+        @else
 
-                        <div class="card-body">
-
+            <section class="pb-40 pt-2">
+                <div class="pl-2 pr-2">
+                    <div class="row">
+                        <div class="container">
                             <h4>
                                 <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
                                 - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
                             </h4>
-
-                            @include('web.components.consulta')
-
+                            <p class="lead">Este evento ha finalizado.</p>
                         </div>
+                    </div>
+                </div>
+            </section>
 
+        @endif
+
+    @else
+
+        <section class="pb-40 pt-2">
+            <div class="pl-2 pr-2">
+                <div class="row">
+                    <div class="container">
+                        <h4>
+                            <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
+                            - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
+                        </h4>
+                        <p class="lead">Este evento comienza el {!! $charla->fecha !!} a las {!! $charla->hora !!} hs</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
     @endif
 
     <section class="blog blog-single pb-0 pt-5" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey">
