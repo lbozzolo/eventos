@@ -17,8 +17,8 @@ class Video extends Entity
 
     public function getVideoIdAttribute()
     {
-        preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $this->path, $match);
-        $youtube_id = $match[1];
+        $check = preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $this->path, $match);
+        $youtube_id = ($check)? $match[1] : '';
         return $youtube_id;
     }
 
