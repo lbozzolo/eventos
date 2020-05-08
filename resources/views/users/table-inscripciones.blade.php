@@ -4,6 +4,7 @@
         <th style="width: 80px">Id</th>
         <th>Nombre</th>
         <th>Contacto</th>
+        <th>Origen</th>
         <th>Inscripciones</th>
         <th>Alta</th>
         <th>Opciones</th>
@@ -18,6 +19,10 @@
             <td>
                 <span>{!! $item->email !!}</span><br>
                 <span>tel: {!! $item->phone !!}</span>
+            </td>
+            <td>
+                {!! ($item->localidad)? $item->localidad.'. ' : '' !!}<br>
+                {!! $item->pais_origen !!}
             </td>
             <td>
                 @if($item->proyectos->count())

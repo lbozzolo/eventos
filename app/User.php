@@ -20,6 +20,8 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
+    public $paises = ['Argentina', 'Bolivia', 'Brasil', 'Chile', 'Ecuador', 'Paraguay', 'Uruguay'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -73,6 +75,14 @@ class User extends Authenticatable
         'password' => 'required|min:6',
         'password_confirmation' => 'required|min:6|same:password'
     ];
+
+    public function getPaisOrigenAttribute()
+    {
+        $index = $this->pais;
+        $pais = strtoupper(($this->pais != null)? $this->paises[$index] : '');
+
+        return $pais;
+    }
 
     public function getFechaCreadoAttribute()
     {
