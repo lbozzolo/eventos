@@ -16,7 +16,8 @@
         </div>
     </section>
 
-    @if(\Carbon\Carbon::now()->format('Y-m-d H:i') > $charla->fecha_formatted_view)
+
+    @if(\Carbon\Carbon::now()->addHours(1)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
 
         @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours(6)->format('Y-m-d H:i'))
         <section class="pb-40 pt-2">
