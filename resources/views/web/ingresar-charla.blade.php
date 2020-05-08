@@ -19,7 +19,7 @@
 
     @if(\Carbon\Carbon::now()->addHours(1)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
 
-        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours(6)->format('Y-m-d H:i'))
+        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours(4)->format('Y-m-d H:i') && !$charla->videos->count())
         <section class="pb-40 pt-2">
             <div class="pl-2 pr-2">
                 <div class="row">
@@ -72,7 +72,7 @@
                 <div class="row">
                     <div class="container">
                         <h4>
-                            <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
+                            <span class="text-azul-claro">Volver a ver</span>
                             - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
                         </h4>
                         <p class="lead">Este evento comienza el {!! $charla->fecha !!} a las {!! $charla->hora !!} hs</p>
@@ -94,6 +94,27 @@
             </div>
         </div>
     </section>
+
+    @if($charla->videos->count())
+    <section class="blog blog-single pb-5 pt-5" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <h4 class="text-azul-claro">Volver a ver</h4>
+                </div>
+                @foreach($charla->videos as $video)
+                <div class="col-lg-3">
+                    <a href="{!! $video->path !!}" target="_blank">
+                    <img src="https://img.youtube.com/vi/{!! $video->video_id !!}/default.jpg" style="width: 100%">
+                    </a>
+                </div>
+                @endforeach
+
+            </div>
+        </div>
+    </section>
+    @endif
 
     <section class="pt-5 pb-5 pl-5 bg-celeste-oscuro text-white">
         <div class="container ">
