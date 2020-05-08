@@ -163,12 +163,28 @@
                 success: function(data) {
                     if ((data.errors)) {
 
+                        let errorString = [];
+                        $.each( data.errors, function( key, value) {
+                            if(value !== undefined){
+                                errorString += '<li>' + value + '</li>';
+                            }
+                        });
+
+                        console.log(data.errors);
+                        console.log(errorString);
+
                         $('#message').text('');
                         $('#box-message').hide();
+
                         $('#error').html(
                             '<div class="alert alert-danger alert-dismissible" id="box-error">' +
                             '<button class="close" type="button" data-dismiss="alert" aria-hidden="true">x</button>' +
-                                data.errors +
+
+                            '<ul>' +
+                                errorString +
+                            '</ul>' +
+
+
                             '</div>');
                         $("#btnSubmit").prop('disabled', false);
 

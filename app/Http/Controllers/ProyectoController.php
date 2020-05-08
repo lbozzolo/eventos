@@ -270,10 +270,18 @@ class ProyectoController extends AppBaseController
         $rules = array (
             'nombre' => 'max:191',
             'email' => 'max:191|email',
-            'texto' => 'max:255',
+            'texto' => 'required|max:255',
         );
 
-        $validator = Validator::make( $request->all(), $rules );
+        $messages = array (
+            'nombre.max' => 'Su nombre no puede exceder los 191 caracteres',
+            'emai.max' => 'Su email no puede exceder los 191 caracteres',
+            'emai.email' => 'El formate del email es incorrecto',
+            'texto.required' => 'No puede enviar una consulta vacía',
+            'texto.max' => 'Su consulta no puede exceder los 255 caracteres',
+        );
+
+        $validator = Validator::make( $request->all(), $rules, $messages);
 
         $consultas = Consulta::where('ip_address', '=',request()->ip())->lastMessages(1)->get();
 
@@ -400,6 +408,19 @@ class ProyectoController extends AppBaseController
         $this->data['iframe']->delete();
 
         return redirect(route($this->modelPlural.'.iframes', $proyecto))->with('ok', 'Iframe eliminado con éxito');
+    }
+
+    public function destroyVideo($proyecto, $video)
+    {
+        $this->data['proyecto'] = Proyecto::find($proyecto);
+        $this->data['video'] = Video::find($video);
+
+        if (empty($this->data['proyecto']))
+            return redirect()->back()->withErrors($this->destroy_failure_message);
+
+        $this->data['video']->delete();
+
+        return redirect(route($this->modelPlural.'.videos', $proyecto))->with('ok', 'Video eliminado con éxito');
     }
 
     public function changeFileNameIfExists($file)

@@ -36,7 +36,7 @@ Route::group(['middleware' => ['can:editar_proyectos']], function () {
 
     Route::delete('proyectos/{proyecto}/videos/{video}', [
         'as' => 'proyectos.videos.destroy',
-        'uses' => 'ProyectoController@destroyVideos'
+        'uses' => 'ProyectoController@destroyVideo'
     ]);
 
     Route::get('proyectos/{id}/pdf', [

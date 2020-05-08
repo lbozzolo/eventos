@@ -57,7 +57,11 @@
 
         @empty
 
-            <li class="text-muted"><i class="fa fa-meh-o"></i> <small><em>No hay iframes en este proyecto.</em></small> </li>
+            <div class="col-lg-12">
+                <div class="card card-body">
+                    <p class="text-muted"><i class="fa fa-meh-o"></i> <small><em>No hay iframes en este proyecto.</em></small> </p>
+                </div>
+            </div>
 
         @endforelse
     </div>
