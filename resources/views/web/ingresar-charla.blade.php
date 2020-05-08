@@ -102,14 +102,8 @@
 
                 <div class="col-lg-12">
                     <h4 class="text-azul-claro">Volver a ver</h4>
+                    @include('web.components.iframe-youtube')
                 </div>
-                @foreach($charla->videos as $video)
-                <div class="col-lg-3">
-                    <a href="{!! $video->path !!}" target="_blank">
-                    <img src="https://img.youtube.com/vi/{!! $video->video_id !!}/default.jpg" style="width: 100%">
-                    </a>
-                </div>
-                @endforeach
 
             </div>
         </div>
@@ -151,12 +145,12 @@
 
     <script>
 
-        $('.iframe-secondary').click(function () {
+        $('.video_secondary').click(function () {
 
             let src = $(this).attr('data-url');
 
             console.log($(this).attr('src'));
-            $('#iframe-primary').attr('src', src);
+            $('#video_primary').attr('src', src);
 
         });
 
