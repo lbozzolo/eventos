@@ -43,6 +43,10 @@ class WebController extends AppBaseController
     public function showCharla($cliente, $evento, $id)
     {
         $this->data['charla'] = Proyecto::findOrFail($id);
+
+        if($this->data['charla']->isFinished())
+            return view('web.show-charla-finalizada')->with($this->data);
+
         return view('web.show-charla')->with($this->data);
     }
 

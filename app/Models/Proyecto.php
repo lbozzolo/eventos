@@ -13,6 +13,7 @@ class Proyecto extends Entity
 
     public $image_croppie_width = 960;
     public $image_croppie_height = 720;
+    public $addHours = 4;
 
     public $fillable = [
         'nombre',
@@ -47,6 +48,11 @@ class Proyecto extends Entity
         $iframes->shift();
 
         return $iframes;
+    }
+
+    public function isFinished()
+    {
+        return Carbon::parse($this->attributes['fecha'])->addHours($this->addHours)->format('Y-m-d H:i') < Carbon::now()->format('Y-m-d H:i');
     }
 
     public function getNameOfDay($date)

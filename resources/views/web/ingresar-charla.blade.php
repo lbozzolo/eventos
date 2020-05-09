@@ -16,10 +16,9 @@
         </div>
     </section>
 
-
     @if(\Carbon\Carbon::now()->addHours(1)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
 
-        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours(4)->format('Y-m-d H:i') && !$charla->videos->count())
+        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i') && !$charla->videos->count())
         <section class="pb-40 pt-2">
             <div class="pl-2 pr-2">
                 <div class="row">
