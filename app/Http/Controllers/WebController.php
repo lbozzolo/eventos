@@ -3,6 +3,7 @@
 namespace Eventos\Http\Controllers;
 
 use Carbon\Carbon;
+use Eventos\Http\Requests\RegisterUser2Request;
 use Eventos\Http\Requests\RegistreUserRequest;
 use Eventos\Models\Proyecto;
 use Eventos\User;
@@ -138,11 +139,100 @@ class WebController extends AppBaseController
         return redirect()->route('web.charlas.ingresar', $redirect)->with('ok', 'Se ha inscripto en el evento exitosamente!');
     }
 
-    public function login(Request $request, $id)
+    public function postRegistro2(RegisterUser2Request $request, $id)
     {
         $this->data['charla'] = Proyecto::find($id);
 
-        $this->redirectTo = route('web.charlas.ingresar', ['cliente' => $this->data['charla']->cliente_slug, 'evento' => $this->data['charla']->nombre_slug, 'id' => $id]);
+        $inputs = $request->input();
+        
+        $user = User::find($inputs['user_id']);
+        $user->assignRole('Inscripto');
+
+        $user->name = $inputs['name'];
+        $user->lastname = $inputs['lastname'];
+        $user->phone = $inputs['phone'];
+        $user->pais = $inputs['pais'];
+        $user->localidad = $inputs['localidad'];
+        $user->ocupacion = $inputs['ocupacion'];
+
+        $user->save();
+
+        $user->proyectos()->syncWithoutDetaching($id);
+
+        Auth::attempt(['email' => $user->email, 'password' => $user->dni]);
+
+        $data = array(
+
+            'fullname' => $user->fullname,
+            'evento' => $this->data['charla']->nombre,
+            'cliente' => $this->data['charla']->cliente->nombre,
+            'email' => $user->email,
+            'fecha' => $this->data['charla']->fecha,
+            'hora' => $this->data['charla']->hora,
+            'logo' => $this->data['charla']->cliente->mainImage(),
+            'url' => route('web.charlas.ingresar',[
+                'cliente' => $this->data['charla']->cliente_slug,
+                'evento' => $this->data['charla']->nombre_slug,
+                'id' => $this->data['charla']->id])
+        );
+
+        Mail::send('emails.inscripcion', ['data' => $data], function($message) use ($data){
+            $message->to($data['email']);
+            $message->subject('Inscripción a evento online');
+            $message->from(config('mail.from.address'));
+        });
+
+
+        $redirect = [
+            'cliente' => $this->data['charla']->cliente_slug,
+            'evento' => $this->data['charla']->nombre_slug,
+            'id' => $id
+        ];
+
+        return redirect()->route('web.charlas.ingresar', $redirect)->with('ok', 'Se ha inscripto en el evento exitosamente!');
+    }
+
+    public function getRegistro2($userId, $eventoId)
+    {
+        $this->data['charla'] = Proyecto::find($eventoId);
+        $this->data['user'] = User::find($userId);
+        $this->data['paises'] = $this->paises;
+
+        return view('web.registro2')->with($this->data);
+    }
+
+    public function login(Request $request, $id)
+    {
+        $this->data['charla'] = Proyecto::find($id);
+        $this->data['paises'] = $this->paises;
+
+        $userAttempt = User::where('email', $request['email'])->first();
+
+        if(!$userAttempt){
+
+            $password = Hash::make($request['password']);
+            $this->data['user'] = User::create([
+                'name' => $request['email'],
+                'lastname' => $request['email'],
+                'email' => $request['email'],
+                'dni' => $request['password'],
+                'password' => $password,
+            ]);
+
+            return redirect()->route('web.get.registro', ['userId' => $this->data['user']->id, 'eventoId' => $this->data['charla']->id]);
+
+        }
+
+        if($userAttempt->name == $userAttempt->email){
+            $this->data['user'] = $userAttempt;
+            return redirect()->route('web.get.registro', ['userId' => $this->data['user']->id, 'eventoId' => $this->data['charla']->id]);
+        }
+
+        $this->redirectTo = route('web.charlas.ingresar', [
+            'cliente' => $this->data['charla']->cliente_slug,
+            'evento' => $this->data['charla']->nombre_slug,
+            'id' => $id
+        ]);
 
         $this->validateLogin($request);
 

@@ -63,6 +63,16 @@ Route::post('eventos/{id}/registro', [
     'uses' => 'WebController@postRegistro'
 ]);
 
+Route::get('evento-inscripcion/{userId}/{eventoId}', [
+    'as' => 'web.get.registro',
+    'uses' => 'WebController@getRegistro2'
+]);
+
+Route::post('eventos/{id}/registro-e-inscripcion', [
+    'as' => 'web.post.registro.2',
+    'uses' => 'WebController@postRegistro2'
+]);
+
 Route::get('iniciar-sesion/{cliente?}/{evento?}/{id?}', [
     'as' => 'web.iniciar-sesion',
     'uses' => 'WebController@iniciarSesion'
