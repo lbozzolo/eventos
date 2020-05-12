@@ -16,8 +16,6 @@ use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Illuminate\Support\Facades\Mail;
 use Eventos\Http\Requests\ContactoRequest;
 use Eventos\Http\Requests\CreateNewsletterRequest;
-use Eventos\Models\Email;
-use Eventos\Models\Slider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 
@@ -114,6 +112,7 @@ class WebController extends AppBaseController
             'evento' => $this->data['charla']->nombre,
             'cliente' => $this->data['charla']->cliente->nombre,
             'email' => $user->email,
+            'dni' => $user->dni,
             'fecha' => $this->data['charla']->fecha,
             'hora' => $this->data['charla']->hora,
             'logo' => $this->data['charla']->cliente->mainImage(),
@@ -167,6 +166,7 @@ class WebController extends AppBaseController
             'evento' => $this->data['charla']->nombre,
             'cliente' => $this->data['charla']->cliente->nombre,
             'email' => $user->email,
+            'dni' => $user->dni,
             'fecha' => $this->data['charla']->fecha,
             'hora' => $this->data['charla']->hora,
             'logo' => $this->data['charla']->cliente->mainImage(),
@@ -347,6 +347,7 @@ class WebController extends AppBaseController
             'evento' => $this->data['charla']->nombre,
             'cliente' => $this->data['charla']->cliente->nombre,
             'email' => $user->email,
+            'dni' => '234234234',
             'fecha' => $this->data['charla']->fecha,
             'hora' => $this->data['charla']->hora,
             'logo' => $this->data['charla']->cliente->mainImage(),

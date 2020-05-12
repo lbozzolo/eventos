@@ -7615,11 +7615,13 @@
 
                                 <div class="blog__meta-cat">
                                     <span style="color: #149EA6">{!! $data['fullname'] !!}</span>
-                                </div>
-                                <span class="blog__meta-date">{!! $data['email'] !!}</span>
-
+                                </div><br>
+                                {{--<span class="blog__meta-date">{!! $data['email'] !!}</span>--}}
 
                             </div>
+
+                            <strong>email: {!! $data['email'] !!}</strong><br>
+                            <strong>id: {!! $data['dni'] !!}</strong><br>
 
                             <small>Organiza: {!! $data['cliente'] !!}</small><br>
                             <small>Evento: {!! $data['evento'] !!}</small><br>

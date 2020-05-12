@@ -41,7 +41,7 @@ class UserController extends AppBaseController
 
     public function inscripciones()
     {
-        $this->data['items'] = User::role('Inscripto')->paginate(10);
+        $this->data['items'] = User::role('Inscripto')->paginate(5);
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
         return view('users.inscripciones')->with($this->data);
     }
@@ -113,6 +113,7 @@ class UserController extends AppBaseController
             'evento' => $this->data['charla']->nombre,
             'cliente' => $this->data['charla']->cliente->nombre,
             'email' => $user->email,
+            'dni' => $user->dni,
             'fecha' => $this->data['charla']->fecha,
             'hora' => $this->data['charla']->hora,
             'logo' => $this->data['charla']->cliente->mainImage(),
@@ -254,7 +255,7 @@ class UserController extends AppBaseController
 
         $this->userRepository->delete($id);
 
-        return redirect(route('users.index'))->with('ok', 'Usuario eliminado con éxito');
+        return redirect()->back()->with('ok', 'Usuario eliminado con éxito');
     }
 
     public function changePassword($id, ChangePasswordRequest $request)
