@@ -41,7 +41,7 @@ class UserController extends AppBaseController
 
     public function inscripciones()
     {
-        $this->data['items'] = User::role('Inscripto')->paginate(5);
+        $this->data['items'] = User::role('Inscripto')->paginate(10);
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
         return view('users.inscripciones')->with($this->data);
     }
@@ -58,7 +58,7 @@ class UserController extends AppBaseController
 
     public function searchByUser(Request $request)
     {
-        $this->data['items'] = User::role('Inscripto')->paginate(5);
+        $this->data['items'] = User::role('Inscripto')->paginate(10);
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
 
         $validator = Validator::make($request->input(), ['search' => 'max:25'], ['search.max' => 'La búsqueda no puede exceder los 25 caracteres']);
@@ -79,7 +79,7 @@ class UserController extends AppBaseController
             return redirect()->route('users.inscripciones');
         }
 
-        $this->data['items'] = $result->paginate(5);
+        $this->data['items'] = $result->paginate(10);
 
         return view('users.inscripciones')->with($this->data);
     }

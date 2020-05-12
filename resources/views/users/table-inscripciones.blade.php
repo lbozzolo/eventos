@@ -81,7 +81,9 @@
 </table>
 
 @if($items instanceof \Illuminate\Pagination\LengthAwarePaginator )
-<div class="card-body text-center">
-    {!! $items->render() !!}
-</div>
+
+    <div class="card-body text-center">
+        {!! $items->appends(request()->input())->render() !!}
+    </div>
+
 @endif
