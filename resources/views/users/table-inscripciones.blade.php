@@ -26,11 +26,8 @@
             </td>
             <td>
                 @if($item->proyectos->count())
-                    <ul>
-                        @foreach($item->proyectos as $proyecto)
-                            <li>{!! $proyecto->nombre !!}</li>
-                        @endforeach
-                    </ul>
+                    <span data-toggle="tooltip" class="btn btn-outline-dark"
+                          title="• @foreach($item->proyectos as $proyecto) {!! $proyecto->nombre !!}  •  @endforeach">Eventos</span>
                 @else
                     <small><em class="text-gray">ninguna</em> </small>
                 @endif
@@ -78,4 +75,11 @@
 
     @endforeach
     </tbody>
+
+
+
 </table>
+
+<div class="card-body text-center">
+    {!! $items->render() !!}
+</div>
