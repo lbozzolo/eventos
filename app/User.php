@@ -101,7 +101,7 @@ class User extends Authenticatable
 
     public function getFullnameAttribute()
     {
-        return $this->name . ' ' . $this->lastname;
+        return ($this->name != $this->email)? $this->name . ' ' . $this->lastname : '-';
     }
 
     // Relationships
