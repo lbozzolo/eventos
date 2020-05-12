@@ -210,6 +210,10 @@ class WebController extends AppBaseController
 
         if(!$userAttempt){
 
+            // Convierto al dni en únicamente números
+            $request['password'] = preg_replace('/[^0-9]/', '', $request['password']);
+
+            // Creo el usuario y le asigno password = dni
             $password = Hash::make($request['password']);
             $this->data['user'] = User::create([
                 'name' => $request['email'],

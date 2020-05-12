@@ -41,7 +41,7 @@ class UserController extends AppBaseController
 
     public function inscripciones()
     {
-        $this->data['items'] = User::role('Inscripto')->paginate(5);
+        $this->data['items'] = User::role('Inscripto')->paginate(10);
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
         return view('users.inscripciones')->with($this->data);
     }

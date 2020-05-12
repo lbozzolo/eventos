@@ -15,7 +15,12 @@
 
         <tr>
             <td>{!! $item->id !!}</td>
-            <td>{!! $item->fullname !!}</td>
+            <td>
+                <span>{!! $item->fullname !!}</span><br>
+                @if($item->dni)
+                <span>dni: {!! $item->dni !!}</span>
+                @endif
+            </td>
             <td>
                 <span>{!! $item->email !!}</span><br>
                 <span>tel: {!! $item->phone !!}</span>
