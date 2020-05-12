@@ -149,10 +149,14 @@ class WebController extends AppBaseController
 
         $user->name = $inputs['name'];
         $user->lastname = $inputs['lastname'];
+        $user->email = $inputs['email'];
+        $user->dni = $inputs['dni'];
         $user->phone = $inputs['phone'];
         $user->pais = $inputs['pais'];
         $user->localidad = $inputs['localidad'];
         $user->ocupacion = $inputs['ocupacion'];
+
+        $user->password = Hash::make($inputs['dni']);
 
         $user->save();
 
@@ -189,7 +193,10 @@ class WebController extends AppBaseController
             'id' => $id
         ];
 
-        return redirect()->route('web.charlas.ingresar', $redirect)->with('ok', 'Se ha inscripto en el evento exitosamente!');
+        $message = 'Te has inscripto en el evento exitosamente. Recibirás un correo de confirmación. 
+                    Por favor revisá tu bandeja de correo no deseado o spam y marcalo como "correo deseado" o movelo a la bandeja de entrada';
+
+        return redirect()->route('web.charlas.ingresar', $redirect)->with('ok', $message);
     }
 
     public function getRegistro2($userId, $eventoId)

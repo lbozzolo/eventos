@@ -66,6 +66,22 @@
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
+                                        @if($user->email)
+                                        <p class="text-success">¿Es correcto este email?</p>
+                                        @endif
+                                        {!! Form::email('email', ($user->email)? $user->email : null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        @if($user->dni)
+                                            <p class="text-success">¿Es correcto este DNI, pasaporte o ID?</p>
+                                        @endif
+                                        {!! Form::text('dni', ($user->dni)? $user->dni : null, ['class' => 'form-control', 'placeholder' => 'DNI, pasaporte o ID']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
                                         {!! Form::text('phone', null, ['class' => 'form-control', 'placeholder' => 'Teléfono']) !!}
                                     </div>
                                 </div>

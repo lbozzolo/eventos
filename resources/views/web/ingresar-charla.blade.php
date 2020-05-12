@@ -56,11 +56,25 @@
                                 <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
                                 - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
                             </h4>
-                            <p class="lead">Este evento ha finalizado.</p>
+                            <p class="lead">Este evento ha finalizado pero podés volver a verlo acá.</p>
                         </div>
                     </div>
                 </div>
             </section>
+
+            @if($charla->videos->count())
+                <section class="blog blog-single pb-5 pt-5" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                @include('web.components.iframe-youtube')
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            @endif
 
         @endif
 
@@ -94,21 +108,6 @@
         </div>
     </section>
 
-    @if($charla->videos->count())
-    <section class="blog blog-single pb-5 pt-5" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-12">
-                    <h4 class="text-azul-claro">Volver a ver</h4>
-                    @include('web.components.iframe-youtube')
-                </div>
-
-            </div>
-        </div>
-    </section>
-    @endif
-
     <section class="pt-5 pb-5 pl-5 bg-celeste-oscuro text-white">
         <div class="container ">
             <div class="row">
@@ -117,7 +116,13 @@
                     @if($charla->publico)
                         <span class="text-azul-claro">Este evento es público.</span>
                     @else
-                        <span class="text-black">Estás inscripto a este evento.</span>
+
+                        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i') && !$charla->videos->count())
+                            <span class="text-black">Estás inscripto a este evento.</span>
+                        @else
+                            <span class="text-black">Asististe a este evento.</span>
+                        @endif
+
                     @endif
 
                     @include('web.components.info-evento')
