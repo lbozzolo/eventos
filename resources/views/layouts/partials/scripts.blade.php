@@ -45,7 +45,8 @@
         },
         fixedHeader: {
             header: true,
-        }
+        },
+        fixedColumns: false
     });
 
 

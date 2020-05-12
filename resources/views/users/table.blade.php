@@ -1,10 +1,9 @@
-<table class="table">
+<table class="table datatables">
     <thead>
         <tr>
-            <th style="width: 80px">Id</th>
-            <th>Nombre</th>
-            <th>Email</th>
+            <th>Nombre/Email</th>
             <th>Alta</th>
+            <th>Rol</th>
             <th>Opciones</th>
         </tr>
     </thead>
@@ -12,10 +11,18 @@
     @foreach($users as $user)
         @if(Auth::check() && Auth::user()->isSuperAdmin())
             <tr>
-                <td>{!! $user->id !!}</td>
-                <td>{!! $user->fullname !!}</td>
-                <td>{!! $user->email !!}</td>
+                <td title="{!! $user->id !!}">
+                    <span>{!! $user->fullname !!}</span><br>
+                    <small>{!! $user->email !!}</small>
+                </td>
                 <td>{!! $user->fecha_creado !!}</td>
+                <td>
+                    @foreach($user->roles as $role)
+                        <span class="badge badge-{!! strtolower($role->name) !!}">
+                            {!! $role->name !!}
+                        </span>
+                    @endforeach
+                </td>
                 <td>
 
                     <div class='btn-group'>

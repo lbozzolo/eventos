@@ -9,4 +9,25 @@
 
 .table-condensed tbody td {
     padding: 5px 10px;
+    color: white;
+}
+
+.badge-superadmin {
+    background-color: #c69500;
+    color: white;
+}
+
+.badge-admin {
+    background-color: #0ba1b5;
+    color: white;
+}
+
+.badge-cliente {
+    background-color: #795da3;
+    color: white;
+}
+
+.badge-inscripto {
+    background-color: #0d6632;
+    color: white;
 }
