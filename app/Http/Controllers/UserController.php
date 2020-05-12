@@ -48,7 +48,6 @@ class UserController extends AppBaseController
 
     public function inscripcionesBuscar(Request $request)
     {
-        //dd($request->all());
         $proyecto = Proyecto::find($request['proyecto_id']);
         $this->data['items'] =  $proyecto->inscriptos;
         $this->data['proyectoActual'] = $proyecto->nombre;
@@ -79,8 +78,6 @@ class UserController extends AppBaseController
         } else {
             return redirect()->route('users.inscripciones');
         }
-
-        //dd($result->get());
 
         $this->data['items'] = $result->paginate(5);
 
