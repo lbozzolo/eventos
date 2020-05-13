@@ -15,6 +15,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="{!! asset('template-web/assets/images/favicon/favicon-16x16.png') !!}">
 <link rel="manifest" href="{!! asset('template-web/assets/images/favicon/site.webmanifest') !!}">
 
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
 @yield('css')
 

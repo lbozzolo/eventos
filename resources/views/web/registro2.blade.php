@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        {!! Form::select('pais', $paises, null, ['class' => 'form-control']) !!}
+                                        {!! Form::select('pais', $paises, null, ['class' => 'form-control', 'id' => 'paises', 'style' => 'width: 100%']) !!}
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12" style="margin-top: 30px">
@@ -113,5 +113,17 @@
             </div>
         </div>
     </section>
+
+@endsection
+
+@section('js')
+
+    <script>
+
+        $('#paises').select2({
+
+        });
+
+    </script>
 
 @endsection

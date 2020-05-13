@@ -5,8 +5,8 @@
         <th>Nombre</th>
         <th>Contacto</th>
         <th>Origen</th>
-        <th>Inscripciones</th>
-        <th>Alta</th>
+        <th style="width: 150px">Inscripciones</th>
+        <th style="width: 150px">Alta</th>
         <th>Opciones</th>
     </tr>
     </thead>
@@ -31,7 +31,7 @@
             </td>
             <td>
                 @if($item->proyectos->count())
-                    <span data-toggle="tooltip" class="btn btn-outline-dark"
+                    <span data-toggle="tooltip" class="btn btn-outline-dark btn-sm"
                           title="• @foreach($item->proyectos as $proyecto) {!! $proyecto->nombre !!}  •  @endforeach">Eventos</span>
                 @else
                     <small><em class="text-gray">ninguna</em> </small>
