@@ -32,7 +32,7 @@
             <td>
                 @if($item->proyectos->count())
                     <span data-toggle="tooltip" class="btn btn-outline-dark btn-sm"
-                          title="• @foreach($item->proyectos as $proyecto) {!! $proyecto->nombre !!}  •  @endforeach">Eventos</span>
+                          title="• @foreach($item->proyectos as $proyecto) {!! $proyecto->nombre !!}  •  @endforeach">Eventos ({!! $item->proyectos->count() !!})</span>
                 @else
                     <small><em class="text-gray">ninguna</em> </small>
                 @endif
@@ -41,7 +41,6 @@
             <td>
 
                 <div class='btn-group'>
-                    <a href="{!! route('users.inscripciones.show', [$item->id]) !!}" class='btn btn-secondary btn-xs' title="Ver detalles"><i class="mdi mdi-18px mdi-file-document-box"></i></a>
                     <a href="{!! route('users.inscripciones.edit', $item->id) !!}" class='btn btn-dark btn-xs' title="Editar"><i class="mdi mdi-18px mdi-pencil-box"></i></a>
                     @if(Auth::user()->id != $item->id)
                         <button title="Eliminar" type="button" data-toggle="modal" data-target="#delete{!! $item->id !!}" class="btn btn-xs  btn-danger"><i class="mdi mdi-delete mdi-18px"></i></button>

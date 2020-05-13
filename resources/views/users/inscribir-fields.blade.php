@@ -32,8 +32,8 @@
     <div class="col-lg-6">
 
         <div class="form-group col-sm-12 col-lg-12">
-            {!! Form::label('pais', 'Localidad:') !!}
-            {!! Form::select('pais', $paises, null, ['class' => 'form-control']) !!}
+            {!! Form::label('pais', 'País:') !!}
+            {!! Form::select('pais', $paises, null, ['class' => 'form-control select3']) !!}
         </div>
 
         <div class="form-group col-sm-12 col-lg-12">

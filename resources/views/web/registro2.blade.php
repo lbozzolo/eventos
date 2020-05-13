@@ -101,6 +101,12 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <span class="text-black">Deseo suscribirme al newsletter</span>
+                                        {!! Form::checkbox('newsletter', true, ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12">
                                     <button type="submit" class="btn btn__primary btn__block">
                                         <span>Enviar Informacion</span>
                                     </button>

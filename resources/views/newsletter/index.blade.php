@@ -24,12 +24,12 @@
                     @if(count($newsletters))
                     <div class="table-responsive">
 
-                        <table class="table table-bordered table-condensed datatables">
+                        <table class="table table-bordered table-condensed ">
                             <thead class="bg-warning">
                                 <tr>
                                     <th style="width: 50px">ID</th>
-                                    <th>Email</th>
-                                    <th>Fecha de registro</th>
+                                    <th style="width: 350px">Email</th>
+                                    <th class="text-center" style="width: 150px">Fecha de registro</th>
                                     <th style="width: 50px">Opciones</th>
                                 </tr>
                             </thead>
@@ -38,7 +38,7 @@
                                     <tr>
                                         <td>{!! $newsletter->id !!}</td>
                                         <td>{!! $newsletter->email !!}</td>
-                                        <td>{!! $newsletter->fecha_creado !!}</td>
+                                        <td class="text-center">{!! $newsletter->fecha_creado !!}</td>
                                         <td>
 
                                             <button title="Eliminar" type="button" data-toggle="modal" data-target="#delete{!! $newsletter->id !!}" class="btn btn-xs  btn-danger"><i class="mdi mdi-delete mdi-18px"></i></button>
@@ -74,6 +74,14 @@
                                 @endforeach
                             </tbody>
                         </table>
+
+                        @if($newsletters instanceof \Illuminate\Pagination\LengthAwarePaginator )
+
+                            <div class="card-body text-center">
+                                {!! $newsletters->appends(request()->input())->render() !!}
+                            </div>
+
+                        @endif
 
                     </div>
                     @else

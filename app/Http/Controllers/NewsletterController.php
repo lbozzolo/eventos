@@ -12,7 +12,7 @@ class NewsletterController extends AppBaseController
 
     public function index()
     {
-        $this->data['newsletters'] = Newsletter::all();
+        $this->data['newsletters'] = Newsletter::paginate(15);
         return view('newsletter.index')->with($this->data);
     }
 

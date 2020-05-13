@@ -33,7 +33,11 @@
 
         $('.select2').select2({
             multiple: true
-        })
+        });
+
+        $('.select3').select2({
+            multiple: false
+        });
 
     </script>
 

@@ -146,7 +146,7 @@ class WebController extends AppBaseController
         $this->data['charla'] = Proyecto::find($id);
 
         $inputs = $request->input();
-        
+
         $user = User::find($inputs['user_id']);
         $user->assignRole('Inscripto');
 
@@ -164,6 +164,9 @@ class WebController extends AppBaseController
         $user->save();
 
         $user->proyectos()->syncWithoutDetaching($id);
+
+        if($inputs['newsletter'])
+            DB::table('newsletter')->insert(['email' => $user->email, 'created_at' => Carbon::today(), 'updated_at' => Carbon::today()]);
 
         Auth::attempt(['email' => $user->email, 'password' => $user->dni]);
 
