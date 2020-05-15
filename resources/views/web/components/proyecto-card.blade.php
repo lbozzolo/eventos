@@ -6,7 +6,7 @@
     </div>
     <div class="blog__content">
         <div class="blog__meta">
-            <span class="blog__meta-date">{!! $proyecto->fecha_creado !!}</span>
+            <span class="blog__meta-date">{!! $proyecto->fecha_formatted !!}</span>
             <div class="blog__meta-cat">
                 @foreach($proyecto->categorias as $categoria)
                     <a href="#">{!! $categoria->nombre !!}</a>

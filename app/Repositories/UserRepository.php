@@ -2,7 +2,9 @@
 
 namespace Eventos\Repositories;
 
+use Eventos\Models\Proyecto;
 use Eventos\User;
+use Illuminate\Support\Facades\Mail;
 use InfyOm\Generator\Common\BaseRepository;
 use Spatie\Permission\Models\Role;
 
@@ -45,5 +47,34 @@ class UserRepository extends BaseRepository
         }
 
         return $roles;
+    }
+
+    public function sendInscripcionEmail(User $user, $charlaId)
+    {
+        $charla = Proyecto::find($charlaId);
+
+        $data = array(
+
+            'fullname' => $user->fullname,
+            'evento' => $charla->nombre,
+            'cliente' => $charla->cliente->nombre,
+            'email' => $user->email,
+            'dni' => $user->dni,
+            'fecha' => $charla->fecha,
+            'hora' => $charla->hora,
+            'logo' => $charla->cliente->mainImage(),
+            'url' => route('web.charlas.ingresar',[
+                'cliente' => $charla->cliente_slug,
+                'evento' => $charla->nombre_slug,
+                'id' => $charla->id])
+        );
+
+        Mail::send('emails.inscripcion', ['data' => $data], function($message) use ($data){
+            $message->to($data['email']);
+            $message->subject('Inscripción a evento online');
+            $message->from(config('mail.from.address'));
+        });
+
+        return;
     }
 }
