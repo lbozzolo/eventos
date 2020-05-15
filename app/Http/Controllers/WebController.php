@@ -32,19 +32,21 @@ class WebController extends AppBaseController
 
     public function index()
     {
-        $this->data['proyectos'] = Proyecto::all()->sortByDesc('id')->take(3);
         return view('web.home')->with($this->data);
     }
 
     public function charlas()
     {
-        $this->data['proyectos'] = Proyecto::orderBy('id', 'desc')->paginate(6);
+        $this->data['proyectos'] = Proyecto::active()->paginate(6);
         return view('web.charlas')->with($this->data);
     }
 
     public function showCharla($cliente, $evento, $id)
     {
-        $this->data['charla'] = Proyecto::findOrFail($id);
+        $this->data['charla'] = Proyecto::active($id)->first();
+
+        if(!$this->data['charla'])
+            return abort(404);
 
         if($this->data['charla']->isFinished())
             return view('web.show-charla-finalizada')->with($this->data);
@@ -54,7 +56,11 @@ class WebController extends AppBaseController
 
     public function ingresarCharla($cliente, $evento, $id)
     {
-        $this->data['charla'] = Proyecto::findOrFail($id);
+        $this->data['charla'] = Proyecto::active($id)->first();
+
+        if(!$this->data['charla'])
+            return abort(404);
+
         $user = Auth::user();
 
         // Si la charla es pública lo envío a la charla
@@ -75,7 +81,10 @@ class WebController extends AppBaseController
 
     public function inscripcion($cliente, $evento, $id)
     {
-        $this->data['charla'] = Proyecto::findOrFail($id);
+        $this->data['charla'] = Proyecto::active($id)->first();
+
+        if(!$this->data['charla'])
+            return abort(404);
 
         // Si la charla es pública lo envío a la charla
         if($this->data['charla']->publico)
@@ -89,14 +98,21 @@ class WebController extends AppBaseController
 
     public function registro($cliente, $evento, $id)
     {
-        $this->data['charla'] = Proyecto::findOrFail($id);
+        $this->data['charla'] = Proyecto::active($id)->first();
+
+        if(!$this->data['charla'])
+            return abort(404);
+
         $this->data['paises'] = $this->paises;
         return view('web.registro')->with($this->data);
     }
 
     public function postRegistro(RegistreUserRequest $request, $id)
     {
-        $this->data['charla'] = Proyecto::find($id);
+        $this->data['charla'] = Proyecto::active($id)->first();
+
+        if(!$this->data['charla'])
+            return abort(404);
 
         $inputs = $request->input();
         $inputs['password'] = Hash::make($inputs['dni']);
@@ -143,7 +159,10 @@ class WebController extends AppBaseController
 
     public function postRegistro2(RegisterUser2Request $request, $id)
     {
-        $this->data['charla'] = Proyecto::find($id);
+        $this->data['charla'] = Proyecto::active($id)->first();
+
+        if(!$this->data['charla'])
+            return abort(404);
 
         $inputs = $request->input();
 
@@ -207,7 +226,11 @@ class WebController extends AppBaseController
 
     public function getRegistro2($userId, $eventoId)
     {
-        $this->data['charla'] = Proyecto::find($eventoId);
+        $this->data['charla'] = Proyecto::active($eventoId)->first();
+
+        if(!$this->data['charla'])
+            return abort(404);
+
         $this->data['user'] = User::find($userId);
         $this->data['paises'] = $this->paises;
 
@@ -216,7 +239,11 @@ class WebController extends AppBaseController
 
     public function login(Request $request, $id)
     {
-        $this->data['charla'] = Proyecto::find($id);
+        $this->data['charla'] = Proyecto::active($id)->first();
+
+        if(!$this->data['charla'])
+            return abort(404);
+
         $this->data['paises'] = $this->paises;
 
         $userAttempt = User::where('email', $request['email'])->first();
@@ -283,7 +310,10 @@ class WebController extends AppBaseController
 
     public function iniciarSesion($cliente, $evento, $id)
     {
-        $this->data['charla'] = Proyecto::find($id);
+        $this->data['charla'] = Proyecto::active($id)->first();
+
+        if(!$this->data['charla'])
+            return abort(404);
 
         // Si la charla es pública lo envío a la charla
         if($this->data['charla']->publico)

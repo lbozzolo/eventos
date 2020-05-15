@@ -15,8 +15,13 @@
                     </h2>
                     <a href="{!! route('headers.show', $item->header->id) !!}" class="btn btn-outline-success btn-sm">Configurar Header</a>
                     <a href="{!! route($modelPlural.'.consultas', $item->id) !!}" class="btn btn-outline-warning btn-sm">Consultas</a>
+
                     <div class="row">
                         <div class="card-body">
+
+                            @if($item->estado->slug == 'inactivo')
+                                <p class="badge-danger text-center">Este proyecto se encuentra inactivo en la plataforma</p>
+                            @endif
 
                             {!! Form::model($item, ['route' => [$modelPlural.'.update', $item->id], 'method' => 'patch']) !!}
 

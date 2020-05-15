@@ -62,6 +62,25 @@ class Proyecto extends Entity
         return ucfirst($this->daysSpanish[$fecha->dayOfWeek]);
     }
 
+    public function scopeActive($query, $id = null)
+    {
+        $activo = Estado::where('slug', '=', 'activo')->first()->id;
+        $result = $query->where('estado_id', '=', $activo)->orderBy('id', 'desc');
+
+        if($id)
+            $result = $query->where('estado_id', '=', $activo)->where('id', '=', $id);
+
+        return $result;
+    }
+
+    public function scopeFindactive()
+    {
+        $activo = Estado::where('slug', '=', 'activo')->first()->id;
+        $activo = (string)$activo;
+
+        return $this->where('estado_id', '=', $activo);
+    }
+
     public function scopeConsultasArchivadas()
     {
         return $this->consultas()->where('archivado', '=', 1)->get();
