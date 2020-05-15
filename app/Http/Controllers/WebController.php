@@ -27,6 +27,8 @@ class WebController extends AppBaseController
     protected $redirectTo = '/home';
     private $data;
     private $userRepository;
+    private $messageInscription = 'Te has inscripto en el evento exitosamente. Recibirás un correo de confirmación. 
+                    Por favor revisá tu bandeja de correo no deseado o spam y marcalo como "correo deseado" o movelo a la bandeja de entrada';
 
 //    public $paises = ['Argentina', 'Bolivia', 'Brasil', 'Chile', 'Ecuador', 'Paraguay', 'Uruguay'];
 
@@ -79,7 +81,7 @@ class WebController extends AppBaseController
 
         // Si la charla es privada lo inscribo
         if(!$user->proyectos->contains($id))
-            $this->data['ok'] = 'Se ha inscripto en la charla exitosamente.';
+            $this->data['ok'] = $this->messageInscription;
 
         $user->proyectos()->syncWithoutDetaching($id);
 
@@ -163,7 +165,7 @@ class WebController extends AppBaseController
             'id' => $id
         ];
 
-        return redirect()->route('web.charlas.ingresar', $redirect)->with('ok', 'Se ha inscripto en el evento exitosamente!');
+        return redirect()->route('web.charlas.ingresar', $redirect)->with('ok', $this->messageInscription);
     }
 
     public function postRegistro2(RegisterUser2Request $request, $id)
@@ -230,7 +232,7 @@ class WebController extends AppBaseController
         $message = 'Te has inscripto en el evento exitosamente. Recibirás un correo de confirmación. 
                     Por favor revisá tu bandeja de correo no deseado o spam y marcalo como "correo deseado" o movelo a la bandeja de entrada';
 
-        return redirect()->route('web.charlas.ingresar', $redirect)->with('ok', $message);
+        return redirect()->route('web.charlas.ingresar', $redirect)->with('ok', $this->messageInscription);
     }
 
     public function getRegistro2($userId, $eventoId)
