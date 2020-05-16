@@ -43,7 +43,7 @@
                 <div class='btn-group'>
                     <a href="{!! route('users.inscripciones.edit', $item->id) !!}" class='btn btn-dark btn-xs' title="Editar"><i class="mdi mdi-18px mdi-pencil-box"></i></a>
                     @if(Auth::user()->id != $item->id)
-                        <button title="Eliminar" type="button" data-toggle="modal" data-target="#delete{!! $item->id !!}" class="btn btn-xs  btn-danger"><i class="mdi mdi-delete mdi-18px"></i></button>
+                        <button title="Desinscribir" type="button" data-toggle="modal" data-target="#delete{!! $item->id !!}" class="btn btn-xs  btn-danger"><i class="mdi mdi-delete mdi-18px"></i></button>
                     @else
                         <button type="button" class="btn btn-xs  btn-danger" disabled><i class="mdi mdi-delete mdi-18px"></i></button>
                     @endif
@@ -54,22 +54,22 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Eliminar Usuario</h5>
+                                <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Desinscribir Usuario</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            {!! Form::open(['route' => ['users.destroy.inscripto', $item->id], 'method' => 'delete']) !!}
                             <div class="modal-body">
-                                <p>¿Desea eliminar este usuario?</p>
+                                <p>¿De qué evento desea desinscribir a este usuario?</p>
+                                {!! Form::select('proyecto_id', ($item->proyectos->count())? $item->proyectos->pluck('nombre', 'id') : [], null, ['class' => 'select2 form-control', 'style' => 'width: 100%']) !!}
+
                             </div>
                             <div class="modal-footer">
-                                {!! Form::open(['route' => ['users.destroy.inscripto', $item->id], 'method' => 'delete']) !!}
-
-                                <button title="Eliminar" type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                <button title="Desinscribir" type="submit" class="btn btn-sm btn-danger">Desinscribir</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-
-                                {!! Form::close() !!}
                             </div>
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>

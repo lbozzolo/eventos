@@ -258,12 +258,17 @@ class UserController extends AppBaseController
         return redirect()->back()->with('ok', 'Usuario eliminado con éxito');
     }
 
-    public function destroyInscripto($id)
+    public function destroyInscripto(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $user->delete($id);
+        $projects = $user->proyectos->pluck('id')->toArray();
 
-        return redirect()->back()->with('ok', 'Inscripto eliminado con éxito');
+        if (($key = array_search($request['proyecto_id'], $projects)) !== false)
+            unset($projects[$key]);
+
+        $user->proyectos()->sync($projects);
+
+        return redirect()->back()->with('ok', 'Usuario desinscripto con éxito');
     }
 
     public function changePassword($id, ChangePasswordRequest $request)
