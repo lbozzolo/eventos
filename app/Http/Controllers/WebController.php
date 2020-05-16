@@ -84,7 +84,7 @@ class WebController extends AppBaseController
 //            $this->data['ok'] = $this->messageInscription;
 //        }
 
-        if($user->isInscripto($id)){
+        if(!$user->isInscripto($id)){
             $this->data['ok'] = $this->messageInscription;
             $user->proyectos()->syncWithoutDetaching($id);
             $this->userRepository->sendInscripcionEmail($user, $id);
