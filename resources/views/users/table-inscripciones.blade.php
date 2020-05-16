@@ -59,7 +59,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            {!! Form::open(['url' => route('users.destroy.inscripto', $item->id), 'method' => 'delete']) !!}
+                            {!! Form::open(['url' => route('users.remove.inscripto', $item->id), 'method' => 'post']) !!}
                             <div class="modal-body">
                                 <p>¿De qué evento desea desinscribir a este usuario?</p>
                                 {!! Form::select('proyecto_id', ($item->proyectos->count())? $item->proyectos->pluck('nombre', 'id') : [], null, ['class' => 'select2 form-control', 'style' => 'width: 100%']) !!}

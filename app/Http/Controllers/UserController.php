@@ -258,7 +258,7 @@ class UserController extends AppBaseController
         return redirect()->back()->with('ok', 'Usuario eliminado con éxito');
     }
 
-    public function destroyInscripto(Request $request, $id)
+    public function removeInscripto(Request $request, $id)
     {
         $user = User::findOrFail($id);
         $projects = $user->proyectos->pluck('id')->toArray();
