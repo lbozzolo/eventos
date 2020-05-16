@@ -63,7 +63,7 @@
                                 <p>¿Desea eliminar este usuario?</p>
                             </div>
                             <div class="modal-footer">
-                                {!! Form::open(['route' => ['users.destroy', $item->id], 'method' => 'delete']) !!}
+                                {!! Form::open(['route' => ['users.destroy.inscripto', $item->id], 'method' => 'delete']) !!}
 
                                 <button title="Eliminar" type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

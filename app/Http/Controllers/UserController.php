@@ -258,6 +258,14 @@ class UserController extends AppBaseController
         return redirect()->back()->with('ok', 'Usuario eliminado con éxito');
     }
 
+    public function destroyInscripto($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete($id);
+
+        return redirect()->back()->with('ok', 'Inscripto eliminado con éxito');
+    }
+
     public function changePassword($id, ChangePasswordRequest $request)
     {
         $authUser = Auth::user();
