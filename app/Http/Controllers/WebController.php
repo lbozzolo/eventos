@@ -195,7 +195,7 @@ class WebController extends AppBaseController
 
         $user->proyectos()->syncWithoutDetaching($id);
 
-        if($inputs['newsletter'])
+        if(isset($inputs['newsletter']))
             DB::table('newsletter')->insert(['email' => $user->email, 'created_at' => Carbon::today(), 'updated_at' => Carbon::today()]);
 
         Auth::attempt(['email' => $user->email, 'password' => $user->dni]);
