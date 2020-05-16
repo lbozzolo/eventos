@@ -268,7 +268,7 @@ class UserController extends AppBaseController
 
         $user->proyectos()->sync($projects);
 
-        return redirect()->back()->with('ok', 'Usuario desinscripto con éxito');
+        return redirect()->route('users.inscripciones')->with('ok', 'Usuario desinscripto con éxito');
     }
 
     public function changePassword($id, ChangePasswordRequest $request)
