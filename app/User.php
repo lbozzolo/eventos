@@ -122,6 +122,11 @@ class User extends Authenticatable
         return ($this->email == 'lucas@verticedigital.com.ar' || $this->email == 'fernando@verticedigital.com.ar');
     }
 
+    public function isInscripto($proyectoId)
+    {
+        return $this->proyectos->contains($proyectoId);
+    }
+
     public function getFullnameAttribute()
     {
         return ($this->name != $this->email)? $this->name . ' ' . $this->lastname : '-';

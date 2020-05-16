@@ -80,12 +80,15 @@ class WebController extends AppBaseController
             return redirect()->route('web.iniciar-sesion', ['cliente' => $this->data['charla']->cliente_slug, 'evento' => $this->data['charla']->nombre_slug, 'id' => $id]);
 
         // Si la charla es privada lo inscribo
-        if(!$user->proyectos->contains($id))
+//        if(!$user->proyectos->contains($id)){
+//            $this->data['ok'] = $this->messageInscription;
+//        }
+
+        if($user->isInscripto($id)){
             $this->data['ok'] = $this->messageInscription;
-
-        $user->proyectos()->syncWithoutDetaching($id);
-
-        $this->userRepository->sendInscripcionEmail($user, $id);
+            $user->proyectos()->syncWithoutDetaching($id);
+            $this->userRepository->sendInscripcionEmail($user, $id);
+        }
 
         return view('web.ingresar-charla')->with($this->data);
     }
@@ -397,7 +400,11 @@ class WebController extends AppBaseController
 //            'message' => 'Este es el mensaje del mail'
 //        ];
 
-        $this->data['charla'] = Proyecto::find(1);
+        $user = User::find(15);
+
+        dd($user->isInscripto(2));
+
+        $this->data['charla'] = Proyecto::find(2);
         $user = User::find(1);
 
         $data = array(
