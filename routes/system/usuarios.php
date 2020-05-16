@@ -13,7 +13,7 @@ Route::group(['middleware' => ['can:mostrar_usuarios']], function () {
 
     });
 
-    Route::delete('usuarios/{id}/eliminar-inscripto', [
+    Route::delete('inscriptos/{id}/eliminar', [
         'as' => 'users.destroy.inscripto',
         'uses' => 'UserController@destroyInscripto'
     ]);
