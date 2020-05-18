@@ -5,6 +5,7 @@ namespace Eventos\Http\Controllers;
 use Carbon\Carbon;
 use Eventos\Http\Requests\RegisterUser2Request;
 use Eventos\Http\Requests\RegistreUserRequest;
+use Eventos\Models\Auspiciante;
 use Eventos\Models\Proyecto;
 use Eventos\Repositories\UserRepository;
 use Eventos\User;
@@ -402,27 +403,41 @@ class WebController extends AppBaseController
 
         $user = User::find(15);
 
-        dd($user->isInscripto(2));
+//        dd($user->isInscripto(2));
 
-        $this->data['charla'] = Proyecto::find(2);
-        $user = User::find(1);
 
+        $eventum = Auspiciante::where('nombre', 'Eventum')->first();
         $data = array(
             'fullname' => $user->fullname,
-            'evento' => $this->data['charla']->nombre,
-            'cliente' => $this->data['charla']->cliente->nombre,
             'email' => $user->email,
-            'dni' => '234234234',
-            'fecha' => $this->data['charla']->fecha,
-            'hora' => $this->data['charla']->hora,
-            'logo' => $this->data['charla']->cliente->mainImage(),
-            'url' => route('web.charlas.ingresar',[
-                'cliente' => $this->data['charla']->cliente_slug,
-                'evento' => $this->data['charla']->nombre_slug,
-                'id' => $this->data['charla']->id])
+            'dni' => $user->dni,
+            'logo' => $eventum->mainImage(),
         );
 
-        return view('emails.inscripcion')->with(['data' => $data]);
+        return view('emails.reenvio')->with(['data' => $data]);
+
+
+
+
+//        $this->data['charla'] = Proyecto::find(2);
+//        $user = User::find(1);
+//
+//        $data = array(
+//            'fullname' => $user->fullname,
+//            'evento' => $this->data['charla']->nombre,
+//            'cliente' => $this->data['charla']->cliente->nombre,
+//            'email' => $user->email,
+//            'dni' => '234234234',
+//            'fecha' => $this->data['charla']->fecha,
+//            'hora' => $this->data['charla']->hora,
+//            'logo' => $this->data['charla']->cliente->mainImage(),
+//            'url' => route('web.charlas.ingresar',[
+//                'cliente' => $this->data['charla']->cliente_slug,
+//                'evento' => $this->data['charla']->nombre_slug,
+//                'id' => $this->data['charla']->id])
+//        );
+//
+//        return view('emails.inscripcion')->with(['data' => $data]);
     }
 
 }

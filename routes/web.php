@@ -113,6 +113,11 @@ Route::post('consultar', [
     'uses' => 'ProyectoController@storeConsulta'
 ]);
 
+Route::post('reenvio-de-datos', [
+    'as' => 'users.reenvio.de.datos',
+    'uses' => 'UserController@reenvioDeDatos'
+]);
+
 Route::get('/home', 'WebController@index');
 
 

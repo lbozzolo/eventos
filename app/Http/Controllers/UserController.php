@@ -7,6 +7,7 @@ use Eventos\Http\Requests\CreateInscriptoRequest;
 use Eventos\Http\Requests\CreateUserRequest;
 use Eventos\Http\Requests\UpdateInscriptoRequest;
 use Eventos\Http\Requests\UpdateUserRequest;
+use Eventos\Models\Auspiciante;
 use Eventos\Models\Proyecto;
 use Eventos\Repositories\UserRepository;
 use Eventos\Http\Controllers\AppBaseController as AppBaseController;
@@ -269,6 +270,38 @@ class UserController extends AppBaseController
         $user->proyectos()->sync($projects);
 
         return redirect()->route('users.inscripciones')->with('ok', 'Usuario desinscripto con éxito');
+    }
+
+    public function reenvioDeDatos(Request $request)
+    {
+        $validator = Validator::make($request->all(), ['email_recuperacion' => 'required|email'],
+            ['email_recuperacion.email' => 'El email ingresado es inválido', 'email_recuperacion.required' => 'Debe ingresar su email']);
+
+        if ($validator->fails())
+            return redirect()->back()->withErrors($validator)->withInput();
+
+        $user = User::where('email', '=', $request['email_recuperacion'])->first();
+
+        if(!$user)
+            return redirect()->back()->with('warning', 'No se ha encontrado ningún usuario registrado con el email especificado. Si lo desea puede registrarse a cualquier evento ingresando el mismo.');
+
+        $eventum = Auspiciante::where('nombre', 'Eventum')->first();
+
+        $data = array(
+            'fullname' => $user->fullname,
+            'email' => $user->email,
+            'dni' => $user->dni,
+            'logo' => $eventum->mainImage(),
+        );
+
+        Mail::send('emails.reenvio', ['data' => $data], function($message) use ($data){
+            $message->to($data['email']);
+            $message->subject('Reenvío de datos');
+            $message->from(config('mail.from.address'));
+        });
+
+        return redirect()->back()->with('ok', 'Sus datos han sido reenviados a su casilla de email. Verifique que sean correctos por favor.');
+
     }
 
     public function changePassword($id, ChangePasswordRequest $request)
