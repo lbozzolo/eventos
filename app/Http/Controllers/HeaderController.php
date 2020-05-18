@@ -7,6 +7,11 @@ use Eventos\Repositories\ClienteRepository;
 use Eventos\Repositories\ProyectoRepository;
 use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Eventos\Traits\ImageTrait;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image as Intervention;
+use Eventos\Models\Image;
+
 
 class HeaderController extends AppBaseController
 {
@@ -68,6 +73,51 @@ class HeaderController extends AppBaseController
     public function edit($id)
     {
         return redirect()->back();
+    }
+
+    public function subirImagen(Request $request, $id)
+    {
+
+        $validator = Validator::make($request->all(), ['img' => 'required|image|max:1024000']);
+
+        if ($validator->fails())
+            return $validator->errors();
+
+
+        if(!$request->hasFile('img'))
+            return redirect()->back()->withErrors('No ha seleccionado ningún archivo');
+
+
+        // Resize to image thumbnail
+        $img_thumb = Intervention::make($request->file('img'))->resize(config('sistema.imagenes.WIDTH_THUMB'), config('sistema.imagenes.HEIGHT_THUMB'));
+
+        if($request->file('img')){
+
+            $file = $request->file('img');
+
+            // Redirección si excede el máximo tamaño de imagen permitido
+            if($file->getClientSize() > config('sistema.imagenes.MAX_SIZE_IMAGE'))
+                return redirect()->back()->withErrors('La foto es demasiado grande (Debe ser menor a 5M)');
+
+            // Confirma que el archivo no exista en el destino
+            $nombre = $this->changeFileNameIfExists($file);
+
+            $imagenInt = Intervention::make($request->file('img'))->encode('jpg', 100);
+
+            $imagenInt->save(public_path('/imagenes/'). $nombre);
+            $imagen = Image::create(['path' => $nombre, 'main' => 0]);
+
+            $header = Header::find($id);
+            $header->images()->save($imagen);
+
+            $image_thumb = $this->makeThumb($img_thumb, $nombre, $header);
+            $imagen->thumbnail_id = $image_thumb->id;
+
+            $imagen->save();
+
+        }
+
+        return redirect()->back()->with('ok', 'Imagen subida con éxito');
     }
 
     public function changeFileNameIfExists($file)

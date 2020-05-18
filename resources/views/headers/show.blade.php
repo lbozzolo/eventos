@@ -35,7 +35,7 @@
 
                 <div class="card-body">
 
-                    @include('images.images')
+                    @include('headers.images')
 
                 </div>
 
@@ -46,10 +46,10 @@
 
 @endsection
 
-@section('js')
+{{--@section('js')--}}
 
-    <script src="{{ asset('croppie/croppie.js') }}"></script>
-    <script src="{{ asset('exif-js/exif.js') }}"></script>
-    <script src="{{ asset('js/croppie-file-servicio.js') }}"></script>
+    {{--<script src="{{ asset('croppie/croppie.js') }}"></script>--}}
+    {{--<script src="{{ asset('exif-js/exif.js') }}"></script>--}}
+    {{--<script src="{{ asset('js/croppie-header.js') }}"></script>--}}
 
-@endsection
+{{--@endsection--}}
