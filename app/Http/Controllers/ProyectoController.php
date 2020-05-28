@@ -141,6 +141,9 @@ class ProyectoController extends AppBaseController
         if (!$this->data['item'])
             return redirect()->back()->withErrors($this->update_failure_message);
 
+        if(!isset($inputs['auspiciantes']))
+            $inputs['auspiciantes'] = [];
+
         $this->data['item'] = $this->repo->update($inputs, $id);
 
         if($this->data['item']->principal == 1){
@@ -326,6 +329,65 @@ class ProyectoController extends AppBaseController
         $consulta->save();
 
         return redirect()->back();
+    }
+
+    public function reportes($id)
+    {
+        $this->data['item'] = Proyecto::find($id);
+        return view('proyectos.reportes')->with($this->data);
+    }
+
+    public function getConnected(Request $request)
+    {
+        $proyecto = Proyecto::find($request->proyecto_id);
+        $inscriptos = $proyecto->inscriptos->count();
+        $conectados = $proyecto->connected();
+        $porcentaje = $proyecto->connectedPercentage();
+
+        if($proyecto->isGoingOn())
+            $this->repo->recordAmountUsersOnline($proyecto->id, $conectados);
+
+        return response()->json(['inscriptos' => $inscriptos, 'conectados' => $conectados, 'porcentaje' => $porcentaje]);
+    }
+
+    public function getConnectePercentage(Request $request)
+    {
+        $proyecto = Proyecto::find($request->proyecto_id);
+        $conectados = $proyecto->connectedPercentage();
+        return response()->json($conectados);
+    }
+
+    public function getOnlineTimeline(Request $request)
+    {
+        $proyecto = Proyecto::find($request->proyecto_id);
+        $users = $proyecto->usersOnlineThroughTime();
+        $timestamps = $proyecto->timestampsThroughTime();
+        return response()->json(['users' => $users, 'timestamps' => $timestamps]);
+    }
+
+    public function finalizar($id)
+    {
+        $proyecto = Proyecto::find($id);
+        $estadoFinalizado = Estado::where('slug', 'finalizado')->first();
+
+        if(!$estadoFinalizado)
+            return redirect()->back()->withErrors('No se pudo finalizar el evento porque no existe el estado FINALIZADO. Debe crearlo primero.');
+
+        $proyecto->estado_id = $estadoFinalizado->id;
+        $proyecto->save();
+
+        return redirect()->back()->with('ok', 'Evento finalizado con éxito.');
+    }
+
+    public function activar($id)
+    {
+        $proyecto = Proyecto::find($id);
+        $estadoActivo = Estado::where('slug', 'activo')->first();
+
+        $proyecto->estado_id = $estadoActivo->id;
+        $proyecto->save();
+
+        return redirect()->back()->with('ok', 'Evento activado con éxito.');
     }
 
     public function pdfs($id)

@@ -8,6 +8,7 @@ use Eventos\Models\Proyecto;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -115,6 +116,11 @@ class User extends Authenticatable
     public function getFechaEditadoAttribute()
     {
         return Carbon::parse($this->attributes['updated_at'])->format('d-m-Y');
+    }
+
+    public function isOnline()
+    {
+        return Cache::has('user-is-online'.$this->attributes['id']);
     }
 
     public function isSuperAdmin()

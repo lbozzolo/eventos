@@ -15,6 +15,31 @@ class Proyecto extends Entity
     public $image_croppie_height = 720;
     public $addHours = 4;
 
+    public $paises = array(
+
+        "Argentina","Afganistán","Albania","Alemania","Andorra","Angola","Antigua y Barbuda","Arabia Saudita","Argelia","Armenia",
+        "Australia","Austria","Azerbaiyán","Bahamas","Bangladés","Barbados","Baréin","Bélgica","Belice","Benín",
+        "Bielorrusia","Birmania","Bolivia","Bosnia y Herzegovina","Botsuana","Brasil","Brunéi","Bulgaria","Burkina Faso","Burundi",
+        "Bután","Cabo Verde","Camboya","Camerún","Canadá","Catar","Chad","Chile","China","Chipre",
+        "Ciudad del Vaticano","Colombia","Comoras","Corea del Norte","Corea del Sur","Costa de Marfil","Costa Rica","Croacia","Cuba","Dinamarca",
+        "Dominica","Ecuador","Egipto","El Salvador","Emiratos Árabes Unidos","Eritrea","Eslovaquia","Eslovenia","España","Estados Unidos",
+        "Estonia","Etiopía","Filipinas","Finlandia","Fiyi","Francia","Gabón","Gambia","Georgia","Ghana",
+        "Granada","Grecia","Guatemala","Guyana","Guinea","Guinea ecuatorial","Guinea-Bisáu","Haití","Honduras","Hungría",
+        "India","Indonesia","Irak","Irán","Irlanda","Islandia","Islas Marshall","Islas Salomón","Israel","Italia",
+        "Jamaica","Japón","Jordania","Kazajistán","Kenia","Kirguistán","Kiribati","Kuwait","Laos","Lesoto",
+        "Letonia","Líbano","Liberia","Libia","Liechtenstein","Lituania","Luxemburgo","Madagascar","Malasia","Malaui",
+        "Maldivas","Malí","Malta","Marruecos","Mauricio","Mauritania","México","Micronesia","Moldavia","Mónaco",
+        "Mongolia","Montenegro","Mozambique","Namibia","Nauru","Nepal","Nicaragua","Níger","Nigeria","Noruega",
+        "Nueva Zelanda","Omán","Países Bajos","Pakistán","Palaos","Panamá","Papúa Nueva Guinea","Paraguay","Perú","Polonia",
+        "Portugal","Reino Unido","República Centroafricana","República Checa","República de Macedonia","República del Congo","República Democrática del Congo","República Dominicana","República Sudafricana","Ruanda",
+        "Rumanía","Rusia","Samoa","San Cristóbal y Nieves","San Marino","San Vicente y las Granadinas","Santa Lucía","Santo Tomé y Príncipe","Senegal","Serbia",
+        "Seychelles","Sierra Leona","Singapur","Siria","Somalia","Sri Lanka","Suazilandia","Sudán","Sudán del Sur","Suecia",
+        "Suiza","Surinam","Tailandia","Tanzania","Tayikistán","Timor Oriental","Togo","Tonga","Trinidad y Tobago","Túnez",
+        "Turkmenistán","Turquía","Tuvalu","Ucrania","Uganda","Uruguay","Uzbekistán","Vanuatu","Venezuela","Vietnam",
+        "Yemen","Yibuti","Zambia","Zimbabue"
+
+    );
+
     public $fillable = [
         'nombre',
         'descripcion',
@@ -52,13 +77,35 @@ class Proyecto extends Entity
 
     public function isFinished()
     {
-        return Carbon::parse($this->attributes['fecha'])->addHours($this->addHours)->format('Y-m-d H:i') < Carbon::now()->format('Y-m-d H:i');
+        $result = Carbon::parse($this->attributes['fecha'])->addHours($this->addHours)->format('Y-m-d H:i') < Carbon::now()->format('Y-m-d H:i');
+        $finalizado = Estado::where('slug', 'finalizado')->first();
+
+        if($result && $finalizado){
+            $this->estado_id = $finalizado->id;
+            $this->save();
+        }
+
+        if($this->estado->slug == 'finalizado'){
+            $result = true;
+        }
+
+        return $result;
+//        return Carbon::parse($this->attributes['fecha'])->addHours($this->addHours)->format('Y-m-d H:i') < Carbon::now()->format('Y-m-d H:i');
+    }
+
+    public function hasBegun()
+    {
+        return Carbon::now()->format('Y-m-d H:i') >= Carbon::parse($this->attributes['fecha'])->format('Y-m-d H:i');
+    }
+
+    public function isGoingOn()
+    {
+        return $this->hasBegun() && !$this->isFinished();
     }
 
     public function getNameOfDay($date)
     {
         $fecha = Carbon::parse($date);
-
         return ucfirst($this->daysSpanish[$fecha->dayOfWeek]);
     }
 
@@ -77,7 +124,6 @@ class Proyecto extends Entity
     {
         $activo = Estado::where('slug', '=', 'activo')->first()->id;
         $activo = (string)$activo;
-
         return $this->where('estado_id', '=', $activo);
     }
 
@@ -129,6 +175,86 @@ class Proyecto extends Entity
     public function getHoraAttribute()
     {
         return Carbon::parse($this->attributes['fecha'])->format('H:i');
+    }
+
+    public function connected()
+    {
+        return $this->inscriptos->filter(function ($user){
+                return $user->isOnline();
+        })->unique()->count();
+    }
+
+    public function connectedPercentage()
+    {
+        $inscriptos = $this->inscriptos()->count();
+        $conectados = $this->connected();
+        $porcentaje = ($conectados * 100) / $inscriptos;
+        return number_format($porcentaje,1,",",".");
+    }
+
+    public function totalAsistentes()
+    {
+        return $this->inscriptos()->where('attendment', 1)->get()->count();
+    }
+
+    public function porcentajeTotalAsistentes()
+    {
+        $total = $this->inscriptos->count();
+        $porcentaje = $this->totalAsistentes() * 100 / $total;
+        return number_format($porcentaje, 0);
+    }
+
+    public function usersByCountryAmount()
+    {
+        $users = $this->inscriptos()->where('users.pais', '!=', null)->get(['pais'])->groupBy('pais')->toArray();
+        $result = [];
+        foreach($users as $pais => $cant){
+            array_push($result, count($cant));
+        }
+
+        return $result;
+    }
+
+    public function usersByCountryName()
+    {
+        $users = $this->inscriptos()->where('users.pais', '!=', null)->get(['pais'])->groupBy('pais')->toArray();
+
+        $result = [];
+        foreach($users as $pais => $cant){
+            array_push($result, $this->paises[$pais]);
+        }
+
+        return $result;
+    }
+
+    public function usersOnlineThroughTime()
+    {
+        $users = $this->reportes()->get(['cantidad_online']);
+        $result = [];
+        foreach($users as $user){
+            array_push($result, $user->cantidad_online);
+        }
+        return $result;
+    }
+
+    public function timestampsThroughTime()
+    {
+        $timestamps = $this->reportes()->get(['created_at']);
+        $result = [];
+        foreach($timestamps as $time){
+            array_push($result, Carbon::parse($time->created_at)->format('H:i'));
+        }
+        return array_values($result);
+    }
+
+    public function picoUsuariosOnline()
+    {
+        return $this->reportes->sortByDesc('cantidad_online')->first()->cantidad_online;
+    }
+
+    public function porcentajePicoUsuariosOnline()
+    {
+        return round($this->picoUsuariosOnline() * 100 / $this->inscriptos->count());
     }
 
     // Relationships
@@ -186,6 +312,11 @@ class Proyecto extends Entity
     public function consultas()
     {
         return $this->hasMany(Consulta::class);
+    }
+
+    public function reportes()
+    {
+        return $this->hasMany(Reporte::class);
     }
 
 }

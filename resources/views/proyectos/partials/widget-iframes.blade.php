@@ -3,7 +3,7 @@
     <div class="card-body">
 
         <h3 class="d-inline-block mr-3">Iframes</h3>
-        <a href="{!! route($modelPlural.'.iframes', $item->id) !!}" class="btn btn-outline-success btn-sm float-right">Agregar</a>
+        <a href="{!! route($modelPlural.'.iframes', $item->id) !!}" class="float-right"><i class="mdi mdi-plus-box-outline mdi-24px"></i></a>
 
         {{--<div class="card-body mt-3" style="background-color: #f2f8f9">--}}
 

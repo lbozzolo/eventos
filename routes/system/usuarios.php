@@ -18,6 +18,11 @@ Route::group(['middleware' => ['can:mostrar_usuarios']], function () {
         'uses' => 'UserController@removeInscripto'
     ]);
 
+    Route::get('usuario-conectado', [
+        'as' => 'users.is.connected',
+        'uses' => 'UserController@isConnected'
+    ]);
+
 });
 
 Route::group(['middleware' => ['can:cambiar_password']], function () {

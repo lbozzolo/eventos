@@ -179,9 +179,13 @@ class UserController extends AppBaseController
             return redirect(route('users.index'))->withErrors('Usuario no encontrado');
 
         $user = $this->userRepository->update($inputs, $id);
-        $user->proyectos()->attach($request['proyectos']);
+        $user->proyectos()->sync($request['proyectos']);
 
-        return redirect(route('users.inscripciones'))->with('ok', 'Usuario editado con éxito');
+        $password = Hash::make($inputs['dni']);
+        $user->password = $password;
+        $user->save();
+
+        return redirect()->back()->with('ok', 'Usuario editado con éxito');
     }
 
     public function create()
@@ -192,13 +196,11 @@ class UserController extends AppBaseController
 
     public function store(CreateUserRequest $request)
     {
-//        dd($request->all());
         $input = $request->except('roles');
         $input['password'] = Hash::make($request['password']);
         $roles = $request['roles'];
 
         $user = $this->userRepository->create($input);
-
         $user->roles()->sync($roles);
 
         return redirect(route('users.index'))->with('ok', 'Usuario creado correctamente');
@@ -258,6 +260,14 @@ class UserController extends AppBaseController
 
         return redirect()->back()->with('ok', 'Usuario eliminado con éxito');
     }
+
+    public function isConnected(Request $request)
+    {
+        $status = (User::find($request->user_id)->isOnline())? 'connected' : 'disconnected';
+
+        return response()->json(['status' => $status]);
+    }
+
 
     public function removeInscripto(Request $request, $id)
     {

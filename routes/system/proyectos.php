@@ -4,6 +4,16 @@ Route::group(['middleware' => ['can:editar_proyectos']], function () {
 
     Route::resource('proyectos', 'ProyectoController');
 
+    Route::get('proyectos/{id}/finalizar', [
+        'as' => 'proyectos.finalizar',
+        'uses' => 'ProyectoController@finalizar'
+    ]);
+
+    Route::get('proyectos/{id}/activar', [
+        'as' => 'proyectos.activar',
+        'uses' => 'ProyectoController@activar'
+    ]);
+
     Route::get('proyectos/{id}/imagenes', [
         'as' => 'proyectos.imagenes',
         'uses' => 'ProyectoController@imagenes'
@@ -69,6 +79,16 @@ Route::group(['middleware' => ['can:editar_proyectos']], function () {
         'uses' => 'ProyectoController@destroyPdf'
     ]);
 
+    Route::get('proyecto/conectados', [
+        'as' => 'proyectos.get.connected',
+        'uses' => 'ProyectoController@getConnected'
+    ]);
+
+    Route::get('proyecto/online-timeline', [
+        'as' => 'proyectos.get.online.timeline',
+        'uses' => 'ProyectoController@getOnlineTimeline'
+    ]);
+
 
 });
 
@@ -78,6 +98,11 @@ Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
     Route::get('proyectos/{id}/consultas', [
         'as' => 'proyectos.consultas',
         'uses' => 'ProyectoController@consultas'
+    ]);
+
+    Route::get('proyectos/{id}/reportes', [
+        'as' => 'proyectos.reportes',
+        'uses' => 'ProyectoController@reportes'
     ]);
 
     Route::delete('proyectos/{id}/consultas/eliminar', [

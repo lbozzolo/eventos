@@ -80,15 +80,19 @@ class WebController extends AppBaseController
         if(!Auth::check())
             return redirect()->route('web.iniciar-sesion', ['cliente' => $this->data['charla']->cliente_slug, 'evento' => $this->data['charla']->nombre_slug, 'id' => $id]);
 
-        // Si la charla es privada lo inscribo
-//        if(!$user->proyectos->contains($id)){
-//            $this->data['ok'] = $this->messageInscription;
-//        }
-
         if(!$user->isInscripto($id)){
             $this->data['ok'] = $this->messageInscription;
             $user->proyectos()->syncWithoutDetaching($id);
             $this->userRepository->sendInscripcionEmail($user, $id);
+        }
+
+        if($this->data['charla']->isGoingOn()){
+
+            $inscripciones = Auth::user()->proyectos()->where('proyecto_id', $this->data['charla']->id)->get();
+            foreach($inscripciones as $inscripcion){
+                $inscripcion->pivot->attendment = 1;
+                $inscripcion->pivot->save();
+            }
         }
 
         return view('web.ingresar-charla')->with($this->data);
@@ -261,11 +265,18 @@ class WebController extends AppBaseController
 
         $this->data['paises'] = $this->paises;
 
+
         $userAttempt = User::where('email', $request['email'])->first();
 
         if(!$userAttempt){
 
-            // Convierto al dni en únicamente números
+            if(!$request['password'])
+                return redirect()->back()->withErrors('Debe ingresar su DNI, pasaporte o Id');
+
+            if(is_numeric($request['password']))
+                return redirect()->back()->withErrors('El DNI, pasaporte o Id debe ser un número');
+
+            // Convierto al dni en únicamente números quitando puntos y comas
             $request['password'] = preg_replace('/[^0-9]/', '', $request['password']);
 
             // Creo el usuario y le asigno password = dni
@@ -293,22 +304,23 @@ class WebController extends AppBaseController
             'id' => $id
         ]);
 
-        $this->validateLogin($request);
+//        $inscripcion = $this->data['charla']->inscriptos()->where('user_id', $userAttempt->id)->first();
+//        $inscripcion->pivot->updated_at = Carbon::now();
+//        $inscripcion->pivot->save();
 
+
+        $this->validateLogin($request);
 
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
-
             return $this->sendLockoutResponse($request);
         }
 
-        if ($this->attemptLogin($request)) {
+        if ($this->attemptLogin($request))
             return $this->sendLoginResponse($request);
-        }
+
         $this->redirectTo = route('home');
-
         $this->incrementLoginAttempts($request);
-
 
         return $this->sendFailedLoginResponse($request);
     }
@@ -391,53 +403,34 @@ class WebController extends AppBaseController
 
     public function test(Request $request)
     {
+        $user = User::find(22);
+        $proyecto = Proyecto::find(1);
 
-//        $data = [
-//            'subject' => 'Mensaje',
-//            'name' => 'Fulanito de tal',
-//            'email' => 'fulano@mail.com',
-//            'phone' => '982748234',
-//            'company' => 'Rizomagroup',
-//            'message' => 'Este es el mensaje del mail'
-//        ];
+        $reportes = $proyecto->reportes;
 
-        $user = User::find(15);
+        $last = Carbon::parse($reportes->last()->created_at)->format('Y-m-d H:i');
 
-//        dd($user->isInscripto(2));
+//        $inscripcion = $user->proyectos()->where('attendment', 1)->get();
+//        $inscripcion = $user->proyectos()->where('proyecto_id', $proyecto->id)->first()->pivot->attendment;
+        $inscripcion = $user->proyectos()->find($proyecto->id)->first();
 
+        dd($inscripcion);
 
-        $eventum = Auspiciante::where('nombre', 'Eventum')->first();
-        $data = array(
-            'fullname' => $user->fullname,
-            'email' => $user->email,
-            'dni' => $user->dni,
-            'logo' => $eventum->mainImage(),
-        );
+        $proyecto->isFinished();
+        if($proyecto->isGoingOn()){
+            return;
+        }
 
-        return view('emails.reenvio')->with(['data' => $data]);
+        dd(Carbon::now()->format('Y-m-d H:i') >= $proyecto->fecha_formatted_view);
+        dd($proyecto->fecha_formatted);
 
+        $conectados = $proyecto->connected();
+        $porcentaje = $proyecto->connectedPercentage();
 
 
+        dd($user->isOnline());
 
-//        $this->data['charla'] = Proyecto::find(2);
-//        $user = User::find(1);
-//
-//        $data = array(
-//            'fullname' => $user->fullname,
-//            'evento' => $this->data['charla']->nombre,
-//            'cliente' => $this->data['charla']->cliente->nombre,
-//            'email' => $user->email,
-//            'dni' => '234234234',
-//            'fecha' => $this->data['charla']->fecha,
-//            'hora' => $this->data['charla']->hora,
-//            'logo' => $this->data['charla']->cliente->mainImage(),
-//            'url' => route('web.charlas.ingresar',[
-//                'cliente' => $this->data['charla']->cliente_slug,
-//                'evento' => $this->data['charla']->nombre_slug,
-//                'id' => $this->data['charla']->id])
-//        );
-//
-//        return view('emails.inscripcion')->with(['data' => $data]);
+
     }
 
 }

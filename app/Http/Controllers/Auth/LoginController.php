@@ -2,8 +2,13 @@
 
 namespace Eventos\Http\Controllers\Auth;
 
+use Carbon\Carbon;
 use Eventos\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+
 
 class LoginController extends Controller
 {
@@ -35,5 +40,17 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function logout(Request $request)
+    {
+        $expiresAt = Carbon::now()->addSecond(10);
+        Cache::put('user-is-online'.Auth::user()->id, true, $expiresAt);
+
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/');
     }
 }

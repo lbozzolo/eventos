@@ -4,17 +4,21 @@
 
     <div class="card col-lg-12 grid-margin">
         <div class="card-body">
-            <p class="float-right">Fecha del evento: {!! $item->fecha !!} a las {!! $item->hora !!}</p>
-            <h2>{!! ucfirst($item->nombre) !!} / <span class="text-warning">{!! $item->cliente->nombre !!}</span></h2>
-            <p class="lead">{!! $item->descripcion !!}</p>
+            {{--<p class="float-right">Fecha del evento: {!! $item->fecha !!} a las {!! $item->hora !!}</p>--}}
+            <span class="float-right" style="">
+                usuarios online:
+                <span class="badge badge-success">{!! $item->connected() !!}</span>
+            </span>
+            <h2>
+                {!! ucfirst($item->nombre) !!}
+                / <span class="text-black">{!! $item->cliente->nombre !!}</span>
+                / <span class="text-warning">Consultas</span>
+            </h2>
+            <p class="">Fecha del evento: {!! $item->fecha !!} a las {!! $item->hora !!}</p>
+
         </div>
     </div>
 
-    <div class="card col-lg-12 grid-margin">
-        <div class="card-body">
-            <h3>Consultas</h3>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-lg-7">
@@ -51,7 +55,7 @@
                         </li>
                     @empty
                         <td colspan="2">
-                            <em class="text-gray">Todavía no se han hecho consultas en este evento.</em>
+                            <em class="text-gray">No hay consultas por el momento.</em>
                         </td>
                     @endforelse
                 </ul>
@@ -121,7 +125,7 @@
                         </li>
                     @empty
                         <td colspan="2">
-                            <em class="text-gray">Todavía no hay consultas archivadas.</em>
+                            <em class="text-gray">No hay consultas archivadas.</em>
                         </td>
                     @endforelse
                 </ul>

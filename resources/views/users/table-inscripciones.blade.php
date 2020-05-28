@@ -1,7 +1,8 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th style="width: 100px">Id</th>
+        <th style="width: 80px">Id</th>
+        <th style="width: 20px"></th>
         <th>Nombre</th>
         <th>Contacto</th>
         <th>Origen</th>
@@ -15,6 +16,9 @@
 
         <tr>
             <td>{!! $item->id !!}</td>
+            <td class="user text-center" id="{!! $item->id !!}">
+                <i class="mdi mdi-checkbox-blank-circle-outline text-danger"></i>
+            </td>
             <td>
                 <span>{!! $item->fullname !!}</span><br>
                 @if($item->dni)
@@ -91,3 +95,55 @@
     </div>
 
 @endif
+
+
+@section('js')
+
+    <script>
+
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+
+        function isOnline() {
+
+            var url = '{!! route('users.is.connected') !!}';
+
+            $(".user").map(function() {
+
+                let id = $(this).attr('id');
+
+                $.ajax(
+                    {
+                        type : 'get',
+                        url : url,
+                        dataType : 'json',
+                        data : {
+                            'user_id': id
+                        },
+                        success : function(data) {
+
+                            let icono = $('#'+ id + ' i');
+                            icono.removeClass();
+
+                            if(data.status === 'connected'){
+                                icono.addClass('mdi mdi-checkbox-blank-circle text-success')
+                            } else {
+                                icono.addClass('mdi mdi-checkbox-blank-circle-outline text-danger')
+                            }
+
+                        },
+                    });
+
+            }).get();
+
+        }
+
+        isOnline();
+        setInterval(function(){ isOnline(); }, 30000);
+
+    </script>
+
+
+@endsection
