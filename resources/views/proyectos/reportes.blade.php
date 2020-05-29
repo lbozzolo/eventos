@@ -96,7 +96,7 @@
             @include('proyectos.partials.widget-online-timeline')
         </div>
         <div class="col-lg-6">
-            @if($item->isFinished())
+            @if($item->isFinished() && $item->reportes->count())
                 <div class="card grid-margin">
                     <div class="card-body">
                         <div class="row">
