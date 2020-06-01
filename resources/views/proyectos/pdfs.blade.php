@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="form-group">
                                     {!! Form::submit('Aceptar', ['class' => 'btn btn-primary']) !!}
-                                    <a href="{!! route($modelPlural.'.edit', $item->id) !!}" class="btn btn-secondary">Cancelar</a>
+                                    <a href="{!! route($modelPlural.'.show', $item->id) !!}" class="btn btn-secondary">Cancelar</a>
                                 </div>
 
                                 {!! Form::close() !!}

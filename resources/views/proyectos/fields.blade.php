@@ -15,12 +15,12 @@
 
 <div class="form-group col-lg-12">
     {!! Form::label('cliente_id', 'Cliente') !!}
-    {!! Form::select('cliente_id', (isset($clientes))? $clientes : [], null, ['class' => 'form-control select2']) !!}
+    {!! Form::select('cliente_id', (isset($clientes))? $clientes : [], null, ['class' => 'form-control select2', 'placeholder' => '']) !!}
 </div>
 
 <div class="form-group col-lg-4">
     {!! Form::label('estado_id', 'Estado') !!}
-    {!! Form::select('estado_id', (isset($estados))? $estados : [], null, ['class' => 'form-control select2']) !!}
+    {!! Form::select('estado_id', (isset($estados))? $estados : [], (isset($item->estado_id))? $item->estado_id : null, ['class' => 'form-control select2']) !!}
 </div>
 
 <div class="form-group col-lg-4">
@@ -51,5 +51,9 @@
 
 <div class="form-group col-lg-12">
     {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route($modelPlural.'.index') !!}" class="btn btn-secondary">Cancelar</a>
+    @if(isset($item))
+        <a href="{!! route($modelPlural.'.show', $item->id) !!}" class="btn btn-secondary">Cancelar</a>
+    @else
+        <a href="{!! route($modelPlural.'.index') !!}" class="btn btn-secondary">Cancelar</a>
+    @endif
 </div>

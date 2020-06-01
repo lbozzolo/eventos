@@ -4,17 +4,16 @@
 
     <div class="row">
 
-        <div class="col-lg-6">
+        <div class="col-lg-8">
             <div class="card">
 
                 <div class="card-body">
 
                     <h2 class="mb-3">
-                        {!! ucfirst($modelSpanish) !!} /
+                        {!! $item->nombre !!} /
                         <span class="text-warning">Editar</span>
                     </h2>
                     <a href="{!! route('headers.show', $item->header->id) !!}" class="btn btn-outline-success btn-sm">Configurar Header</a>
-                    <a href="{!! route($modelPlural.'.consultas', $item->id) !!}" class="btn btn-outline-warning btn-sm">Consultas</a>
 
                     <div class="row">
                         <div class="card-body">
@@ -37,15 +36,6 @@
                 </div>
 
             </div>
-        </div>
-
-        <div class="col-lg-6">
-
-            @include('proyectos.partials.widget-images')
-            @include('proyectos.partials.widget-pdf')
-            @include('proyectos.partials.widget-iframes')
-            @include('proyectos.partials.widget-videos')
-
         </div>
 
     </div>

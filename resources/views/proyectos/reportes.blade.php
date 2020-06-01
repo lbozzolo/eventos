@@ -6,85 +6,104 @@
 
         <div class="col-lg-12">
             <div class="card grid-margin">
-                <div class="card-body">
 
-                    <span class="float-right text-right">
-                        <strong>Fecha del evento</strong> <br>
-                        {!! $item->fecha !!} a las {!! $item->hora !!} hs <br>
-                        @if($item->isFinished())
-                            <span class="text-danger">FINALIZADO</span>
-                        @endif
-                    </span>
-                    <h2 class="mb-3">
-                        <span class="text-dark">{!! $item->nombre !!}</span>
-                        <span class="text-warning"> / Reportes</span>
-                    </h2>
+                <div class="row">
+                    <div class="col-lg-9 col-md-7 col-sm-6">
+                        <div class="card-body">
+                            <h2>
+                                <span class="text-dark">{!! $item->nombre !!}</span>
+                                <span class="text-warning"> / Reportes</span>
+                            </h2>
+                            <p>{!! ($item->descripcion)? $item->descripcion : '' !!}</p>
 
-                    <a href="{!! route($modelPlural.'.consultas', $item->id) !!}" class="btn btn-outline-warning btn-sm">Consultas</a>
+                            @if($item->isFinished())
 
-                    @if($item->isFinished())
+                                <button title="Finalizar Evento" type="button" data-toggle="modal" data-target="#activar" class="btn btn-success mb-1">Activar evento</button>
 
-                        <button title="Finalizar Evento" type="button" data-toggle="modal" data-target="#activar" class="btn btn-outline-primary">Activar evento</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="activar" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Activar Evento</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>¿Desea activar este evento/proyecto?</p>
+                                            </div>
+                                            <div class="modal-footer">
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="activar" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Activar Evento</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>¿Desea activar este evento/proyecto?</p>
-                                    </div>
-                                    <div class="modal-footer">
+                                                <a href="{!! route('proyectos.activar', $item->id) !!}" class="btn btn-sm btn-primary">Activar</a>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 
-                                        <a href="{!! route('proyectos.activar', $item->id) !!}" class="btn btn-sm btn-primary">Activar</a>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                    @else
-                        <button title="Finalizar Evento" type="button" data-toggle="modal" data-target="#finalizar" class="btn btn-outline-danger">Marcar como Finalizado</button>
+                            @else
+                                <button title="Finalizar Evento" type="button" data-toggle="modal" data-target="#finalizar" class="btn btn-danger mb-1">Marcar como Finalizado</button>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="finalizar" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Marcar Evento como finalizado</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>¿Desea marcar este evento/proyecto como finaizado?</p>
-                                        <p>
-                                            Al hacerlo se dejará de tomar registro sobre los usuarios online.<br>
-                                            Si no lo hiciera, el sistema podría seguir tomando registro de los mismos innecesariamente
-                                            hasta por dos horas más después de finalizado el evento.
-                                        </p>
-                                    </div>
-                                    <div class="modal-footer">
+                                <!-- Modal -->
+                                <div class="modal fade" id="finalizar" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Marcar Evento como finalizado</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>¿Desea marcar este evento/proyecto como finaizado?</p>
+                                                <p>
+                                                    Al hacerlo se dejará de tomar registro sobre los usuarios online.<br>
+                                                    Si no lo hiciera, el sistema podría seguir tomando registro de los mismos innecesariamente
+                                                    hasta por dos horas más después de finalizado el evento.
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
 
-                                        <a href="{!! route('proyectos.finalizar', $item->id) !!}" class="btn btn-sm btn-danger">Finalizar</a>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <a href="{!! route('proyectos.finalizar', $item->id) !!}" class="btn btn-sm btn-danger">Finalizar</a>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+
+                            @endif
+
+
+                            <a href="{!! route($modelPlural.'.show', $item->id) !!}" class="btn btn-outline-dark mb-1">Volver</a>
                         </div>
-
-                    @endif
-
-                    <a href="{!! route('proyectos.show', $item->id) !!}" class="btn btn-outline-secondary">Volver</a>
-
+                    </div>
+                    <div class="col-lg-3 col-md-5 col-sm-6">
+                        <div class="card-body">
+                            <strong>Fecha del evento</strong> <br>
+                            {!! $item->fecha !!}, {!! $item->hora !!} hs <br>
+                            <small>estado</small>
+                            @if($item->estado->slug == 'activo')
+                                <span class="text-success">{!! strtoupper($item->estado->nombre) !!}</span>
+                            @elseif($item->estado->slug == 'finalizado')
+                                <span class="text-danger">{!! strtoupper($item->estado->nombre) !!}</span>
+                            @else
+                                <span class="text-info">{!! strtoupper($item->estado->nombre) !!}</span>
+                            @endif
+                            @if($item->isGoingOn())
+                                <br><br>
+                                <small class="" style="border: 1px solid limegreen; padding: 5px 10px">
+                                    en vivo <i class="mdi mdi-circle text-success"></i>
+                                </small>
+                            @endif
+                        </div>
+                    </div>
                 </div>
+
+
+
             </div>
         </div>
 

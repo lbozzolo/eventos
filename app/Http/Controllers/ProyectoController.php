@@ -3,6 +3,8 @@
 namespace Eventos\Http\Controllers;
 
 use Carbon\Carbon;
+use Eventos\Exports\ConsultasExport;
+use Eventos\Exports\InscriptosExport;
 use Eventos\Http\Requests\CreateConsultaRequest;
 use Eventos\Http\Requests\CreateProyectoRequest;
 use Eventos\Http\Requests\UpdateProyectoRequest;
@@ -25,6 +27,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProyectoController extends AppBaseController
 {
@@ -132,6 +135,8 @@ class ProyectoController extends AppBaseController
         $this->data['item'] = $this->repo->findWithoutFail($id);
         $this->data['items'] = $this->repo->all();
 
+        $estado = Estado::find($request['estado_id']);
+
         $inputs = $request->all();
         $inputs['fecha'] = Carbon::parse($inputs['fecha'])->format('Y-m-d H:i');
 
@@ -154,7 +159,13 @@ class ProyectoController extends AppBaseController
             }
         }
 
-        return redirect(route($this->modelPlural.'.index'))->with('ok', $this->update_success_message);
+        if($estado->slug != 'finalizado' && $this->data['item']->isFinished()){
+            return redirect()->route($this->modelPlural.'.show', $this->data['item']->id)
+                ->with('warning', 'No se pudo cambiar el estado del proyecto porque la fecha del mismo indica que está finalizado. Si desea forzar el cambio primero debe cambiar la fecha.');
+        }
+
+        return redirect()->route($this->modelPlural.'.show', $this->data['item']->id)->with('ok', $this->update_success_message);
+//        return redirect(route($this->modelPlural.'.index'))->with('ok', $this->update_success_message);
     }
 
     public function imagenes($id)
@@ -483,6 +494,16 @@ class ProyectoController extends AppBaseController
         $this->data['video']->delete();
 
         return redirect(route($this->modelPlural.'.videos', $proyecto))->with('ok', 'Video eliminado con éxito');
+    }
+
+    public function exportInscriptos($id)
+    {
+        return Excel::download(new InscriptosExport($id), 'inscriptos.xlsx');
+    }
+
+    public function exportConsultas($id)
+    {
+        return Excel::download(new ConsultasExport($id), 'consultas.xlsx');
     }
 
     public function changeFileNameIfExists($file)

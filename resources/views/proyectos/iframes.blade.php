@@ -21,14 +21,12 @@
 
                         <div class="form-group"  id="videos-input">
                             {!! Form::label('iframe', 'URL del iframe de la charla') !!}
-
-                                {!! Form::text('path', null, ['class' => 'form-control', 'placeholder' => 'Coloque aquí la URL de su video...']) !!}
-
+                            {!! Form::text('path', null, ['class' => 'form-control', 'placeholder' => 'Coloque aquí la URL de su video...']) !!}
                         </div>
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-youtube-play"></i> Aceptar</button>
-                            <a href="{!! route($modelPlural.'.edit', $item->id) !!}" class="btn btn-secondary">Cancelar</a>
+                            <a href="{!! route($modelPlural.'.show', $item->id) !!}" class="btn btn-secondary">Cancelar</a>
                         </div>
                     {!! Form::close() !!}
                 </div>

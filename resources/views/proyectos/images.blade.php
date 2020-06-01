@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-1">
-                            <a href="{!! route($modelPlural.'.edit', $item->id) !!}" class="btn btn-secondary"><i class="mdi mdi-arrow-left"></i> Volver</a>
+                            <a href="{!! route($modelPlural.'.show', $item->id) !!}" class="btn btn-secondary"><i class="mdi mdi-arrow-left"></i> Volver</a>
                         </div>
                         <div class="col-lg-11">
                             <h2 class="ml-3">

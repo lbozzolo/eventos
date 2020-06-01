@@ -115,5 +115,19 @@ Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
         'uses' => 'ProyectoController@archivarConsulta'
     ]);
 
+    Route::get('exportacion-inscriptos/{id}', [
+        'as' => 'proyectos.export.inscriptos',
+        'uses' => 'ProyectoController@exportInscriptos'
+    ]);
+
+    Route::get('exportacion-consultas/{id}', [
+        'as' => 'proyectos.export.consultas',
+        'uses' => 'ProyectoController@exportConsultas'
+    ]);
+
+//    Route::get('/exportacion-inscriptos/{id}', function () {
+//        return \Maatwebsite\Excel\Facades\Excel::download(new \Eventos\Exports\InscriptosExport(), 'inscriptos.xlsx');
+//    });
+
 });
 
