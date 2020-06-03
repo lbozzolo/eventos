@@ -159,13 +159,15 @@ class ProyectoController extends AppBaseController
             }
         }
 
-        if($estado->slug != 'finalizado' && $this->data['item']->isFinished()){
+        if($estado->slug != 'finalizado' && $this->data['item']->dateIsPast()){
+            $finalizado = Estado::where('slug', 'finalizado')->first();
+            $this->data['item']->estado_id = $finalizado->id;
+            $this->data['item']->save();
             return redirect()->route($this->modelPlural.'.show', $this->data['item']->id)
                 ->with('warning', 'No se pudo cambiar el estado del proyecto porque la fecha del mismo indica que está finalizado. Si desea forzar el cambio primero debe cambiar la fecha.');
         }
 
         return redirect()->route($this->modelPlural.'.show', $this->data['item']->id)->with('ok', $this->update_success_message);
-//        return redirect(route($this->modelPlural.'.index'))->with('ok', $this->update_success_message);
     }
 
     public function imagenes($id)
@@ -393,8 +395,11 @@ class ProyectoController extends AppBaseController
     public function activar($id)
     {
         $proyecto = Proyecto::find($id);
-        $estadoActivo = Estado::where('slug', 'activo')->first();
 
+        if($proyecto->dateIsPast())
+            return redirect()->back()->with('warning', 'No se pudo activar el proyecto porque la fecha del mismo indica que está finalizado. Si desea forzar la activación primero debe cambiar la fecha.');
+
+        $estadoActivo = Estado::where('slug', 'activo')->first();
         $proyecto->estado_id = $estadoActivo->id;
         $proyecto->save();
 

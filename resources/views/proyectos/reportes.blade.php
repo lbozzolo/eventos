@@ -18,7 +18,7 @@
 
                             @if($item->isFinished())
 
-                                <button title="Finalizar Evento" type="button" data-toggle="modal" data-target="#activar" class="btn btn-success mb-1">Activar evento</button>
+                                <button title="Activar Evento" type="button" data-toggle="modal" data-target="#activar" class="btn btn-success mb-1">Activar evento</button>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="activar" tabindex="-1" role="dialog" aria-hidden="true">
@@ -44,6 +44,8 @@
                                 </div>
 
                             @else
+
+                                @if($item->isGoingOn() || $item->isFinished())
                                 <button title="Finalizar Evento" type="button" data-toggle="modal" data-target="#finalizar" class="btn btn-danger mb-1">Marcar como Finalizado</button>
 
                                 <!-- Modal -->
@@ -73,6 +75,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
 
                             @endif
 
@@ -115,55 +118,13 @@
             @include('proyectos.partials.widget-online-timeline')
         </div>
         <div class="col-lg-6">
+
             @if($item->isFinished() && $item->reportes->count())
-                <div class="card grid-margin">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h4 class="text-primary">Resumen</h4>
-                                <table class="table table-condensed">
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="2">
-                                                Se inscribieron {!! $item->inscriptos->count() !!} personas entre el
-                                                {!! $item->inscriptos->first()->created_at->format('d-m-Y') !!} y el
-                                                {!! $item->inscriptos->last()->created_at->format('d-m-Y') !!}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Asistieron {!! $item->totalAsistentes() !!}</td>
-                                            <td>
-                                                <span class="font-weight-semibold">{!! $item->porcentajeTotalAsistentes() !!} %</span>
-                                                <div class="progress progress-md">
-                                                    <div class="progress-bar bg-success" role="progressbar" style="width: {!! $item->porcentajeTotalAsistentes() !!}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                El pico máximo fue a las
-                                                {!! $item->reportes->sortByDesc('cantidad_online')->first()->created_at->format('H:i') !!} hs
-                                            </td>
-                                            <td>
-                                                <span class="font-weight-semibold">{!! $item->porcentajePicoUsuariosOnline() !!} %</span>
-                                                ({!! $item->picoUsuariosOnline() !!} usuarios online)
-                                                <div class="progress progress-md">
-                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: {!! $item->porcentajePicoUsuariosOnline() !!}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Se realizaron {!! $item->consultas->count() !!} consultas</td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('proyectos.partials.widget-resumen')
             @endif
+
             @include('proyectos.partials.widget-paises')
+
         </div>
 
     </div>

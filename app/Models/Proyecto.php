@@ -75,22 +75,28 @@ class Proyecto extends Entity
         return $iframes;
     }
 
+    public function dateIsPast()
+    {
+        return Carbon::parse($this->attributes['fecha'])->addHours($this->addHours)->format('Y-m-d H:i') < Carbon::now()->format('Y-m-d H:i');
+    }
+
     public function isFinished()
     {
-        $result = Carbon::parse($this->attributes['fecha'])->addHours($this->addHours)->format('Y-m-d H:i') < Carbon::now()->format('Y-m-d H:i');
+//        $result = Carbon::parse($this->attributes['fecha'])->addHours($this->addHours)->format('Y-m-d H:i') < Carbon::now()->format('Y-m-d H:i');
         $finalizado = Estado::where('slug', 'finalizado')->first();
 
-        if($result && $finalizado){
+        // Si la fecha es pasada (y existe el estado finalizado) le cambio el estado a finalizado
+        if($this->dateIsPast() && $finalizado){
             $this->estado_id = $finalizado->id;
             $this->save();
         }
 
+        // Si la fecha no es pasada pero su estado es finalizado
         if($this->estado->slug == 'finalizado'){
             $result = true;
         }
 
-        return $result;
-//        return Carbon::parse($this->attributes['fecha'])->addHours($this->addHours)->format('Y-m-d H:i') < Carbon::now()->format('Y-m-d H:i');
+        return $this->estado->slug == 'finalizado';
     }
 
     public function hasBegun()
@@ -188,7 +194,12 @@ class Proyecto extends Entity
     {
         $inscriptos = $this->inscriptos()->count();
         $conectados = $this->connected();
-        $porcentaje = ($conectados * 100) / $inscriptos;
+        $porcentaje = 0;
+
+        if($inscriptos > 0){
+            $porcentaje = ($conectados * 100) / $inscriptos;
+        }
+
         return number_format($porcentaje,1,",",".");
     }
 
