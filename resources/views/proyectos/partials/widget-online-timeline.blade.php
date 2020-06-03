@@ -13,7 +13,9 @@
                         <canvas id="online_timeline"></canvas>
                         <p class="text-center pt-3 mb-0 pb-0" style="border-top: 1px solid lightgray">
                             {!! $item->fecha !!}<br>
+                            @if($item->isGoingOn())
                             <small class="text-center text-gray">Actualizado cada 5 minutos</small>
+                            @endif
                         </p>
 
                     @else
