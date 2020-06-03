@@ -32,6 +32,11 @@
     color: white;
 }
 
+.no-decoration:hover {
+    text-decoration: none!important;
+    background-color: rgba(90, 113, 208, 0.3);
+}
+
 /*Pagination*/
 
 .pagination {

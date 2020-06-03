@@ -1,8 +1,9 @@
-<div class="card grid-margin bg-warning text-white">
-    <a href="{!! route($modelPlural.'.imagenes', $item->id) !!}" class="float-right text-white">
+<div class="card grid-margin bg-warning">
+    <a href="{!! route($modelPlural.'.imagenes', $item->id) !!}" class="float-right text-white no-decoration">
         <div class="card-body">
-            <h3 class="d-inline-block mr-3">Imágenes</h3>
-            <span class="float-right text-white"><i class="mdi mdi-settings mdi-24px"></i></span>
+            <h4 class="d-inline-block mr-3"><i class="mdi mdi-image mdi-18px" style="color: darkorange"></i> Imágenes</h4>
+            <span class="float-right text-white lead">{!! $item->images->count() !!}</span>
+            <p class="mb-0 pb-0 text-dark">Visible en grilla de eventos</p>
         </div>
     </a>
 </div>

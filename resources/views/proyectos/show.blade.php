@@ -168,40 +168,44 @@
                         </div>
 
 
-                        <div class="col-lg-2 col-md-6 grid-margin">
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 grid-margin">
                             <div class="d-flex">
                                 <div class="wrapper">
                                     <a href="{!! route('proyectos.inscripciones', $item->id) !!}" class="btn btn-outline-dark">
                                         <h3 class="mb-0 font-weight-semibold">{!! $item->inscriptos->count() !!}</h3>
-                                        <h5 class="mb-2 font-weight-medium text-gray">Inscriptos</h5>
+                                        <h5 class="mb-2 font-weight-medium text-gray">
+                                            {!! ($item->inscriptos->count() == 1)? 'Inscripto' : 'Inscriptos' !!}
+                                        </h5>
                                     </a>
-                                    <a href="{!! route('proyectos.export.inscriptos', $item->id) !!}" class="btn btn-info mt-1" style="display: block">
+                                    <a href="{!! route('proyectos.export.inscriptos', $item->id) !!}" class="btn btn-primary mt-1" style="display: block">
                                         exportar</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-6 mt-md-0 grid-margin">
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 mt-md-0 grid-margin">
                             <div class="d-flex">
                                 <div class="wrapper">
                                     <a href="{!! route($modelPlural.'.consultas', $item->id) !!}" class="btn btn-outline-dark">
                                         <h3 class="mb-0 font-weight-semibold">{!! $item->consultas->count() !!}</h3>
-                                        <h5 class="mb-2 font-weight-medium text-gray">Consultas</h5>
+                                        <h5 class="mb-2 font-weight-medium text-gray">
+                                            {!! ($item->consultas->count() == 1)? 'Consulta' : 'Consultas' !!}
+                                        </h5>
                                     </a>
-                                    <a href="{!! route('proyectos.export.consultas', $item->id) !!}" class="btn btn-info mt-1" style="display: block">
+                                    <a href="{!! route('proyectos.export.consultas', $item->id) !!}" class="btn btn-primary mt-1" style="display: block">
                                         exportar</a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-md-6 mt-md-0 grid-margin">
-                            <div class="d-flex" style="border: 1px solid lightgray; padding: 20px 50px">
+                        <div class="col-lg-3 col-md-6 col-sm-6 mt-md-0 grid-margin">
+                            <div class="d-flex" style="border: 1px solid lightgray; padding: 20px 20px">
                                 <div class="wrapper">
                                     @if($item->publico)
-                                        <h3 class="mb-0 font-weight-semibold"><i class="mdi mdi-36px mdi-folder-lock-open text-success" title="Público"></i> Público</h3>
+                                        <h4 class="mb-0 font-weight-semibold"><i class="mdi mdi-24px mdi-folder-lock-open text-success" title="Público"></i> Público</h4>
                                         <h5 class="mb-0 font-weight-medium text-primary">Tipo de proyecto</h5>
-                                        <p class="mb-0 text-muted">Ingreso libre</p>
+                                        <p class="mb-0 text-gray">Evento gratuito. Ingreso libre</p>
                                     @else
-                                        <h3 class="mb-0 font-weight-semibold"><i class="mdi mdi-36px mdi-folder-lock text-danger" title="Privado"></i> Privado</h3>
+                                        <h4 class="mb-0 font-weight-semibold"><i class="mdi mdi-24px mdi-folder-lock text-danger" title="Privado"></i> Privado</h4>
                                         <h5 class="mb-0 font-weight-medium text-primary">Tipo de proyecto</h5>
                                         <p class="mb-0 text-muted">Inscripción requerida</p>
                                     @endif
