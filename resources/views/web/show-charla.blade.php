@@ -31,11 +31,7 @@
                     </div>
 
                 </div>
-                {{--<div class="col-lg-4">--}}
-                    {{--<div class="pt-2 mb-3">--}}
-                        {{--@include('web.components.botones-ingreso')--}}
-                    {{--</div>--}}
-                {{--</div>--}}
+
             </div>
         </div>
     </section>
