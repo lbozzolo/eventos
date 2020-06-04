@@ -54,7 +54,8 @@ class WebController extends AppBaseController
 
     public function showCharla($cliente, $evento, $id)
     {
-        $this->data['charla'] = Proyecto::active($id)->first();
+        $this->data['charla'] = Proyecto::find($id);
+//        $this->data['charla'] = Proyecto::active($id)->first();
 
         if(!$this->data['charla'])
             return abort(404);
