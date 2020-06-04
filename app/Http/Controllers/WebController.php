@@ -45,17 +45,13 @@ class WebController extends AppBaseController
 
     public function charlas()
     {
-        $inactivoID = Estado::where('slug', 'inactivo')->first()->id;
-        $this->data['proyectos'] = Proyecto::where('estado_id', '!=', $inactivoID)->orderBy('fecha', 'desc')->paginate(6);
-
-//        $this->data['proyectos'] = Proyecto::active()->finished()->orderBy('fecha', 'desc')->paginate(6);
+        $this->data['proyectos'] = Proyecto::orderBy('fecha', 'DESC')->active()->paginate(6);
         return view('web.charlas')->with($this->data);
     }
 
     public function showCharla($cliente, $evento, $id)
     {
-        $this->data['charla'] = Proyecto::find($id);
-//        $this->data['charla'] = Proyecto::active($id)->first();
+        $this->data['charla'] = Proyecto::active($id)->first();
 
         if(!$this->data['charla'])
             return abort(404);

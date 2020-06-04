@@ -118,7 +118,8 @@ class Proyecto extends Entity
     public function scopeActive($query, $id = null)
     {
         $activo = Estado::where('slug', '=', 'activo')->first()->id;
-        $result = $query->where('estado_id', '=', $activo)->orderBy('id', 'desc');
+        $finalizado = Estado::where('slug', '=', 'finalizado')->first()->id;
+        $result = $query->where('estado_id', '=', $activo)->orWhere('estado_id', '=', $finalizado)->orderBy('id', 'desc');
 
         if($id)
             $result = $query->where('estado_id', '=', $activo)->where('id', '=', $id);
