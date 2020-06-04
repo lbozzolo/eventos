@@ -13,7 +13,6 @@ use Eventos\Models\Categoria;
 use Eventos\Models\Cliente;
 use Eventos\Models\Consulta;
 use Eventos\Models\Estado;
-use Eventos\Models\Header;
 use Eventos\Models\Iframe;
 use Eventos\Models\Pdf;
 use Eventos\Models\Proyecto;

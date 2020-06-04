@@ -122,7 +122,7 @@ class Proyecto extends Entity
         $result = $query->where('estado_id', '=', $activo)->orWhere('estado_id', '=', $finalizado)->orderBy('id', 'desc');
 
         if($id)
-            $result = $query->where('estado_id', '=', $activo)->where('id', '=', $id);
+            $result = $query->where('estado_id', '=', $activo)->orWhere('estado_id', '=', $finalizado)->where('id', '=', $id);
 
         return $result;
     }
