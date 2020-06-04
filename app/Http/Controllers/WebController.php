@@ -5,7 +5,7 @@ namespace Eventos\Http\Controllers;
 use Carbon\Carbon;
 use Eventos\Http\Requests\RegisterUser2Request;
 use Eventos\Http\Requests\RegistreUserRequest;
-use Eventos\Models\Auspiciante;
+use Eventos\Models\Estado;
 use Eventos\Models\Proyecto;
 use Eventos\Repositories\UserRepository;
 use Eventos\User;
@@ -31,8 +31,6 @@ class WebController extends AppBaseController
     private $messageInscription = 'Te has inscripto en el evento exitosamente. Recibirás un correo de confirmación. 
                     Por favor revisá tu bandeja de correo no deseado o spam y marcalo como "correo deseado" o movelo a la bandeja de entrada';
 
-//    public $paises = ['Argentina', 'Bolivia', 'Brasil', 'Chile', 'Ecuador', 'Paraguay', 'Uruguay'];
-
     public $paises = array("Argentina","Afganistán","Albania","Alemania","Andorra","Angola","Antigua y Barbuda","Arabia Saudita","Argelia","Armenia","Australia","Austria","Azerbaiyán","Bahamas","Bangladés","Barbados","Baréin","Bélgica","Belice","Benín","Bielorrusia","Birmania","Bolivia","Bosnia y Herzegovina","Botsuana","Brasil","Brunéi","Bulgaria","Burkina Faso","Burundi","Bután","Cabo Verde","Camboya","Camerún","Canadá","Catar","Chad","Chile","China","Chipre","Ciudad del Vaticano","Colombia","Comoras","Corea del Norte","Corea del Sur","Costa de Marfil","Costa Rica","Croacia","Cuba","Dinamarca","Dominica","Ecuador","Egipto","El Salvador","Emiratos Árabes Unidos","Eritrea","Eslovaquia","Eslovenia","España","Estados Unidos","Estonia","Etiopía","Filipinas","Finlandia","Fiyi","Francia","Gabón","Gambia","Georgia","Ghana","Granada","Grecia","Guatemala","Guyana","Guinea","Guinea ecuatorial","Guinea-Bisáu","Haití","Honduras","Hungría","India","Indonesia","Irak","Irán","Irlanda","Islandia","Islas Marshall","Islas Salomón","Israel","Italia","Jamaica","Japón","Jordania","Kazajistán","Kenia","Kirguistán","Kiribati","Kuwait","Laos","Lesoto","Letonia","Líbano","Liberia","Libia","Liechtenstein","Lituania","Luxemburgo","Madagascar","Malasia","Malaui","Maldivas","Malí","Malta","Marruecos","Mauricio","Mauritania","México","Micronesia","Moldavia","Mónaco","Mongolia","Montenegro","Mozambique","Namibia","Nauru","Nepal","Nicaragua","Níger","Nigeria","Noruega","Nueva Zelanda","Omán","Países Bajos","Pakistán","Palaos","Panamá","Papúa Nueva Guinea","Paraguay","Perú","Polonia","Portugal","Reino Unido","República Centroafricana","República Checa","República de Macedonia","República del Congo","República Democrática del Congo","República Dominicana","República Sudafricana","Ruanda","Rumanía","Rusia","Samoa","San Cristóbal y Nieves","San Marino","San Vicente y las Granadinas","Santa Lucía","Santo Tomé y Príncipe","Senegal","Serbia","Seychelles","Sierra Leona","Singapur","Siria","Somalia","Sri Lanka","Suazilandia","Sudán","Sudán del Sur","Suecia","Suiza","Surinam","Tailandia","Tanzania","Tayikistán","Timor Oriental","Togo","Tonga","Trinidad y Tobago","Túnez","Turkmenistán","Turquía","Tuvalu","Ucrania","Uganda","Uruguay","Uzbekistán","Vanuatu","Venezuela","Vietnam","Yemen","Yibuti","Zambia","Zimbabue");
 
     public function __construct(UserRepository $userRepo)
@@ -47,7 +45,10 @@ class WebController extends AppBaseController
 
     public function charlas()
     {
-        $this->data['proyectos'] = Proyecto::active()->paginate(6);
+        $inactivoID = Estado::where('slug', 'inactivo')->first()->id;
+        $this->data['proyectos'] = Proyecto::where('estado_id', '!=', $inactivoID)->orderBy('fecha', 'desc')->paginate(6);
+
+//        $this->data['proyectos'] = Proyecto::active()->finished()->orderBy('fecha', 'desc')->paginate(6);
         return view('web.charlas')->with($this->data);
     }
 
@@ -378,8 +379,6 @@ class WebController extends AppBaseController
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
         ]);
-
-//        dd($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()
