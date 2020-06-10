@@ -11,7 +11,7 @@
                     <div class="row">
 
                         <div class="col-lg-2 col-md-3 col-sm-5 col-xs-12">
-                            <div style="background: url('{!! $item->mainImageThumb() !!}') no-repeat  center; background-size: cover;  height: 100%"></div>
+                            <div style="background: url('{!! $item->mainImage() !!}') no-repeat  center; background-size: cover;  height: 100%"></div>
                         </div>
 
                         <div class="col-lg-7 col-md-6 col-sm-7 col-xs-12">

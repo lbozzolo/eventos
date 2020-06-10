@@ -51,10 +51,10 @@
                                 <a href="{!! route('proyectos.show', $item->id) !!}">
                                     <div class="card-body">
                                         <img src="{!! $item->mainImage() !!}" alt="{!! ($item->nombre)? $item->nombre : '-' !!}" style="width: 100%; height: auto"><br><br>
-                                        <span class="text-primary">{!! ($item->cliente)? $item->cliente->nombre : '-' !!}</span> ·
+                                        <span class="text-primary mt-3">{!! ($item->cliente)? $item->cliente->nombre : '-' !!}</span> ·
                                         <small style="color: gray">{!! $item->categorias->first()->nombre !!}</small><br>
                                         <span class="lead text-black">{!! ($item->nombre)? $item->nombre : '-' !!}</span>
-                                        <p class="text-black">
+                                        <p class="text-gray mt-3">
                                             <strong>{!! $item->getNameOfDay($item->fecha) !!}</strong>
                                             {!! $item->fecha !!} ·
                                             <small>{!! $item->hora !!} hs</small>
