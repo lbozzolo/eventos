@@ -43,7 +43,16 @@ class Entity extends Model
 
     public function mainImageThumb()
     {
-        return ($this->imagesThumb()->where('main', 1)->first())? $this->imagesThumb()->where('main', 1)->first() : $this->imagesThumb->first();
+        $response = asset('images/noimage.png');
+
+        if($this->images->count()) {
+            $path = ($this->imagesThumb()->where('main', 1)->first()) ? $this->imagesThumb()->where('main', 1)->first()->path : $this->images->first()->path;
+            $response = asset('imagenes/'.$path);
+        }
+
+        return $response;
+
+//        return ($this->imagesThumb()->where('main', 1)->first())? $this->imagesThumb()->where('main', 1)->first() : $this->imagesThumb->first();
     }
 
     public function imagesThumb()

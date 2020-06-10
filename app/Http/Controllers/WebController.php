@@ -76,7 +76,8 @@ class WebController extends AppBaseController
         $user = Auth::user();
 
         // Si la charla es pública lo envío a la charla
-        if($this->data['charla']->publico)
+//        if($this->data['charla']->publico)
+        if($this->data['charla']->tipoProyecto() == 'Público')
             return view('web.ingresar-charla')->with($this->data);
 
         if(!Auth::check())
@@ -114,7 +115,8 @@ class WebController extends AppBaseController
             return abort(404);
 
         // Si la charla es pública lo envío a la charla
-        if($this->data['charla']->publico)
+//        if($this->data['charla']->publico)
+        if($this->data['charla']->tipoProyecto() == 'Público')
             return view('web.ingresar-charla')->with($this->data);
 
         if(Auth::check())
@@ -352,7 +354,8 @@ class WebController extends AppBaseController
             return abort(404);
 
         // Si la charla es pública lo envío a la charla
-        if($this->data['charla']->publico)
+//        if($this->data['charla']->publico)
+        if($this->data['charla']->tipoProyecto() == 'Público')
             return redirect()->route('web.charlas.ingresar', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
 
         // Si la charla es privada y está logueado lo envío a la charla

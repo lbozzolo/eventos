@@ -39,13 +39,13 @@
 
 /*Pagination*/
 
-.pagination {
+.customed-pagination .pagination {
     margin: 0px auto;
     text-align: center;
     display: inline-table;
 }
 
-.pagination li{
+.customed-pagination .pagination li{
     color: gray!important;
     margin: 1px;
     padding: 12px 14px;
@@ -53,16 +53,16 @@
     border-radius: 3px;
 }
 
-.pagination li a{
+.customed-pagination .pagination li a{
     color: black!important;
 }
 
-.pagination .disabled{
+.customed-pagination .pagination .disabled{
     color: lightgray;
     border: 1px solid lightgray;
 }
 
-.pagination .active{
+.customed-pagination .pagination .active{
     background-color: dodgerblue;
     color: white!important;
     box-shadow: 0 0 0 0 rgba(90, 113, 208, 0.11), 0 4px 16px 0 rgba(167, 175, 183, 0.66);

@@ -1,9 +1,16 @@
+@role('Cliente')
+<table class="table datatables">
+@endrole
+
+@role('Superadmin|Admin')
 <table class="table table-striped">
+@endrole
     <thead>
     <tr>
-        <th style="width: 80px">Id</th>
+        @role('Superadmin|Admin')
         <th style="width: 20px"></th>
-        <th>Nombre</th>
+        @endrole
+        <th class="text-center">Id / Nombre y DNI</th>
         <th>Contacto</th>
         <th>Origen</th>
         <th style="width: 150px">Inscripciones</th>
@@ -17,15 +24,24 @@
     @foreach($items as $item)
 
         <tr>
-            <td>{!! $item->id !!}</td>
-            <td class="user text-center" id="{!! $item->id !!}">
+
+            @role('Superadmin|Admin')
+            <td class="user text-right" id="{!! $item->id !!}">
                 <i class="mdi mdi-checkbox-blank-circle-outline text-danger"></i>
             </td>
+            @endrole
             <td>
-                <span>{!! $item->fullname !!}</span><br>
-                @if($item->dni)
-                <span>dni: {!! $item->dni !!}</span>
-                @endif
+                <div class="row">
+                    <div class="col-lg-4 text-right">
+                        <span>{!! $item->id !!}</span>
+                    </div>
+                    <div class="col-lg-8 text-left">
+                        <span>{!! $item->fullname !!}</span><br>
+                        @if($item->dni)
+                            <span>dni: {!! $item->dni !!}</span>
+                        @endif
+                    </div>
+                </div>
             </td>
             <td>
                 <span>{!! $item->email !!}</span><br>
@@ -94,7 +110,7 @@
 
 @if($items instanceof \Illuminate\Pagination\LengthAwarePaginator )
 
-    <div class="card-body text-center">
+    <div class="card-body text-center customed-pagination">
         {!! $items->appends(request()->input())->render() !!}
     </div>
 
@@ -108,6 +124,12 @@
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
         });
+    </script>
+
+    @role('Superadmin|Admin')
+
+    <script>
+
 
 
         function isOnline() {
@@ -149,5 +171,6 @@
 
     </script>
 
+    @endrole
 
 @endsection

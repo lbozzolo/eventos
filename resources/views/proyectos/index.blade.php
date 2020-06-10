@@ -1,5 +1,17 @@
 @extends('layouts.app')
 
+@section('css')
+
+    <style type="text/css">
+
+        .table td img, .table th img {
+            border-radius: 0!important;
+        }
+
+    </style>
+
+@endsection
+
 @section('content')
 
     <div class="card">

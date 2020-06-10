@@ -2,6 +2,8 @@
 
 namespace Eventos\Http\Controllers;
 
+use Eventos\Models\Proyecto;
+
 class HomeController extends Controller
 {
     public function __construct()
@@ -11,6 +13,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('home');
+        $proyectos = Proyecto::orderBy('id', 'desc')->take(4)->get();
+        return view('home')->with(['proyectos' => $proyectos]);
     }
 }

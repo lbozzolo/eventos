@@ -113,7 +113,8 @@
             <div class="row">
                 <div class="col-lg-12">
 
-                    @if($charla->publico)
+{{--                    @if($charla->publico)--}}
+                    @if($charla->tipoProyecto() == 'Público')
                         <span class="text-azul-claro">Este evento es público.</span>
                     @else
 

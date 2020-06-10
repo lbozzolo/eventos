@@ -14,7 +14,8 @@
                             </h2>
                             <p>{!! ($item->descripcion)? $item->descripcion : '' !!}</p>
 
-                            @if($item->publico)
+{{--                            @if($item->publico)--}}
+                            @if($item->tipoProyecto() == 'Público')
 
                                 <button title="Reportes" type="button" data-toggle="modal" data-target="#reportesPublico" class="btn btn-behance mb-1">
                                     <i class="mdi mdi-chart-bar"></i> Reportes

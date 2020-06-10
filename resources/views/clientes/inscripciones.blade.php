@@ -32,3 +32,54 @@
     </div>
 
 @endsection
+
+@section('js')
+
+    <script>
+
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+
+        function isOnline() {
+
+            var url = '{!! route('users.is.connected') !!}';
+
+            $(".user").map(function() {
+
+                let id = $(this).attr('id');
+
+                $.ajax(
+                    {
+                        type : 'get',
+                        url : url,
+                        dataType : 'json',
+                        data : {
+                            'user_id': id
+                        },
+                        success : function(data) {
+
+                            let icono = $('#'+ id + ' i');
+                            icono.removeClass();
+
+                            if(data.status === 'connected'){
+                                icono.addClass('mdi mdi-checkbox-blank-circle text-success')
+                            } else {
+                                icono.addClass('mdi mdi-checkbox-blank-circle-outline text-danger')
+                            }
+
+                        },
+                    });
+
+            }).get();
+
+        }
+
+        isOnline();
+        setInterval(function(){ isOnline(); }, 30000);
+
+    </script>
+
+
+@endsection

@@ -16,6 +16,7 @@ use Eventos\Models\Estado;
 use Eventos\Models\Iframe;
 use Eventos\Models\Pdf;
 use Eventos\Models\Proyecto;
+use Eventos\Models\Tipo;
 use Eventos\Models\Video;
 use Eventos\Repositories\ClienteRepository;
 use Eventos\Repositories\ProyectoRepository;
@@ -77,17 +78,18 @@ class ProyectoController extends AppBaseController
 
     public function index()
     {
-        $this->data['items'] = Proyecto::all()->sortByDesc('id');
+//        $this->data['items'] = Proyecto::all()->sortByDesc('id');
+        $this->data['items'] = Proyecto::orderBy('id', 'desc')->paginate(10);
         return view($this->modelPlural.'.index')->with($this->data);
     }
 
     public function create()
     {
         $this->data['estados'] = Estado::pluck('nombre', 'id');
+        $this->data['tipos'] = Tipo::pluck('nombre', 'id');
         $this->data['categorias'] = Categoria::pluck('nombre', 'id');
         $this->data['clientes'] = Cliente::pluck('nombre', 'id');
         $this->data['auspiciantes'] = Auspiciante::pluck('nombre', 'id');
-//        $this->data['clientes'] = $this->clienteRepo->pluckClientes();
 
         return view($this->modelPlural.'.create')->with($this->data);
     }
@@ -122,6 +124,7 @@ class ProyectoController extends AppBaseController
         $this->data['item'] = Proyecto::findorfail($id);
 
         $this->data['estados'] = Estado::pluck('nombre', 'id');
+        $this->data['tipos'] = Tipo::pluck('nombre', 'id');
         $this->data['categorias'] = Categoria::pluck('nombre', 'id');
         $this->data['clientes'] = Cliente::pluck('nombre', 'id');
         $this->data['auspiciantes'] = Auspiciante::pluck('nombre', 'id');
@@ -257,7 +260,8 @@ class ProyectoController extends AppBaseController
     {
         $proyecto = Proyecto::find($id);
 
-        $request['nombre'] = ($proyecto->publico)? $request['nombre'] : Auth::user()->fullname;
+        $request['nombre'] = ($proyecto->tipoProyecto() == 'Público')? $request['nombre'] : Auth::user()->fullname;
+//        $request['nombre'] = ($proyecto->publico)? $request['nombre'] : Auth::user()->fullname;
 
         if(!$request['texto'] || !$id || !$request['nombre'] )
             return redirect()->back();
@@ -310,8 +314,10 @@ class ProyectoController extends AppBaseController
         } else {
 
             $proyecto = Proyecto::find($request->proyecto_id);
-            $nombre = ($proyecto->publico)? $request->nombre : Auth::user()->fullname;
-            $email = ($proyecto->publico)? $request->email : Auth::user()->email;
+            $nombre = ($proyecto->tipoProyecto() == 'Público')? $request->nombre : Auth::user()->fullname;
+//            $nombre = ($proyecto->publico)? $request->nombre : Auth::user()->fullname;
+            $email = ($proyecto->tipoProyecto() == 'Público')? $request->email : Auth::user()->email;
+//            $email = ($proyecto->publico)? $request->email : Auth::user()->email;
 
 
             $data = Consulta::create([

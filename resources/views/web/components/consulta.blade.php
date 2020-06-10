@@ -8,7 +8,8 @@
         <div class="text-success" id="table" style="display: none;"></div>
     </div>
 
-    @if($charla->publico)
+{{--    @if($charla->publico)--}}
+    @if($item->tipoProyecto() == 'Público')
         <div class="form-group">
             {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email', 'id' => 'email']) !!}
         </div>

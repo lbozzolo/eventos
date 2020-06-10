@@ -9,7 +9,12 @@
 
 
                     <div class="row">
-                        <div class="col-lg-9 col-md-7 col-sm-6">
+
+                        <div class="col-lg-2 col-md-3 col-sm-5 col-xs-12">
+                            <div style="background: url('{!! $item->mainImageThumb() !!}') no-repeat  center; background-size: cover;  height: 100%"></div>
+                        </div>
+
+                        <div class="col-lg-7 col-md-6 col-sm-7 col-xs-12">
                             <div class="card-body">
                                 <h2><span class="text-dark">{!! $item->nombre !!}</span><br></h2>
                                 <p>{!! ($item->descripcion)? $item->descripcion : '' !!}</p>
@@ -19,7 +24,8 @@
                                     Editar
                                 </a>
 
-                                @if($item->publico)
+{{--                                @if($item->publico)--}}
+                                @if($item->tipoProyecto() == 'Público')
 
                                     <button title="Reportes" type="button" data-toggle="modal" data-target="#reportesPublico" class="btn btn-behance mb-1">
                                         <i class="mdi mdi-chart-bar"></i> Reportes
@@ -58,7 +64,8 @@
                                 <a href="{!! route($modelPlural.'.index') !!}" class="btn btn-outline-dark mb-1">Volver</a>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-5 col-sm-6">
+
+                        <div class="col-lg-3 col-md-3 col-sm-6">
                             <div class="card-body">
                                 <strong>Fecha del evento</strong> <br>
                                 {!! $item->fecha !!}, {!! $item->hora !!} hs <br>
@@ -79,43 +86,6 @@
                             </div>
                         </div>
                     </div>
-
-                    {{--<span class="float-right text-right">--}}
-                        {{--<strong>Fecha del evento</strong> <br>--}}
-                        {{--{!! $item->fecha !!}, {!! $item->hora !!} hs <br>--}}
-
-                        {{--<small>estado</small>--}}
-                        {{--@if($item->estado->slug == 'activo')--}}
-                            {{--<span class="text-success">{!! strtoupper($item->estado->nombre) !!}</span>--}}
-                        {{--@elseif($item->estado->slug == 'finalizado')--}}
-                            {{--<span class="text-danger">{!! strtoupper($item->estado->nombre) !!}</span>--}}
-                        {{--@else--}}
-                            {{--<span class="text-info">{!! strtoupper($item->estado->nombre) !!}</span>--}}
-                        {{--@endif--}}
-                        {{--@if($item->isGoingOn())--}}
-                            {{--<br><br>--}}
-                            {{--<small class="" style="border: 1px solid limegreen; padding: 5px 10px">--}}
-                                {{--en vivo <i class="mdi mdi-circle text-success"></i>--}}
-                            {{--</small>--}}
-                        {{--@endif--}}
-                    {{--</span>--}}
-
-                    {{--<h2 class="">--}}
-                        {{--<span class="text-dark">{!! $item->nombre !!}</span><br>--}}
-                    {{--</h2>--}}
-                    {{--<p>{!! ($item->descripcion)? $item->descripcion : '' !!}</p>--}}
-
-
-
-                    {{--<a href="{!! route($modelPlural.'.edit', ['id' => $item->id]) !!}" class="btn btn-outline-primary">--}}
-                        {{--<i class="mdi mdi-pencil"></i>--}}
-                        {{--Editar Proyecto--}}
-                    {{--</a>--}}
-                    {{--<a href="{!! route($modelPlural.'.reportes', $item->id) !!}" class="btn btn-behance">--}}
-                        {{--<i class="mdi mdi-chart-bar"></i>--}}
-                        {{--Reportes--}}
-                    {{--</a>--}}
-                    {{--<a href="{!! route($modelPlural.'.index') !!}" class="btn btn-outline-dark">Volver</a>--}}
 
             </div>
         </div>
@@ -200,14 +170,18 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 mt-md-0 grid-margin">
                             <div class="d-flex" style="border: 1px solid lightgray; padding: 20px 20px">
                                 <div class="wrapper">
-                                    @if($item->publico)
+                                    @if($item->tipoProyecto() == 'Público')
                                         <h4 class="mb-0 font-weight-semibold"><i class="mdi mdi-24px mdi-folder-lock-open text-success" title="Público"></i> Público</h4>
                                         <h5 class="mb-0 font-weight-medium text-primary">Tipo de proyecto</h5>
                                         <p class="mb-0 text-gray">Evento gratuito. Ingreso libre</p>
+                                    @elseif($item->tipoProyecto() == 'Pago')
+                                        <h4 class="mb-0 font-weight-semibold"><i class="mdi mdi-24px mdi-currency-usd text-white bg-reddit" title="Público"></i> Pago</h4>
+                                        <h5 class="mb-0 font-weight-medium text-primary">Tipo de proyecto</h5>
+                                        <p class="mb-0 text-gray">Evento pago. Inscripción requerida</p>
                                     @else
                                         <h4 class="mb-0 font-weight-semibold"><i class="mdi mdi-24px mdi-folder-lock text-danger" title="Privado"></i> Privado</h4>
                                         <h5 class="mb-0 font-weight-medium text-primary">Tipo de proyecto</h5>
-                                        <p class="mb-0 text-muted">Inscripción requerida</p>
+                                        <p class="mb-0 text-muted">Evento gratuito. Inscripción requerida</p>
                                     @endif
                                 </div>
                             </div>

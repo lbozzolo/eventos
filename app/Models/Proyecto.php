@@ -46,6 +46,7 @@ class Proyecto extends Entity
         'responsable',
         'cliente_id',
         'estado_id',
+        'tipo_id',
         'publico',
         'fecha',
         'vistas_finalizado',
@@ -79,6 +80,16 @@ class Proyecto extends Entity
     public function dateIsPast()
     {
         return Carbon::parse($this->attributes['fecha'])->addHours($this->addHours)->format('Y-m-d H:i') < Carbon::now()->format('Y-m-d H:i');
+    }
+
+    public function tipoProyecto()
+    {
+        $tipo = ($this->tipo)? $this->tipo->nombre : null;
+
+        if(!$tipo)
+            $tipo = ($this->publico)? 'Público' : 'Privado';
+
+        return $tipo;
     }
 
     public function isFinished()
@@ -289,6 +300,11 @@ class Proyecto extends Entity
     public function estado()
     {
         return $this->belongsTo(Estado::class);
+    }
+
+    public function tipo()
+    {
+        return $this->belongsTo(Tipo::class);
     }
 
     public function iframes()

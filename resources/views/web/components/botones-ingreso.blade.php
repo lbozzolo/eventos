@@ -1,4 +1,4 @@
-@if(!$charla->publico)
+@if($charla->tipoProyecto() != 'Público')
     <a href="{!! route('web.charlas.inscripcion', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}"
        class="btn btn__primary btn__bordered module__btn-request mr-3 mb-1">
         <span>Inscribirse</span><i class="icon-arrow-right"></i>

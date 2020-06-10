@@ -1,50 +1,58 @@
-<table class="table table-bordered">
+<table class="table datatables">
     <thead>
     <tr>
-        <th style="width: 80px">Id</th>
+        <th style="width: 180px"></th>
         <th>Nombre</th>
-        <th style="width: 90px">Tipo</th>
-        <th>Categorías</th>
-        <th>Cliente</th>
-        <th>Fecha</th>
-        <th class="text-center" style="width: 120px">Estado</th>
-        <th class="text-center" style="width: 150px">Opciones</th>
+        <th>Fecha del evento</th>
+        <th style="width: 120px">Tipo</th>
+        <th style="width: 120px">Estado</th>
+        <th style="width: 150px">Opciones</th>
     </tr>
     </thead>
     <tbody>
     @foreach($items as $item)
         <tr>
-            <td>{!! $item->id !!}</td>
-            <td>
+            <td title="{!! $item->id !!}">
                 <a href="{!! route($modelPlural.'.show', $item->id) !!}">
-                    {!! ($item->nombre)? $item->nombre : '-' !!}
+                    <img src="{!! $item->mainImageThumb() !!}" alt="{!! ($item->nombre)? $item->nombre : '-' !!}" style="width: 100%; height: auto">
                 </a>
             </td>
             <td>
-                @if($item->publico == 1)
-                    <i class="mdi mdi-36px mdi-folder-lock-open text-success" title="Público"></i>
+                <a href="{!! route($modelPlural.'.show', $item->id) !!}">
+                    <span class="text-primary">{!! ($item->cliente)? $item->cliente->nombre : '-' !!}</span> ·
+                    <small style="color: gray">{!! $item->categorias->first()->nombre !!}</small><br>
+                    <span class="lead text-black">{!! ($item->nombre)? $item->nombre : '-' !!}</span>
+                </a>
+            </td>
+            <td>
+                <strong>{!! $item->getNameOfDay($item->fecha) !!}</strong><br>
+                {!! $item->fecha !!}<br>
+                <small>{!! $item->hora !!} hs</small>
+            </td>
+            <td>
+                @if($item->tipoProyecto() == 'Público')
+                    <span class=" text-success">{!! strtoupper($item->tipoProyecto()) !!}</span>
+                    <br><small class="text-gray">Acceso libre y gratuito</small>
+                @elseif($item->tipoProyecto() == 'Privado')
+                    <span class=" text-warning">{!! strtoupper($item->tipoProyecto()) !!}</span>
+                    <br><small class="text-gray">Gratuito. Requiere inscripción</small>
                 @else
-                    <i class="mdi mdi-36px mdi-folder-lock text-danger" title="Privado"></i>
+                    <span class=" text-danger">{!! strtoupper($item->tipoProyecto()) !!}</span>
+                    <br><small class="text-gray">Requiere inscripción</small>
                 @endif
             </td>
-            <td>
-                @forelse($item->categorias as $categoria)
-                    <span class="badge badge-secondary text-black">{!! $categoria->nombre !!}</span>
-                @empty
-                    <small><em class="text-gray">ninguna</em></small>
-                @endforelse
-            </td>
-            <td>{!! ($item->cliente)? $item->cliente->nombre : '-' !!}</td>
-            <td>
-                {!! $item->fecha !!} · {!! $item->hora !!}
-            </td>
-            <td class="text-center">
+            <td class="text-">
                 @if($item->estado->slug == 'activo')
-                    <span class="badge badge-primary">{!! $item->estado->nombre !!}</span>
+                    <span class="text-success">{!! strtoupper($item->estado->nombre) !!}</span>
+                    <br><small class="text-gray">Visible en web</small>
                 @elseif($item->estado->slug == 'finalizado')
-                    <span class="badge badge-danger">{!! $item->estado->nombre !!}</span>
+                    <span class="text-danger">{!! strtoupper($item->estado->nombre) !!}</span>
+                    <br><small class="text-gray">Accesible a los videos</small>
+                @elseif($item->estado->slug == 'inactivo')
+                    <span class="text-info">{!! strtoupper($item->estado->nombre) !!}</span>
+                    <br><small class="text-gray">No visible en web</small>
                 @else
-                    <span class="badge badge-dark">{!! $item->estado->nombre !!}</span>
+                    <span class="text-dark">{!! strtoupper($item->estado->nombre) !!}</span>
                 @endif
             </td>
             <td>
@@ -84,4 +92,14 @@
         </tr>
     @endforeach
     </tbody>
+
 </table>
+
+
+@if($items instanceof \Illuminate\Pagination\LengthAwarePaginator )
+
+    <div class="card-body text-center customed-pagination">
+        {!! $items->appends(request()->input())->render() !!}
+    </div>
+
+@endif
