@@ -8,7 +8,9 @@
         <th>Origen</th>
         <th style="width: 150px">Inscripciones</th>
         <th style="width: 150px">Alta</th>
+        @role('Superadmin|Admin')
         <th>Opciones</th>
+        @endrole
     </tr>
     </thead>
     <tbody>
@@ -42,6 +44,7 @@
                 @endif
             </td>
             <td>{!! $item->fecha_creado !!}</td>
+            @role('Superadmin|Admin')
             <td>
 
                 <div class='btn-group'>
@@ -79,6 +82,7 @@
                 </div>
 
             </td>
+            @endrole
         </tr>
 
     @endforeach

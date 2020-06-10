@@ -13,12 +13,14 @@
         @endcan
 
         @can('mostrar_inscriptos')
+        @role('Superadmin|Admin')
         <li class="{{ Request::is('inscripciones*') ? 'active' : '' }} nav-item">
             <a href="{!! route('users.inscripciones') !!}" class="nav-link">
                 <i class="mdi menu-icon {{ Request::is('inscripciones*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>
                 <span class="menu-title">Inscripciones</span>
             </a>
         </li>
+        @endrole
         @endcan
 
         @can('mostrar_perfil_cliente')

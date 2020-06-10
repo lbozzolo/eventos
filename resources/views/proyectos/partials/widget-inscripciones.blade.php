@@ -3,6 +3,7 @@
 
         <div class="row">
             <div class="col-8">
+                @role('Superadmin|Admin')
                 <a href="{!! route('proyectos.inscripciones', $item->id) !!}">
                     <div class="d-flex align-items-center mb-2">
                         <div class="icon-holder bg-primary text-white py-1 px-3 rounded mr-2">
@@ -14,6 +15,18 @@
 
                     </div>
                 </a>
+                @endrole
+                @role('Cliente')
+                <div class="d-flex align-items-center mb-2">
+                    <div class="icon-holder bg-primary text-white py-1 px-3 rounded mr-2">
+                        <i class="mdi mdi-account mdi-24px text-white"></i>
+                    </div>
+                    <h3 class="font-weight-semibold mb-0 text-black">
+                        {!! ($item->inscriptos->count() == 1)? $item->inscriptos->count().' inscripto' : $item->inscriptos->count().' inscriptos' !!}
+                    </h3>
+
+                </div>
+                @endrole
                 <div class="d-flex align-items-center mb-2">
                     <div class="icon-holder bg-success text-white py-1 px-3 rounded mr-2">
                         <i class="mdi mdi-account mdi-24px"></i>

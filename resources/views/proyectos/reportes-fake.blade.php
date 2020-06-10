@@ -15,89 +15,8 @@
                                 <span class="text-warning"> / Reportes</span>
                             </h2>
                             <p>{!! ($item->descripcion)? $item->descripcion : '' !!}</p>
-
-                            @role('Superadmin|Admin')
-                            @if($item->isFinished())
-
-                                <button title="Activar Evento" type="button" data-toggle="modal" data-target="#activar" class="btn btn-success mb-1">Activar evento</button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="activar" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Activar Evento</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>¿Desea activar este evento/proyecto?</p>
-                                            </div>
-                                            <div class="modal-footer">
-
-                                                <a href="{!! route('proyectos.activar', $item->id) !!}" class="btn btn-sm btn-primary">Activar</a>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            @else
-
-                                @if($item->isGoingOn() || $item->isFinished())
-                                <button title="Finalizar Evento" type="button" data-toggle="modal" data-target="#finalizar" class="btn btn-danger mb-1">Marcar como Finalizado</button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="finalizar" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Marcar Evento como finalizado</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>¿Desea marcar este evento/proyecto como finaizado?</p>
-                                                <p>
-                                                    Al hacerlo se dejará de tomar registro sobre los usuarios online.<br>
-                                                    Si no lo hiciera, el sistema podría seguir tomando registro de los mismos innecesariamente
-                                                    hasta por dos horas más después de finalizado el evento.
-                                                </p>
-                                            </div>
-                                            <div class="modal-footer">
-
-                                                <a href="{!! route('proyectos.finalizar', $item->id) !!}" class="btn btn-sm btn-danger">Finalizar</a>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
-
-                            @endif
-                            @endrole
-
-                            @role('Superadmin|Admin')
-                            <a href="{!! route($modelPlural.'.show', $item->id) !!}" class="btn btn-outline-dark mb-1">Volver</a>
-                            @endrole
-
-                            @role('Cliente')
-                            <a href="{!! route('proyectos.consultas', $item->id) !!}" class="btn btn-outline-info mb-1">
-                                <i class="mdi mdi-message-text-outline"></i> Consultas
-                            </a>
-                            <a href="{!! route('clientes.proyecto.inscripciones', $item->id) !!}" class="btn btn-warning mb-1">
-                                <i class="mdi mdi-file"></i> Inscripciones
-                            </a>
-                            <a href="{!! route('clientes.proyecto.iframe', $item->id) !!}" class="btn btn-primary mb-1">
-                                <i class="mdi mdi-youtube-play"></i> Visualizar evento
-                            </a>
-                            <a href="{!! route('clientes.profile', Auth::user()->id) !!}" class="btn btn-outline-dark mb-1">Salir</a>
-                            @endrole
-
+                            <button title="Finalizar Evento" type="button" data-toggle="modal" data-target="#finalizar" class="btn btn-danger mb-1">Marcar como Finalizado</button>
+                            <a href="" class="btn btn-outline-dark mb-1">Volver</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-5 col-sm-6">
@@ -105,19 +24,11 @@
                             <strong>Fecha del evento</strong> <br>
                             {!! $item->fecha !!}, {!! $item->hora !!} hs <br>
                             <small>estado</small>
-                            @if($item->estado->slug == 'activo')
-                                <span class="text-success">{!! strtoupper($item->estado->nombre) !!}</span>
-                            @elseif($item->estado->slug == 'finalizado')
-                                <span class="text-danger">{!! strtoupper($item->estado->nombre) !!}</span>
-                            @else
-                                <span class="text-info">{!! strtoupper($item->estado->nombre) !!}</span>
-                            @endif
-                            @if($item->isGoingOn())
-                                <br><br>
-                                <small class="" style="border: 1px solid limegreen; padding: 5px 10px">
-                                    en vivo <i class="mdi mdi-circle text-success"></i>
-                                </small>
-                            @endif
+                            <span class="text-success">ACTIVO</span>
+                            <br><br>
+                            <small class="" style="border: 1px solid limegreen; padding: 5px 10px">
+                                en vivo <i class="mdi mdi-circle text-success"></i>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -131,16 +42,142 @@
     <div class="row">
 
         <div class="col-lg-6">
-            @include('proyectos.partials.widget-inscripciones')
-            @include('proyectos.partials.widget-online-timeline')
+
+
+            <div class="card grid-margin">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-8">
+                            <a href="{!! route('proyectos.inscripciones', $item->id) !!}">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="icon-holder bg-primary text-white py-1 px-3 rounded mr-2">
+                                        <i class="mdi mdi-account mdi-24px text-white"></i>
+                                    </div>
+                                    <h3 class="font-weight-semibold mb-0 text-black">
+                                        378 inscriptos
+                                    </h3>
+
+                                </div>
+                            </a>
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="icon-holder bg-success text-white py-1 px-3 rounded mr-2">
+                                    <i class="mdi mdi-account mdi-24px"></i>
+                                </div>
+                                <h3 class="font-weight-semibold mb-0" id="conectadosDiv">
+                                    245 conectados
+                                </h3>
+                            </div>
+                            <p>Tiempo real</p>
+                        </div>
+                        <div class="col-lg-4">
+                            <canvas id="conectados"
+                                    data-total="378"
+                                    data-connected="245"
+                                    data-percentage="64.8">
+                            </canvas>
+                            <p class="text-center">Conectados</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card grid-margin">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <small class="float-right" style="border: 1px solid limegreen; padding: 5px 10px">
+                                en vivo <i class="mdi mdi-circle text-success"></i>
+                            </small>
+                            <h4 class="text-primary">Asistentes durante el evento</h4>
+                            <canvas id="online_timeline"></canvas>
+                            <p class="text-center pt-3 mb-0 pb-0" style="border-top: 1px solid lightgray">
+                                {!! $item->fecha !!}<br>
+                                <small class="text-center text-gray">Actualizado cada 5 minutos</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="col-lg-6">
 
-            @if($item->isFinished() && $item->reportes->count())
-                @include('proyectos.partials.widget-resumen')
-            @endif
+            <div class="card grid-margin">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h4 class="text-primary">Resumen</h4>
+                            <table class="table table-condensed">
+                                <tbody>
+                                <tr>
+                                    <td colspan="2">
 
-            @include('proyectos.partials.widget-paises')
+                                            Se inscribieron 378 personas entre el
+                                            12-4-2020 y el 28-5-2020
+
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Asistieron 341
+                                    </td>
+                                    <td>
+                                        <span class="font-weight-semibold">90,2 %</span>
+                                        <div class="progress progress-md">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 90.2%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @if($item->totalAsistentes() != 0)
+                                    <tr>
+                                        <td>
+                                            El pico máximo fue a las
+                                            {!! $item->reportes->sortByDesc('cantidad_online')->first()->created_at->format('H:i') !!} hs
+                                        </td>
+                                        <td>
+                                            <span class="font-weight-semibold">{!! $item->porcentajePicoUsuariosOnline() !!} %</span>
+                                            ({!! ($item->picoUsuariosOnline() > 1)? $item->picoUsuariosOnline().' usuarios' : '1 usuario' !!} online)
+                                            <div class="progress progress-md">
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: {!! $item->porcentajePicoUsuariosOnline() !!}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endif
+                                <tr>
+                                    <td>
+                                        Se ha visualizado
+                                        84 veces en diferido
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Se realizaron 123 consultas
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card grid-margin">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h4 class="text-primary">Inscriptos por país</h4>
+
+                            <canvas id="paises"></canvas>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
@@ -258,8 +295,8 @@
         // ================================================================================================
 
 
-        var paises = <?php echo json_encode($item->usersByCountryName()) ?>;
-        var cantidades = <?php echo json_encode($item->usersByCountryAmount()) ?>;
+        var paises = <?php echo json_encode($item2->usersByCountryName()) ?>;
+        var cantidades = <?php echo json_encode($item2->usersByCountryAmount()) ?>;
 
         // console.log(cantidades);
 
@@ -417,7 +454,7 @@
                     },
                 });
 
-        }, 300000);
+        }, 300000000);
 
 
 
@@ -455,7 +492,7 @@
                     },
                 });
 
-        }, 10000);
+        }, 10000000);
 
 
     </script>

@@ -115,6 +115,13 @@ class ClienteController extends AppBaseController
         return view($this->modelPlural.'.iframe')->with($this->data);
     }
 
+    public function proyectoInscripciones($id)
+    {
+        $this->data['item'] = Proyecto::find($id);
+        $this->data['items'] = $this->data['item']->inscriptos;
+        return view($this->modelPlural.'.inscripciones')->with($this->data);
+    }
+
     public function edit($id)
     {
         $this->data['item'] = $this->repo->findWithoutFail($id);

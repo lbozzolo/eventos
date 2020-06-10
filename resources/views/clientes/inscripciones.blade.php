@@ -5,21 +5,18 @@
     <div class="card">
         <div class="card-body">
             <h2 class="d-inline-block">
-                Inscripciones
-                @if(isset($proyectoActual)) /
-                    <span class="text-warning">{!! $proyectoActual !!}</span>
-                @endif
+                {!! $item->nombre !!}
+                /
+                <span class="text-warning">Inscripciones</span>
+
             </h2>
-            @role('Superadmin|Admin')
-            <a class="btn btn-primary btn-sm ml-3" href="{!! route('users.inscribir') !!}">Inscribir</a>
-            @endrole
         </div>
     </div>
 
     <div class="card mt-3">
         <div class="card-body">
 
-            @include('users.partials.buscador-inscripciones')
+{{--            @include('users.partials.buscador-inscripciones')--}}
 
             <hr>
 
@@ -33,19 +30,5 @@
 
         </div>
     </div>
-
-@endsection
-
-@section('js')
-
-    <script>
-
-        $('.select2').select2({})
-
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-
-    </script>
 
 @endsection

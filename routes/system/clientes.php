@@ -18,4 +18,9 @@ Route::group(['middleware' => ['can:mostrar_perfil_cliente']], function () {
         'uses' => 'ClienteController@proyectoIframe'
     ]);
 
+    Route::get('proyecto/{id}/inscripciones', [
+        'as' => 'clientes.proyecto.inscripciones',
+        'uses' => 'ClienteController@proyectoInscripciones'
+    ]);
+
 });

@@ -54,10 +54,10 @@ Route::group(['middleware' => ['can:editar_proyectos']], function () {
         'uses' => 'ProyectoController@pdfs'
     ]);
 
-    Route::get('proyectos/{id}/inscripciones', [
-        'as' => 'proyectos.inscripciones',
-        'uses' => 'ProyectoController@inscripciones'
-    ]);
+//    Route::get('proyectos/{id}/inscripciones', [
+//        'as' => 'proyectos.inscripciones',
+//        'uses' => 'ProyectoController@inscripciones'
+//    ]);
 
     Route::post('proyectos/{id}/consultar', [
         'as' => 'proyectos.store.message',
@@ -123,6 +123,11 @@ Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
     Route::get('exportacion-consultas/{id}', [
         'as' => 'proyectos.export.consultas',
         'uses' => 'ProyectoController@exportConsultas'
+    ]);
+
+    Route::get('proyectos/{id}/inscripciones', [
+        'as' => 'proyectos.inscripciones',
+        'uses' => 'ProyectoController@inscripciones'
     ]);
 
 //    Route::get('/exportacion-inscriptos/{id}', function () {

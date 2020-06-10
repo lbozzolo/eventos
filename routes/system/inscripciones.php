@@ -17,6 +17,11 @@ Route::group(['middleware' => ['can:mostrar_inscriptos']], function () {
         'uses' => 'UserController@searchByUser'
     ]);
 
+    Route::post('inscripciones-por-usuario-por-proyecto/{project}', [
+        'as' => 'users.inscripciones.buscar.usuario.por.proyecto',
+        'uses' => 'UserController@searchByUserByProject'
+    ]);
+
     Route::get('inscribir', [
         'as' => 'users.inscribir',
         'uses' => 'UserController@inscribir'

@@ -85,6 +85,35 @@ class UserController extends AppBaseController
         return view('users.inscripciones')->with($this->data);
     }
 
+    public function searchByUserByProject(Request $request, $project)
+    {
+        $this->data['item'] = Proyecto::with('inscriptos')->find($project);
+        $this->data['items'] = User::role('Inscripto')->paginate(10);
+        $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
+
+        $validator = Validator::make($request->input(), ['search' => 'max:25'], ['search.max' => 'La búsqueda no puede exceder los 25 caracteres']);
+
+        if ($validator->fails())
+            return redirect()->back()->withErrors($validator)->with($this->data);
+
+        $search = $request['search'];
+
+        if($search != '' && $search != ' ' && $search != null){
+            $result = User::role('Inscripto')->where('name', 'like', "%$search%")
+                ->orWhere(function ($query) use ($search) {
+                    $query->where('lastname', 'like', "%$search%")
+                        ->orWhere('dni', 'like', "%$search%")
+                        ->orWhere('email', 'like', "%$search%");
+                });
+        } else {
+            return redirect()->back();
+        }
+
+        $this->data['items'] = $result->paginate(10);
+
+        return view('users.inscripciones')->with($this->data);
+    }
+
     public function inscribir()
     {
         $this->data['paises'] = $this->paises;
