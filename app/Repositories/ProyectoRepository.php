@@ -45,4 +45,16 @@ class ProyectoRepository extends BaseRepository
         return $record;
     }
 
+    public function todaysProyects()
+    {
+        $proyectos = Proyecto::all();
+        $result = $proyectos->filter(function ($proyecto){
+            if(Carbon::parse($proyecto->fecha) == Carbon::today()){
+                return $proyecto;
+            }
+        });
+
+        return $result;
+    }
+
 }

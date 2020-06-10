@@ -13,7 +13,7 @@ class Proyecto extends Entity
 
     public $image_croppie_width = 960;
     public $image_croppie_height = 720;
-    public $addHours = 4;
+    public $addHours = 8;
 
     public $paises = array(
 
@@ -48,6 +48,7 @@ class Proyecto extends Entity
         'estado_id',
         'publico',
         'fecha',
+        'vistas_finalizado',
         'duracion',
     ];
 
@@ -119,10 +120,14 @@ class Proyecto extends Entity
     {
         $activo = Estado::where('slug', '=', 'activo')->first()->id;
         $finalizado = Estado::where('slug', '=', 'finalizado')->first()->id;
-        $result = $query->where('estado_id', '=', $activo)->orWhere('estado_id', '=', $finalizado)->orderBy('id', 'desc');
 
-        if($id)
-            $result = $query->where('estado_id', '=', $activo)->orWhere('estado_id', '=', $finalizado)->where('id', '=', $id);
+
+        if($id){
+//            $result = $query->where('estado_id', '=', $activo)->orWhere('estado_id', '=', $finalizado)->where('id', '=', $id);
+            $result = $query->where('id', '=', $id);
+        } else {
+            $result = $query->where('estado_id', '=', $activo)->orWhere('estado_id', '=', $finalizado)->orderBy('id', 'desc');
+        }
 
         return $result;
     }
@@ -141,7 +146,7 @@ class Proyecto extends Entity
 
     public function scopeConsultasRecientes()
     {
-        return $this->consultas()->where('archivado', '=', null)->get();
+        return $this->consultas()->where('archivado', '=', null)->paginate(9);
     }
 
     public function auspiciantesShuffle()

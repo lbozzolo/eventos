@@ -5,6 +5,7 @@ namespace Eventos\Http\Controllers;
 use Eventos\Http\Requests\CreateClienteRequest;
 use Eventos\Http\Requests\UpdateClienteRequest;
 use Eventos\Models\Cliente;
+use Eventos\Models\Proyecto;
 use Eventos\Repositories\ClienteRepository;
 use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Eventos\Traits\ImageTrait;
@@ -103,9 +104,15 @@ class ClienteController extends AppBaseController
         if(!$this->data['user']->hasRole('Cliente|Superadmin'))
             return redirect()->back()->with('warning', 'Usted no está registrado como  CLIENTE en el sistema. No hay perfil para mostrar.');
 
-        $this->data['item'] = Cliente::findOrFail(1);
+        $this->data['item'] = $this->data['user']->cliente;
 
         return view($this->modelPlural.'.profile')->with($this->data);
+    }
+
+    public function proyectoIframe($id)
+    {
+        $this->data['item'] = Proyecto::find($id);
+        return view($this->modelPlural.'.iframe')->with($this->data);
     }
 
     public function edit($id)

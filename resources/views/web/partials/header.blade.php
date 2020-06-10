@@ -15,21 +15,27 @@
             </button>
             <div class="collapse navbar-collapse" id="mainNavigation">
                 <ul class="navbar-nav ml-auto">
+
                     <li class="nav__item with-dropdown">
                         <a href="{!! route('home') !!}" class="{{ Request::is('/') ? 'active' : '' }} dropdown-toggle nav__item-link">Home</a>
                     </li>
-                    <li class="nav__item with-dropdown">
-{{--                        <a href="{!! route('web.nosotros') !!}" class="{{ Request::is('nosotros*') ? 'active' : '' }} dropdown-toggle nav__item-link">Quiénes Somos</a>--}}
-                        <a href="{!! route('home') !!}/#quienes-somos" class="dropdown-toggle nav__item-link">Quiénes Somos</a>
-                    </li>
 
                     <li class="nav__item with-dropdown">
-                        <a href="{!! route('web.charlas') !!}" class="{{ Request::is('eventos*') ? 'active' : '' }} dropdown-toggle nav__item-link">Eventos</a>
+                        <a href="{!! route('home') !!}/#quienes-somos" class="dropdown-toggle nav__item-link">Quiénes Somos</a>
                     </li>
 
                     <li class="nav__item">
                         <a href="{!! route('web.contactanos') !!}" class="{{ Request::is('contactanos*') ? 'active' : '' }} nav__item-link">Contactanos</a>
                     </li>
+
+                    <li class="nav__item with-dropdown">
+                        <a href="{!! route('web.charlas') !!}" class="{{ Request::is('eventos*') ? 'active' : '' }} dropdown-toggle nav__item-link ">
+                            <span class="btn btn-outline-dark " >
+                                <i class="fa fa-calendar"></i> EVENTOS
+                            </span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
             <div class="navbar-modules">

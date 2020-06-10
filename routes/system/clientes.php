@@ -7,8 +7,15 @@ Route::group(['middleware' => ['can:mostrar_clientes']], function () {
 });
 
 Route::group(['middleware' => ['can:mostrar_perfil_cliente']], function () {
+
     Route::get('perfil/{id?}', [
         'as' => 'clientes.profile',
         'uses' => 'ClienteController@profile'
     ]);
+
+    Route::get('proyecto/{id}/transmision', [
+        'as' => 'clientes.proyecto.iframe',
+        'uses' => 'ClienteController@proyectoIframe'
+    ]);
+
 });

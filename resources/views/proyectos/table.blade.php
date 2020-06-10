@@ -6,6 +6,7 @@
         <th style="width: 90px">Tipo</th>
         <th>Categorías</th>
         <th>Cliente</th>
+        <th>Fecha</th>
         <th class="text-center" style="width: 120px">Estado</th>
         <th class="text-center" style="width: 150px">Opciones</th>
     </tr>
@@ -34,11 +35,16 @@
                 @endforelse
             </td>
             <td>{!! ($item->cliente)? $item->cliente->nombre : '-' !!}</td>
+            <td>
+                {!! $item->fecha !!} · {!! $item->hora !!}
+            </td>
             <td class="text-center">
                 @if($item->estado->slug == 'activo')
                     <span class="badge badge-primary">{!! $item->estado->nombre !!}</span>
+                @elseif($item->estado->slug == 'finalizado')
+                    <span class="badge badge-danger">{!! $item->estado->nombre !!}</span>
                 @else
-                    <span class="badge badge-warning">{!! $item->estado->nombre !!}</span>
+                    <span class="badge badge-dark">{!! $item->estado->nombre !!}</span>
                 @endif
             </td>
             <td>

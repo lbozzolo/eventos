@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <section id="pageTitle" class="page-title page-title-layout6 bg-overlay bg-parallax text-center">
+    <section id="pageTitle" class="page-title page-title-layout6 bg-overlay bg-parallax text-center" style="padding-top: 80px; padding-bottom: 80px">
         <div class="bg-img"><img src="{!! asset('template-web/assets/images/page-titles/6.jpg') !!}" alt="background"></div>
         <div class="container">
             <div class="row">

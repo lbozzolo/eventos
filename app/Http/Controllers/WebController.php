@@ -5,8 +5,8 @@ namespace Eventos\Http\Controllers;
 use Carbon\Carbon;
 use Eventos\Http\Requests\RegisterUser2Request;
 use Eventos\Http\Requests\RegistreUserRequest;
-use Eventos\Models\Estado;
 use Eventos\Models\Proyecto;
+use Eventos\Repositories\ProyectoRepository;
 use Eventos\Repositories\UserRepository;
 use Eventos\User;
 use Illuminate\Http\Request;
@@ -28,18 +28,21 @@ class WebController extends AppBaseController
     protected $redirectTo = '/home';
     private $data;
     private $userRepository;
+    private $projectRepository;
     private $messageInscription = 'Te has inscripto en el evento exitosamente. Recibirás un correo de confirmación. 
                     Por favor revisá tu bandeja de correo no deseado o spam y marcalo como "correo deseado" o movelo a la bandeja de entrada';
 
     public $paises = array("Argentina","Afganistán","Albania","Alemania","Andorra","Angola","Antigua y Barbuda","Arabia Saudita","Argelia","Armenia","Australia","Austria","Azerbaiyán","Bahamas","Bangladés","Barbados","Baréin","Bélgica","Belice","Benín","Bielorrusia","Birmania","Bolivia","Bosnia y Herzegovina","Botsuana","Brasil","Brunéi","Bulgaria","Burkina Faso","Burundi","Bután","Cabo Verde","Camboya","Camerún","Canadá","Catar","Chad","Chile","China","Chipre","Ciudad del Vaticano","Colombia","Comoras","Corea del Norte","Corea del Sur","Costa de Marfil","Costa Rica","Croacia","Cuba","Dinamarca","Dominica","Ecuador","Egipto","El Salvador","Emiratos Árabes Unidos","Eritrea","Eslovaquia","Eslovenia","España","Estados Unidos","Estonia","Etiopía","Filipinas","Finlandia","Fiyi","Francia","Gabón","Gambia","Georgia","Ghana","Granada","Grecia","Guatemala","Guyana","Guinea","Guinea ecuatorial","Guinea-Bisáu","Haití","Honduras","Hungría","India","Indonesia","Irak","Irán","Irlanda","Islandia","Islas Marshall","Islas Salomón","Israel","Italia","Jamaica","Japón","Jordania","Kazajistán","Kenia","Kirguistán","Kiribati","Kuwait","Laos","Lesoto","Letonia","Líbano","Liberia","Libia","Liechtenstein","Lituania","Luxemburgo","Madagascar","Malasia","Malaui","Maldivas","Malí","Malta","Marruecos","Mauricio","Mauritania","México","Micronesia","Moldavia","Mónaco","Mongolia","Montenegro","Mozambique","Namibia","Nauru","Nepal","Nicaragua","Níger","Nigeria","Noruega","Nueva Zelanda","Omán","Países Bajos","Pakistán","Palaos","Panamá","Papúa Nueva Guinea","Paraguay","Perú","Polonia","Portugal","Reino Unido","República Centroafricana","República Checa","República de Macedonia","República del Congo","República Democrática del Congo","República Dominicana","República Sudafricana","Ruanda","Rumanía","Rusia","Samoa","San Cristóbal y Nieves","San Marino","San Vicente y las Granadinas","Santa Lucía","Santo Tomé y Príncipe","Senegal","Serbia","Seychelles","Sierra Leona","Singapur","Siria","Somalia","Sri Lanka","Suazilandia","Sudán","Sudán del Sur","Suecia","Suiza","Surinam","Tailandia","Tanzania","Tayikistán","Timor Oriental","Togo","Tonga","Trinidad y Tobago","Túnez","Turkmenistán","Turquía","Tuvalu","Ucrania","Uganda","Uruguay","Uzbekistán","Vanuatu","Venezuela","Vietnam","Yemen","Yibuti","Zambia","Zimbabue");
 
-    public function __construct(UserRepository $userRepo)
+    public function __construct(UserRepository $userRepo, ProyectoRepository $projectRepository)
     {
         $this->userRepository = $userRepo;
+        $this->projectRepository = $projectRepository;
     }
 
     public function index()
     {
+        $this->data['charlas'] = $this->projectRepository->todaysProyects();
         return view('web.home')->with($this->data);
     }
 
@@ -51,6 +54,7 @@ class WebController extends AppBaseController
 
     public function showCharla($cliente, $evento, $id)
     {
+
         $this->data['charla'] = Proyecto::active($id)->first();
 
         if(!$this->data['charla'])
@@ -91,6 +95,12 @@ class WebController extends AppBaseController
                 $inscripcion->pivot->attendment = 1;
                 $inscripcion->pivot->save();
             }
+        }
+
+        // Si el evento está finalizado incremento las vistas en 1
+        if($this->data['charla']->isFinished()){
+            $this->data['charla']->vistas_finalizado++;
+            $this->data['charla']->save();
         }
 
         return view('web.ingresar-charla')->with($this->data);
@@ -287,6 +297,7 @@ class WebController extends AppBaseController
                 'password' => $password,
             ]);
 
+            // Redirecciono a vista para completar el resto de los datos
             return redirect()->route('web.get.registro', ['userId' => $this->data['user']->id, 'eventoId' => $this->data['charla']->id]);
 
         }
@@ -399,33 +410,9 @@ class WebController extends AppBaseController
 
     public function test(Request $request)
     {
-        $user = User::find(22);
-        $proyecto = Proyecto::find(1);
-
-        $reportes = $proyecto->reportes;
-
-        $last = Carbon::parse($reportes->last()->created_at)->format('Y-m-d H:i');
-
-//        $inscripcion = $user->proyectos()->where('attendment', 1)->get();
-//        $inscripcion = $user->proyectos()->where('proyecto_id', $proyecto->id)->first()->pivot->attendment;
-        $inscripcion = $user->proyectos()->find($proyecto->id)->first();
-
-        dd($inscripcion);
-
-        $proyecto->isFinished();
-        if($proyecto->isGoingOn()){
-            return;
-        }
-
-        dd(Carbon::now()->format('Y-m-d H:i') >= $proyecto->fecha_formatted_view);
-        dd($proyecto->fecha_formatted);
-
-        $conectados = $proyecto->connected();
-        $porcentaje = $proyecto->connectedPercentage();
-
-
-        dd($user->isOnline());
-
+        $this->data['item'] = Proyecto::find(2);
+        $this->data['item2'] = Proyecto::find(1);
+        return view('proyectos.reportes-fake')->with($this->data);
 
     }
 

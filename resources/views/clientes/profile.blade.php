@@ -17,7 +17,7 @@
                 <div class="col-lg-3 stretch-card">
                     <div class="card grid-margin">
                         <div class="card-body">
-                            <a href="{!! route('proyectos.consultas', [$proyecto->id]) !!}">
+                            <a href="{!! route('proyectos.reportes', [$proyecto->id]) !!}">
                             <p class="mb-3 text-black">{!! $proyecto->nombre !!}</p>
 
                             @if($proyecto->images->count())

@@ -14,12 +14,48 @@
                             </h2>
                             <p>{!! ($item->descripcion)? $item->descripcion : '' !!}</p>
 
+                            @if($item->publico)
+
+                                <button title="Reportes" type="button" data-toggle="modal" data-target="#reportesPublico" class="btn btn-behance mb-1">
+                                    <i class="mdi mdi-chart-bar"></i> Reportes
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="reportesPublico" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Reportes no disponibles</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Este evento es público. La funcionalidad REPORTES está disponible únicamente para eventos privados.</p>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            @else
+
+                                <a href="{!! route($modelPlural.'.reportes', $item->id) !!}" class="btn btn-behance mb-1">
+                                    <i class="mdi mdi-chart-bar"></i> Reportes
+                                </a>
+
+                            @endif
+
                             @role('Superadmin|Admin')
                             <a href="{!! route($modelPlural.'.show', $item->id) !!}" class="btn btn-outline-dark mb-1">Volver</a>
                             @endrole
 
                             @role('Cliente')
-                            <a href="{!! route('clientes.profile', Auth::user()->id) !!}" class="btn btn-outline-dark mb-1">Volver</a>
+                            <a href="{!! route('clientes.profile', Auth::user()->id) !!}" class="btn btn-outline-dark mb-1">Salir</a>
                             @endrole
 
                         </div>
@@ -52,14 +88,8 @@
 
     <div class="row">
 
-        <div class="col-lg-8">
-            <h4 class="card card-body" style="border-top: 3px solid darkcyan">Recientes ({!! $item->consultasRecientes()->count() !!})</h4>
-        </div>
-        <div class="col-lg-4">
-            <h4 class="card card-body ml-3" style="border-top: 3px solid orange">Archivadas ({!! $item->consultasArchivadas()->count() !!})</h4>
-        </div>
-
-        <div class="col-lg-8">
+        <div class="col-lg-8 grid-margin">
+            <h4 class="card card-body" style="border-top: 3px solid darkcyan">Recientes ({!! $item->consultas()->where('archivado', null)->count() !!})</h4>
             <div class="card">
                 <div class="card-body">
 
@@ -93,6 +123,10 @@
                             </li>
                         @endforelse
                     </ul>
+
+                    <div class="card-body text-center">
+                        {!! $item->consultasRecientes()->render() !!}
+                    </div>
 
                     @foreach($item->consultasRecientes()->sortByDesc('id') as $consulta)
 
@@ -128,6 +162,8 @@
         </div>
 
         <div class="col-lg-4">
+            <h4 class="card card-body ml-3" style="border-top: 3px solid orange">Archivadas ({!! $item->consultas()->where('archivado', 1)->count() !!})</h4>
+
             <div class="" style="height: 800px; overflow: scroll">
                 <div class="card-body pt-0 pr-0">
 
@@ -202,9 +238,15 @@
 
     <script>
 
-        window.setTimeout(function(){
-            location.reload()
-        },15000);
+        var live = "{!! $item->isGoingOn() !!}";
+
+        if(live){
+
+            window.setTimeout(function(){
+                location.reload()
+            },15000);
+
+        }
 
     </script>
 

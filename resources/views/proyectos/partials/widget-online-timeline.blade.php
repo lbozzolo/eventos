@@ -5,6 +5,11 @@
                 @if($item->isFinished())
                     <span class="text-danger float-right">FINALIZADO</span>
                 @endif
+                @if($item->isGoingOn())
+                    <small class="float-right" style="border: 1px solid limegreen; padding: 5px 10px">
+                        en vivo <i class="mdi mdi-circle text-success"></i>
+                    </small>
+                @endif
                 <h4 class="text-primary">Asistentes durante el evento</h4>
 
                 @if($item->inscriptos->count())

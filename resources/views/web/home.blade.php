@@ -6,6 +6,60 @@
 
     @include('web.partials.sliders')
 
+    <section class="bg-white" style="padding: 30px 0px 0px 0px">
+        <div class="container">
+            <div class="text__block">
+
+
+                @foreach($charlas as $charla)
+                <div class="row">
+                    <div class="col-lg-5 card-body">
+                        <div class="blog-item">
+                            <div class="blog__img">
+                                <a href="{!! route('web.charlas.show', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}">
+                                    <img src="{!! $charla->mainImage() !!}" alt="blog image">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="blog__content" style="padding-top: 20px">
+                            <div class="blog__meta">
+                                <div class="blog__meta-cat">
+                                    <span class="text__block-title text-dark-green" style="font-size: 1.5em">
+                                        <i class="fa fa-calendar"></i> Evento del día
+                                    </span>
+                                </div>
+                            </div>
+                            <h2 class="blog__title" style="margin-bottom: 0px">
+                                <a href="{!! route('web.charlas.show', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}">
+                                    {!! $charla->nombre !!}
+                                </a>
+                                @if($charla->isFinished())
+                                    <p class="blog__meta-date text-dark-green" style="font-size: 0.7em">Evento Finalizado</p>
+                                @endif
+                            </h2>
+                            <div class="blog__meta-cat">
+                                @foreach($charla->categorias as $categoria)
+                                    <a href="#">{!! $categoria->nombre !!}</a>
+                                @endforeach
+                            </div>
+                            <h5>{!! $charla->descripcion !!}</h5>
+                            <span class="text-secondary" style="font-size: 1.5em">{!! $charla->fecha !!} · {!! $charla->hora !!} hs</span>
+
+                            <div class="card-body">
+                                @include('web.components.botones-ingreso')
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+
+            </div>
+        </div>
+    </section>
+
     <section class="blog blog-grid bg-celeste-claro">
         <div class="container">
             <div class="text__block">

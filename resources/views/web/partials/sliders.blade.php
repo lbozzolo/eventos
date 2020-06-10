@@ -10,6 +10,9 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
                         <div class="slide__content">
                             <h2 class="slide__title">EVENTOS ON LINE</h2>
+
+                            <a href="{!! route('web.charlas') !!}" class="btn btn-lg bg-dark-green text-white" style="font-size: 1.5em; font-weight: 100">Explorar</a>
+
                         </div><!-- /.slide-content -->
                     </div><!-- /.col-xl-9 -->
                 </div><!-- /.row -->
@@ -22,6 +25,9 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
                         <div class="slide__content">
                             <h2 class="slide__title">STREAMING ADAPTATIVO Y MULTIFORMATO </h2>
+
+                            <a href="{!! route('web.charlas') !!}" class="btn btn-lg bg-dark-green text-white" style="font-size: 1.5em; font-weight: 100">Explorar</a>
+
                         </div><!-- /.slide-content -->
                     </div><!-- /.col-xl-9 -->
                 </div><!-- /.row -->
@@ -34,6 +40,9 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
                         <div class="slide__content">
                             <h2 class="slide__title">SEGURIDAD Y PRIVACIDAD ASEGURADAS</h2>
+
+                            <a href="{!! route('web.charlas') !!}" class="btn btn-lg bg-dark-green text-white" style="font-size: 1.5em; font-weight: 100">Explorar</a>
+
                         </div><!-- /.slide-content -->
                     </div><!-- /.col-xl-9 -->
                 </div><!-- /.row -->

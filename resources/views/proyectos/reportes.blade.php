@@ -16,6 +16,7 @@
                             </h2>
                             <p>{!! ($item->descripcion)? $item->descripcion : '' !!}</p>
 
+                            @role('Superadmin|Admin')
                             @if($item->isFinished())
 
                                 <button title="Activar Evento" type="button" data-toggle="modal" data-target="#activar" class="btn btn-success mb-1">Activar evento</button>
@@ -78,9 +79,22 @@
                                 @endif
 
                             @endif
+                            @endrole
 
-
+                            @role('Superadmin|Admin')
                             <a href="{!! route($modelPlural.'.show', $item->id) !!}" class="btn btn-outline-dark mb-1">Volver</a>
+                            @endrole
+
+                            @role('Cliente')
+                            <a href="{!! route('proyectos.consultas', $item->id) !!}" class="btn btn-outline-info mb-1">
+                                <i class="mdi mdi-message-text-outline"></i> Consultas
+                            </a>
+                            <a href="{!! route('clientes.proyecto.iframe', $item->id) !!}" class="btn btn-primary mb-1">
+                                <i class="mdi mdi-youtube-play"></i> Visualizar evento
+                            </a>
+                            <a href="{!! route('clientes.profile', Auth::user()->id) !!}" class="btn btn-outline-dark mb-1">Salir</a>
+                            @endrole
+
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-5 col-sm-6">
