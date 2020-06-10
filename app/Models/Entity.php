@@ -36,6 +36,9 @@ class Entity extends Model
         if($this->images->count()) {
             $path = ($this->images()->where('main', 1)->first()) ? $this->images()->where('main', 1)->first()->path : $this->images->first()->path;
             $response = asset('imagenes/'.$path);
+
+            $response = (file_exists(public_path('imagenes/'.$path)))? $response : asset('images/noimage.png');
+
         }
 
         return $response;
@@ -46,13 +49,13 @@ class Entity extends Model
         $response = asset('images/noimage.png');
 
         if($this->images->count()) {
-            $path = ($this->imagesThumb()->where('main', 1)->first()) ? $this->imagesThumb()->where('main', 1)->first()->path : $this->images->first()->path;
+            $path = ($this->imagesThumb()->where('main', 1)->first()) ? $this->imagesThumb()->where('main', 1)->first()->path : $this->imagesThumb->first()->path;
             $response = asset('imagenes/'.$path);
+
+            $response = (file_exists(public_path('imagenes/'.$path)))? $response : asset('images/noimage.png');
         }
 
         return $response;
-
-//        return ($this->imagesThumb()->where('main', 1)->first())? $this->imagesThumb()->where('main', 1)->first() : $this->imagesThumb->first();
     }
 
     public function imagesThumb()

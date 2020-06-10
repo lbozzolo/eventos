@@ -50,7 +50,7 @@
                             <div class="card project">
                                 <a href="{!! route('proyectos.show', $item->id) !!}">
                                     <div class="card-body">
-                                        <img src="{!! $item->mainImageThumb() !!}" alt="{!! ($item->nombre)? $item->nombre : '-' !!}" style="width: 100%; height: auto"><br><br>
+                                        <img src="{!! $item->mainImage() !!}" alt="{!! ($item->nombre)? $item->nombre : '-' !!}" style="width: 100%; height: auto"><br><br>
                                         <span class="text-primary">{!! ($item->cliente)? $item->cliente->nombre : '-' !!}</span> ·
                                         <small style="color: gray">{!! $item->categorias->first()->nombre !!}</small><br>
                                         <span class="lead text-black">{!! ($item->nombre)? $item->nombre : '-' !!}</span>

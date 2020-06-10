@@ -1,7 +1,7 @@
 <table class="table datatables">
     <thead>
     <tr>
-        <th style="width: 180px"></th>
+        <th style="width: 120px"></th>
         <th>Nombre</th>
         <th>Fecha del evento</th>
         <th style="width: 120px">Tipo</th>
