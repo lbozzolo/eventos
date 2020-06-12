@@ -9,7 +9,7 @@
     </div>
 
 {{--    @if($charla->publico)--}}
-    @if($item->tipoProyecto() == 'Público')
+    @if($charla->tipoProyecto() == 'Público')
         <div class="form-group">
             {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email', 'id' => 'email']) !!}
         </div>
