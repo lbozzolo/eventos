@@ -2,8 +2,8 @@
     <thead>
     <tr>
         <th style="width: 120px"></th>
-        <th>Nombre</th>
-        <th>Fecha del evento</th>
+        <th style="width: 200px">Nombre</th>
+        <th style="width: 80px">Fecha del evento</th>
         <th class="text-center">Inscriptos</th>
         <th style="width: 120px">Tipo</th>
         <th style="width: 120px">Estado</th>
