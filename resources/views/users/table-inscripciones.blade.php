@@ -10,7 +10,7 @@
         @role('Superadmin|Admin')
         <th style="width: 20px"></th>
         @endrole
-        <th class="text-center">Id / Nombre y DNI</th>
+        <th class="text-center" style="width: 400px">Usuario</th>
         <th>Contacto</th>
         <th>Origen</th>
         <th style="width: 150px">Inscripciones</th>
@@ -36,20 +36,36 @@
                         <span>{!! $item->id !!}</span>
                     </div>
                     <div class="col-lg-8 text-left">
-                        <span>{!! $item->fullname !!}</span><br>
-                        @if($item->dni)
-                            <span>dni: {!! $item->dni !!}</span>
+                        @if($item->fullname == 'Usuario anónimo')
+                            <em class="text-gray">{!! $item->lastname !!}</em><br>
+                        @else
+                            <span>{!! $item->fullname !!}</span><br>
+                        @endif
+
+                        @if($item->dni && !$item->paidUser())
+                            <span class="text-primary">dni: </span>{!! $item->dni !!}
+                        @else
+                            <span class="text-primary">código: </span>{!! $item->dni !!}
                         @endif
                     </div>
                 </div>
             </td>
             <td>
-                <span>{!! $item->email !!}</span><br>
-                <span>tel: {!! $item->phone !!}</span>
+                @if(!$item->paidUser())
+                    <span>{!! $item->email !!}</span>
+                    <br>
+                    <span>tel: {!! $item->phone !!}</span>
+                @else
+                    -
+                @endif
             </td>
             <td>
-                {!! ($item->localidad)? $item->localidad.'. ' : '' !!}<br>
-                {!! $item->pais_origen !!}
+                @if(!$item->paidUser())
+                    {!! ($item->localidad)? $item->localidad.'. ' : '' !!}<br>
+                    {!! $item->pais_origen !!}
+                @else
+                    -
+                @endif
             </td>
             <td>
                 @if($item->proyectos->count())

@@ -3,8 +3,11 @@
 namespace Eventos\Http\Controllers;
 
 use Carbon\Carbon;
+use Eventos\Http\Requests\CodigoRequest;
 use Eventos\Http\Requests\RegisterUser2Request;
 use Eventos\Http\Requests\RegistreUserRequest;
+use Eventos\Http\Requests\StoreIdentificacionRequest;
+use Eventos\Models\Codigo;
 use Eventos\Models\Proyecto;
 use Eventos\Repositories\ProyectoRepository;
 use Eventos\Repositories\UserRepository;
@@ -19,6 +22,7 @@ use Illuminate\Support\Facades\Mail;
 use Eventos\Http\Requests\ContactoRequest;
 use Eventos\Http\Requests\CreateNewsletterRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Spatie\Permission\Models\Role;
 
 
 class WebController extends AppBaseController
@@ -107,6 +111,97 @@ class WebController extends AppBaseController
         return view('web.ingresar-charla')->with($this->data);
     }
 
+    public function ingresarCodigo($cliente, $evento, $id)
+    {
+        $this->data['charla'] = Proyecto::active($id)->first();
+
+        if(!$this->data['charla'])
+            return abort(404);
+
+        return view('web.ingresar-codigo')->with($this->data);
+    }
+
+    public function checkCodigo(CodigoRequest $request, $id)
+    {
+        $proyecto = Proyecto::active($id)->first();
+
+        $codigo = Codigo::where('code', $request['code'])->first();
+
+        if(!$codigo)
+            return redirect()->back()->withErrors('Código erróneo');
+
+        $this->data['cliente'] = $proyecto->cliente_slug;
+        $this->data['evento'] = $proyecto->nombre_slug;
+        $this->data['id'] = $id;
+        $this->data['codigo'] = $codigo->code;
+
+        return redirect()->route('web.charlas.identificacion', $this->data);
+    }
+
+    public function identificacion($cliente, $evento, $id, $codigo)
+    {
+        $charla = Proyecto::find($id);
+        return view('web.identificacion')->with(['cliente' => $cliente, 'evento' => $evento, 'id' => $id, 'charla' => $charla, 'codigo' => $codigo]);
+    }
+
+    public function storeIdentificacion(StoreIdentificacionRequest $request, $id)
+    {
+        $this->data['charla'] = Proyecto::active($id)->first();
+        $redirect = [
+            'cliente' => $this->data['charla']->cliente_slug,
+            'evento' => $this->data['charla']->nombre_slug,
+            'id' => $id
+        ];
+
+        $codigo = Codigo::where('code', $request['code'])->first();
+
+        // Si el código no existe redirecciono con código erróneo
+        if(!$codigo)
+            return redirect()->back()->withErrors('Código erróneo');
+
+        if($codigo->user){
+
+            if($codigo->user->email != $request['email'])
+                return redirect()->back()->withErrors('El código especificado ya ha sido identificado con otro email');
+
+            return redirect()->route('web.charlas.ingresar', $redirect)
+                ->with('ok', 'Ya estás listo para disfrutar el evento. Recordá que cada vez quieras ingresar se te soilicitará el código de acceso que utilizaste');
+
+        }
+
+        $user = User::where('email', $request['email'])->first();
+
+        // Si el código se encuentra en el listado de códigos disponibles
+
+        $inputs = [
+            'name' => 'Usuario',
+            'lastname' => 'anónimo',
+            'dni' => $request['code'],
+            'email' => $request['email'],
+        ];
+
+        $inputs['password'] = Hash::make($request['code']);
+
+        $user = User::create($inputs);
+        $rolePaiduser = Role::where('name', 'Paiduser')->first();
+        $user->assignRole($rolePaiduser);
+        $user->save();
+
+        $user->proyectos()->syncWithoutDetaching($id);
+
+        // Marco el código como 'usado' para que no pueda usarlo otro usuario
+        $codigo = Codigo::where('code', $request['code'])->first();
+        $codigo->uso = 1;
+        $codigo->save();
+
+        $user->codigo()->save($codigo);
+
+        Auth::attempt(['email' => $user->email, 'password' => $user->dni]);
+
+
+        return redirect()->route('web.charlas.ingresar', $redirect)->with('ok', 'Ya estás listo para disfrutar el evento. Recordá que cada vez quieras ingresar se te soilicitará el código de acceso que utilizaste');
+    }
+
     public function inscripcion($cliente, $evento, $id)
     {
         $this->data['charla'] = Proyecto::active($id)->first();
@@ -118,6 +213,9 @@ class WebController extends AppBaseController
 //        if($this->data['charla']->publico)
         if($this->data['charla']->tipoProyecto() == 'Público')
             return view('web.ingresar-charla')->with($this->data);
+
+        if($this->data['charla']->tipoProyecto() == 'Pago')
+            return redirect()->route('web.charlas.ingresar.codigo', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
 
         if(Auth::check())
             return redirect()->route('web.charlas.ingresar', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
@@ -278,13 +376,56 @@ class WebController extends AppBaseController
 
         $userAttempt = User::where('email', $request['email'])->first();
 
+        //========================
+        // Si el Usuario no existe
+        //========================
+
         if(!$userAttempt){
 
             if(!$request['password'])
                 return redirect()->back()->withErrors('Debe ingresar su DNI, pasaporte o Id');
 
-            if(is_numeric($request['password']))
+            if(!is_numeric($request['password']))
                 return redirect()->back()->withErrors('El DNI, pasaporte o Id debe ser un número');
+
+            if(isset($request['code'])){
+
+                $codigo = Codigo::where('code', $request['code'])->first();
+
+                // Si el código no existe redirecciono con código erróneo
+                if(!$codigo)
+                    return redirect()->back()->withErrors('Código erróneo');
+
+                // Si el código ya fue utilizado por ptra persona
+                //====================================================
+                if($codigo->user && $codigo->user->email != $request['email'])
+                    return redirect()->back()->withErrors('El código especificado ya ha sido identificado con otro email');
+
+                //==============================================
+                // Si el código NO fue utilizado creo el usuario
+                //==============================================
+
+                // Convierto al dni en únicamente números quitando puntos y comas
+                $request['password'] = preg_replace('/[^0-9]/', '', $request['password']);
+
+                // Creo el usuario y le asigno password = dni
+                $password = Hash::make($request['password']);
+                $this->data['user'] = User::create([
+                    'name' => $request['email'],
+                    'lastname' => $request['email'],
+                    'email' => $request['email'],
+                    'dni' => $request['password'],
+                    'password' => $password,
+                ]);
+
+                // Le asigno el código al usuario
+                $codigo = Codigo::where('code', $request['code'])->first();
+                $this->data['user']->codigo()->save($codigo);
+
+                // Redirecciono a vista para completar el resto de los datos
+                return redirect()->route('web.get.registro', ['userId' => $this->data['user']->id, 'eventoId' => $this->data['charla']->id]);
+
+            }
 
             // Convierto al dni en únicamente números quitando puntos y comas
             $request['password'] = preg_replace('/[^0-9]/', '', $request['password']);
@@ -304,6 +445,10 @@ class WebController extends AppBaseController
 
         }
 
+        // Si el Usuario existe
+        //=====================
+
+        // Si es el primer logueo
         if($userAttempt->name == $userAttempt->email){
             $this->data['user'] = $userAttempt;
             return redirect()->route('web.get.registro', ['userId' => $this->data['user']->id, 'eventoId' => $this->data['charla']->id]);
@@ -314,11 +459,6 @@ class WebController extends AppBaseController
             'evento' => $this->data['charla']->nombre_slug,
             'id' => $id
         ]);
-
-//        $inscripcion = $this->data['charla']->inscriptos()->where('user_id', $userAttempt->id)->first();
-//        $inscripcion->pivot->updated_at = Carbon::now();
-//        $inscripcion->pivot->save();
-
 
         $this->validateLogin($request);
 
@@ -354,9 +494,12 @@ class WebController extends AppBaseController
             return abort(404);
 
         // Si la charla es pública lo envío a la charla
-//        if($this->data['charla']->publico)
         if($this->data['charla']->tipoProyecto() == 'Público')
             return redirect()->route('web.charlas.ingresar', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
+
+        // Si la charla es paga lo envío al login de charlas pagas
+        if($this->data['charla']->tipoProyecto() == 'Pago')
+            return redirect()->route('web.charlas.ingresar.codigo', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
 
         // Si la charla es privada y está logueado lo envío a la charla
         if(Auth::check())

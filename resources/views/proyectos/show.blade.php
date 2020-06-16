@@ -4,6 +4,19 @@
 
     <div class="row">
 
+        @if($item->codigos->count() == 0 && $item->tipoProyecto() == 'Pago')
+
+            <div class="col-lg-12">
+                <div class="alert alert-warning alert-dismissible">
+                    <button class="close" type="button" data-dismiss="alert" aria-hidden="true">x</button>
+                    <i class="icon mdi mdi-alert"></i>
+                    Este evento es pago y necesita generar códigos de acceso.
+                    <button title="Generar códigos" type="button" data-toggle="modal" data-target="#generarCodigos" class="ml-3 btn btn-sm btn-outline-primary">
+                        Generar ahora</button>
+                </div>
+            </div>
+
+        @endif
         <div class="col-lg-12">
             <div class="card grid-margin">
 
@@ -178,6 +191,11 @@
                                         <h4 class="mb-0 font-weight-semibold"><i class="mdi mdi-24px mdi-currency-usd text-white bg-reddit" title="Público"></i> Pago</h4>
                                         <h5 class="mb-0 font-weight-medium text-primary">Tipo de proyecto</h5>
                                         <p class="mb-0 text-gray">Evento pago. Inscripción requerida</p>
+                                        <p class="mb-0 text-gray">
+
+
+
+                                        </p>
                                     @else
                                         <h4 class="mb-0 font-weight-semibold"><i class="mdi mdi-24px mdi-folder-lock text-danger" title="Privado"></i> Privado</h4>
                                         <h5 class="mb-0 font-weight-medium text-primary">Tipo de proyecto</h5>
@@ -185,6 +203,67 @@
                                     @endif
                                 </div>
                             </div>
+
+                            @if($item->tipoProyecto() == 'Pago')
+                            <div  style="border: 1px solid lightgray; padding: 20px 20px">
+
+                                <h5>Códigos de acceso</h5>
+
+                                @if($item->codigos->count() != 0)
+                                <a href="{!! route('proyectos.export.codigos', $item->id) !!}" class="ml-1 btn  btn-sm btn-primary float-right">
+                                    exportar</a>
+                                @endif
+
+                                @if($item->codigos->count() == 0)
+
+                                    <button title="Generar códigos" type="button" data-toggle="modal" data-target="#generarCodigos" class="ml-3 btn btn-sm btn-outline-primary float-right">
+                                        Generar</button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="generarCodigos" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Generar Códigos</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {!! Form::open(['url' => route('proyectos.store.codigos', $item->id), 'method' => 'post']) !!}
+
+                                                    <div class="form-group">
+                                                        <p>
+                                                            Se generarán los códigos de acceso necesarios para ingresar a presenciar el evento.
+                                                            Los mismos deberán ser distribuidos individualmente a cada asistente por quién corresponda.
+                                                        </p>
+                                                        {!! Form::label('cantidad_codigos', '¿Cuántos códigos desea generar?') !!}
+                                                        {{--<p class="lead">¿Cuántos códigos desea generar para este proyecto?</p>--}}
+                                                        {!! Form::number('cantidad_codigos', null, ['class' => 'form-control', 'max' => '5000', 'min' => '1']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::submit('Generar', ['class' => 'btn btn-primary']) !!}
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>                                                                </div>
+
+                                                    {!! Form::close() !!}
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                @endif
+
+                                <span class="text-black">{!! $item->codigos->count() !!}</span>
+                                <span class="text-gray"> generados</span>  <br>
+                                <span class="text-black">{!! $item->codigosDisponibles()->count() !!}</span>
+                                <span class="text-success"> disponibles</span>  <br>
+
+
+                            </div>
+                            @endif
+
+
                         </div>
 
 

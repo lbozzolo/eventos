@@ -8,6 +8,11 @@
             border-radius: 0!important;
         }
 
+        .table td a:hover {
+            text-decoration: none;
+            opacity: 0.6;
+        }
+
     </style>
 
 @endsection

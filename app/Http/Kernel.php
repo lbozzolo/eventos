@@ -3,6 +3,7 @@
 namespace Eventos\Http;
 
 use Eventos\Http\Middleware\LastUserActivity;
+use Eventos\Http\Middleware\PaidUserMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel

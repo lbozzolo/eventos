@@ -285,6 +285,11 @@ class Proyecto extends Entity
         return round($this->picoUsuariosOnline() * 100 / $this->inscriptos->count());
     }
 
+    public function codigosDisponibles()
+    {
+        return $this->codigos()->where('uso', null)->get();
+    }
+
     // Relationships
 
     public function categorias()
@@ -320,6 +325,11 @@ class Proyecto extends Entity
     public function pdfs()
     {
         return $this->hasMany(Pdf::class);
+    }
+
+    public function codigos()
+    {
+        return $this->hasMany(Codigo::class);
     }
 
     public function header()

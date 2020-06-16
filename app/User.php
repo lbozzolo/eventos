@@ -4,6 +4,7 @@ namespace Eventos;
 
 use Carbon\Carbon;
 use Eventos\Models\Cliente;
+use Eventos\Models\Codigo;
 use Eventos\Models\Proyecto;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -133,6 +134,12 @@ class User extends Authenticatable
         return $this->proyectos->contains($proyectoId);
     }
 
+    public function paidUser()
+    {
+        $code = explode("@", $this->email, 2)[0];
+        return $code == $this->dni;
+    }
+
     public function getFullnameAttribute()
     {
         return ($this->name != $this->email)? $this->name . ' ' . $this->lastname : '-';
@@ -148,6 +155,11 @@ class User extends Authenticatable
     public function cliente()
     {
         return $this->hasOne(Cliente::class);
+    }
+
+    public function codigo()
+    {
+        return $this->hasOne(Codigo::class);
     }
 
 

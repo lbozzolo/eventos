@@ -4,6 +4,7 @@
         <th style="width: 120px"></th>
         <th>Nombre</th>
         <th>Fecha del evento</th>
+        <th class="text-center">Inscriptos</th>
         <th style="width: 120px">Tipo</th>
         <th style="width: 120px">Estado</th>
         <th style="width: 150px">Opciones</th>
@@ -28,6 +29,9 @@
                 <strong>{!! $item->getNameOfDay($item->fecha) !!}</strong><br>
                 {!! $item->fecha !!}<br>
                 <small>{!! $item->hora !!} hs</small>
+            </td>
+            <td class="text-center">
+                {!! $item->inscriptos->count() !!}
             </td>
             <td>
                 @if($item->tipoProyecto() == 'Público')

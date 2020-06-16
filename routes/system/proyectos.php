@@ -4,6 +4,11 @@ Route::group(['middleware' => ['can:editar_proyectos']], function () {
 
     Route::resource('proyectos', 'ProyectoController');
 
+    Route::post('proyectos/{id}/generar-codigos', [
+        'as' => 'proyectos.store.codigos',
+        'uses' => 'ProyectoController@storeCodigos'
+    ]);
+
     Route::get('proyectos/{id}/finalizar', [
         'as' => 'proyectos.finalizar',
         'uses' => 'ProyectoController@finalizar'
@@ -123,6 +128,11 @@ Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
     Route::get('exportacion-consultas/{id}', [
         'as' => 'proyectos.export.consultas',
         'uses' => 'ProyectoController@exportConsultas'
+    ]);
+
+    Route::get('exportacion-codigos/{id}', [
+        'as' => 'proyectos.export.codigos',
+        'uses' => 'ProyectoController@exportCodigos'
     ]);
 
     Route::get('proyectos/{id}/inscripciones', [

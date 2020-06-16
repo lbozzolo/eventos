@@ -13,6 +13,7 @@
             {!! Form::text('lastname', null, ['class' => 'form-control']) !!}
         </div>
 
+        @if(isset($item) && !$item->paidUser())
         <div class="form-group col-sm-12 col-lg-12">
             {!! Form::label('email', 'Email:') !!}
             {!! Form::text('email', null, ['class' => 'form-control']) !!}
@@ -22,6 +23,7 @@
             {!! Form::label('dni', 'DNI:') !!}
             {!! Form::text('dni', null, ['class' => 'form-control']) !!}
         </div>
+        @endif
 
         <div class="form-group col-sm-12 col-lg-12">
             {!! Form::label('phone', 'Teléfono:') !!}

@@ -3,14 +3,17 @@
 namespace Eventos\Http\Controllers;
 
 use Carbon\Carbon;
+use Eventos\Exports\CodigosExport;
 use Eventos\Exports\ConsultasExport;
 use Eventos\Exports\InscriptosExport;
+use Eventos\Http\Requests\CreateCodigosRequest;
 use Eventos\Http\Requests\CreateConsultaRequest;
 use Eventos\Http\Requests\CreateProyectoRequest;
 use Eventos\Http\Requests\UpdateProyectoRequest;
 use Eventos\Models\Auspiciante;
 use Eventos\Models\Categoria;
 use Eventos\Models\Cliente;
+use Eventos\Models\Codigo;
 use Eventos\Models\Consulta;
 use Eventos\Models\Estado;
 use Eventos\Models\Iframe;
@@ -99,14 +102,29 @@ class ProyectoController extends AppBaseController
         $input = $request->all();
 
         $input['fecha'] = Carbon::parse($input['fecha'])->format('Y-m-d h:i');
-//        dd($input);
+
         $item = $this->repo->create($input);
         $item->header()->create();
 
-        if (!$item)
+        if(!$item)
             return redirect()->back()->withErrors($this->store_failure_message);
 
-        return redirect(route($this->modelPlural.'.index'))->with('ok', $this->store_success_message);
+        return redirect()->route($this->modelPlural.'.index')->with('ok', $this->store_success_message);
+    }
+
+    public function storeCodigos(CreateCodigosRequest $request, $id)
+    {
+        $this->data['item'] = Proyecto::find($id);
+
+        for($i=1; $i<=$request['cantidad_codigos']; $i++){
+            $code = str_random(8);
+            while (Codigo::where('code', $code)->first()){
+                $code = str_random(8);
+            }
+            Codigo::create(['proyecto_id' => $id, 'code' => $code]);
+        }
+
+        return redirect()->back()->with('ok', 'Códigos generados con éxito');
     }
 
     public function show($id)
@@ -514,6 +532,11 @@ class ProyectoController extends AppBaseController
     public function exportConsultas($id)
     {
         return Excel::download(new ConsultasExport($id), 'consultas.xlsx');
+    }
+
+    public function exportCodigos($id)
+    {
+        return Excel::download(new CodigosExport($id), 'codigos.xlsx');
     }
 
     public function changeFileNameIfExists($file)

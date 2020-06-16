@@ -25,7 +25,7 @@
             <button type="submit" class="btn btn__primary btn__block">Siguiente</button>
             <h5 class="text-black" style="margin-top: 30px">
                 ¿Todavía no estás registrado?
-                <a href="{!! route('web.charlas.registro', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug,  'id' => $charla->id]) !!}">regitrarse</a>
+                <a href="{!! route('web.charlas.registro', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug,  'id' => $charla->id]) !!}">registrarse</a>
             </h5>
 
             <button title="Recuperar cuenta" type="button" data-toggle="modal"

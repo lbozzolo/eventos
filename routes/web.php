@@ -48,6 +48,26 @@ Route::get('eventos/{cliente}/{evento}/{id}/ingresar', [
     'uses' => 'WebController@ingresarCharla'
 ]);
 
+Route::get('eventos/{cliente}/{evento}/{id}/ingresar-codigo', [
+    'as' => 'web.charlas.ingresar.codigo',
+    'uses' => 'WebController@ingresarCodigo'
+]);
+
+Route::post('eventos/{id}/ingresar-codigo', [
+    'as' => 'web.charlas.check.codigo',
+    'uses' => 'WebController@checkCodigo'
+]);
+
+Route::get('eventos/{cliente}/{evento}/{id}/{codigo}/identificacion', [
+    'as' => 'web.charlas.identificacion',
+    'uses' => 'WebController@identificacion'
+]);
+
+Route::post('eventos/{id}/identificacion', [
+    'as' => 'web.charlas.store.identificacion',
+    'uses' => 'WebController@storeIdentificacion'
+]);
+
 Route::get('eventos/{cliente}/{evento}/{id}/inscripcion', [
     'as' => 'web.charlas.inscripcion',
     'uses' => 'WebController@inscripcion'
