@@ -33,6 +33,7 @@
     @endrole
 
     @role('Superadmin|Admin')
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card grid-margin">
@@ -49,8 +50,8 @@
                         <div class="col-lg-3 stretch-card">
                             <div class="card project">
                                 <a href="{!! route('proyectos.show', $item->id) !!}">
+                                    <img src="{!! $item->mainImage() !!}" alt="{!! ($item->nombre)? $item->nombre : '-' !!}" style="width: 100%; height: auto"><br><br>
                                     <div class="card-body">
-                                        <img src="{!! $item->mainImage() !!}" alt="{!! ($item->nombre)? $item->nombre : '-' !!}" style="width: 100%; height: auto"><br><br>
                                         <span class="text-primary mt-3">{!! ($item->cliente)? $item->cliente->nombre : '-' !!}</span> ·
                                         <small style="color: gray">{!! $item->categorias->first()->nombre !!}</small><br>
                                         <span class="lead text-black">{!! ($item->nombre)? $item->nombre : '-' !!}</span>
@@ -69,6 +70,37 @@
 
             </div>
         </div>
+
+        @if($otros->count() > 0)
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="card grid-margin">
+                    <div class="card-body">
+                        <h4>Otros proyectos</h4>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    @forelse($otros as $item)
+                        <div class="col-lg-2 stretch-card grid-margin">
+                            <div class="card project">
+                                <a href="{!! route('proyectos.show', $item->id) !!}">
+                                    <img src="{!! $item->mainImage() !!}" alt="{!! ($item->nombre)? $item->nombre : '-' !!}" style="width: 100%; height: auto"><br><br>
+                                    <div style="padding: 10px 20px">
+                                        <p class="text-black">{!! ($item->nombre)? $item->nombre : '-' !!}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    @empty
+                    @endforelse
+                </div>
+
+            </div>
+        </div>
+        @endif
+
     @endrole
 
 

@@ -14,6 +14,10 @@ class HomeController extends Controller
     public function index()
     {
         $proyectos = Proyecto::orderBy('id', 'desc')->take(4)->get();
-        return view('home')->with(['proyectos' => $proyectos]);
+
+        $excluded = $proyectos->pluck('id')->toArray();
+
+        $otros = Proyecto::orderBy('id', 'desc')->take(26)->get()->except($excluded);
+        return view('home')->with(['proyectos' => $proyectos, 'otros' => $otros]);
     }
 }

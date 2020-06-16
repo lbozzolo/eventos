@@ -4,6 +4,15 @@
         <li><hr></li>
 
         @can('editar_proyectos')
+            <li class="{{ Request::is('admin*') ? 'active' : '' }} nav-item">
+                <a href="{!! route('admin') !!}" class="nav-link">
+                    <i class="mdi menu-icon {{ Request::is('admin*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </li>
+        @endcan
+
+        @can('editar_proyectos')
         <li class="{{ Request::is('proyectos*') ? 'active' : '' }} nav-item">
             <a href="{!! route('proyectos.index') !!}" class="nav-link">
                 <i class="mdi menu-icon {{ Request::is('proyectos*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>
