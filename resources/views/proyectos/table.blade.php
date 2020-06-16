@@ -31,7 +31,14 @@
                 <small>{!! $item->hora !!} hs</small>
             </td>
             <td class="text-center">
-                {!! $item->inscriptos->count() !!}
+                @if($item->tipoProyecto() == 'Pago')
+                    <span data-toggle="tooltip" style="cursor: default"
+                          title="Cantidad de inscriptos sobre total de códigos generados">
+                        {!! $item->inscriptos->count() !!}/{!! $item->codigos->count() !!}
+                    </span>
+                @else
+                    {!! $item->inscriptos->count() !!}
+                @endif
             </td>
             <td>
                 @if($item->tipoProyecto() == 'Público')
@@ -107,3 +114,15 @@
     </div>
 
 @endif
+
+@section('js')
+
+    <script>
+
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
+
+@endsection

@@ -37,7 +37,6 @@
                                     Editar
                                 </a>
 
-{{--                                @if($item->publico)--}}
                                 @if($item->tipoProyecto() == 'Público')
 
                                     <button title="Reportes" type="button" data-toggle="modal" data-target="#reportesPublico" class="btn btn-behance mb-1">
@@ -238,7 +237,7 @@
                                                             Los mismos deberán ser distribuidos individualmente a cada asistente por quién corresponda.
                                                         </p>
                                                         {!! Form::label('cantidad_codigos', '¿Cuántos códigos desea generar?') !!}
-                                                        {{--<p class="lead">¿Cuántos códigos desea generar para este proyecto?</p>--}}
+                                                        <p class="lead">¿Cuántos códigos desea generar para este proyecto?</p>
                                                         {!! Form::number('cantidad_codigos', null, ['class' => 'form-control', 'max' => '5000', 'min' => '1']) !!}
                                                     </div>
                                                     <div class="form-group">
