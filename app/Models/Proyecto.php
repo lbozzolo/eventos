@@ -287,7 +287,7 @@ class Proyecto extends Entity
 
     public function codigosDisponibles()
     {
-        return $this->codigos()->where('uso', null)->get();
+        return $this->codigos()->where('user_id', null)->get();
     }
 
     // Relationships
