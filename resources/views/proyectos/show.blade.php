@@ -115,214 +115,102 @@
 
 
 
-                        <div class="col-lg-5 col-md-6 mt-md-0 mt-4 grid-margin">
-                            <div class="d-flex">
-                                <div class="wrapper">
-                                    <table class="table table-condensed">
-                                        <tr>
-                                            <td class="text-right text-info" style="width: 150px">Cliente</td>
-                                            <td class="text-left">{!! $item->cliente->nombre !!}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-right text-info">Categoría</td>
-                                            <td class="text-left">
-                                                @forelse($item->categorias as $categoria)
-                                                    <span class="badge badge-secondary text-black">{!! $categoria->nombre !!}</span>
-                                                @empty
-                                                    <small><em class="text-gray">ninguna</em></small>
-                                                @endforelse
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-right text-info">Auspiciantes</td>
-                                            <td class="text-left">
-                                                @forelse($item->auspiciantes as $auspiciante)
-                                                    <span class="badge badge-secondary text-black">{!! $auspiciante->nombre !!}</span>
-                                                @empty
-                                                    <small><em class="text-gray">ninguno</em></small>
-                                                @endforelse
-                                            </td>
-                                        </tr>
-                                    </table>
-
+                        <div class="col-lg-4 col-md-6 mt-md-0 mt-4 grid-margin">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <span class="text-primary">Cliente</span><br>
+                                    <p class="lead">{!! $item->cliente->nombre !!}</p>
                                 </div>
+                                <div class="col-lg-6">
+                                    <span class="text-info">Categoría</span><br>
+                                    <p class="lead">
+                                        @forelse($item->categorias as $categoria)
+                                            <span class="badge badge-secondary text-black">{!! $categoria->nombre !!}</span>
+                                        @empty
+                                            <small><em class="text-gray">ninguna</em></small>
+                                        @endforelse
+                                    </p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <hr>
+                                    <span class="text-warning">Auspiciantes</span><br>
+                                    <p class="lead">
+                                        @forelse($item->auspiciantes as $auspiciante)
+                                            <span class="badge badge-secondary text-black">{!! $auspiciante->nombre !!}</span>
+                                        @empty
+                                            <small><em class="text-gray">ninguno</em></small>
+                                        @endforelse
+                                    </p>
+                                </div>
+
+
                             </div>
                         </div>
 
 
-                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 grid-margin">
-                            <div class="d-flex">
-                                <div class="wrapper">
-                                    <a href="{!! route('proyectos.inscripciones', $item->id) !!}" class="btn btn-outline-dark">
-                                        <h3 class="mb-0 font-weight-semibold">{!! $item->inscriptos->count() !!}</h3>
-                                        <h5 class="mb-2 font-weight-medium text-gray">
-                                            {!! ($item->inscriptos->count() == 1)? 'Inscripto' : 'Inscriptos' !!}
-                                        </h5>
-                                    </a>
-                                    <a href="{!! route('proyectos.export.inscriptos', $item->id) !!}" class="btn btn-primary mt-1" style="display: block">
-                                        exportar</a>
-                                </div>
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6 grid-margin text-center card card-body">
+
+                            <div class="text-left">
+                                <p style="border-bottom: 1px dashed gray">
+                                    Inscriptos
+                                    <span class="float-right text-primary">
+                                        <a href="{!! route('proyectos.inscripciones', $item->id) !!}">
+                                        {!! $item->inscriptos->count() !!}
+                                        </a>
+                                    </span>
+                                    <a href="{!! route('proyectos.export.inscriptos', $item->id) !!}">exportar</a>
+                                </p>
+                                <p style="border-bottom: 1px dashed gray">
+                                    Consultas
+                                    <span class="float-right text-primary">
+                                        <a href="{!! route('proyectos.consultas', $item->id) !!}">
+                                        {!! $item->consultas->count() !!}
+                                        </a>
+                                    </span>
+                                    <a href="{!! route('proyectos.export.consultas', $item->id) !!}">exportar</a>
+                                </p>
                             </div>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 mt-md-0 grid-margin">
-                            <div class="d-flex">
-                                <div class="wrapper">
-                                    <a href="{!! route($modelPlural.'.consultas', $item->id) !!}" class="btn btn-outline-dark">
-                                        <h3 class="mb-0 font-weight-semibold">{!! $item->consultas->count() !!}</h3>
-                                        <h5 class="mb-2 font-weight-medium text-gray">
-                                            {!! ($item->consultas->count() == 1)? 'Consulta' : 'Consultas' !!}
-                                        </h5>
-                                    </a>
-                                    <a href="{!! route('proyectos.export.consultas', $item->id) !!}" class="btn btn-primary mt-1" style="display: block">
-                                        exportar</a>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-lg-3 col-md-6 col-sm-6 mt-md-0 grid-margin">
-                            <div class="d-flex" style="border: 1px solid lightgray; padding: 20px 20px">
-                                <div class="wrapper">
-                                    @if($item->tipoProyecto() == 'Público')
-                                        <h4 class="mb-0 font-weight-semibold"><i class="mdi mdi-24px mdi-folder-lock-open text-success" title="Público"></i> Público</h4>
-                                        <h5 class="mb-0 font-weight-medium text-primary">Tipo de proyecto</h5>
-                                        <p class="mb-0 text-gray">Evento gratuito. Ingreso libre</p>
-                                    @elseif($item->tipoProyecto() == 'Pago')
-                                        <h4 class="mb-0 font-weight-semibold"><i class="mdi mdi-24px mdi-currency-usd text-white bg-reddit" title="Público"></i> Pago</h4>
-                                        <h5 class="mb-0 font-weight-medium text-primary">Tipo de proyecto</h5>
-                                        <p class="mb-0 text-gray">Evento pago. Inscripción requerida</p>
-                                        <p class="mb-0 text-gray">
+                            <div class="text-left mt-5">
+                                {!! Form::open(['url' => route('proyectos.update.cantidad.consultas', $item->id), 'method' => 'patch']) !!}
 
-
-
+                                    <div class="form-group mb-0">
+                                        <p style="border-bottom: 1px dashed gray">
+                                            Máximo de consultas por inscripto
+                                            <span class="float-right">
+                                                @if($item->maximas_consultas)
+                                                    {!! $item->maximas_consultas !!}
+                                                @else
+                                                    {{--<span class="badge badge-info">ilimitado</span>--}}
+                                                    <em class="text-gray"><small>ilimitado</small></em>
+                                                @endif
+                                            </span>
                                         </p>
-                                    @else
-                                        <h4 class="mb-0 font-weight-semibold"><i class="mdi mdi-24px mdi-folder-lock text-danger" title="Privado"></i> Privado</h4>
-                                        <h5 class="mb-0 font-weight-medium text-primary">Tipo de proyecto</h5>
-                                        <p class="mb-0 text-muted">Evento gratuito. Inscripción requerida</p>
+                                    </div>
+
+                                    <div class="input-group col-xs-12">
+                                        <input name="cantidad" type="number" class="form-control file-upload-info"
+                                               placeholder="Cantidad máxima" style="border: 1px solid lightgray" value="{!! $item->maximas_consultas !!}">
+                                        <span class="input-group-append">
+                                            <button class="file-upload-browse btn btn-primary btn-xs" type="submit">Definir</button>
+                                        </span>
+                                    </div>
+
+                                    @if($item->maximas_consultas != null)
+                                    <a href="{!! route('proyectos.update.consultas.ilimitadas', $item->id) !!}">
+                                        <small>Definir número ilimitado de consultas</small></a>
                                     @endif
-                                </div>
+
+                                {!! Form::close() !!}
                             </div>
 
-                            @if($item->tipoProyecto() == 'Pago')
-                            <div  style="border: 1px solid lightgray; padding: 20px 20px">
+                            {{--@include('proyectos.partials.boton-exportar-inscriptos')--}}
 
-                                <h5>Códigos de acceso</h5>
+                        </div>
 
-                                <i class="mdi mdi-asterisk float-right mdi-24px"></i>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mt-md-0 grid-margin">
 
-                                @if($item->codigos->count() == 0)
-
-                                    <button title="Generar códigos" type="button" data-toggle="modal" data-target="#generarCodigos" class="ml-3 btn btn-sm btn-outline-primary float-right">
-                                        Generar</button>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="generarCodigos" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Generar Códigos</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    {!! Form::open(['url' => route('proyectos.store.codigos', $item->id), 'method' => 'post']) !!}
-
-                                                    <div class="form-group">
-                                                        <p>
-                                                            Se generarán los códigos de acceso necesarios para ingresar a presenciar el evento.
-                                                            Los mismos deberán ser distribuidos individualmente a cada asistente por quién corresponda.
-                                                        </p>
-                                                        {!! Form::label('cantidad_codigos', '¿Cuántos códigos desea generar?') !!}
-                                                        <p class="lead">¿Cuántos códigos desea generar para este proyecto?</p>
-                                                        {!! Form::number('cantidad_codigos', null, ['class' => 'form-control', 'max' => '5000', 'min' => '1']) !!}
-                                                    </div>
-                                                    <div class="form-group">
-                                                        {!! Form::submit('Generar', ['class' => 'btn btn-primary']) !!}
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>                                                                </div>
-
-                                                    {!! Form::close() !!}
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                @endif
-
-                                <span class="text-black">{!! $item->codigos->count() !!}</span>
-                                <span class="text-gray"> generados</span>  <br>
-                                <span class="text-black">{!! $item->codigosDisponibles()->count() !!}</span>
-                                <span class="text-success"> disponibles</span>  <br>
-
-                                @if($item->codigos->count() != 0)
-
-                                    <div class="mt-3">
-                                        <button title="Ver códigos" type="button" data-toggle="modal" data-target="#verCodigos" class="ml-1 mt-1 btn btn-sm btn-outline-dark ">
-                                            Ver Códigos</button>
-                                        <a href="{!! route('proyectos.export.codigos', $item->id) !!}" class="mt-1 ml-1 btn  btn-sm btn-primary ">
-                                            exportar</a>
-                                    </div>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade text-left" id="verCodigos" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Códigos generados</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-
-                                                    <table class="table table-condensed">
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="text-primary text-center">Código</th>
-                                                                <th class="text-primary text-center">Inscripto</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @foreach($item->codigos as $codigo)
-                                                            <tr>
-                                                                <td class="text-center">
-                                                                    @if($codigo->user)
-                                                                       <span class="text-danger">{!! $codigo->code !!}</span>
-                                                                    @else
-                                                                        <span class="text-black">{!! $codigo->code !!}</span>
-                                                                    @endif
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    @if($codigo->user)
-                                                                        {!! $codigo->user->fullname !!}
-                                                                        <small class="text-gray">#{!! $codigo->user->id !!}</small>
-                                                                    @else
-                                                                        <em><small class="text-muted">disponible</small> </em>
-                                                                    @endif
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                        </tbody>
-                                                    </table>
-
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="{!! route('proyectos.export.codigos', $item->id) !!}" class="mt-1 ml-1 btn  btn-sm btn-primary ">
-                                                        exportar</a>
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                @endif
-
-                            </div>
-                            @endif
-
+                            @include('proyectos.partials.tipo-proyecto')
 
                         </div>
 

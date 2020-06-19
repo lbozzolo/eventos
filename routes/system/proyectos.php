@@ -135,9 +135,29 @@ Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
         'uses' => 'ProyectoController@exportCodigos'
     ]);
 
+    Route::get('proyectos/{id}/ver-codigos/{estado?}', [
+        'as' => 'proyectos.ver.codigos',
+        'uses' => 'ProyectoController@verCodigos'
+    ]);
+
     Route::get('proyectos/{id}/inscripciones', [
         'as' => 'proyectos.inscripciones',
         'uses' => 'ProyectoController@inscripciones'
+    ]);
+
+    Route::get('proyectos/{id}/codigo', [
+        'as' => 'proyectos.buscar.codigo',
+        'uses' => 'ProyectoController@buscarCodigo'
+    ]);
+
+    Route::patch('proyectos/{id}/update-questions-max-amount', [
+        'as' => 'proyectos.update.cantidad.consultas',
+        'uses' => 'ProyectoController@updateCantidadConsultas'
+    ]);
+
+    Route::get('proyectos/{id}/consultas-ilimitadas', [
+        'as' => 'proyectos.update.consultas.ilimitadas',
+        'uses' => 'ProyectoController@updateConsultasIlimitadas'
     ]);
 
 //    Route::get('/exportacion-inscriptos/{id}', function () {

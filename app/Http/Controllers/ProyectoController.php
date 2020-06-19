@@ -319,36 +319,32 @@ class ProyectoController extends AppBaseController
         );
 
         $validator = Validator::make( $request->all(), $rules, $messages);
-
         $consultas = Consulta::where('ip_address', '=',request()->ip())->lastMessages(1)->get();
 
         if($consultas->count())
             return response()->json(['errors' => ['Debe esperar un minuto para hacer la próxima consulta']]);
 
-        if ($validator->fails()) {
-
+        if ($validator->fails())
             return response()->json(['errors' => $validator->getMessageBag()->toArray()]);
 
-        } else {
+        $proyecto = Proyecto::find($request->proyecto_id);
+        $consultasTotal = Consulta::where('ip_address', '=',request()->ip())->where('proyecto_id', $proyecto->id)->count();
 
-            $proyecto = Proyecto::find($request->proyecto_id);
-            $nombre = ($proyecto->tipoProyecto() == 'Público')? $request->nombre : Auth::user()->fullname;
-//            $nombre = ($proyecto->publico)? $request->nombre : Auth::user()->fullname;
-            $email = ($proyecto->tipoProyecto() == 'Público')? $request->email : Auth::user()->email;
-//            $email = ($proyecto->publico)? $request->email : Auth::user()->email;
+        if($consultasTotal >= $proyecto->maximas_consultas)
+            return response()->json(['errors' => ['Lo sentimos. Sólo pueden realizarse '.$proyecto->maximas_consultas.' consultas por persona en este evento.']]);
 
+        $nombre = ($proyecto->tipoProyecto() == 'Público')? $request->nombre : Auth::user()->fullname;
+        $email = ($proyecto->tipoProyecto() == 'Público')? $request->email : Auth::user()->email;
 
-            $data = Consulta::create([
-                'proyecto_id' => $proyecto->id,
-                'nombre' => $nombre,
-                'email' => $email,
-                'texto' => $request->texto,
-                'ip_address' => (request()->ip())? request()->ip() : null
-            ]);
+        $data = Consulta::create([
+            'proyecto_id' => $proyecto->id,
+            'nombre' => $nombre,
+            'email' => $email,
+            'texto' => $request->texto,
+            'ip_address' => (request()->ip())? request()->ip() : null
+        ]);
 
-            return response()->json( $data );
-
-        }
+        return response()->json( $data );
     }
 
     public function destroyConsulta($id)
@@ -537,6 +533,78 @@ class ProyectoController extends AppBaseController
     public function exportCodigos($id)
     {
         return Excel::download(new CodigosExport($id), 'codigos.xlsx');
+    }
+
+    public function verCodigos($id, $estado = null)
+    {
+        $this->data['proyecto'] = Proyecto::findOrFail($id);
+
+        if(!$this->data['proyecto']->codigos->count())
+            return redirect()->back()->withErrors('El proyecto seleccionado no tiene códigos generados');
+
+        $this->data['codigos'] = $this->data['proyecto']->codigos()->paginate(15);
+
+        if($estado == 'disponibles')
+            $this->data['codigos'] = $this->data['proyecto']->codigos()->where('user_id', null)->paginate(15);
+
+        if(!$this->data['codigos'])
+            return redirect()->back()->withErrors('No hay códigos generados en este proyecto');
+
+        return view('proyectos.codigos')->with($this->data);
+    }
+
+    public function buscarCodigo(Request $request, $id)
+    {
+        $this->data['proyecto'] = Proyecto::find($id);
+        $this->data['codigos'] = $this->data['proyecto']->codigos()->paginate(15);
+
+        $validator = Validator::make($request->input(), ['search' => 'max:8'], ['search.max' => 'La búsqueda no puede exceder los 8 caracteres']);
+
+        if ($validator->fails())
+            return redirect()->back()->withErrors('No se encontró el código. Revise que esté bien escrita su búsqueda');
+
+        $search = $request['search'];
+
+        if($search != '' && $search != ' ' && $search != null){
+
+            $this->data['result'] = Codigo::where('code','LIKE','%'.$search.'%')->orWhereHas('user', function($query) use ($search) {
+
+                $query->where('name', 'LIKE', '%'.$search.'%');
+                $query->orWhere('lastname', 'LIKE', '%'.$search.'%');
+                $query->orWhere('email', 'LIKE', '%'.$search.'%');
+
+            })->with('user')->paginate(30);
+
+            if(!$this->data['result']){
+                $this->data['result'] = null;
+            }
+
+        } else {
+            return redirect()->back();
+        }
+
+        return view('proyectos.codigos')->with($this->data);
+    }
+
+    public function updateCantidadConsultas(Request $request, $id)
+    {
+        $this->data['proyecto'] = Proyecto::find($id);
+        $cantidad = $request['cantidad'];
+
+        $this->data['proyecto']->maximas_consultas = $cantidad;
+        $this->data['proyecto']->save();
+
+        return redirect()->back();
+    }
+
+    public function updateConsultasIlimitadas($id)
+    {
+        $this->data['proyecto'] = Proyecto::find($id);
+
+        $this->data['proyecto']->maximas_consultas = null;
+        $this->data['proyecto']->save();
+
+        return redirect()->back();
     }
 
     public function changeFileNameIfExists($file)

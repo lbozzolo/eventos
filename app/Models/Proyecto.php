@@ -49,6 +49,7 @@ class Proyecto extends Entity
         'tipo_id',
         'publico',
         'fecha',
+        'maximas_consultas',
         'vistas_finalizado',
         'duracion',
     ];

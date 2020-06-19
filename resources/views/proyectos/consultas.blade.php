@@ -107,12 +107,10 @@
                                     <span class="text-gray">{!! ($consulta->email)? $consulta->email : '' !!}</span>
                                     <span class="float-right">
 
-                                        <span title="Eliminar" data-toggle="modal" data-target="#delete{!! $consulta->id !!}" class="text-danger mr-3" style="cursor: pointer">
-                                            eliminar
+                                        <span title="Eliminar" data-toggle="modal" data-target="#delete{!! $consulta->id !!}" class="text-danger" style="cursor: pointer">
                                             <i class="mdi mdi-delete mdi-18px"></i>
                                         </span>
                                         <a href="{!! route('proyectos.consultas.archivar', [$consulta->id]) !!}" class='text-dark' title="Archivar">
-                                            archivar
                                             <i class="mdi mdi-clipboard-check mdi-18px"></i>
                                         </a>
                                     </span>
