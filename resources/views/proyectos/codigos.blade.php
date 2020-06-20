@@ -98,7 +98,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                {!! Form::label('search', 'Buscar por ticket') !!}
+                                {!! Form::label('search', 'Buscar por código o inscripto') !!}
                                 {!! Form::text('search', null, ['class' => 'form-control mr-sm-2', 'autocomplete' => 'off', 'style' => 'border: 1px solid lightgray']) !!}
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                             @if($user->user)
                                                 <p class="text-danger text-center code">{!! $user->code !!}</p>
                                             @else
-                                                <p class="text-black text-center code">{!! $user->code !!}</p>
+                                                <p class="text-center disponible">{!! $user->code !!}</p>
                                             @endif
                                         </td>
                                         <td class="text-left">

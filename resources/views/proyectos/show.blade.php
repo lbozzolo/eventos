@@ -5,7 +5,6 @@
     <div class="row">
 
         @if($item->codigos->count() == 0 && $item->tipoProyecto() == 'Pago')
-
             <div class="col-lg-12">
                 <div class="alert alert-warning alert-dismissible">
                     <button class="close" type="button" data-dismiss="alert" aria-hidden="true">x</button>
@@ -15,8 +14,19 @@
                         Generar ahora</button>
                 </div>
             </div>
-
         @endif
+
+            @if($item->inscriptos->count() >= 0 && $item->maximas_consultas >= 0)
+                <div class="col-lg-12">
+                    <div class="alert alert-warning alert-dismissible">
+                        <button class="close" type="button" data-dismiss="alert" aria-hidden="true">x</button>
+                        <i class="icon mdi mdi-alert text-danger"></i>
+                        <span class="text-danger">ATENCIÓN. Este evento tiene más de 1000 inscriptos.</span><br>
+                        Se recomienda configurar el máximo de consultas permitidas en 2 (o menos) para no saturar los servidores y optimizar el rendimiento.
+                    </div>
+                </div>
+            @endif
+
         <div class="col-lg-12">
             <div class="card grid-margin">
 
