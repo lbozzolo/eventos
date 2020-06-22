@@ -57,4 +57,24 @@ class ProyectoRepository extends BaseRepository
         return $result;
     }
 
+    public function filterByMaxUsers(Proyecto $proyecto, $consultasTotal)
+    {
+        $inscriptos = $proyecto->inscriptos->count();
+        $maximasConsultas = $proyecto->maximas_consultas;
+
+        // Si el número de inscriptos es mayor a 1000 y las consultas hechas son 3 o más
+        if($inscriptos > 999 && $inscriptos < 1500 && ($consultasTotal >= 3 || !$consultasTotal))
+            $maximasConsultas = 3;
+
+        // Si el número de inscriptos es mayor a 1500 y las consultas hechas son 2 o más
+        if($inscriptos >= 1500 && $inscriptos < 2000 && ($consultasTotal >= 2 || !$consultasTotal))
+            $maximasConsultas = 2;
+
+        // Si el número de inscriptos es mayor a 2000 y ya se hizo como mínimo 1 consulta
+        if($inscriptos >= 2000 && ($consultasTotal >= 1 || !$consultasTotal))
+            $maximasConsultas = 1;
+
+        return $maximasConsultas;
+    }
+
 }

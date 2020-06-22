@@ -16,17 +16,6 @@
             </div>
         @endif
 
-            @if($item->inscriptos->count() >= 0 && $item->maximas_consultas >= 0)
-                <div class="col-lg-12">
-                    <div class="alert alert-warning alert-dismissible">
-                        <button class="close" type="button" data-dismiss="alert" aria-hidden="true">x</button>
-                        <i class="icon mdi mdi-alert text-danger"></i>
-                        <span class="text-danger">ATENCIÓN. Este evento tiene más de 1000 inscriptos.</span><br>
-                        Se recomienda configurar el máximo de consultas permitidas en 2 (o menos) para no saturar los servidores y optimizar el rendimiento.
-                    </div>
-                </div>
-            @endif
-
         <div class="col-lg-12">
             <div class="card grid-margin">
 
@@ -187,11 +176,17 @@
                                     <div class="form-group mb-0">
                                         <p style="border-bottom: 1px dashed gray">
                                             Máximo de consultas por inscripto
+
+                                            <span data-toggle="tooltip"
+                                                  title="Superados los 1000 inscriptos el sistema ajustará automáticamente el máximo de consultas
+                                                 permitidas para evitar saturaciones en el servidor y optimizar su rendimiento">
+                                                <i class="mdi mdi-information-outline text-danger"></i>
+                                            </span>
+
                                             <span class="float-right">
                                                 @if($item->maximas_consultas)
                                                     {!! $item->maximas_consultas !!}
                                                 @else
-                                                    {{--<span class="badge badge-info">ilimitado</span>--}}
                                                     <em class="text-gray"><small>ilimitado</small></em>
                                                 @endif
                                             </span>
@@ -240,6 +235,10 @@
 @section('js')
 
     <script>
+
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
 
         $('.select2').select2({
             multiple: true

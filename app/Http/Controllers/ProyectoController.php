@@ -330,8 +330,13 @@ class ProyectoController extends AppBaseController
         $proyecto = Proyecto::find($request->proyecto_id);
         $consultasTotal = Consulta::where('ip_address', '=',request()->ip())->where('proyecto_id', $proyecto->id)->count();
 
-        if($consultasTotal >= $proyecto->maximas_consultas)
-            return response()->json(['errors' => ['Lo sentimos. Sólo pueden realizarse '.$proyecto->maximas_consultas.' consultas por persona en este evento.']]);
+        $restriccionConsultas = $this->repo->filterByMaxUsers($proyecto, $consultasTotal);
+
+        // Si el usuario excede la cantidad de consultas permitidas en el evento
+        if($restriccionConsultas && $consultasTotal >= $restriccionConsultas){
+            $mensaje = ($restriccionConsultas == 1)? 'Lo sentimos. Sólo puede realizarse una consulta por persona en este evento.' : 'Lo sentimos. Sólo pueden realizarse '.$restriccionConsultas.' consultas por persona en este evento.';
+            return response()->json(['errors' => [$mensaje]]);
+        }
 
         $nombre = ($proyecto->tipoProyecto() == 'Público')? $request->nombre : Auth::user()->fullname;
         $email = ($proyecto->tipoProyecto() == 'Público')? $request->email : Auth::user()->email;

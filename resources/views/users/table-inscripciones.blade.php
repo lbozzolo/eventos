@@ -140,6 +140,7 @@
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
         });
+
     </script>
 
     @role('Superadmin|Admin')
