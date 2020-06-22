@@ -13,7 +13,7 @@
                     <div class="pl-3">
 
                         <span class="text-azul-claro lead">{!! $charla->categorias->first()->nombre !!}</span>
-                        <h2 class="mb-0">{!! $charla->nombre !!} / {!! $charla->cliente->nombre !!}</h2>
+                        <h2 class="mb-0">{!! $charla->nombre !!} / {!! ($charla->cliente)? $charla->cliente->nombre : '' !!}</h2>
                         <p class="lead text-black">{!! $charla->descripcion !!}</p>
 
                     </div>
