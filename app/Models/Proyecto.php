@@ -168,7 +168,7 @@ class Proyecto extends Entity
 
     public function getClienteSlugAttribute()
     {
-        return str_slug($this->cliente->nombre);
+        return ($this->cliente)? str_slug($this->cliente->nombre) : '-';
     }
 
     public function getNombreSlugAttribute()
