@@ -118,7 +118,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <span class="text-primary">Cliente</span><br>
-                                    <p class="lead">{!! $item->cliente->nombre !!}</p>
+                                    <p class="lead">{!! ($item->cliente)? $item->cliente->nombre : '' !!}</p>
                                 </div>
                                 <div class="col-lg-6">
                                     <span class="text-info">Categoría</span><br>
