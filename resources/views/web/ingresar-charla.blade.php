@@ -53,6 +53,7 @@
                     <div class="row">
                         <div class="container">
                             <h4>
+                                <span class="text-dark-green">Volver a ver - </span>
                                 <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
                                 - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
                             </h4>
@@ -85,7 +86,7 @@
                 <div class="row">
                     <div class="container">
                         <h4>
-                            <span class="text-azul-claro">Volver a ver</span>
+                            <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
                             - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
                         </h4>
                         <p class="lead">Este evento comienza el {!! $charla->fecha !!} a las {!! $charla->hora !!} hs</p>
