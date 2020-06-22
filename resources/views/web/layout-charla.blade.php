@@ -22,7 +22,7 @@
                             </a>
                         </div>
                         <div class="float-right">
-                            <p>{!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})</p>
+                            <p>{!! $charla->nombre !!}  ({!! ($charla->cliente)? $charla->cliente->nombre : '' !!})</p>
                             <a href="{!! route('home') !!}">eventum.com.ar</a>
                             <p class="mb-0"> &copy; 2020 Derechos en Trámite. Desarrollado por
                                 <a href="http://verticedigital.com.ar/" target="_new">Vértice Digital</a>
