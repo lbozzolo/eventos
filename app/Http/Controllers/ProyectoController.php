@@ -27,6 +27,7 @@ use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Eventos\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -158,6 +159,7 @@ class ProyectoController extends AppBaseController
         $estado = Estado::find($request['estado_id']);
 
         $inputs = $request->all();
+
         $inputs['fecha'] = Carbon::parse($inputs['fecha'])->format('Y-m-d H:i');
 
         if(!isset($inputs['publico']))
@@ -178,6 +180,12 @@ class ProyectoController extends AppBaseController
                 $proyecto->save();
             }
         }
+
+//        if($estado->slug == 'finalizado' && !$this->data['item']->dateIsPast()){
+//            $activo = Estado::where('slug', 'activo')->first();
+//            $this->data['item']->estado_id = $activo->id;
+//            $this->data['item']->save();
+//        }
 
         if($estado->slug != 'finalizado' && $this->data['item']->dateIsPast()){
             $finalizado = Estado::where('slug', 'finalizado')->first();
@@ -381,6 +389,15 @@ class ProyectoController extends AppBaseController
         $conectados = $proyecto->connected();
         $porcentaje = $proyecto->connectedPercentage();
 
+        // Seteo los asistentes
+        foreach($proyecto->inscriptos as $user){
+            if($user->isOnline()){
+                $inscripcion = $user->proyectos()->find($proyecto->id)->pivot;
+                $inscripcion->attendment = 1;
+                $inscripcion->save();
+            }
+        }
+
         if($proyecto->isGoingOn())
             $this->repo->recordAmountUsersOnline($proyecto->id, $conectados);
 
@@ -572,13 +589,17 @@ class ProyectoController extends AppBaseController
 
         if($search != '' && $search != ' ' && $search != null){
 
-            $this->data['result'] = Codigo::where('code','LIKE','%'.$search.'%')->orWhereHas('user', function($query) use ($search) {
+            $result = Codigo::where('code','LIKE','%'.$search.'%')->orWhereHas('user', function($query) use ($search) {
 
                 $query->where('name', 'LIKE', '%'.$search.'%');
                 $query->orWhere('lastname', 'LIKE', '%'.$search.'%');
                 $query->orWhere('email', 'LIKE', '%'.$search.'%');
 
             })->with('user')->paginate(30);
+
+            $this->data['result'] = $result->filter(function ($item) use ($id) {
+                return $item->proyecto_id == $id;
+            });
 
             if(!$this->data['result']){
                 $this->data['result'] = null;

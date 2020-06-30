@@ -2,6 +2,7 @@
 
 namespace Eventos\Repositories;
 
+use Eventos\Models\Codigo;
 use Eventos\Models\Proyecto;
 use InfyOm\Generator\Common\BaseRepository;
 use Carbon\Carbon;
@@ -75,6 +76,19 @@ class ProyectoRepository extends BaseRepository
             $maximasConsultas = 1;
 
         return $maximasConsultas;
+    }
+
+    public function invalidCode($code, $userEmail)
+    {
+        $codigo = Codigo::where('code', $code)->first();
+        $message = (!$codigo)? 'Código erróneo' : false;
+
+        if($codigo){
+            if($codigo->user && $codigo->user->email != $userEmail)
+                $message = 'El código especificado ya ha sido identificado con otro email';
+        }
+
+        return $message;
     }
 
 }

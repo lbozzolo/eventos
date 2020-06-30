@@ -93,14 +93,14 @@ class WebController extends AppBaseController
             $this->userRepository->sendInscripcionEmail($user, $id);
         }
 
-        if($this->data['charla']->isGoingOn()){
-
-            $inscripciones = Auth::user()->proyectos()->where('proyecto_id', $this->data['charla']->id)->get();
-            foreach($inscripciones as $inscripcion){
-                $inscripcion->pivot->attendment = 1;
-                $inscripcion->pivot->save();
-            }
-        }
+//        if($this->data['charla']->isGoingOn()){
+//
+//            $inscripciones = Auth::user()->proyectos()->where('proyecto_id', $this->data['charla']->id)->get();
+//            foreach($inscripciones as $inscripcion){
+//                $inscripcion->pivot->attendment = 1;
+//                $inscripcion->pivot->save();
+//            }
+//        }
 
         // Si el evento está finalizado incremento las vistas en 1
         if($this->data['charla']->isFinished()){
@@ -390,16 +390,21 @@ class WebController extends AppBaseController
 
             if(isset($request['code'])){
 
-                $codigo = Codigo::where('code', $request['code'])->first();
+                $invalid = $this->projectRepository->invalidCode($request['code'], $request['email']);
 
-                // Si el código no existe redirecciono con código erróneo
-                if(!$codigo)
-                    return redirect()->back()->withErrors('Código erróneo');
+                if($invalid)
+                    return redirect()->back()->withErrors($invalid);
 
-                // Si el código ya fue utilizado por ptra persona
-                //====================================================
-                if($codigo->user && $codigo->user->email != $request['email'])
-                    return redirect()->back()->withErrors('El código especificado ya ha sido identificado con otro email');
+//                $codigo = Codigo::where('code', $request['code'])->first();
+//
+//                // Si el código no existe redirecciono con código erróneo
+//                if(!$codigo)
+//                    return redirect()->back()->withErrors('Código erróneo');
+//
+//                // Si el código ya fue utilizado por otra persona
+//                //====================================================
+//                if($codigo->user && $codigo->user->email != $request['email'])
+//                    return redirect()->back()->withErrors('El código especificado ya ha sido identificado con otro email');
 
                 //==============================================
                 // Si el código NO fue utilizado creo el usuario
@@ -447,6 +452,21 @@ class WebController extends AppBaseController
 
         // Si el Usuario existe
         //=====================
+
+        // ¿Es un evento pago?
+        if(isset($request['code'])){
+
+            $invalid = $this->projectRepository->invalidCode($request['code'], $request['email']);
+
+            if($invalid)
+                return redirect()->back()->withErrors($invalid);
+
+            // Le asigno el código al usuario
+            $codigo = Codigo::where('code', $request['code'])->first();
+            $this->data['user'] = $userAttempt;
+            $this->data['user']->codigo()->save($codigo);
+
+        }
 
         // Si es el primer logueo
         if($userAttempt->name == $userAttempt->email){
@@ -558,8 +578,8 @@ class WebController extends AppBaseController
     {
         $this->data['item'] = Proyecto::find(2);
         $this->data['item2'] = Proyecto::find(1);
-        return view('proyectos.reportes-fake')->with($this->data);
 
+        return view('proyectos.reportes-fake')->with($this->data);
     }
 
 }

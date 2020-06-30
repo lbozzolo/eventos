@@ -28,7 +28,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 text-center">
-                    <nav class="pagination-area" style="margin-top: 50px">
+                    <nav class="pagination-area" style="margin: 50px 0px">
 
                         {!! $proyectos->render() !!}
 

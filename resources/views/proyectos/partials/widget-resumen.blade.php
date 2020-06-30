@@ -51,8 +51,12 @@
                     @endif
                     <tr>
                         <td>
-                            Se ha visualizado
-                            {!! ($item->vistas_finalizado == 1)? $item->vistas_finalizado.' vez' : $item->vistas_finalizado.' veces' !!} en diferido
+                            @if($item->vistas_finalizado)
+                                Se ha visualizado
+                                {!! ($item->vistas_finalizado == 1)? $item->vistas_finalizado.' vez' : $item->vistas_finalizado.' veces' !!} en diferido
+                            @else
+                                No hay vistas en diferido
+                            @endif
                         </td>
                         <td></td>
                     </tr>

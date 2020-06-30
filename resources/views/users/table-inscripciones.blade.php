@@ -45,7 +45,9 @@
                         @if($item->dni && !$item->paidUser())
                             <span class="text-primary">dni: </span>{!! $item->dni !!}
                         @else
+                            @if($item->dni)
                             <span class="text-primary">código: </span>{!! $item->dni !!}
+                            @endif
                         @endif
                     </div>
                 </div>
