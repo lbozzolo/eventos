@@ -19,33 +19,44 @@
     @if(\Carbon\Carbon::now()->addHours(1)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
 
         @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i') && !$charla->videos->count())
-        <section class="pb-40 pt-2">
-            <div class="pl-2 pr-2">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-7">
+
+            <section class="pb-40 pt-2">
+                <div class="pl-2 pr-2">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-7">
 
                             @include('web.components.iframe')
 
-                    </div>
-                    <div class="col-lg-5">
-                        <div style="margin-top: 0px; padding-top: 0px">
+                        </div>
+                        <div class="col-lg-5">
+                            <div style="margin-top: 0px; padding-top: 0px">
 
-                            <div class="card-body">
+                                <div class="card-body">
 
-                                <h4>
-                                    <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
-                                    - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
-                                </h4>
+                                    <ul class="nav nav-pills mb-3 " id="pills-tab" role="tablist">
+                                        @foreach($charla->iframes as $iframe)
+                                            <li class="nav-item">
+                                                <a class="nav-link @if ($loop->first) active @endif  show" id="" data-toggle="pill" href="#iframe{!! $iframe->id !!}" role="tab"
+                                                   aria-controls="pills-home" aria-selected="true">{!! $iframe->title !!}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
 
-                                @include('web.components.consulta')
+                                    <h4>
+                                        <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
+                                        - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
+                                    </h4>
+
+                                    @include('web.components.consulta')
+
+                                </div>
 
                             </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
         @else
 
             <section class="pb-40 pt-2">
@@ -171,6 +182,8 @@
 
         $("#btnSubmit").click(function() {
 
+            var iframe = $('#iframe').children("option:selected").val();
+
             $.ajax({
                 type: 'post',
                 url: '{!! route('proyectos.store.consulta') !!}',
@@ -180,8 +193,13 @@
                     'email': $('input[name=email]').val(),
                     'texto': $('#texto').val(),
                     'proyecto_id': $('input[name=proyecto_id]').val(),
+                    'iframe_id': iframe,
                 },
+
                 success: function(data) {
+
+                    console.log(data);
+
                     if ((data.errors)) {
 
                         let errorString = [];

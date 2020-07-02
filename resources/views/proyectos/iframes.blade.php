@@ -16,7 +16,7 @@
 
                         <div class="form-group">
                             {!! Form::label('title', 'Título o descripción') !!}
-                            {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                            {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'SALA 1 / SALA 2 . . .']) !!}
                         </div>
 
                         <div class="form-group"  id="videos-input">
@@ -46,6 +46,7 @@
                     <div class="row mt-3">
                         <div class="col-lg-12">
                             <button class="btn btn-danger d-inline-block" title="Eliminar video" data-toggle="modal" data-target="#modalDeleteVideo{!! $video->id !!}">Eliminar</button>
+                            <button class="btn btn-primary d-inline-block" title="Editar video" data-toggle="modal" data-target="#modalEditVideo{!! $video->id !!}">Editar</button>
                             <a href="{!! $video->path !!}" class="btn btn-secondary" target="_blank">Ver</a>
                         </div>
                     </div>
@@ -87,6 +88,32 @@
                         {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
                         {!! Form::close() !!}
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalEditVideo{!! $video->id !!}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Editar iframe</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {!! Form::open(['method' => 'PATCH', 'url' => route('proyectos.iframes.update', $video->id)]) !!}
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            {!! Form::label('title', 'Título o descripción') !!}
+                            {!! Form::text('title', $video->title, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                        {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
+                    </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

@@ -8,7 +8,13 @@
         <div class="text-success" id="table" style="display: none;"></div>
     </div>
 
-{{--    @if($charla->publico)--}}
+    @if($charla->iframes->count() > 1)
+        <div class="form-group" style="padding-bottom: 30px">
+            {!! Form::label('iframe_id', 'Seleccione la sala en la cual desea efectuar su consulta') !!}
+            {!! Form::select('iframe_id', $charla->iframes->pluck('title', 'id'), null, ['class' => 'form-control', 'id' => 'iframe']) !!}
+        </div>
+    @endif
+
     @if($charla->tipoProyecto() == 'Público')
         <div class="form-group">
             {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email', 'id' => 'email']) !!}

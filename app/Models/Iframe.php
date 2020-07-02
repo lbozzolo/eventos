@@ -29,4 +29,9 @@ class Iframe extends Entity
         return $this->belongsTo(Proyecto::class);
     }
 
+    public function consultas()
+    {
+        return $this->hasMany(Consulta::class);
+    }
+
 }

@@ -357,6 +357,11 @@ class ProyectoController extends AppBaseController
             'ip_address' => (request()->ip())? request()->ip() : null
         ]);
 
+        if(isset($request['iframe_id'])){
+            $iframe = Iframe::find($request['iframe_id']);
+            $iframe->consultas()->save($data);
+        }
+
         return response()->json( $data );
     }
 
@@ -631,6 +636,29 @@ class ProyectoController extends AppBaseController
         $this->data['proyecto']->save();
 
         return redirect()->back();
+    }
+
+    public function updateIframe(Request $request, $id)
+    {
+        $rules = array (
+            'title' => 'required|max:191',
+        );
+
+        $messages = array (
+            'title.max' => 'El título o descripción no puede exceder los 191 caracteres',
+            'title.required' => 'El título o descripción está vacío'
+        );
+
+        $validator = Validator::make( $request->input(), $rules, $messages);
+
+        if ($validator->fails())
+            return redirect()->back()->withErrors( $validator);
+
+        $iframe = Iframe::find($id);
+        $iframe->title = $request['title'];
+        $iframe->save();
+
+        return redirect()->back()->with('ok', 'Iframe editado con éxito');
     }
 
     public function changeFileNameIfExists($file)

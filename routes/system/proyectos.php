@@ -160,6 +160,11 @@ Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
         'uses' => 'ProyectoController@updateConsultasIlimitadas'
     ]);
 
+    Route::patch('iframe/{id}/update', [
+        'as' => 'proyectos.iframes.update',
+        'uses' => 'ProyectoController@updateIframe'
+    ]);
+
 //    Route::get('/exportacion-inscriptos/{id}', function () {
 //        return \Maatwebsite\Excel\Facades\Excel::download(new \Eventos\Exports\InscriptosExport(), 'inscriptos.xlsx');
 //    });

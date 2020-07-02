@@ -11,6 +11,7 @@ class Consulta extends Entity
 
     public $fillable = [
         'proyecto_id',
+        'iframe_id',
         'nombre',
         'email',
         'texto',
@@ -34,6 +35,11 @@ class Consulta extends Entity
     public function proyectos()
     {
         return $this->belongsTo(Proyecto::class);
+    }
+
+    public function iframe()
+    {
+        return $this->belongsTo(Iframe::class);
     }
 
 }
