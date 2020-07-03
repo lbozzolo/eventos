@@ -502,9 +502,11 @@ class ProyectoController extends AppBaseController
     public function inscripciones($id)
     {
         $proyecto = Proyecto::find($id);
-        $this->data['items'] =  $proyecto->inscriptos;
+        $this->data['items'] =  $proyecto->inscriptos()->paginate(10);
         $this->data['proyectoActual'] = $proyecto->nombre;
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
+
+//        dd($this->data['items']);
 
         return view('users.inscripciones')->with($this->data);
     }

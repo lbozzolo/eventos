@@ -88,7 +88,7 @@
 
     <div class="row">
 
-        <div class="col-lg-6 grid-margin">
+        <div class="col-lg-7 grid-margin">
 
             <h4 class="card card-body" style="border-top: 3px solid darkcyan">Recientes ({!! $item->consultas()->where('archivado', null)->count() !!})</h4>
 
@@ -136,7 +136,7 @@
                 </div>
 
         </div>
-        <div class="col-lg-6 grid-margin">
+        <div class="col-lg-5 grid-margin">
 
             <h4 class="card card-body " style="border-top: 3px solid orange">Archivadas ({!! $item->consultas()->where('archivado', 1)->count() !!})</h4>
 

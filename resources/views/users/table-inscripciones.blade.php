@@ -3,20 +3,17 @@
 @endrole
 
 @role('Superadmin|Admin')
-<table class="table table-striped">
+<table class="table table-striped table-condensed">
 @endrole
-    <thead>
+    <thead class="bg-dark text-white">
     <tr>
-        @role('Superadmin|Admin')
-        <th style="width: 20px"></th>
-        @endrole
         <th class="text-center" style="width: 400px">Usuario</th>
         <th>Contacto</th>
         <th>Origen</th>
-        <th style="width: 150px">Inscripciones</th>
+        {{--<th style="width: 150px">Inscripciones</th>--}}
         <th style="width: 150px">Alta</th>
         @role('Superadmin|Admin')
-        <th>Opciones</th>
+        <th style="width: 150px">Opciones</th>
         @endrole
     </tr>
     </thead>
@@ -25,15 +22,15 @@
 
         <tr>
 
-            @role('Superadmin|Admin')
-            <td class="user text-right" id="{!! $item->id !!}">
-                <i class="mdi mdi-checkbox-blank-circle-outline text-danger"></i>
-            </td>
-            @endrole
             <td>
                 <div class="row">
                     <div class="col-lg-4 text-right">
                         <span>{!! $item->id !!}</span>
+                        @role('Superadmin|Admin')
+                        <span  class="user ml-3" id="{!! $item->id !!}">
+                            <i class="mdi mdi-checkbox-blank-circle-outline text-danger"></i>
+                        </span>
+                        @endrole
                     </div>
                     <div class="col-lg-8 text-left">
                         @if($item->fullname == 'Usuario anónimo')
@@ -54,9 +51,18 @@
             </td>
             <td>
                 @if(!$item->paidUser())
-                    <span>{!! $item->email !!}</span>
+                    @if($item->email)
+                        <span>{!! $item->email !!}</span>
+                    @else
+                        <em class="text-gray"><small>email no disponible</small></em>
+                    @endif
+
                     <br>
-                    <span>tel: {!! $item->phone !!}</span>
+                    @if($item->phone)
+                        <span>tel: {!! $item->phone !!}</span>
+                    @else
+                        tel: <em class="text-gray"><small>no disponible</small></em>
+                    @endif
                 @else
                     -
                 @endif
@@ -64,19 +70,19 @@
             <td>
                 @if(!$item->paidUser())
                     {!! ($item->localidad)? $item->localidad.'. ' : '' !!}<br>
-                    {!! $item->pais_origen !!}
+                    <small class="text-dark">{!! $item->pais_origen !!}</small>
                 @else
                     -
                 @endif
             </td>
-            <td>
-                @if($item->proyectos->count())
-                    <span data-toggle="tooltip" class="btn btn-outline-dark btn-sm"
-                          title="• @foreach($item->proyectos as $proyecto) {!! $proyecto->nombre !!}  •  @endforeach">Eventos ({!! $item->proyectos->count() !!})</span>
-                @else
-                    <small><em class="text-gray">ninguna</em> </small>
-                @endif
-            </td>
+            {{--<td>--}}
+                {{--@if($item->proyectos->count())--}}
+                    {{--<span data-toggle="tooltip" class="btn btn-outline-dark btn-sm"--}}
+                          {{--title="• @foreach($item->proyectos as $proyecto) {!! $proyecto->nombre !!}  •  @endforeach">Eventos ({!! $item->proyectos->count() !!})</span>--}}
+                {{--@else--}}
+                    {{--<small><em class="text-gray">ninguna</em> </small>--}}
+                {{--@endif--}}
+            {{--</td>--}}
             <td>{!! $item->fecha_creado !!}</td>
             @role('Superadmin|Admin')
             <td>
