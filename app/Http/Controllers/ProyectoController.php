@@ -505,8 +505,7 @@ class ProyectoController extends AppBaseController
         $this->data['items'] =  $proyecto->inscriptos()->paginate(10);
         $this->data['proyectoActual'] = $proyecto->nombre;
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
-
-//        dd($this->data['items']);
+        $this->data['total'] = $proyecto->inscriptos->count();
 
         return view('users.inscripciones')->with($this->data);
     }

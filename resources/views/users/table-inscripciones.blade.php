@@ -1,3 +1,6 @@
+@if(isset($total))
+    <p>Total de inscripciones: {!! $total !!}</p>
+@endif
 @role('Cliente')
 <table class="table datatables">
 @endrole
@@ -5,6 +8,7 @@
 @role('Superadmin|Admin')
 <table class="table table-striped table-condensed">
 @endrole
+
     <thead class="bg-dark text-white">
     <tr>
         <th class="text-center" style="width: 400px">Usuario</th>
