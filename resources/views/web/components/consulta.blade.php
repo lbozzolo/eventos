@@ -1,6 +1,7 @@
 {!! Form::open(['url' => route('proyectos.store.message', $charla->id), 'method' => 'post', 'id' => 'form-consulta']) !!}
 
     {!! Form::hidden('proyecto_id', $charla->id) !!}
+    {!! Form::hidden('iframe', $charla->iframes->first()->id, ['id' => 'iframeid']) !!}
 
     <div class="form-group">
         <div id="error"></div>
@@ -8,12 +9,12 @@
         <div class="text-success" id="table" style="display: none;"></div>
     </div>
 
-    @if($charla->iframes->count() > 1)
-        <div class="form-group" style="padding-bottom: 30px">
-            {!! Form::label('iframe_id', 'Seleccione la sala en la cual desea efectuar su consulta') !!}
-            {!! Form::select('iframe_id', $charla->iframes->pluck('title', 'id'), null, ['class' => 'form-control', 'id' => 'iframe']) !!}
-        </div>
-    @endif
+    {{--@if($charla->iframes->count() > 1)--}}
+        {{--<div class="form-group" style="padding-bottom: 30px">--}}
+            {{--{!! Form::label('iframe_id', 'Seleccione la sala en la cual desea efectuar su consulta') !!}--}}
+            {{--{!! Form::select('iframe_id', $charla->iframes->pluck('title', 'id'), null, ['class' => 'form-control', 'id' => 'iframe']) !!}--}}
+        {{--</div>--}}
+    {{--@endif--}}
 
     @if($charla->tipoProyecto() == 'Público')
         <div class="form-group">

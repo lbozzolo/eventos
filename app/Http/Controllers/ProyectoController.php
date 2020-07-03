@@ -270,9 +270,13 @@ class ProyectoController extends AppBaseController
         return redirect()->back()->with('ok', 'Video guardado con éxito');
     }
 
-    public function consultas($id)
+    public function consultas($id, $sala = null)
     {
         $this->data['item'] = Proyecto::find($id);
+        $this->data['recientes'] = $this->data['item']->consultasRecientes($sala);
+        $this->data['archivadas'] = $this->data['item']->consultasArchivadas($sala);
+        $this->data['sala'] = $sala;
+
         return view($this->modelPlural.'.consultas')->with($this->data);
     }
 

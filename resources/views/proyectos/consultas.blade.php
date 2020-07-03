@@ -90,14 +90,32 @@
 
         <div class="col-lg-7 grid-margin">
 
-            <h4 class="card card-body" style="border-top: 3px solid darkcyan">Recientes ({!! $item->consultas()->where('archivado', null)->count() !!})</h4>
+            <div class="card" style="border-top: 3px solid darkcyan">
+
+                <div class="card-body">
+
+                    @if($item->iframes->count() > 1)
+                    <span class="float-right">
+                        @foreach($item->iframes as $iframe)
+                            <a href="{!! route('proyectos.consultas', ['id' => $item->id, 'sala' => $iframe->id]) !!}"
+                               class="btn btn-sm btn-outline-dark @if(isset($sala) && ($sala == $iframe->id)) active  @endif">{!! $iframe->title !!}</a>
+                        @endforeach
+                    </span>
+                    @endif
+
+                    <h4>Recientes ({!! $item->consultas()->where('archivado', null)->count() !!})</h4>
+
+                </div>
+
+            </div>
+
 
             <div class="card-body bg-light" style="border: 1px solid lightgray; max-height: 800px; overflow: scroll">
 
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                            @forelse($item->consultasRecientes()->sortByDesc('id') as $consulta)
+                            @forelse($recientes->sortByDesc('id') as $consulta)
                                 <tr class="bg-white">
                                     <td style=" padding-top: 5px; padding-bottom: 5px">
                                         @if($consulta->iframe)
@@ -138,14 +156,18 @@
         </div>
         <div class="col-lg-5 grid-margin">
 
-            <h4 class="card card-body " style="border-top: 3px solid orange">Archivadas ({!! $item->consultas()->where('archivado', 1)->count() !!})</h4>
+            <div class="card" style="border-top: 3px solid orange">
+                <div class="card-body">
+                    <h4>Archivadas ({!! $item->consultas()->where('archivado', 1)->count() !!})</h4>
+                </div>
+            </div>
 
             <div class="card-body bg-light" style="border: 1px solid lightgray; max-height: 800px; overflow: scroll">
 
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                            @forelse($item->consultasArchivadas()->sortByDesc('id') as $consulta)
+                            @forelse($archivadas->sortByDesc('id') as $consulta)
                                 <tr class="bg-white">
                                     <td style=" padding-top: 5px; padding-bottom: 5px">
                                         @if($consulta->iframe)

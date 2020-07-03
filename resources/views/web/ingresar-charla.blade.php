@@ -36,7 +36,7 @@
                                     <ul class="nav nav-pills mb-3 " id="pills-tab" role="tablist">
                                         @foreach($charla->iframes as $iframe)
                                             <li class="nav-item">
-                                                <a class="nav-link @if ($loop->first) active @endif  show" id="" data-toggle="pill" href="#iframe{!! $iframe->id !!}" role="tab"
+                                                <a class="nav-link @if ($loop->first) active @endif  show sala" data-id="{!! $iframe->id !!}" data-toggle="pill" href="#iframe{!! $iframe->id !!}" role="tab"
                                                    aria-controls="pills-home" aria-selected="true">{!! $iframe->title !!}</a>
                                             </li>
                                         @endforeach
@@ -179,10 +179,18 @@
             $("#btnSubmit").prop('disabled', true);
         };
 
+        $('.sala').click(function () {
+
+            let iframeid = $(this).attr('data-id');
+            console.log(iframeid);
+            $('#iframeid').val(iframeid);
+
+        });
 
         $("#btnSubmit").click(function() {
 
             var iframe = $('#iframe').children("option:selected").val();
+            var iframeid = $('#iframeid').val();
 
             $.ajax({
                 type: 'post',
@@ -193,7 +201,7 @@
                     'email': $('input[name=email]').val(),
                     'texto': $('#texto').val(),
                     'proyecto_id': $('input[name=proyecto_id]').val(),
-                    'iframe_id': iframe,
+                    'iframe_id': iframeid,
                 },
 
                 success: function(data) {

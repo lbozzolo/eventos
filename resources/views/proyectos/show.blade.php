@@ -150,20 +150,24 @@
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6 grid-margin text-center card card-body">
 
                             <div class="text-left">
-                                <div style="border: 1px solid lightgray; border-radius: 5px; padding: 10px 20px">
+                                <div style="border: 1px solid darkcyan; border-radius: 5px; padding: 10px 20px">
                                     <span>Inscriptos ({!! $item->inscriptos->count() !!})</span>
                                     <span class="float-right">
                                         <a href="{!! route('proyectos.export.inscriptos', $item->id) !!}" class="btn btn-xs btn-outline-secondary">
                                             <i class="mdi mdi-file-excel"></i> exportar</a>
-                                        <a href="{!! route('proyectos.inscripciones', $item->id) !!}" class="btn btn-xs btn-outline-primary">ver</a>
+                                        <a href="{!! route('proyectos.inscripciones', $item->id) !!}" class="btn btn-xs btn-success">ver</a>
                                     </span>
                                 </div>
-                                <div style="border: 1px solid lightgray; border-radius: 5px; padding: 10px 20px" class="mt-2">
+                                <div style="border: 1px solid orange; border-radius: 5px; padding: 10px 20px" class="mt-2">
                                     <span>Consultas ({!! $item->consultas->count() !!})</span>
                                     <span class="float-right">
                                         <a href="{!! route('proyectos.export.consultas', $item->id) !!}" class="btn btn-xs btn-outline-secondary">
                                             <i class="mdi mdi-file-excel"></i>exportar</a>
-                                        <a href="{!! route('proyectos.consultas', $item->id) !!}" class="btn btn-xs btn-outline-primary">ver</a>
+                                        @if($item->iframes->count() > 1)
+                                            <a href="{!! route('proyectos.consultas', ['id' => $item->id, 'sala' => $item->iframes->first()]) !!}" class="btn btn-xs btn-warning">ver</a>
+                                        @else
+                                            <a href="{!! route('proyectos.consultas', ['id' => $item->id]) !!}" class="btn btn-xs btn-warning">ver</a>
+                                        @endif
                                     </span>
                                 </div>
                             </div>

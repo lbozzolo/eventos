@@ -159,14 +159,16 @@ class Proyecto extends Entity
         return $this->where('estado_id', '=', $activo);
     }
 
-    public function scopeConsultasArchivadas()
+    public function scopeConsultasArchivadas($query, $sala = null)
     {
-        return $this->consultas()->where('archivado', '=', 1)->get();
+        $query = ($sala)? $this->consultas()->where('iframe_id', $sala)->where('archivado', '=', 1) : $this->consultas()->where('archivado', '=', 1);
+        return $query->get();
     }
 
-    public function scopeConsultasRecientes()
+    public function scopeConsultasRecientes($query, $sala = null)
     {
-        return $this->consultas()->where('archivado', '=', null)->paginate(9);
+        $query = ($sala)? $this->consultas()->where('iframe_id', $sala)->where('archivado', '=', null) : $this->consultas()->where('archivado', '=', null);
+        return $query->paginate(9);
     }
 
     public function auspiciantesShuffle()

@@ -100,7 +100,7 @@ Route::group(['middleware' => ['can:editar_proyectos']], function () {
 
 Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
 
-    Route::get('proyectos/{id}/consultas', [
+    Route::get('proyectos/{id}/consultas/{sala?}', [
         'as' => 'proyectos.consultas',
         'uses' => 'ProyectoController@consultas'
     ]);
