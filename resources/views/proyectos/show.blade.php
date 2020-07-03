@@ -150,24 +150,22 @@
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6 grid-margin text-center card card-body">
 
                             <div class="text-left">
-                                <p style="border-bottom: 1px dashed gray">
-                                    Inscriptos
-                                    <span class="float-right text-primary">
-                                        <a href="{!! route('proyectos.inscripciones', $item->id) !!}">
-                                        {!! $item->inscriptos->count() !!}
-                                        </a>
+                                <div style="border: 1px solid lightgray; border-radius: 5px; padding: 10px 20px">
+                                    <span>Inscriptos ({!! $item->inscriptos->count() !!})</span>
+                                    <span class="float-right">
+                                        <a href="{!! route('proyectos.export.inscriptos', $item->id) !!}" class="btn btn-xs btn-outline-secondary">
+                                            <i class="mdi mdi-file-excel"></i> exportar</a>
+                                        <a href="{!! route('proyectos.inscripciones', $item->id) !!}" class="btn btn-xs btn-outline-primary">ver</a>
                                     </span>
-                                    <a href="{!! route('proyectos.export.inscriptos', $item->id) !!}">exportar</a>
-                                </p>
-                                <p style="border-bottom: 1px dashed gray">
-                                    Consultas
-                                    <span class="float-right text-primary">
-                                        <a href="{!! route('proyectos.consultas', $item->id) !!}">
-                                        {!! $item->consultas->count() !!}
-                                        </a>
+                                </div>
+                                <div style="border: 1px solid lightgray; border-radius: 5px; padding: 10px 20px" class="mt-2">
+                                    <span>Consultas ({!! $item->consultas->count() !!})</span>
+                                    <span class="float-right">
+                                        <a href="{!! route('proyectos.export.consultas', $item->id) !!}" class="btn btn-xs btn-outline-secondary">
+                                            <i class="mdi mdi-file-excel"></i>exportar</a>
+                                        <a href="{!! route('proyectos.consultas', $item->id) !!}" class="btn btn-xs btn-outline-primary">ver</a>
                                     </span>
-                                    <a href="{!! route('proyectos.export.consultas', $item->id) !!}">exportar</a>
-                                </p>
+                                </div>
                             </div>
 
                             <div class="text-left mt-5">
