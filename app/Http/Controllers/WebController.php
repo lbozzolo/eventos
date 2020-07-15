@@ -210,7 +210,6 @@ class WebController extends AppBaseController
             return abort(404);
 
         // Si la charla es pública lo envío a la charla
-//        if($this->data['charla']->publico)
         if($this->data['charla']->tipoProyecto() == 'Público')
             return view('web.ingresar-charla')->with($this->data);
 
@@ -220,7 +219,8 @@ class WebController extends AppBaseController
         if(Auth::check())
             return redirect()->route('web.charlas.ingresar', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
 
-        return view('web.charla-inscripcion')->with($this->data);
+        return redirect()->route('web.charlas.registro', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
+//        return view('web.charla-inscripcion')->with($this->data);
     }
 
     public function registro($cliente, $evento, $id)
@@ -244,7 +244,9 @@ class WebController extends AppBaseController
         $inputs = $request->input();
         $inputs['password'] = Hash::make($inputs['dni']);
 
-        $user = User::create($inputs);
+        $userExist = $this->userRepository->userExists($request);
+        $user = ($userExist)? $userExist : User::create($inputs);
+
         $user->assignRole('Inscripto');
         $user->save();
 

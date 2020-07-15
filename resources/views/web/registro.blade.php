@@ -18,7 +18,7 @@
                     </h2>
 
                     <p class="lead">
-                        Registrate y obtené tu pase a esta charla y muchas más.<br>
+                        Registrate y obtené tu pase a este evento y muchos más.<br>
                         <span class="text-celeste-oscuro h4">Sólo tendrás que registrarte una vez para inscribirte en todos los eventos que desees.</span>
                     </p>
 

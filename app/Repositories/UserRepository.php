@@ -78,4 +78,9 @@ class UserRepository extends BaseRepository
         return;
     }
 
+    public function userExists($data)
+    {
+        return User::where('email', $data['email'])->first();
+    }
+
 }
