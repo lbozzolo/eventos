@@ -41,13 +41,13 @@
 
                             <div class="col-sm-12 col-md-12 col-lg-4">
                                 <button type="submit" class="btn btn__primary btn__block">Siguiente</button>
-                                <h5 class="text-black" style="margin-top: 30px">
-                                    ¿Todavía no estás registrado?
-                                    <a href="{!! route('web.charlas.registro', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug,  'id' => $charla->id]) !!}">registrarse</a>
-                                </h5>
+                                {{--<h5 class="text-black" style="margin-top: 30px">--}}
+                                    {{--¿Todavía no estás registrado?--}}
+                                    {{--<a href="{!! route('web.charlas.registro', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug,  'id' => $charla->id]) !!}">registrarse</a>--}}
+                                {{--</h5>--}}
 
                                 <button title="Recuperar cuenta" type="button" data-toggle="modal"
-                                        data-target="#recuperarCuenta" class="text-celeste-oscuro">
+                                        data-target="#recuperarCuenta" class="text-celeste-oscuro mt-2">
                                     ¿Problemas para ingresar?
                                 </button>
 
