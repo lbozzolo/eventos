@@ -100,6 +100,11 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        {!! Form::text('institucion', null, ['class' => 'form-control', 'placeholder' => 'Institucion']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12">
                                     <button type="submit" class="btn btn__primary btn__block">
                                         <span>Enviar Informacion</span>
                                     </button>

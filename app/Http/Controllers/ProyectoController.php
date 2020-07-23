@@ -25,6 +25,7 @@ use Eventos\Repositories\ClienteRepository;
 use Eventos\Repositories\ProyectoRepository;
 use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Eventos\Traits\ImageTrait;
+use Eventos\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -507,11 +508,15 @@ class ProyectoController extends AppBaseController
     {
         $proyecto = Proyecto::find($id);
         $this->data['items'] =  $proyecto->inscriptos()->paginate(10);
-        $this->data['proyectoActual'] = $proyecto->nombre;
+//        $this->data['proyectoActual'] = $proyecto->nombre;
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
         $this->data['total'] = $proyecto->inscriptos->count();
+        $this->data['proyecto'] = $proyecto;
 
-        return view('users.inscripciones')->with($this->data);
+        $user = Proyecto::find(11)->inscriptos()->where('user_id', 322)->first();
+
+
+        return view('proyectos.inscripciones')->with($this->data);
     }
 
     public function destroy($id)
@@ -583,6 +588,43 @@ class ProyectoController extends AppBaseController
             return redirect()->back()->withErrors('No hay códigos generados en este proyecto');
 
         return view('proyectos.codigos')->with($this->data);
+    }
+
+    public function searchUser(Request $request, $id)
+    {
+        $proyecto = Proyecto::find($id);
+        $this->data['proyecto'] = $proyecto;
+
+        $this->data['items'] = $proyecto->inscriptos()->paginate(15);
+        $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
+
+        $validator = Validator::make($request->input(), ['search' => 'max:25'], ['search.max' => 'La búsqueda no puede exceder los 25 caracteres']);
+
+        if ($validator->fails())
+            return view('proyectos.inscripciones')->withErrors($validator)->with($this->data);
+
+        $search = $request['search'];
+
+        if($search != '' && $search != ' ' && $search != null){
+            $result = $proyecto->inscriptos()->where('name', 'like', "%$search%")
+                ->orWhere(function ($query) use ($search) {
+                    $query->where('lastname', 'like', "%$search%")
+                        ->orWhere('dni', 'like', "%$search%")
+                        ->orWhere('email', 'like', "%$search%");
+                });
+        } else {
+            return redirect()->route('proyectos.inscripciones', $proyecto->id);
+        }
+
+        $resultado = $result->paginate()->filter(function ($user) use ($proyecto){
+            return ($proyecto->inscriptos()->where('user_id', $user->id)->first())? $user : null;
+        });
+
+
+        $this->data['items'] = $resultado->unique('id');
+
+        return view('proyectos.inscripciones')->with($this->data);
+
     }
 
     public function buscarCodigo(Request $request, $id)

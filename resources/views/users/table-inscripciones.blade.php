@@ -178,6 +178,12 @@
                                         <span>{!! $item->ocupacion_formatted !!}</span>
                                     </li>
                                     @endif
+                                    @if($item->institucion)
+                                        <li class="list-group-item">
+                                            <span class="text-primary">Institución</span><br>
+                                            <span>{!! $item->institucion !!}</span>
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                             <div class="modal-footer">

@@ -59,6 +59,7 @@ class User extends Authenticatable
         'email',
         'phone',
         'dni',
+        'institucion',
         'pais',
         'localidad',
         'ocupacion_id',
@@ -94,6 +95,7 @@ class User extends Authenticatable
         'email' => 'required|email',
 //        'email' => 'required|email|unique:users,email',
         'dni' => 'max:191',
+        'institucion' => 'max:191',
         'phone' => 'max:191',
         'localidad' => 'max:255',
         'ocupacion' => 'max:255'
@@ -157,7 +159,7 @@ class User extends Authenticatable
 
     public function proyectos()
     {
-        return $this->belongsToMany(Proyecto::class)->withTimestamps();
+        return $this->belongsToMany(Proyecto::class)->withTimestamps()->withPivot(['attendment']);
     }
 
     public function ocupation()

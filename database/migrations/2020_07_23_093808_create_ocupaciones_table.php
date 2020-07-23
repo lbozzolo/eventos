@@ -23,6 +23,7 @@ class CreateOcupacionesTable extends Migration
 
         Schema::table('users', function (Blueprint $table) {
             $table->integer('ocupacion_id')->unsigned()->nullable()->after('localidad');
+            $table->string('institucion')->nullable()->after('dni');
         });
 
         Schema::table('users', function(Blueprint $table){
@@ -45,6 +46,7 @@ class CreateOcupacionesTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign(['ocupacion_id']);
             $table->dropColumn('ocupacion_id');
+            $table->dropColumn('institucion');
         });
 
         Schema::dropIfExists('ocupaciones');

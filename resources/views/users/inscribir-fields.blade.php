@@ -44,6 +44,11 @@
     <div class="col-lg-6">
 
         <div class="form-group col-sm-12 col-lg-12">
+            {!! Form::label('institucion', 'Institución:') !!}
+            {!! Form::text('institucion', null, ['class' => 'form-control']) !!}
+        </div>
+
+        <div class="form-group col-sm-12 col-lg-12">
 
             <div class="card-body" style="border: 1px solid lightgray; border-radius: 10px">
                 {!! Form::label('ocupacion_id', 'Ocupación:') !!}

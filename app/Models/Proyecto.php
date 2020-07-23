@@ -360,7 +360,7 @@ class Proyecto extends Entity
 
     public function inscriptos()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsToMany(User::class)->withTimestamps()->withPivot(['attendment']);
     }
 
     public function consultas()

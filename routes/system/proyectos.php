@@ -165,6 +165,11 @@ Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
         'uses' => 'ProyectoController@updateIframe'
     ]);
 
+    Route::post('proyectos/{id}/buscar-usuario', [
+        'as' => 'proyectos.inscripciones.buscar.usuario',
+        'uses' => 'ProyectoController@searchUser'
+    ]);
+
 //    Route::get('/exportacion-inscriptos/{id}', function () {
 //        return \Maatwebsite\Excel\Facades\Excel::download(new \Eventos\Exports\InscriptosExport(), 'inscriptos.xlsx');
 //    });
