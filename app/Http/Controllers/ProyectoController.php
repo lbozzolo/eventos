@@ -513,9 +513,6 @@ class ProyectoController extends AppBaseController
         $this->data['total'] = $proyecto->inscriptos->count();
         $this->data['proyecto'] = $proyecto;
 
-        $user = Proyecto::find(11)->inscriptos()->where('user_id', 322)->first();
-
-
         return view('proyectos.inscripciones')->with($this->data);
     }
 
