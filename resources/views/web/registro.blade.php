@@ -5,8 +5,10 @@
     @include('web.components.header-charla')
 
     <section class="blog blog-single pb-5 pt-5 bg-light">
-        <div class="col-lg-12">
-            @include('web.components.cerrar-sesion')
+        <div class="row">
+            <div class="col-lg-12">
+                @include('web.components.cerrar-sesion')
+            </div>
         </div>
         <div class="container">
             <div class="row">
@@ -87,9 +89,14 @@
                                         {!! Form::text('localidad', null, ['class' => 'form-control', 'placeholder' => 'Localidad, Provincia']) !!}
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-12 col-lg-12">
-                                    <div class="form-group">
-                                        {!! Form::text('ocupacion', null, ['class' => 'form-control', 'placeholder' => 'Ocupación']) !!}
+                                <div class="col-sm-12 col-md-12 col-lg-12 mb-4" style="border: 1px solid lightgray; border-radius: 15px">
+                                    <div class="form-group" style="margin-top: 10px; margin-bottom: 80px">
+                                        <p class="text-center" style="font-size: 1.2em">Ocupación</p>
+                                        {!! Form::select('ocupacion_id', $ocupaciones, null, ['class' => 'form-control', 'placeholder' => '', 'id' => 'ocupacionSelect']) !!}
+                                    </div>
+                                    <p id="otraOcupacion" class="text-primary pl-3" style="cursor: pointer">Otra ocupación</p>
+                                    <div class="form-group" style="display: none" id="ocupacionTexto">
+                                        {!! Form::text('ocupacion', null, ['class' => 'form-control', 'placeholder' => 'Especifique otra...', 'id' => 'otraOcupacionInput']) !!}
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
@@ -105,5 +112,20 @@
             </div>
         </div>
     </section>
+
+@endsection
+
+@section('js')
+
+    <script>
+
+        $('#otraOcupacion').click(function () {
+            $('#ocupacionTexto').show();
+            $('#otraOcupacionInput').focus();
+            $('#ocupacionSelect').hide();
+            $('#otraOcupacion').hide();
+        });
+
+    </script>
 
 @endsection

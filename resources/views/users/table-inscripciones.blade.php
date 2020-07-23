@@ -92,6 +92,7 @@
             <td>
 
                 <div class='btn-group'>
+                    <button title="Ver" type="button" data-toggle="modal" data-target="#ver{!! $item->id !!}" class="btn btn-xs btn-primary"><i class="mdi mdi-file-document mdi-18px"></i></button>
                     <a href="{!! route('users.inscripciones.edit', $item->id) !!}" class='btn btn-dark btn-xs' title="Editar"><i class="mdi mdi-18px mdi-pencil-box"></i></a>
                     @if(Auth::user()->id != $item->id)
                         <button title="Desinscribir" type="button" data-toggle="modal" data-target="#delete{!! $item->id !!}" class="btn btn-xs  btn-danger"><i class="mdi mdi-delete mdi-18px"></i></button>
@@ -121,6 +122,67 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             </div>
                             {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="ver{!! $item->id !!}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Usuario</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <ul class="list-unstyled">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <span class="text-primary">Nombre</span><br>
+                                                <span>{!! $item->name !!}</span>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <span class="text-primary">Apellido</span><br>
+                                                <span>{!! $item->lastname !!}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="text-primary">Email</span><br>
+                                        <span>{!! $item->email !!}</span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <span class="text-primary">Teléfono</span><br>
+                                                <span>{!! $item->phone !!}</span>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <span class="text-primary">DNI</span><br>
+                                                <span>{!! $item->dni !!}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    @if($item->localidad || $item->pais)
+                                    <li class="list-group-item">
+                                        <span class="text-primary">Origen</span><br>
+                                        <span>{!! $item->localidad !!}, {!! $item->pais_origen !!}</span>
+                                    </li>
+                                    @endif
+                                    @if($item->ocupacion_formatted)
+                                    <li class="list-group-item">
+                                        <span class="text-primary">Ocupación</span><br>
+                                        <span>{!! $item->ocupacion_formatted !!}</span>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            </div>
                         </div>
                     </div>
                 </div>

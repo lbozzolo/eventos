@@ -8,6 +8,7 @@ use Eventos\Http\Requests\CreateUserRequest;
 use Eventos\Http\Requests\UpdateInscriptoRequest;
 use Eventos\Http\Requests\UpdateUserRequest;
 use Eventos\Models\Auspiciante;
+use Eventos\Models\Ocupacion;
 use Eventos\Models\Proyecto;
 use Eventos\Repositories\UserRepository;
 use Eventos\Http\Controllers\AppBaseController as AppBaseController;
@@ -118,6 +119,7 @@ class UserController extends AppBaseController
     {
         $this->data['paises'] = $this->paises;
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
+        $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
         return view('users.inscribir')->with($this->data);
     }
 
@@ -126,6 +128,7 @@ class UserController extends AppBaseController
         $this->data['items'] = $this->data['items'] = User::role('Inscripto')->get();
         $this->data['paises'] = $this->paises;
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
+        $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
         return view('users.inscribir-desde-usuarios')->with($this->data);
     }
 
@@ -165,6 +168,7 @@ class UserController extends AppBaseController
     public function storeInscripciones(CreateInscriptoRequest $request)
     {
         $inputs = $request->except('proyectos');
+
         $inputs['password'] = Hash::make($inputs['dni']);
 
         $user = User::create($inputs);
@@ -192,6 +196,7 @@ class UserController extends AppBaseController
         $this->data['item'] = $this->userRepository->findWithoutFail($id);
         $this->data['paises'] = $this->paises;
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
+        $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
 
         if (empty($this->data['item']))
             return redirect(route('users.inscripciones'))->withErrors('Usuario no encontrado');
@@ -207,7 +212,18 @@ class UserController extends AppBaseController
         if (empty($user) || $user->email == 'lucas@verticedigital.com.ar' || $user->email == 'fernando@verticedigital.com.ar')
             return redirect(route('users.index'))->withErrors('Usuario no encontrado');
 
-        $user = $this->userRepository->update($inputs, $id);
+        $user->name = $inputs['name'];
+        $user->lastname = $inputs['lastname'];
+        $user->email = $inputs['email'];
+        $user->dni = $inputs['dni'];
+        $user->phone = $inputs['phone'];
+        $user->pais = $inputs['pais'];
+        $user->localidad = $inputs['localidad'];
+        $user->ocupacion_id = $inputs['ocupacion_id'];
+        $user->ocupacion = $inputs['ocupacion'];
+
+        $user->save();
+
         $user->proyectos()->sync($request['proyectos']);
 
         $password = Hash::make($inputs['dni']);

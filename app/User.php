@@ -5,6 +5,7 @@ namespace Eventos;
 use Carbon\Carbon;
 use Eventos\Models\Cliente;
 use Eventos\Models\Codigo;
+use Eventos\Models\Ocupacion;
 use Eventos\Models\Proyecto;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -60,6 +61,7 @@ class User extends Authenticatable
         'dni',
         'pais',
         'localidad',
+        'ocupacion_id',
         'ocupacion',
         'password'
     ];
@@ -110,6 +112,11 @@ class User extends Authenticatable
         return $pais;
     }
 
+    public function getOcupacionFormattedAttribute()
+    {
+        return ($this->ocupation)? $this->ocupation->nombre : $this->ocupacion;
+    }
+
     public function getFechaCreadoAttribute()
     {
         return Carbon::parse($this->attributes['created_at'])->format('d-m-Y');
@@ -151,6 +158,11 @@ class User extends Authenticatable
     public function proyectos()
     {
         return $this->belongsToMany(Proyecto::class)->withTimestamps();
+    }
+
+    public function ocupation()
+    {
+        return $this->belongsTo(Ocupacion::class, 'ocupacion_id');
     }
 
     public function cliente()

@@ -8,6 +8,7 @@ use Eventos\Http\Requests\RegisterUser2Request;
 use Eventos\Http\Requests\RegistreUserRequest;
 use Eventos\Http\Requests\StoreIdentificacionRequest;
 use Eventos\Models\Codigo;
+use Eventos\Models\Ocupacion;
 use Eventos\Models\Proyecto;
 use Eventos\Repositories\ProyectoRepository;
 use Eventos\Repositories\UserRepository;
@@ -226,6 +227,7 @@ class WebController extends AppBaseController
     public function registro($cliente, $evento, $id)
     {
         $this->data['charla'] = Proyecto::active($id)->first();
+        $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
 
         if(!$this->data['charla'])
             return abort(404);

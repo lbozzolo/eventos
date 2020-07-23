@@ -3,10 +3,11 @@
 namespace Eventos\Models;
 
 use Eventos\Models\Entity as Entity;
+use Eventos\User;
 
-class Categoria extends Entity
+class Ocupacion extends Entity
 {
-    public $table = 'categorias';
+    public $table = 'ocupaciones';
     public $timestamps = false;
 
     public $fillable = [
@@ -16,11 +17,11 @@ class Categoria extends Entity
 
     public static $rules = [
         'nombre' => 'required',
-        'slug' => 'unique:categorias'
+        'slug' => 'unique:ocupaciones'
     ];
 
-    public function proyectos()
+    public function users()
     {
-        return $this->belongsToMany(Proyecto::class);
+        return $this->hasMany(User::class);
     }
 }

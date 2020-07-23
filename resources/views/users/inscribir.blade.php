@@ -34,7 +34,25 @@
 
         $('.select2').select2({
             multiple: true
-        })
+        });
+
+        $('.select3').select2({
+            multiple: false
+        });
+
+        $('#otraOcupacion').click(function () {
+            $('#ocupacionTexto').show();
+            $('#otraOcupacionInput').focus();
+            $('#ocupacionSelect').hide();
+            $('#otraOcupacion').hide();
+        });
+
+        $('#predeterminadas').click(function () {
+            $('#ocupacionTexto').val('');
+            $('#ocupacionTexto').hide();
+            $('#ocupacionSelect').show();
+            $('#otraOcupacion').show();
+        });
 
     </script>
 

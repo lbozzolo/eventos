@@ -13,7 +13,7 @@
             {!! Form::text('lastname', null, ['class' => 'form-control']) !!}
         </div>
 
-        @if(isset($item) && !$item->paidUser())
+        @if(isset($item) && !$item->paidUser() || !isset($item))
         <div class="form-group col-sm-12 col-lg-12">
             {!! Form::label('email', 'Email:') !!}
             {!! Form::text('email', null, ['class' => 'form-control']) !!}
@@ -30,9 +30,6 @@
             {!! Form::text('phone', null, ['class' => 'form-control']) !!}
         </div>
 
-    </div>
-    <div class="col-lg-6">
-
         <div class="form-group col-sm-12 col-lg-12">
             {!! Form::label('pais', 'País:') !!}
             {!! Form::select('pais', $paises, null, ['class' => 'form-control select3']) !!}
@@ -43,9 +40,25 @@
             {!! Form::text('localidad', null, ['class' => 'form-control']) !!}
         </div>
 
+    </div>
+    <div class="col-lg-6">
+
         <div class="form-group col-sm-12 col-lg-12">
-            {!! Form::label('ocupacion', 'Ocupación:') !!}
-            {!! Form::text('ocupacion', null, ['class' => 'form-control']) !!}
+
+            <div class="card-body" style="border: 1px solid lightgray; border-radius: 10px">
+                {!! Form::label('ocupacion_id', 'Ocupación:') !!}
+                {!! Form::select('ocupacion_id', $ocupaciones, null, ['class' => 'form-control select3', 'placeholder' => '', 'id' => 'ocupacionSelect']) !!}
+                <p class="mt-3">
+                    <span id="otraOcupacion" class="text-primary pl-3" style="cursor: pointer">Otra ocupación</span>
+                </p>
+                <div style="display: none" id="ocupacionTexto">
+                    {!! Form::text('ocupacion', null, ['class' => 'form-control', 'id' => 'otraOcupacionInput']) !!}
+                    <p class="mt-3">
+                        <span id="predeterminadas" class="text-primary pl-3" style="cursor: pointer">Seleccionar de listado</span>
+                    </p>
+                </div>
+            </div>
+
         </div>
 
         <div class="form-group col-sm-12 col-lg-12">
