@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Eventos\Models\Cliente;
 use Eventos\Models\Codigo;
 use Eventos\Models\Ocupacion;
+use Eventos\Models\Opcion;
 use Eventos\Models\Proyecto;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -94,7 +95,7 @@ class User extends Authenticatable
         'lastname' => 'required',
         'email' => 'required|email',
 //        'email' => 'required|email|unique:users,email',
-        'dni' => 'max:191',
+        'dni' => 'required|max:191',
         'institucion' => 'max:191',
         'phone' => 'max:191',
         'localidad' => 'max:255',
@@ -177,5 +178,9 @@ class User extends Authenticatable
         return $this->hasOne(Codigo::class);
     }
 
+    public function opciones()
+    {
+        return $this->hasMany(Opcion::class);
+    }
 
 }
