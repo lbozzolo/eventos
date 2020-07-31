@@ -16,7 +16,7 @@
         </div>
     </section>
 
-    @if(\Carbon\Carbon::now()->addHours(1)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
+    @if(\Carbon\Carbon::now()->addHours(2)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
 
         @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i') && !$charla->videos->count())
 
@@ -33,6 +33,7 @@
 
                                 <div class="card-body">
 
+                                    @if($charla->iframes->count() > 1)
                                     <ul class="nav nav-pills mb-3 " id="pills-tab" role="tablist">
                                         @foreach($charla->iframes as $iframe)
                                             <li class="nav-item">
@@ -41,11 +42,14 @@
                                             </li>
                                         @endforeach
                                     </ul>
+                                    @endif
 
                                     <h4>
                                         <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
                                         - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
                                     </h4>
+
+{{--                                    <a href="{!! $iframe->path !!}" class="text-danger" target="_blank">Ver el evento en otra pestaña</a>--}}
 
                                     @include('web.components.consulta')
 

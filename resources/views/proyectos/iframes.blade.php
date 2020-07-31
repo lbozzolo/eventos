@@ -24,6 +24,12 @@
                             {!! Form::text('path', null, ['class' => 'form-control', 'placeholder' => 'Coloque aquí la URL de su video...']) !!}
                         </div>
 
+                        <div class="form-group mt-4 mb-5">
+                            {!! Form::label('type', 'Tipo de iframe') !!}<br>
+                            <span class="mr-3"> {!! Form::radio('type', 0, true) !!} STWEB</span>
+                            <span class="mr-3">{!! Form::radio('type', 1) !!} Youtube</span>
+                        </div>
+
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-youtube-play"></i> Aceptar</button>
                             <a href="{!! route($modelPlural.'.show', $item->id) !!}" class="btn btn-secondary">Cancelar</a>
@@ -42,7 +48,20 @@
             <div class="col-lg-6">
                 <div class="card card-body">
                     <p>{!! ($video->title)? $video->title : '[SIN TÍTULO]' !!}</p>
-                    <iframe src="{!! $video->path !!}" style="width: 100%; height: 370px"></iframe>
+
+                    @if($video->type == 1)
+                        <iframe
+                                id="video_primary"
+                                src="https://www.youtube.com/embed/{!! $video->video_id !!}"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                class="iframe"
+                                allowfullscreen>
+                        </iframe>
+                    @else
+                        <iframe src="{!! $video->path !!}" style="width: 100%; height: 370px"></iframe>
+                    @endif
+
                     <div class="row mt-3">
                         <div class="col-lg-12">
                             <button class="btn btn-danger d-inline-block" title="Eliminar video" data-toggle="modal" data-target="#modalDeleteVideo{!! $video->id !!}">Eliminar</button>

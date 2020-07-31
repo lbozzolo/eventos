@@ -12,6 +12,7 @@ class Iframe extends Entity
         'title',
         'path',
         'proyecto_id',
+        'type',
         'active',
     ];
 
@@ -32,6 +33,11 @@ class Iframe extends Entity
     public function consultas()
     {
         return $this->hasMany(Consulta::class);
+    }
+
+    public function encuesta()
+    {
+        return $this->hasOne(Encuesta::class);
     }
 
 }
