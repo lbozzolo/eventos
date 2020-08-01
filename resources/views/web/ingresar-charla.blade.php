@@ -237,7 +237,7 @@
                 },
             });
 
-        },20000);
+        },300000);
 
         $('.video_secondary').click(function () {
 
