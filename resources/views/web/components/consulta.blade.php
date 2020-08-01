@@ -30,6 +30,7 @@
     </div>
     <div class="form-group">
         <button type="button" id="btnSubmit" class="btn btn-outline-dark btn-xs">Enviar</button>
+{{--        <a href="{!! route('web.encuestas', $charla->id) !!}" target="_blank" class="btn btn-xs text-primary">Responder encuesta</a>--}}
     </div>
 
 {!! Form::close() !!}

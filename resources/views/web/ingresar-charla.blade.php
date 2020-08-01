@@ -16,6 +16,37 @@
         </div>
     </section>
 
+
+
+    <section class="blog blog-grid bg-dark-green" id="alert-message" style="background-color: orange; display: @if($charla->isAlertMessage()) block @else none @endif">
+        <div class="container">
+            <div class="text__block">
+                <h2 class="text__block-title text-white">Eventum informa</h2>
+                <p class="text-azul-oscuro lead" id="alert_message_text">
+                    {!! $charla->alert_message !!}
+                </p>
+                {{--<p class="text-azul-oscuro lead" style="font-weight: 500">--}}
+                    {{--¡No dudes en contactarnos! Somos Eventum. Convertimos tu necesidad en realidad.--}}
+                {{--</p>--}}
+            </div>
+        </div>
+    </section>
+
+    {{--<section class="alert alert-dismissible blog blog-single pb-0 pt-4" id="alert-message" style="background-color: orange; display: none">--}}
+        {{--<button class="close text-black" type="button" data-dismiss="alert" aria-hidden="true">x</button>--}}
+        {{--<div class="container">--}}
+            {{--<div class="row">--}}
+                {{--<div class="col-lg-12">--}}
+                    {{--<div class="alert alert-warning ">--}}
+                        {{--<i class="icon fa fa-warning mr-3"></i>--}}
+                        {{--<span class="">{!! $charla->alert_message !!}</span>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</section>--}}
+
+
     @if(\Carbon\Carbon::now()->addHours(2)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
 
         @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i') && !$charla->videos->count())
@@ -165,6 +196,48 @@
 @section('js')
 
     <script>
+
+        // Consulta de mensajes de alerta
+        window.setInterval(function(){
+
+            $.ajax({
+                type: 'get',
+                url: '{!! route('proyectos.get.alert.message') !!}',
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    'proyecto_id': $('input[name=proyecto_id]').val(),
+                },
+
+                success: function(data) {
+
+                    console.log(data);
+
+                    if ((data.errors)) {
+
+                        let errorString = [];
+                        $.each( data.errors, function( key, value) {
+                            if(value !== undefined){
+                                errorString += '<li>' + value + '</li>';
+                            }
+                        });
+
+                        console.log(data.errors);
+                        console.log(errorString);
+
+                    } else {
+
+                        if(data === 'off'){
+                            $('#alert-message').hide();
+                        } else {
+                            $('#alert-message').show();
+                            $('#alert_message_text').text(data);
+                        }
+
+                    }
+                },
+            });
+
+        },300000);
 
         $('.video_secondary').click(function () {
 

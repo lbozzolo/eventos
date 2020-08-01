@@ -23,6 +23,9 @@ Route::group(['middleware' => 'auth'], function () {
         require(__DIR__ . '/system/headers.php');
         require(__DIR__ . '/system/categorias.php');
         require(__DIR__ . '/system/estados.php');
+        require(__DIR__ . '/system/encuestas.php');
+        require(__DIR__ . '/system/preguntas.php');
+        require(__DIR__ . '/system/opciones.php');
 
     });
 

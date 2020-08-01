@@ -101,11 +101,12 @@ class ProyectoController extends AppBaseController
 
     public function store(CreateProyectoRequest $request)
     {
-        $input = $request->all();
+        $inputs = $request->all();
 
-        $input['fecha'] = Carbon::parse($input['fecha'])->format('Y-m-d h:i');
+        $inputs['alert_message_active'] = (isset($inputs['alert_message_active']))? 1 : 0;
+        $inputs['fecha'] = Carbon::parse($inputs['fecha'])->format('Y-m-d h:i');
 
-        $item = $this->repo->create($input);
+        $item = $this->repo->create($inputs);
         $item->header()->create();
 
         if(!$item)
@@ -161,6 +162,7 @@ class ProyectoController extends AppBaseController
 
         $inputs = $request->all();
 
+        $inputs['alert_message_active'] = (isset($inputs['alert_message_active']))? 1 : 0;
         $inputs['fecha'] = Carbon::parse($inputs['fecha'])->format('Y-m-d H:i');
 
         if(!isset($inputs['publico']))
@@ -368,6 +370,13 @@ class ProyectoController extends AppBaseController
         }
 
         return response()->json( $data );
+    }
+
+    public function getAlertMessage(Request $request)
+    {
+        $proyecto = Proyecto::find($request['proyecto_id']);
+        $data = ($proyecto->isAlertMessage())? $proyecto->alert_message : 'off';
+        return response()->json($data);
     }
 
     public function destroyConsulta($id)
@@ -703,6 +712,12 @@ class ProyectoController extends AppBaseController
         $iframe->save();
 
         return redirect()->back()->with('ok', 'Iframe editado con éxito');
+    }
+
+    public function encuestas($id)
+    {
+        $this->data['item'] = Proyecto::find($id);
+        return view('proyectos.encuestas')->with($this->data);
     }
 
     public function changeFileNameIfExists($file)

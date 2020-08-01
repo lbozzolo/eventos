@@ -104,6 +104,16 @@ Route::post('ingresar/{charla?}', [
     'uses' => 'WebController@login'
 ]);
 
+Route::get('eventos/{id}/encuestas', [
+    'as' => 'web.encuestas',
+    'uses' => 'WebController@encuestas'
+]);
+
+Route::post('eventos/{id}/encuestas-responder', [
+    'as' => 'web.encuestas.responder',
+    'uses' => 'WebController@encuestasResponder'
+]);
+
 Route::get('nosotros', [
     'as' => 'web.nosotros',
     'uses' => 'WebController@nosotros'
@@ -132,6 +142,11 @@ Route::post('proyectos/{id}/consultar', [
 Route::post('consultar', [
     'as' => 'proyectos.store.consulta',
     'uses' => 'ProyectoController@storeConsulta'
+]);
+
+Route::get('get-alert-message', [
+    'as' => 'proyectos.get.alert.message',
+    'uses' => 'ProyectoController@getAlertMessage'
 ]);
 
 Route::post('reenvio-de-datos', [

@@ -44,6 +44,16 @@
     {!! Form::select('auspiciantes[]', (isset($auspiciantes))? $auspiciantes : [], null, ['class' => 'form-control select2m', 'multiple']) !!}
 </div>
 
+<div class="form-group col-lg-10">
+    {!! Form::label('alert_message', 'Mensaje de alerta') !!}
+    {!! Form::text('alert_message', (isset($item))? $item->alert_message : null, ['class' => 'form-control', 'placeholder' => '', 'style' => 'background-color: white; border: 1px solid #aaa']) !!}
+</div>
+
+<div class="form-group col-lg-2 mt-4">
+    {!! Form::checkbox('alert_message_active', 1, (isset($item))? $item->alert_message_active : false) !!}
+    <label for="alert_message_active" class="mt-2">Activo</label>
+</div>
+
 {{--<div class="form-group col-lg-6">--}}
     {{--<div class="form-check">--}}
         {{--<label class="form-check-label">--}}

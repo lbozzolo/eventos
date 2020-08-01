@@ -60,6 +60,8 @@ class Proyecto extends Entity
         'fecha',
         'maximas_consultas',
         'vistas_finalizado',
+        'alert_message',
+        'alert_message_active',
         'duracion',
     ];
 
@@ -128,6 +130,11 @@ class Proyecto extends Entity
     public function isGoingOn()
     {
         return $this->hasBegun() && !$this->isFinished();
+    }
+
+    public function isAlertMessage()
+    {
+        return $this->attributes['alert_message'] && $this->attributes['alert_message_active'];
     }
 
     public function getNameOfDay($date)
@@ -371,6 +378,11 @@ class Proyecto extends Entity
     public function reportes()
     {
         return $this->hasMany(Reporte::class);
+    }
+
+    public function encuestas()
+    {
+        return $this->hasMany(Encuesta::class);
     }
 
 }
