@@ -13,6 +13,7 @@
                         {!! $item->nombre !!} /
                         <span class="text-warning">Editar</span>
                     </h2>
+                    
                     <a href="{!! route('headers.show', $item->header->id) !!}" class="btn btn-outline-success btn-sm">Configurar Header</a>
 {{--                    <a href="{!! route('proyectos.encuestas', $item->id) !!}" class="btn btn-outline-primary btn-sm">Configurar Encuestas</a>--}}
 
