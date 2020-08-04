@@ -170,6 +170,11 @@ Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
         'uses' => 'ProyectoController@searchUser'
     ]);
 
+    Route::get('proyectos/{id}/encuestas', [
+        'as' => 'proyectos.encuestas',
+        'uses' => 'ProyectoController@encuestas'
+    ]);
+
 //    Route::get('/exportacion-inscriptos/{id}', function () {
 //        return \Maatwebsite\Excel\Facades\Excel::download(new \Eventos\Exports\InscriptosExport(), 'inscriptos.xlsx');
 //    });

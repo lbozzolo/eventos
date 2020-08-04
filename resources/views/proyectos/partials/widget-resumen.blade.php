@@ -12,10 +12,8 @@
                                 {!! $item->inscriptos->first()->created_at->format('d-m-Y') !!}
                             @else
                                 Se inscribieron {!! $item->inscriptos->count() !!} personas entre el
-                                {!! $item->inscriptos->first()->fecha_creado !!} y el
-                                {!! $item->inscriptos->last()->fecha_creado !!}
-                                {{-- {!! $item->inscriptos->first()->created_at->format('d-m-Y') !!} y el--}}
-                                {{-- {!! $item->inscriptos->last()->created_at->format('d-m-Y') !!}--}}
+                                 {!! $item->inscriptos->first()->pivot->created_at->format('d-m-Y') !!} y el
+                                 {!! $item->inscriptos->last()->pivot->created_at->format('d-m-Y') !!}
                             @endif
 
                         </td>
