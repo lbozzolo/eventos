@@ -13,6 +13,7 @@
         <tr>
             <th class="text-center" style="width: 400px">Usuario</th>
             <th>Contacto</th>
+            <th>Institución</th>
             <th>Origen</th>
             <th style="width: 80px">Asistió</th>
             <th style="width: 150px">Alta</th>
@@ -69,6 +70,13 @@
                         @endif
                     @else
                         -
+                    @endif
+                </td>
+                <td>
+                    @if($item->institucion)
+                        {!! $item->institucion !!}
+                    @else
+                        <em class="text-gray"><small>no especificado</small></em>
                     @endif
                 </td>
                 <td>

@@ -52,6 +52,7 @@ class InscriptosExport implements FromView
             'pais',
             'localidad',
             'ocupacion',
+            'institucion',
             'users.created_at',
         ]);
 

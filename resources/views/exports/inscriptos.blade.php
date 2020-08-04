@@ -10,6 +10,7 @@
         <th>País</th>
         <th>Localidad</th>
         <th>Ocupación</th>
+        <th>Institución</th>
         <th>Fecha</th>
     </tr>
     </thead>
@@ -24,6 +25,7 @@
             <td>{{ $inscripto->pais }}</td>
             <td>{{ $inscripto->localidad }}</td>
             <td>{{ $inscripto->ocupacion }}</td>
+            <td>{{ $inscripto->institucion }}</td>
             <td>{{ $inscripto->fecha_creado }}</td>
         </tr>
     @endforeach
