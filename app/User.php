@@ -96,10 +96,11 @@ class User extends Authenticatable
         'email' => 'required|email',
 //        'email' => 'required|email|unique:users,email',
         'dni' => 'required|max:191',
-        'institucion' => 'required|max:191',
+        'institucion' => 'max:191',
         'phone' => 'required|max:191',
         'localidad' => 'required|max:255',
-        'ocupacion' => 'required|max:255'
+        'ocupacion_id' => 'required_without:ocupacion',
+        'ocupacion' => 'required_without:ocupacion_id'
     ];
 
     public static $change_password_rules = [
