@@ -33,7 +33,6 @@ class RegistreUserRequest extends FormRequest
         return [
             'ocupacion_id.required_without' => 'La ocupación es obligatoria',
             'ocupacion.required_without' => 'La ocupación es obligatoria',
-
             'name.required' => 'El nombre es obigatorio',
             'lastname.required' => 'El apellido es obligatorio',
             'email.required' => 'El email es obligarorio',

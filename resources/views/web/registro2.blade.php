@@ -95,11 +95,21 @@
                                         {!! Form::text('localidad', null, ['class' => 'form-control', 'placeholder' => 'Localidad, Provincia']) !!}
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-12 col-lg-12">
-                                    <div class="form-group">
-                                        {!! Form::text('ocupacion', null, ['class' => 'form-control', 'placeholder' => 'Ocupación']) !!}
+                                <div class="col-sm-12 col-md-12 col-lg-12 mb-4" style="border: 1px solid lightgray; border-radius: 15px">
+                                    <div class="form-group" style="margin-top: 10px; margin-bottom: 80px">
+                                        <p class="text-center" style="font-size: 1.2em">Ocupación</p>
+                                        {!! Form::select('ocupacion_id', $ocupaciones, null, ['class' => 'form-control', 'placeholder' => '', 'id' => 'ocupacionSelect']) !!}
+                                    </div>
+                                    <p id="otraOcupacion" class="text-primary pl-3" style="cursor: pointer">Otra ocupación</p>
+                                    <div class="form-group" style="display: none" id="ocupacionTexto">
+                                        {!! Form::text('ocupacion', null, ['class' => 'form-control', 'placeholder' => 'Especifique otra...', 'id' => 'otraOcupacionInput']) !!}
                                     </div>
                                 </div>
+                                {{--<div class="col-sm-12 col-md-12 col-lg-12">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--{!! Form::text('ocupacion', null, ['class' => 'form-control', 'placeholder' => 'Ocupación']) !!}--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
                                         <span class="text-black">Deseo suscribirme al newsletter</span>
@@ -126,10 +136,38 @@
 
     <script>
 
+        $('#otraOcupacion').click(function () {
+            $('#ocupacionTexto').show();
+            $('#otraOcupacionInput').focus();
+            $('#ocupacionSelect').hide();
+            $('#otraOcupacion').hide();
+        });
+
+    </script>
+
+    <script>
+
         $('#paises').select2({
 
         });
 
     </script>
+
+    <!-- GetButton.io widget -->
+    <script type="text/javascript">
+        (function () {
+            var options = {
+                email: "soporte@eventum.com.ar", // Email
+                call_to_action: "Eventum Soporte", // Call to action
+                button_color: "#97B128", // Color of button
+                position: "right", // Position may be 'right' or 'left'
+            };
+            var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
+            var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+            s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+            var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+        })();
+    </script>
+    <!-- /GetButton.io widget -->
 
 @endsection

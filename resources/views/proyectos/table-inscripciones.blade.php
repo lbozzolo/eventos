@@ -88,7 +88,7 @@
                     @endif
                 </td>
                 <td>
-                    @if($item->picot && $item->pivot->attendment)
+                    @if($item->pivot && $item->pivot->attendment)
                         <i class="mdi mdi-check mdi-18px text-success"> </i>
                     @else
                         <i class="mdi mdi-close mdi-18px text-danger"> </i>
