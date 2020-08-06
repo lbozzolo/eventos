@@ -8,8 +8,11 @@ use Eventos\Http\Requests\RegisterUser2Request;
 use Eventos\Http\Requests\RegistreUserRequest;
 use Eventos\Http\Requests\StoreIdentificacionRequest;
 use Eventos\Models\Codigo;
+use Eventos\Models\Encuesta;
 use Eventos\Models\Ocupacion;
+use Eventos\Models\Pregunta;
 use Eventos\Models\Proyecto;
+use Eventos\Models\Respuesta;
 use Eventos\Repositories\ProyectoRepository;
 use Eventos\Repositories\UserRepository;
 use Eventos\User;
@@ -358,6 +361,7 @@ class WebController extends AppBaseController
     public function getRegistro2($userId, $eventoId)
     {
         $this->data['charla'] = Proyecto::active($eventoId)->first();
+        $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
 
         if(!$this->data['charla'])
             return abort(404);
@@ -434,23 +438,27 @@ class WebController extends AppBaseController
                 // Redirecciono a vista para completar el resto de los datos
                 return redirect()->route('web.get.registro', ['userId' => $this->data['user']->id, 'eventoId' => $this->data['charla']->id]);
 
+            } else {
+
+                return redirect()->route('web.charlas.registro', ['cliente' =>$this->data['charla']->cliente_slug, 'evento' => $this->data['charla']->nombre_slug,'id' => $this->data['charla']->id])->with('warning', 'Las credenciales no coinciden con los registros. Por favor regístrese en el sistema.');
+
             }
 
-            // Convierto al dni en únicamente números quitando puntos y comas
-            $request['password'] = preg_replace('/[^0-9]/', '', $request['password']);
-
-            // Creo el usuario y le asigno password = dni
-            $password = Hash::make($request['password']);
-            $this->data['user'] = User::create([
-                'name' => $request['email'],
-                'lastname' => $request['email'],
-                'email' => $request['email'],
-                'dni' => $request['password'],
-                'password' => $password,
-            ]);
-
-            // Redirecciono a vista para completar el resto de los datos
-            return redirect()->route('web.get.registro', ['userId' => $this->data['user']->id, 'eventoId' => $this->data['charla']->id]);
+//            // Convierto al dni en únicamente números quitando puntos y comas
+//            $request['password'] = preg_replace('/[^0-9]/', '', $request['password']);
+//
+//            // Creo el usuario y le asigno password = dni
+//            $password = Hash::make($request['password']);
+//            $this->data['user'] = User::create([
+//                'name' => $request['email'],
+//                'lastname' => $request['email'],
+//                'email' => $request['email'],
+//                'dni' => $request['password'],
+//                'password' => $password,
+//            ]);
+//
+//            // Redirecciono a vista para completar el resto de los datos
+//            return redirect()->route('web.get.registro', ['userId' => $this->data['user']->id, 'eventoId' => $this->data['charla']->id]);
 
         }
 
@@ -498,6 +506,56 @@ class WebController extends AppBaseController
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    public function encuestas($id)
+    {
+        $this->data['charla'] = Proyecto::active($id)->first();
+        return view('web.encuestas')->with($this->data);
+    }
+
+    public function encuestasResponder(Request $request, $id)
+    {
+        $this->data['encuesta'] = Encuesta::find($id);
+        $respuestas = $request->except('_token', 'user_id', '6');
+
+//        dd($respuestas);
+
+        foreach($respuestas as $preguntaId => $opcion){
+
+            $pregunta  = Pregunta::find($preguntaId);
+
+            if($pregunta->clase == 0){
+
+                foreach($opcion as $opt){
+
+                    $respuesta = [
+                        'user_id' => 16,
+                        'encuesta_id' => $id,
+                        'pregunta_id' => $pregunta->id,
+                        'opcion_id' => $opt,
+                        'texto' => null,
+                    ];
+
+                    Respuesta::create($respuesta);
+                }
+            } else {
+
+                $respuesta = [
+                    'user_id' => 16,
+                    'encuesta_id' => $id,
+                    'pregunta_id' => $pregunta->id,
+                    'opcion_id' => ($pregunta->clase != 2)? $opcion : null,
+                    'texto' => ($pregunta->clase == 2)? $opcion : '',
+                ];
+
+                Respuesta::create($respuesta);
+
+            }
+
+        }
+
+        return redirect()->back()->with('ok', 'Encuesta respondida con éxito');
     }
 
     public function nosotros()
