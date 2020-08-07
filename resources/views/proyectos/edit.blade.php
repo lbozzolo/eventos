@@ -15,7 +15,7 @@
                     </h2>
                     
                     <a href="{!! route('headers.show', $item->header->id) !!}" class="btn btn-outline-success btn-sm">Configurar Header</a>
-{{--                    <a href="{!! route('proyectos.encuestas', $item->id) !!}" class="btn btn-outline-primary btn-sm">Configurar Encuestas</a>--}}
+                    {{--<a href="{!! route('proyectos.encuestas', $item->id) !!}" class="btn btn-outline-primary btn-sm">Configurar Encuestas</a>--}}
 
                     <div class="row">
                         <div class="card-body">

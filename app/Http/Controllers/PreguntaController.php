@@ -2,13 +2,17 @@
 
 namespace Eventos\Http\Controllers;
 
+use Eventos\Http\Requests\UpdateEstadoRequest;
+use Eventos\Models\Estado;
+use Eventos\Models\Proyecto;
+use Eventos\Http\Controllers\AppBaseController as AppBaseController;
+use Eventos\Repositories\PreguntaRepository;
+use Eventos\Traits\ImageTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
-class RoleController extends Controller
+class PreguntaController extends AppBaseController
 {
+    private $repo;
     private $gender;
     private $model;
     private $modelSpanish;
@@ -24,13 +28,16 @@ class RoleController extends Controller
     private $no_results_message;
     private $data;
 
-    public function __construct()
+    use ImageTrait;
+
+    public function __construct(PreguntaRepository $repository)
     {
-        $this->gender = 'M';
-        $this->model = 'role';
-        $this->modelPlural = 'roles';
-        $this->modelSpanish = 'rol';
-        $this->modelSpanishPlural = 'roles';
+        $this->repo = $repository;
+        $this->gender = 'F';
+        $this->model = 'pregunta';
+        $this->modelPlural = 'preguntas';
+        $this->modelSpanish = 'pregunta';
+        $this->modelSpanishPlural = 'preguntas';
         $this->store_success_message = ($this->gender == 'M')? ucfirst($this->modelSpanish).' creado con éxito' : ucfirst($this->modelSpanish).' creada con éxito';
         $this->store_failure_message = ($this->gender == 'M')? 'Ocurrió un error. No se pudo crear el'.ucfirst($this->modelSpanish) : 'Ocurrió un error. No se pudo crear la'.ucfirst($this->modelSpanish);
         $this->show_failure_message = ($this->gender == 'M')? 'No se encontró el'.ucfirst($this->modelSpanish.' especificado') : 'No se encontró la'.ucfirst($this->modelSpanish.' especificada');
@@ -50,70 +57,68 @@ class RoleController extends Controller
 
     public function index()
     {
-        $this->data['items'] = Role::where('name', '!=', 'Superadmin')->get();
-        $this->data['roles'] = Role::pluck('name', 'id');
-        $this->data['permissions'] = Permission::all();
-
+        $this->data['items'] = Estado::all();
         return view($this->modelPlural.'.index')->with($this->data);
     }
 
-    public function create()
+    public function store(Request $request, $idEncuesta)
     {
-        return view($this->modelPlural.'.create');
+        $input = $request->all();
+        $input['encuesta_id'] = $idEncuesta;
+        $item = $this->repo->create($input);
+
+        if (!$item)
+            return redirect()->back()->withErrors($this->store_failure_message);
+
+        return redirect()->back()->with('ok', $this->store_success_message);
     }
 
-    public function store(Request $request)
+    public function show($id)
     {
-        $name = ucfirst(strtolower($request->name));
-        Role::create(['name' => $name]);
-        return redirect()->route($this->modelPlural.'.index');
+        $this->data['item'] = $this->repo->findOrFail($id);
+
+        if (!$this->data['item'])
+            return redirect()->back()->withErrors($this->show_failure_message);
+
+        return view($this->modelPlural.'.show')->with($this->data);
     }
 
     public function edit($id)
     {
-        $this->data['item'] = Role::find($id);
+        $this->data['item'] = $this->repo->findWithoutFail($id);
 
-        if(!$this->data['item'])
+        if (empty($this->data['item']))
             return redirect()->back()->withErrors($this->show_failure_message);
 
         return view($this->modelPlural.'.edit')->with($this->data);
     }
 
-    public function update($id, Request $request)
+    public function update($id, UpdateEstadoRequest $request)
     {
-        $this->data['item'] = Role::find($id);
+        $this->data['item'] = $this->repo->findWithoutFail($id);
+        $this->data['items'] = $this->repo->all();
 
-        if(!$this->data['item'])
-            return redirect()->back()->withErrors($this->show_failure_message);
+        $inputs = $request->all();
+        $inputs['slug'] = str_slug($inputs['nombre']);
 
-        $this->data['item']->name = ucfirst(strtolower($request->name));
-        $this->data['item']->save();
+        if (!$this->data['item'])
+            return redirect()->back()->withErrors($this->update_failure_message);
 
-        return redirect()->route($this->modelPlural.'.index')->with('ok', $this->update_success_message);
+        $this->data['item'] = $this->repo->update($inputs, $id);
+
+        return redirect(route($this->modelPlural.'.index'))->with('ok', $this->update_success_message);
     }
 
-    public function delete(Request $request, $id)
+    public function destroy($id)
     {
-        $this->data['item'] = Role::find($id);
+        $this->data['item'] = $this->repo->findWithoutFail($id);
 
-        if(!$this->data['item'])
-            return redirect()->back()->withErrors($this->show_failure_message);
+        if (empty($this->data['item']))
+            return redirect()->back()->withErrors($this->destroy_failure_message);
 
-        $this->data['item']->delete();
+        $this->repo->delete($id);
 
-        return redirect()->route($this->modelPlural.'.index');
-    }
-
-    public function permissions(Request $request)
-    {
-        $role = Role::find($request->role_id);
-
-        if(!$role)
-            return redirect()->back()->withErrors('Debe seleccionar un rol');
-
-        $role->syncPermissions($request->permissions);
-
-        return redirect()->route($this->modelPlural.'.index')->with('ok', 'Permisos asignados con éxito');
+        return redirect(route($this->modelPlural.'.index'))->with('ok', $this->destroy_success_message);
     }
 
 }

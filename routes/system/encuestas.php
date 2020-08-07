@@ -14,5 +14,10 @@ Route::group(['middleware' => ['can:mostrar_encuestas']], function () {
         'uses' => 'EncuestaController@store'
     ]);
 
+    Route::get('encuestas/{id}/respuestas', [
+        'as' => 'encuestas.respuestas',
+        'uses' => 'EncuestaController@respuestas'
+    ]);
+
 });
 

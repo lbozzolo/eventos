@@ -170,6 +170,12 @@
                                         @endif
                                     </span>
                                 </div>
+                                <div style="border: 1px solid darkmagenta; border-radius: 5px; padding: 10px 20px" class="mt-2">
+                                    <span>Encuestas</span>
+                                    <span class="float-right">
+                                        <a href="{!! route('proyectos.encuestas', $item->id) !!}" class="btn btn-xs btn-primary">administrar</a>
+                                    </span>
+                                </div>
                             </div>
 
                             <div class="text-left mt-5">

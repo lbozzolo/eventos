@@ -25,26 +25,9 @@
                 <p class="text-azul-oscuro lead" id="alert_message_text">
                     {!! $charla->alert_message !!}
                 </p>
-                {{--<p class="text-azul-oscuro lead" style="font-weight: 500">--}}
-                    {{--¡No dudes en contactarnos! Somos Eventum. Convertimos tu necesidad en realidad.--}}
-                {{--</p>--}}
             </div>
         </div>
     </section>
-
-    {{--<section class="alert alert-dismissible blog blog-single pb-0 pt-4" id="alert-message" style="background-color: orange; display: none">--}}
-        {{--<button class="close text-black" type="button" data-dismiss="alert" aria-hidden="true">x</button>--}}
-        {{--<div class="container">--}}
-            {{--<div class="row">--}}
-                {{--<div class="col-lg-12">--}}
-                    {{--<div class="alert alert-warning ">--}}
-                        {{--<i class="icon fa fa-warning mr-3"></i>--}}
-                        {{--<span class="">{!! $charla->alert_message !!}</span>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</section>--}}
 
 
     @if(\Carbon\Carbon::now()->addHours(2)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
@@ -79,8 +62,6 @@
                                         <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span>
                                         - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
                                     </h4>
-
-{{--                                    <a href="{!! $iframe->path !!}" class="text-danger" target="_blank">Ver el evento en otra pestaña</a>--}}
 
                                     @include('web.components.consulta')
 
