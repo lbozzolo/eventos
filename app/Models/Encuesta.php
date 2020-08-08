@@ -15,6 +15,10 @@ class Encuesta extends Entity
         'iframe_id',
     ];
 
+    public static $rules = [
+        'nombre' => 'required|max:191',
+    ];
+
     // Relationships
 
     public function proyecto()

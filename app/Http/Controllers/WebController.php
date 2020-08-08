@@ -516,46 +516,18 @@ class WebController extends AppBaseController
 
     public function encuestasResponder(Request $request, $id)
     {
-        $this->data['encuesta'] = Encuesta::find($id);
+        $encuesta = Encuesta::find($id);
+        $proyecto = $encuesta->proyecto;
         $respuestas = $request->except('_token', 'user_id', '6');
+        $user = Auth::user();
 
-//        dd($respuestas);
+        if($this->userRepository->cantAnswerTest($id, $user->id))
+            return redirect()->back()->with('warning', 'Usted ya respondió esta encuesta. Muchas gracias');
 
-        foreach($respuestas as $preguntaId => $opcion){
-
-            $pregunta  = Pregunta::find($preguntaId);
-
-            if($pregunta->clase == 0){
-
-                foreach($opcion as $opt){
-
-                    $respuesta = [
-                        'user_id' => 16,
-                        'encuesta_id' => $id,
-                        'pregunta_id' => $pregunta->id,
-                        'opcion_id' => $opt,
-                        'texto' => null,
-                    ];
-
-                    Respuesta::create($respuesta);
-                }
-            } else {
-
-                $respuesta = [
-                    'user_id' => 16,
-                    'encuesta_id' => $id,
-                    'pregunta_id' => $pregunta->id,
-                    'opcion_id' => ($pregunta->clase != 2)? $opcion : null,
-                    'texto' => ($pregunta->clase == 2)? $opcion : '',
-                ];
-
-                Respuesta::create($respuesta);
-
-            }
-
-        }
+        $this->userRepository->responderEncuesta($id, $respuestas);
 
         return redirect()->back()->with('ok', 'Encuesta respondida con éxito');
+//        return redirect()->route('web.charlas.ingresar', ['cliente' => $proyecto->cliente_slug, 'evento' => $proyecto->nombre_slug, 'id' => $proyecto->id]);
     }
 
     public function nosotros()

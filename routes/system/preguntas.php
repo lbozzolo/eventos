@@ -9,5 +9,10 @@ Route::group(['middleware' => ['can:mostrar_preguntas']], function () {
         'uses' => 'PreguntaController@store'
     ]);
 
+    Route::delete('preguntas/{id}/eliminar', [
+        'as' => 'preguntas.delete',
+        'uses' => 'PreguntaController@destroy'
+    ]);
+
 });
 

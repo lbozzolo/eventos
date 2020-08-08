@@ -2,8 +2,11 @@
 
 namespace Eventos\Repositories;
 
+use Eventos\Models\Pregunta;
 use Eventos\Models\Proyecto;
+use Eventos\Models\Respuesta;
 use Eventos\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use InfyOm\Generator\Common\BaseRepository;
 use Spatie\Permission\Models\Role;
@@ -81,6 +84,48 @@ class UserRepository extends BaseRepository
     public function userExists($data)
     {
         return User::where('email', $data['email'])->first();
+    }
+
+    public function responderEncuesta($id, $respuestas)
+    {
+        foreach($respuestas as $preguntaId => $opcion){
+
+            $pregunta  = Pregunta::find($preguntaId);
+
+            if($pregunta->clase == 0){
+
+                foreach($opcion as $opt){
+
+                    $respuesta = [
+                        'user_id' => Auth::user()->id,
+                        'encuesta_id' => $id,
+                        'pregunta_id' => $pregunta->id,
+                        'opcion_id' => $opt,
+                        'texto' => null,
+                    ];
+
+                    Respuesta::create($respuesta);
+                }
+            } else {
+
+                $respuesta = [
+                    'user_id' => Auth::user()->id,
+                    'encuesta_id' => $id,
+                    'pregunta_id' => $pregunta->id,
+                    'opcion_id' => ($pregunta->clase != 2)? $opcion : null,
+                    'texto' => ($pregunta->clase == 2)? $opcion : '',
+                ];
+
+                Respuesta::create($respuesta);
+
+            }
+
+        }
+    }
+
+    public function cantAnswerTest($encuestaId, $userId)
+    {
+        return Respuesta::where('encuesta_id', $encuestaId)->where('user_id', $userId)->first();
     }
 
 }

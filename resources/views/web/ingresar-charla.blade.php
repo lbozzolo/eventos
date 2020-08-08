@@ -16,8 +16,6 @@
         </div>
     </section>
 
-
-
     <section class="blog blog-grid bg-dark-green" id="alert-message" style="background-color: orange; display: @if($charla->isAlertMessage()) block @else none @endif">
         <div class="container">
             <div class="text__block">
@@ -28,7 +26,6 @@
             </div>
         </div>
     </section>
-
 
     @if(\Carbon\Carbon::now()->addHours(2)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
 

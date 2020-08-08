@@ -41,60 +41,83 @@
                 <div class="row">
                     <div class="container">
 
-                        @foreach($charla->encuestas as $encuesta)
-                            <div class="row">
-                                <div class="col-lg-2"></div>
-                                <div class="col-lg-8">
+                        @if($charla->encuestas->count() > 1)
+                            <ul class="nav nav-pills mb-3 " id="pills-tab" role="tablist">
+                                @foreach($charla->encuestas as $enc)
+                                    <li class="nav-item">
+                                        <a class="nav-link @if ($loop->first) active @endif  show sala" data-id="{!! $enc->id !!}" data-toggle="pill"
+                                           href="#encuesta{!! $enc->id !!}" role="tab"
+                                           aria-controls="pills-home" aria-selected="true">
+                                            {!! $enc->nombre !!}
+                                            @if($enc->iframe)
+                                                ({!! $enc->iframe->title !!})
+                                            @endif
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
 
+                            <div class="bd-example bd-example-tabs">
+                                <div class="tab-content" id="pills-tabContent">
+                        @foreach($charla->encuestas as $encuesta)
+
+                                <div class="tab-pane fade @if ($loop->first) active @endif show" id="encuesta{!! $encuesta->id !!}" role="tabpanel" aria-labelledby="pills-home-tab">
                                     <div class="card card-body" style="padding-left:40px">
                                         <h4>{!! $encuesta->nombre !!}</h4>
-                                        {!! Form::open(['url' => route('web.encuestas.responder', $encuesta->id), 'method' => 'post']) !!}
+                                        {!! Form::open(['url' => route('web.encuestas.responder', $encuesta->id), 'method' => 'post', 'class' => 'form-encuesta']) !!}
 
-                                            {!! Form::hidden('user_id', Auth::user()->id) !!}
-                                            @foreach($encuesta->preguntas as $pregunta)
+                                        {!! Form::hidden('user_id', Auth::user()->id) !!}
+
+                                        <div class="row">
+                                        @foreach($encuesta->preguntas as $pregunta)
 
 
-                                                <div class="">
-                                                    <div class="card-body">
-                                                        <p class="lead text-dark-green">{!! $pregunta->descripcion !!}</p>
-                                                        <ul class="list-unstyled">
-                                                            @foreach($pregunta->opciones as $opcion)
-                                                                @if($pregunta->clase == 0)
-                                                                    <li class="list-group-item">
-                                                                        {!! Form::label($pregunta->id, $opcion->descripcion) !!}
-                                                                        <span class="float-right">{!! Form::checkbox($pregunta->id.'[]', $opcion->id) !!}</span>
-                                                                    </li>
-                                                                @elseif($pregunta->clase == 1)
-                                                                    <li class="list-group-item">
-                                                                        {!! Form::label($pregunta->id, $opcion->descripcion) !!}
-                                                                        <span class="float-right">{!! Form::radio($pregunta->id, $opcion->id) !!}</span>
-                                                                    </li>
-                                                                @endif
+                                            <div class="col-lg-6">
+                                                <div class="card-body">
+                                                    <p class="lead text-dark-green">{!! $pregunta->descripcion !!}</p>
+                                                    <ul class="list-unstyled">
 
-                                                            @endforeach
-                                                            @if($pregunta->clase == 2)
-                                                                <div class="form-group">
-                                                                    {!! Form::textarea($pregunta->id, null, ['class' => 'form-control', 'rows' => '4']) !!}
-                                                                </div>
+                                                        @foreach($pregunta->opciones as $opcion)
+                                                            @if($pregunta->clase == 0)
+                                                                <li class="list-group-item">
+                                                                    {!! Form::label($pregunta->id, $opcion->descripcion) !!}
+                                                                    <span class="float-right">{!! Form::checkbox($pregunta->id.'[]', $opcion->id, ($loop->first)? true : false) !!}</span>
+                                                                </li>
+                                                            @elseif($pregunta->clase == 1)
+                                                                <li class="list-group-item">
+                                                                    {!! Form::label($pregunta->id, $opcion->descripcion) !!}
+                                                                    <span class="float-right">{!! Form::radio($pregunta->id, $opcion->id, ($loop->first)? true : false) !!}</span>
+                                                                </li>
                                                             @endif
-                                                        </ul>
-                                                    </div>
+                                                        @endforeach
+
+                                                        @if($pregunta->clase == 2)
+                                                            <div class="form-group">
+                                                                {!! Form::textarea($pregunta->id, null, ['class' => 'form-control', 'rows' => '4']) !!}
+                                                            </div>
+                                                        @endif
+
+                                                    </ul>
                                                 </div>
+                                            </div>
 
 
-                                            @endforeach
+                                        @endforeach
+                                        </div>
 
-                                             <div class="form-group">
-                                                {!! Form::submit('Enviar', ['class' => 'btn btn__primary btn__bordered module__btn-request']) !!}
-                                             </div>
+                                        <div class="form-group">
+                                            {!! Form::submit('Enviar', ['class' => 'btn btn__primary btn__bordered module__btn-request enviar-encuesta']) !!}
+                                        </div>
 
                                         {!! Form::close() !!}
                                     </div>
+                                </div>
+
+                        @endforeach
 
                                 </div>
-                                <div class="col-lg-2"></div>
                             </div>
-                        @endforeach
                     </div>
                 </div>
             </div>
@@ -149,5 +172,17 @@
         </div>
     </section>
 
+
+@endsection
+
+@section('js')
+
+    <script>
+
+        $('.form-encuesta').submit(function(){
+            $('.enviar-encuesta').attr('disabled', true);
+        });
+
+    </script>
 
 @endsection

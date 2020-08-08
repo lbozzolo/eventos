@@ -2,6 +2,7 @@
 
 namespace Eventos\Http\Controllers;
 
+use Eventos\Http\Requests\CreateOpcionRequest;
 use Eventos\Http\Requests\UpdateEstadoRequest;
 use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Eventos\Repositories\OpcionRepository;
@@ -50,7 +51,7 @@ class OpcionController extends AppBaseController
         $this->data['noResultsMessage'] = $this->no_results_message;
     }
 
-    public function store(Request $request, $idPregunta)
+    public function store(CreateOpcionRequest $request, $idPregunta)
     {
         $input = $request->all();
         $input['pregunta_id'] = $idPregunta;
@@ -88,7 +89,7 @@ class OpcionController extends AppBaseController
         return redirect(route($this->modelPlural.'.index'))->with('ok', $this->update_success_message);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $this->data['item'] = $this->repo->findWithoutFail($id);
 
@@ -97,7 +98,7 @@ class OpcionController extends AppBaseController
 
         $this->repo->delete($id);
 
-        return redirect(route($this->modelPlural.'.index'))->with('ok', $this->destroy_success_message);
+        return redirect()->back()->with('ok', $this->destroy_success_message);
     }
 
 }

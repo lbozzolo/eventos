@@ -16,6 +16,11 @@ class Opcion extends Entity
         'pregunta_id',
     ];
 
+    public static $rules = [
+        'descripcion' => 'required|max:191',
+        'opcion' => 'required|max:3',
+    ];
+
     // Relationships
 
     public function pregunta()

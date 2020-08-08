@@ -2,6 +2,7 @@
 
 namespace Eventos\Http\Controllers;
 
+use Eventos\Http\Requests\CreateEncuestaRequest;
 use Eventos\Http\Requests\UpdateEstadoRequest;
 use Eventos\Models\Encuesta;
 use Eventos\Models\Estado;
@@ -10,7 +11,6 @@ use Eventos\Models\Pregunta;
 use Eventos\Models\Proyecto;
 use Eventos\Repositories\EncuestaRepository;
 use Eventos\Http\Controllers\AppBaseController as AppBaseController;
-use Eventos\Traits\ImageTrait;
 use Illuminate\Http\Request;
 
 class EncuestaController extends AppBaseController
@@ -30,8 +30,6 @@ class EncuestaController extends AppBaseController
     private $destroy_failure_message;
     private $no_results_message;
     private $data;
-
-    use ImageTrait;
 
     public function __construct(EncuestaRepository $repository)
     {
@@ -70,7 +68,7 @@ class EncuestaController extends AppBaseController
         return view($this->modelPlural.'.create')->with($this->data);
     }
 
-    public function store(Request $request, $idProyecto)
+    public function store(CreateEncuestaRequest $request, $idProyecto)
     {
         $this->data['proyecto'] = Proyecto::find($idProyecto);
 
@@ -110,14 +108,13 @@ class EncuestaController extends AppBaseController
         $this->data['items'] = $this->repo->all();
 
         $inputs = $request->all();
-        $inputs['slug'] = str_slug($inputs['nombre']);
 
         if (!$this->data['item'])
             return redirect()->back()->withErrors($this->update_failure_message);
 
         $this->data['item'] = $this->repo->update($inputs, $id);
 
-        return redirect(route($this->modelPlural.'.index'))->with('ok', $this->update_success_message);
+        return redirect()->back()->with('ok', $this->update_success_message);
     }
 
     public function destroy($id)

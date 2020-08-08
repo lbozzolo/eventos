@@ -15,6 +15,10 @@ class Pregunta extends Entity
         'encuesta_id',
     ];
 
+    public static $rules = [
+        'descripcion' => 'required|max:191',
+    ];
+
     // Relationships
 
     public function encuesta()

@@ -9,5 +9,10 @@ Route::group(['middleware' => ['can:mostrar_opciones']], function () {
         'uses' => 'OpcionController@store'
     ]);
 
+    Route::delete('opciones/{id}/eliminar', [
+        'as' => 'opciones.delete',
+        'uses' => 'OpcionController@destroy'
+    ]);
+
 });
 

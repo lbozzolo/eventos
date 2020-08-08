@@ -8,6 +8,7 @@ use Eventos\Models\Codigo;
 use Eventos\Models\Ocupacion;
 use Eventos\Models\Opcion;
 use Eventos\Models\Proyecto;
+use Eventos\Models\Respuesta;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -145,6 +146,12 @@ class User extends Authenticatable
     {
         return $this->proyectos->contains($proyectoId);
     }
+
+    public function cantAnswerTest($encuestaId, $userId)
+    {
+        return Respuesta::where('encuesta_id', $encuestaId)->where('user_id', $userId)->first();
+    }
+
 
     public function paidUser()
     {

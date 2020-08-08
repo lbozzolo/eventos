@@ -2,6 +2,7 @@
 
 namespace Eventos\Http\Controllers;
 
+use Eventos\Http\Requests\CreatePreguntaRequest;
 use Eventos\Http\Requests\UpdateEstadoRequest;
 use Eventos\Models\Estado;
 use Eventos\Models\Proyecto;
@@ -61,7 +62,7 @@ class PreguntaController extends AppBaseController
         return view($this->modelPlural.'.index')->with($this->data);
     }
 
-    public function store(Request $request, $idEncuesta)
+    public function store(CreatePreguntaRequest $request, $idEncuesta)
     {
         $input = $request->all();
         $input['encuesta_id'] = $idEncuesta;
@@ -109,7 +110,7 @@ class PreguntaController extends AppBaseController
         return redirect(route($this->modelPlural.'.index'))->with('ok', $this->update_success_message);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $this->data['item'] = $this->repo->findWithoutFail($id);
 
@@ -118,7 +119,7 @@ class PreguntaController extends AppBaseController
 
         $this->repo->delete($id);
 
-        return redirect(route($this->modelPlural.'.index'))->with('ok', $this->destroy_success_message);
+        return redirect()->back()->with('ok', $this->destroy_success_message);
     }
 
 }
