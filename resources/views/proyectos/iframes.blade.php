@@ -47,6 +47,12 @@
 
             <div class="col-lg-6">
                 <div class="card card-body">
+                    @if($video->insecureURL())
+                    <p class="bg-danger" style="padding: 5px 10px; border-radius: 5px">
+                        <span class="text-white">LA URL DE ESTE IFRAME NO ES SEGURA</span><br>
+                        <span class="text-warning">El sistema podría bloquearla y traer problemas de reproducción</span>
+                    </p>
+                    @endif
                     <p>{!! ($video->title)? $video->title : '[SIN TÍTULO]' !!}</p>
 
                     @if($video->type == 1)
@@ -126,6 +132,10 @@
                         <div class="form-group">
                             {!! Form::label('title', 'Título o descripción') !!}
                             {!! Form::text('title', $video->title, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('path', 'URL') !!}
+                            {!! Form::text('path', $video->path, ['class' => 'form-control']) !!}
                         </div>
                     </div>
                     <div class="modal-footer">

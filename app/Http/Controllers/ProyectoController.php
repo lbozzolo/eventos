@@ -695,11 +695,14 @@ class ProyectoController extends AppBaseController
     {
         $rules = array (
             'title' => 'required|max:191',
+            'path' => 'required|max:191'
         );
 
         $messages = array (
             'title.max' => 'El título o descripción no puede exceder los 191 caracteres',
-            'title.required' => 'El título o descripción está vacío'
+            'title.required' => 'El título o descripción está vacío',
+            'path.required' => 'La URL es obligatoria',
+            'path.max' => 'La URL no puede exceder los 191 caracteres',
         );
 
         $validator = Validator::make( $request->input(), $rules, $messages);
@@ -709,6 +712,7 @@ class ProyectoController extends AppBaseController
 
         $iframe = Iframe::find($id);
         $iframe->title = $request['title'];
+        $iframe->path = $request['path'];
         $iframe->save();
 
         return redirect()->back()->with('ok', 'Iframe editado con éxito');

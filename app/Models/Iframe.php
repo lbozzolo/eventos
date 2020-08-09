@@ -23,6 +23,12 @@ class Iframe extends Entity
         return $youtube_id;
     }
 
+    public function insecureURL()
+    {
+        $url = $this->attributes['path'];
+        return (strpos($url, 'http://') !== 0)? false : true;
+    }
+
     // Relationships
 
     public function proyectos()
