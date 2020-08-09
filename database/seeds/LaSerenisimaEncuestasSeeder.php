@@ -14,17 +14,17 @@ class LaSerenisimaEncuestasSeeder extends Seeder
 
         $encuesta1 = \Eventos\Models\Encuesta::create([
             'nombre' => 'Trabajando en resilencia, el pasto como recurso',
-            'proyecto_id' => 5,
+            'proyecto_id' => 8,
         ]);
 
         $encuesta2 = \Eventos\Models\Encuesta::create([
             'nombre' => 'El manejo del agua, pilar de la producción lechera',
-            'proyecto_id' => 5,
+            'proyecto_id' => 10,
         ]);
 
         $encuesta3 = \Eventos\Models\Encuesta::create([
             'nombre' => 'El cambio climático impacta en nuestro rodeo',
-            'proyecto_id' => 5,
+            'proyecto_id' => 11,
         ]);
 
         // =======================================================================================
