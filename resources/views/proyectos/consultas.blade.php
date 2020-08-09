@@ -128,7 +128,7 @@
                                         <span title="Eliminar" data-toggle="modal" data-target="#delete{!! $consulta->id !!}" class="text-danger" style="cursor: pointer">
                                             <i class="mdi mdi-delete mdi-18px"></i>
                                         </span>
-                                        <a href="{!! route('proyectos.consultas.archivar', [$consulta->id]) !!}" class='text-dark' title="Archivar">
+                                        <a href="{!! route('proyectos.consultas.archivar', ['id' => $item->id, 'consultaId' => $consulta->id]) !!}" class='text-dark' title="Archivar">
                                             <i class="mdi mdi-clipboard-check mdi-18px"></i>
                                         </a>
                                     </td>

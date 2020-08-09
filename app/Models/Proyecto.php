@@ -175,7 +175,7 @@ class Proyecto extends Entity
     public function scopeConsultasRecientes($query, $sala = null)
     {
         $query = ($sala)? $this->consultas()->where('iframe_id', $sala)->where('archivado', '=', null) : $this->consultas()->where('archivado', '=', null);
-        return $query->paginate(9);
+        return $query->get();
     }
 
     public function auspiciantesShuffle()

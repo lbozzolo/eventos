@@ -115,7 +115,7 @@ Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
         'uses' => 'ProyectoController@destroyConsulta'
     ]);
 
-    Route::get('proyectos/{id}/consultas/archivar', [
+    Route::get('proyectos/{id}/consultas/{consultaId}/archivar', [
         'as' => 'proyectos.consultas.archivar',
         'uses' => 'ProyectoController@archivarConsulta'
     ]);

@@ -25,10 +25,8 @@ use Eventos\Repositories\ClienteRepository;
 use Eventos\Repositories\ProyectoRepository;
 use Eventos\Http\Controllers\AppBaseController as AppBaseController;
 use Eventos\Traits\ImageTrait;
-use Eventos\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -277,6 +275,7 @@ class ProyectoController extends AppBaseController
     {
         $this->data['item'] = Proyecto::find($id);
         $this->data['recientes'] = $this->data['item']->consultasRecientes($sala);
+        $this->data['recientes'] = $this->data['item']->consultasRecientes($sala);
         $this->data['archivadas'] = $this->data['item']->consultasArchivadas($sala);
         $this->data['sala'] = $sala;
 
@@ -386,9 +385,9 @@ class ProyectoController extends AppBaseController
         return redirect()->back();
     }
 
-    public function archivarConsulta($id)
+    public function archivarConsulta($id, $consultaId)
     {
-        $consulta = Consulta::find($id);
+        $consulta = Consulta::find($consultaId);
         $consulta->archivado = !$consulta->archivado;
         $consulta->save();
 
