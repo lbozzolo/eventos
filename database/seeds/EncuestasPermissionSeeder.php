@@ -33,6 +33,12 @@ class EncuestasPermissionSeeder extends Seeder
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
             ],
+            [
+                'name' => 'eliminar_encuestas',
+                'guard_name' => 'web',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
+            ],
 
             // Preguntas
 

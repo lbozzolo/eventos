@@ -117,7 +117,7 @@ class EncuestaController extends AppBaseController
         return redirect()->back()->with('ok', $this->update_success_message);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $this->data['item'] = $this->repo->findWithoutFail($id);
 
@@ -126,7 +126,7 @@ class EncuestaController extends AppBaseController
 
         $this->repo->delete($id);
 
-        return redirect(route($this->modelPlural.'.index'))->with('ok', $this->destroy_success_message);
+        return redirect()->back()->with('ok', $this->destroy_success_message);
     }
 
     public function respuestas($id)

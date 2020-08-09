@@ -19,5 +19,10 @@ Route::group(['middleware' => ['can:mostrar_encuestas']], function () {
         'uses' => 'EncuestaController@respuestas'
     ]);
 
+    Route::delete('encuestas/{id}/eliminar', [
+        'as' => 'encuestas.delete',
+        'uses' => 'EncuestaController@destroy'
+    ]);
+
 });
 
