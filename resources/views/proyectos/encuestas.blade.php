@@ -78,6 +78,37 @@
                                                 @else
                                                     <button class="btn btn-secondary" disabled>Respuestas</button>
                                                 @endif
+
+                                                <button title="Eliminar Encuesta" type="button" data-toggle="modal" data-target="#delete{!! $encuesta->id !!}" class="btn btn-outline-danger">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="delete{!! $encuesta->id !!}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" ><i class="mdi mdi-delete text-danger"></i> Eliminar encuesta</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            {!! Form::open(['route' => ['encuestas.delete', $encuesta->id], 'method' => 'delete']) !!}
+                                                            <div class="modal-body">
+                                                                <p class="text-danger">¿Desea eliminar esta encuesta?</p>
+                                                                <p class="lead">{!! $encuesta->nombre !!}</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+
+                                                                <button title="Agregar encuesta" type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+                                                            </div>
+                                                            {!! Form::close() !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 @can('eliminar_encuestas')
                                                     <button title="Eliminar Encuesta" type="button" data-toggle="modal" data-target="#delete{!! $encuesta->id !!}" class="btn btn-outline-danger">
                                                         <i class="mdi mdi-delete"></i>

@@ -52,12 +52,14 @@ class InscriptosExport implements FromView
             'pais',
             'localidad',
             'ocupacion',
+            'ocupacion_id',
             'institucion',
             'users.created_at',
         ]);
 
         foreach($inscriptos as $inscripto){
             $inscripto->pais = (isset($paises[$inscripto->pais]))? $paises[$inscripto->pais] : '';
+            $inscripto->ocupacion = ($inscripto->ocupacion_id)? $inscripto->ocupation->nombre : $inscripto->ocupacion;
             $inscripto->save();
         }
 
