@@ -12,6 +12,7 @@
         <th>Ocupación</th>
         <th>Institución</th>
         <th>Fecha</th>
+        <th>Asistencia</th>
     </tr>
     </thead>
     <tbody>
@@ -27,6 +28,7 @@
             <td>{{ $inscripto->ocupacion }}</td>
             <td>{{ $inscripto->institucion }}</td>
             <td>{{ $inscripto->fecha_creado }}</td>
+            <td>{{ ($inscripto->pivot && $inscripto->pivot->attendment)? 'ASISTIÓ' : '-' }}</td>
         </tr>
     @endforeach
     </tbody>
