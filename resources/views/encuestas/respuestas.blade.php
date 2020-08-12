@@ -58,7 +58,9 @@
                                                                                         <p class="text-primary">{!! $question !!}</p>
                                                                                         <ul>
                                                                                             @foreach($total as $respuesta)
+                                                                                                @if($respuesta != '')
                                                                                                 <li class="list-group-item">{!! $respuesta !!}</li>
+                                                                                                @endif
                                                                                             @endforeach
                                                                                         </ul>
                                                                                     </div>
