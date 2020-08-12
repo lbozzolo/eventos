@@ -82,6 +82,9 @@
                                 - {!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})
                             </h4>
                             <p class="lead">Este evento ha finalizado pero podés volver a verlo acá.</p>
+                            <a href="{!! route('web.encuestas', $charla->id) !!}" target="_blank" class="btn btn-xs btn-outline-primary text-primary">
+                                Responder encuesta <i class="fa fa-file-text"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
