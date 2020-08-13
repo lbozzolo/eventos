@@ -30,9 +30,11 @@
     </div>
     <div class="form-group">
         <button type="button" id="btnSubmit" class="btn btn-outline-dark btn-xs">Enviar</button>
+        @if($charla->encuestas->count())
         <a href="{!! route('web.encuestas', $charla->id) !!}" target="_blank" class="btn btn-xs btn-outline-primary text-primary">
             Responder encuesta <i class="fa fa-file-text"></i>
         </a>
+        @endif
     </div>
 
 {!! Form::close() !!}
