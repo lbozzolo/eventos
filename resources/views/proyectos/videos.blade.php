@@ -14,22 +14,27 @@
                 <div class="card-body">
                     {!! Form::open(['url' => route($modelPlural.'.store.videos', $item->id), 'method' => 'post']) !!}
 
-                    <div class="form-group">
-                        {!! Form::label('title', 'Título o descripción') !!}
-                        {!! Form::text('title', null, ['class' => 'form-control']) !!}
-                    </div>
+                        <div class="form-group">
+                            {!! Form::label('title', 'Título o descripción') !!}
+                            {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                        </div>
 
-                    <div class="form-group"  id="videos-input">
-                        {!! Form::label('path', 'URL del video del evento') !!}
+                        <div class="form-group"  id="videos-input">
+                            {!! Form::label('path', 'URL del video del evento') !!}
+                            {!! Form::text('path', null, ['class' => 'form-control', 'placeholder' => 'Coloque aquí la URL de su video...']) !!}
+                        </div>
 
-                        {!! Form::text('path', null, ['class' => 'form-control', 'placeholder' => 'Coloque aquí la URL de su video...']) !!}
+                        <div class="form-group mt-4 mb-5">
+                            {{--{!! Form::label('active', 'Visible antes del evento') !!}--}}
+                            <label class="pt-1">Visible antes del evento</label>
+                            <span class="ml-3"> {!! Form::checkbox('active', 1, false) !!}</span>
+                        </div>
 
-                    </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-youtube-play"></i> Aceptar</button>
+                            <a href="{!! route($modelPlural.'.show', $item->id) !!}" class="btn btn-secondary">Cancelar</a>
+                        </div>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-youtube-play"></i> Aceptar</button>
-                        <a href="{!! route($modelPlural.'.show', $item->id) !!}" class="btn btn-secondary">Cancelar</a>
-                    </div>
                     {!! Form::close() !!}
                 </div>
 
@@ -41,8 +46,11 @@
     <div class="row grid-margin">
         @forelse($item->videos as $video)
 
-            <div class="col-lg-3">
+            <div class="col-lg-3 stretch-card">
                 <div class="card card-body">
+                    @if($video->active)
+                    <small class="text-success">visible antes del evento</small>
+                    @endif
                     <p>{!! ($video->title)? $video->title : '[SIN TÍTULO]' !!}</p>
                     <img src="https://img.youtube.com/vi/{!! $video->video_id !!}/default.jpg" style="width: 100%"><br>
                     <div class="row">

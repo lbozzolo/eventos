@@ -29,7 +29,8 @@
 
     @if(\Carbon\Carbon::now()->addHours(2)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
 
-        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i') && !$charla->videos->count())
+{{--        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i') && !$charla->videos->count())--}}
+        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i'))
 
             <section class="pb-40 pt-2">
                 <div class="pl-2 pr-2">
@@ -118,6 +119,20 @@
                 </div>
             </div>
         </section>
+
+        @if($charla->videos->count())
+            <section class="blog blog-single pb-5 pt-5" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            @include('web.components.iframe-youtube-pre-evento')
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        @endif
 
     @endif
 
