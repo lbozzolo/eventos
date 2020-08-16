@@ -52,6 +52,15 @@
         </li>
         @endcan
 
+        @can('mostrar_ocupaciones')
+            <li class="{{ Request::is('ocupaciones*') ? 'active' : '' }} nav-item">
+                <a href="{!! route('ocupaciones.index') !!}" class="nav-link">
+                    <i class="mdi menu-icon {{ Request::is('ocupaciones*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>
+                    <span class="menu-title">Ocupaciones</span>
+                </a>
+            </li>
+        @endcan
+
         @can('mostrar_estados')
         <li class="{{ Request::is('estados*') ? 'active' : '' }} nav-item">
             <a href="{!! route('estados.index') !!}" class="nav-link">
