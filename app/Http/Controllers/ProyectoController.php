@@ -3,6 +3,7 @@
 namespace Eventos\Http\Controllers;
 
 use Carbon\Carbon;
+use Eventos\Exports\AsistentesExport;
 use Eventos\Exports\CodigosExport;
 use Eventos\Exports\ConsultasExport;
 use Eventos\Exports\InscriptosExport;
@@ -516,7 +517,17 @@ class ProyectoController extends AppBaseController
     {
         $proyecto = Proyecto::find($id);
         $this->data['items'] =  $proyecto->inscriptos()->paginate(10);
-//        $this->data['proyectoActual'] = $proyecto->nombre;
+        $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
+        $this->data['total'] = $proyecto->inscriptos->count();
+        $this->data['proyecto'] = $proyecto;
+
+        return view('proyectos.inscripciones')->with($this->data);
+    }
+
+    public function asistencia($id)
+    {
+        $proyecto = Proyecto::find($id);
+        $this->data['items'] =  $proyecto->inscriptos()->where('attendment', 1)->paginate(10);
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
         $this->data['total'] = $proyecto->inscriptos->count();
         $this->data['proyecto'] = $proyecto;
@@ -565,6 +576,11 @@ class ProyectoController extends AppBaseController
     public function exportInscriptos($id)
     {
         return Excel::download(new InscriptosExport($id), 'inscriptos.xlsx');
+    }
+
+    public function exportAsistentes($id)
+    {
+        return Excel::download(new AsistentesExport($id), 'inscriptos.xlsx');
     }
 
     public function exportConsultas($id)

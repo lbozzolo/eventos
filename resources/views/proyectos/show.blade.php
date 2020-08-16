@@ -28,49 +28,55 @@
 
                         <div class="col-lg-7 col-md-6 col-sm-7 col-xs-12">
                             <div class="card-body">
-                                <h2><span class="text-dark">{!! $item->nombre !!}</span><br></h2>
-                                <p>{!! ($item->descripcion)? $item->descripcion : '' !!}</p>
+                                @forelse($item->categorias as $categoria)
+                                    <span class="badge badge-secondary text-black">{!! $categoria->nombre !!}</span>
+                                @empty
+                                    <small><em class="text-gray">ninguna</em></small>
+                                @endforelse
+                                <small>{!! ($item->cliente)? $item->cliente->nombre : '' !!}</small>
+                                <h2><span class="text-dark">{!! $item->nombre !!}</span></h2>
+{{--                                <p>{!! ($item->descripcion)? $item->descripcion : '' !!}</p>--}}
 
                                 <a href="{!! route($modelPlural.'.edit', ['id' => $item->id]) !!}" class="btn btn-outline-primary mb-1">
                                     <i class="mdi mdi-pencil"></i>
                                     Editar
                                 </a>
 
-                                @if($item->tipoProyecto() == 'Público')
+                                {{--@if($item->tipoProyecto() == 'Público')--}}
 
-                                    <button title="Reportes" type="button" data-toggle="modal" data-target="#reportesPublico" class="btn btn-behance mb-1">
-                                        <i class="mdi mdi-chart-bar"></i> Reportes
-                                    </button>
+                                    {{--<button title="Reportes" type="button" data-toggle="modal" data-target="#reportesPublico" class="btn btn-behance mb-1">--}}
+                                        {{--<i class="mdi mdi-chart-bar"></i> Reportes--}}
+                                    {{--</button>--}}
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="reportesPublico" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Reportes no disponibles</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Este evento es público. La funcionalidad REPORTES está disponible únicamente para eventos privados.</p>
-                                                </div>
-                                                <div class="modal-footer">
+                                    {{--<!-- Modal -->--}}
+                                    {{--<div class="modal fade" id="reportesPublico" tabindex="-1" role="dialog" aria-hidden="true">--}}
+                                        {{--<div class="modal-dialog" role="document">--}}
+                                            {{--<div class="modal-content">--}}
+                                                {{--<div class="modal-header">--}}
+                                                    {{--<h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Reportes no disponibles</h5>--}}
+                                                    {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+                                                        {{--<span aria-hidden="true">&times;</span>--}}
+                                                    {{--</button>--}}
+                                                {{--</div>--}}
+                                                {{--<div class="modal-body">--}}
+                                                    {{--<p>Este evento es público. La funcionalidad REPORTES está disponible únicamente para eventos privados.</p>--}}
+                                                {{--</div>--}}
+                                                {{--<div class="modal-footer">--}}
 
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                    {{--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>--}}
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
 
-                                @else
+                                {{--@else--}}
 
-                                <a href="{!! route($modelPlural.'.reportes', $item->id) !!}" class="btn btn-behance mb-1">
-                                    <i class="mdi mdi-chart-bar"></i> Reportes
-                                </a>
+                                {{--<a href="{!! route($modelPlural.'.reportes', $item->id) !!}" class="btn btn-behance mb-1">--}}
+                                    {{--<i class="mdi mdi-chart-bar"></i> Reportes--}}
+                                {{--</a>--}}
 
-                                @endif
+                                {{--@endif--}}
 
                                 <a href="{!! route($modelPlural.'.index') !!}" class="btn btn-outline-dark mb-1">Volver</a>
                             </div>
@@ -101,138 +107,321 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-6"> @include('proyectos.partials.widget-images')</div>
-        <div class="col-lg-3 col-md-6">@include('proyectos.partials.widget-pdf')</div>
-        <div class="col-lg-3 col-md-6">@include('proyectos.partials.widget-iframes')</div>
-        <div class="col-lg-3 col-md-6">@include('proyectos.partials.widget-videos')</div>
 
+        <div class="col-lg-12">
+            <div class="row">
 
-        <div class="col-md-12 grid-margin">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
+                <div class="col-lg-6 grid-margin">
 
+                    <div class="card">
+                        <div class="card-body">
 
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-dark">
+                                                Inscriptos ({!! $item->inscriptos->count() !!})
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="{!! route('proyectos.export.inscriptos', $item->id) !!}" class="text-success mr-2" title="Exportar">
+                                                    <i class="mdi mdi-file-excel mdi-24px"></i> </a>
+                                                <a href="{!! route('proyectos.inscripciones', $item->id) !!}" class=" text-gray" title="Administrar"><i class="mdi mdi-settings mdi-24px"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-success">
+                                                Asistentes ({!! $item->inscriptos()->where('attendment', 1)->count() !!})
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="{!! route('proyectos.export.asistentes', $item->id) !!}" class="text-success mr-2" title="Exportar">
+                                                    <i class="mdi mdi-file-excel mdi-24px"></i> </a>
+                                                <a href="{!! route('proyectos.asistencia', $item->id) !!}" class=" text-gray" title="Administrar"><i class="mdi mdi-settings mdi-24px"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-warning">
+                                                Consultas ({!! $item->consultas->count() !!})
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="{!! route('proyectos.export.consultas', $item->id) !!}" class="text-success mr-2" title="Exportar">
+                                                    <i class="mdi mdi-file-excel mdi-24px"></i></a>
+                                                @if($item->iframes->count() > 1)
+                                                    <a href="{!! route('proyectos.consultas', ['id' => $item->id, 'sala' => $item->iframes->first()]) !!}" class="text-gray" title="Administrar">
+                                                        <i class="mdi mdi-settings mdi-24px"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="{!! route('proyectos.consultas', ['id' => $item->id]) !!}" class="text-gray" title="Administrar">
+                                                        <i class="mdi mdi-settings mdi-24px"></i>
+                                                    </a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-info">
+                                                Encuestas ({!! $item->encuestas->count() !!})
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="{!! route('proyectos.encuestas', $item->id) !!}" class="text-gray" title="Administrar"><i class="mdi mdi-settings mdi-24px"></i> </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>Header</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="{!! route('headers.show', $item->header->id) !!}" class="text-gray" title="Administrar"><i class="mdi mdi-settings mdi-24px"></i> </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-primary">
+                                                Reportes
+                                            </td>
+                                            <td class="text-right">
+                                                @if($item->tipoProyecto() == 'Público')
 
-                        <div class="col-lg-4 col-md-6 mt-md-0 mt-4 grid-margin">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <span class="text-primary">Cliente</span><br>
-                                    <p class="lead">{!! ($item->cliente)? $item->cliente->nombre : '' !!}</p>
-                                </div>
-                                <div class="col-lg-6">
-                                    <span class="text-info">Categoría</span><br>
-                                    <p class="lead">
-                                        @forelse($item->categorias as $categoria)
-                                            <span class="badge badge-secondary text-black">{!! $categoria->nombre !!}</span>
-                                        @empty
-                                            <small><em class="text-gray">ninguna</em></small>
-                                        @endforelse
-                                    </p>
-                                </div>
-                                <div class="col-lg-12">
-                                    <hr>
-                                    <span class="text-warning">Auspiciantes</span><br>
-                                    <p class="lead">
-                                        @forelse($item->auspiciantes as $auspiciante)
-                                            <span class="badge badge-secondary text-black">{!! $auspiciante->nombre !!}</span>
-                                        @empty
-                                            <small><em class="text-gray">ninguno</em></small>
-                                        @endforelse
-                                    </p>
-                                </div>
+                                                    <button title="Reportes" type="button" data-toggle="modal" data-target="#reportesPublico" class="text-primary">
+                                                        <i class="mdi mdi-chart-bar mdi-24px"></i>
+                                                    </button>
 
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="reportesPublico" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Reportes no disponibles</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p>Este evento es público. La funcionalidad REPORTES está disponible únicamente para eventos privados.</p>
+                                                                </div>
+                                                                <div class="modal-footer">
 
-                            </div>
-                        </div>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6 grid-margin text-center card card-body">
+                                                @else
 
-                            <div class="text-left">
-                                <div style="border: 1px solid darkcyan; border-radius: 5px; padding: 10px 20px">
-                                    <span>Inscriptos ({!! $item->inscriptos->count() !!})</span>
-                                    <span class="float-right">
-                                        <a href="{!! route('proyectos.export.inscriptos', $item->id) !!}" class="btn btn-xs btn-outline-secondary">
-                                            <i class="mdi mdi-file-excel"></i> exportar</a>
-                                        <a href="{!! route('proyectos.inscripciones', $item->id) !!}" class="btn btn-xs btn-success">ver</a>
-                                    </span>
-                                </div>
-                                <div style="border: 1px solid orange; border-radius: 5px; padding: 10px 20px" class="mt-2">
-                                    <span>Consultas ({!! $item->consultas->count() !!})</span>
-                                    <span class="float-right">
-                                        <a href="{!! route('proyectos.export.consultas', $item->id) !!}" class="btn btn-xs btn-outline-secondary">
-                                            <i class="mdi mdi-file-excel"></i>exportar</a>
-                                        @if($item->iframes->count() > 1)
-                                            <a href="{!! route('proyectos.consultas', ['id' => $item->id, 'sala' => $item->iframes->first()]) !!}" class="btn btn-xs btn-warning">ver</a>
-                                        @else
-                                            <a href="{!! route('proyectos.consultas', ['id' => $item->id]) !!}" class="btn btn-xs btn-warning">ver</a>
-                                        @endif
-                                    </span>
-                                </div>
-                                <div style="border: 1px solid darkmagenta; border-radius: 5px; padding: 10px 20px" class="mt-2">
-                                    <span>Encuestas</span>
-                                    <span class="float-right">
-                                        <a href="{!! route('proyectos.encuestas', $item->id) !!}" class="btn btn-xs btn-primary">administrar</a>
-                                    </span>
-                                </div>
+                                                    <a href="{!! route($modelPlural.'.reportes', $item->id) !!}" class="text-primary" title="Reportes">
+                                                        <i class="mdi mdi-chart-bar mdi-24px"></i>
+                                                    </a>
+
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
                             <div class="text-left mt-5">
                                 {!! Form::open(['url' => route('proyectos.update.cantidad.consultas', $item->id), 'method' => 'patch']) !!}
 
-                                    <div class="form-group mb-0">
-                                        <p style="border-bottom: 1px dashed gray">
-                                            Máximo de consultas por inscripto
+                                <div class="form-group mb-0">
+                                    <p style="border-bottom: 1px dashed gray">
+                                        Máximo de consultas por inscripto
 
-                                            <span data-toggle="tooltip"
-                                                  title="Superados los 1000 inscriptos el sistema ajustará automáticamente el máximo de consultas
+                                        <span data-toggle="tooltip"
+                                              title="Superados los 1000 inscriptos el sistema ajustará automáticamente el máximo de consultas
                                                  permitidas para evitar saturaciones en el servidor y optimizar su rendimiento">
                                                 <i class="mdi mdi-information-outline text-danger"></i>
                                             </span>
 
-                                            <span class="float-right">
+                                        <span class="float-right">
                                                 @if($item->maximas_consultas)
-                                                    {!! $item->maximas_consultas !!}
-                                                @else
-                                                    <em class="text-gray"><small>ilimitado</small></em>
-                                                @endif
+                                                {!! $item->maximas_consultas !!}
+                                            @else
+                                                <em class="text-gray"><small>ilimitado</small></em>
+                                            @endif
                                             </span>
-                                        </p>
-                                    </div>
+                                    </p>
+                                </div>
 
-                                    <div class="input-group col-xs-12">
-                                        <input name="cantidad" type="number" class="form-control file-upload-info"
-                                               placeholder="Cantidad máxima" style="border: 1px solid lightgray" value="{!! $item->maximas_consultas !!}">
-                                        <span class="input-group-append">
+                                <div class="input-group col-xs-12">
+                                    <input name="cantidad" type="number" class="form-control file-upload-info"
+                                           placeholder="Cantidad máxima" style="border: 1px solid lightgray" value="{!! $item->maximas_consultas !!}">
+                                    <span class="input-group-append">
                                             <button class="file-upload-browse btn btn-primary btn-xs" type="submit">Definir</button>
                                         </span>
-                                    </div>
+                                </div>
 
-                                    @if($item->maximas_consultas != null)
+                                @if($item->maximas_consultas != null)
                                     <a href="{!! route('proyectos.update.consultas.ilimitadas', $item->id) !!}">
                                         <small>Definir número ilimitado de consultas</small></a>
-                                    @endif
+                                @endif
 
                                 {!! Form::close() !!}
                             </div>
 
-                            {{--@include('proyectos.partials.boton-exportar-inscriptos')--}}
+                            <div>
+                                <hr>
+                                <span class="text-warning">Auspiciantes</span><br>
+                                <p class="lead">
+                                    @forelse($item->auspiciantes as $auspiciante)
+                                        <span class="badge badge-secondary text-black">{!! $auspiciante->nombre !!}</span>
+                                    @empty
+                                        <small><em class="text-gray">ninguno</em></small>
+                                    @endforelse
+                                </p>
+                            </div>
 
                         </div>
+                    </div>
 
-                        <div class="col-lg-4 col-md-6 col-sm-6 mt-md-0 grid-margin">
+                </div>
 
+                <div class="col-lg-6 grid-margin">
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin">
                             @include('proyectos.partials.tipo-proyecto')
-
                         </div>
-
-
-
+                        <div class="col-lg-6 col-md-6"> @include('proyectos.partials.widget-images')</div>
+                        <div class="col-lg-6 col-md-6">@include('proyectos.partials.widget-pdf')</div>
+                        <div class="col-lg-6 col-md-6">@include('proyectos.partials.widget-iframes')</div>
+                        <div class="col-lg-6 col-md-6">@include('proyectos.partials.widget-videos')</div>
                     </div>
                 </div>
+
             </div>
         </div>
+
+
+
+        {{--<div class="col-lg-3 col-md-6"> @include('proyectos.partials.widget-images')</div>--}}
+        {{--<div class="col-lg-3 col-md-6">@include('proyectos.partials.widget-pdf')</div>--}}
+        {{--<div class="col-lg-3 col-md-6">@include('proyectos.partials.widget-iframes')</div>--}}
+        {{--<div class="col-lg-3 col-md-6">@include('proyectos.partials.widget-videos')</div>--}}
+
+
+        {{--<div class="col-md-12 grid-margin">--}}
+            {{--<div class="card">--}}
+                {{--<div class="card-body">--}}
+                    {{--<div class="row">--}}
+
+
+
+                        {{--<div class="col-lg-4 col-md-6 mt-md-0 mt-4 grid-margin">--}}
+                            {{--<div class="row">--}}
+                                {{--<div class="col-lg-6">--}}
+                                    {{--<span class="text-primary">Cliente</span><br>--}}
+                                    {{--<p class="lead">{!! ($item->cliente)? $item->cliente->nombre : '' !!}</p>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-lg-6">--}}
+                                    {{--<span class="text-info">Categoría</span><br>--}}
+                                    {{--<p class="lead">--}}
+                                        {{--@forelse($item->categorias as $categoria)--}}
+                                            {{--<span class="badge badge-secondary text-black">{!! $categoria->nombre !!}</span>--}}
+                                        {{--@empty--}}
+                                            {{--<small><em class="text-gray">ninguna</em></small>--}}
+                                        {{--@endforelse--}}
+                                    {{--</p>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-lg-12">--}}
+                                    {{--<hr>--}}
+                                    {{--<span class="text-warning">Auspiciantes</span><br>--}}
+                                    {{--<p class="lead">--}}
+                                        {{--@forelse($item->auspiciantes as $auspiciante)--}}
+                                            {{--<span class="badge badge-secondary text-black">{!! $auspiciante->nombre !!}</span>--}}
+                                        {{--@empty--}}
+                                            {{--<small><em class="text-gray">ninguno</em></small>--}}
+                                        {{--@endforelse--}}
+                                    {{--</p>--}}
+                                {{--</div>--}}
+
+
+                            {{--</div>--}}
+                        {{--</div>--}}
+
+
+                        {{--<div class="col-lg-4 col-md-3 col-sm-3 col-xs-6 grid-margin text-center card card-body">--}}
+
+                            {{--<div class="text-left">--}}
+                                {{--<div style="border: 1px solid darkcyan; border-radius: 5px; padding: 10px 20px">--}}
+                                    {{--<span>Inscriptos ({!! $item->inscriptos->count() !!})</span>--}}
+                                    {{--<span class="float-right">--}}
+                                        {{--<a href="{!! route('proyectos.export.inscriptos', $item->id) !!}" class="btn btn-xs btn-outline-secondary">--}}
+                                            {{--<i class="mdi mdi-file-excel"></i> exportar</a>--}}
+                                        {{--<a href="{!! route('proyectos.inscripciones', $item->id) !!}" class="btn btn-xs btn-success">ver</a>--}}
+                                    {{--</span>--}}
+                                {{--</div>--}}
+                                {{--<div style="border: 1px solid orange; border-radius: 5px; padding: 10px 20px" class="mt-2">--}}
+                                    {{--<span>Consultas ({!! $item->consultas->count() !!})</span>--}}
+                                    {{--<span class="float-right">--}}
+                                        {{--<a href="{!! route('proyectos.export.consultas', $item->id) !!}" class="btn btn-xs btn-outline-secondary">--}}
+                                            {{--<i class="mdi mdi-file-excel"></i>exportar</a>--}}
+                                        {{--@if($item->iframes->count() > 1)--}}
+                                            {{--<a href="{!! route('proyectos.consultas', ['id' => $item->id, 'sala' => $item->iframes->first()]) !!}" class="btn btn-xs btn-warning">ver</a>--}}
+                                        {{--@else--}}
+                                            {{--<a href="{!! route('proyectos.consultas', ['id' => $item->id]) !!}" class="btn btn-xs btn-warning">ver</a>--}}
+                                        {{--@endif--}}
+                                    {{--</span>--}}
+                                {{--</div>--}}
+                                {{--<div style="border: 1px solid darkmagenta; border-radius: 5px; padding: 10px 20px" class="mt-2">--}}
+                                    {{--<span>Encuestas</span>--}}
+                                    {{--<span class="float-right">--}}
+                                        {{--<a href="{!! route('proyectos.encuestas', $item->id) !!}" class="btn btn-xs btn-primary">administrar</a>--}}
+                                    {{--</span>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+
+                            {{--<div class="text-left mt-5">--}}
+                                {{--{!! Form::open(['url' => route('proyectos.update.cantidad.consultas', $item->id), 'method' => 'patch']) !!}--}}
+
+                                    {{--<div class="form-group mb-0">--}}
+                                        {{--<p style="border-bottom: 1px dashed gray">--}}
+                                            {{--Máximo de consultas por inscripto--}}
+
+                                            {{--<span data-toggle="tooltip"--}}
+                                                  {{--title="Superados los 1000 inscriptos el sistema ajustará automáticamente el máximo de consultas--}}
+                                                 {{--permitidas para evitar saturaciones en el servidor y optimizar su rendimiento">--}}
+                                                {{--<i class="mdi mdi-information-outline text-danger"></i>--}}
+                                            {{--</span>--}}
+
+                                            {{--<span class="float-right">--}}
+                                                {{--@if($item->maximas_consultas)--}}
+                                                    {{--{!! $item->maximas_consultas !!}--}}
+                                                {{--@else--}}
+                                                    {{--<em class="text-gray"><small>ilimitado</small></em>--}}
+                                                {{--@endif--}}
+                                            {{--</span>--}}
+                                        {{--</p>--}}
+                                    {{--</div>--}}
+
+                                    {{--<div class="input-group col-xs-12">--}}
+                                        {{--<input name="cantidad" type="number" class="form-control file-upload-info"--}}
+                                               {{--placeholder="Cantidad máxima" style="border: 1px solid lightgray" value="{!! $item->maximas_consultas !!}">--}}
+                                        {{--<span class="input-group-append">--}}
+                                            {{--<button class="file-upload-browse btn btn-primary btn-xs" type="submit">Definir</button>--}}
+                                        {{--</span>--}}
+                                    {{--</div>--}}
+
+                                    {{--@if($item->maximas_consultas != null)--}}
+                                    {{--<a href="{!! route('proyectos.update.consultas.ilimitadas', $item->id) !!}">--}}
+                                        {{--<small>Definir número ilimitado de consultas</small></a>--}}
+                                    {{--@endif--}}
+
+                                {{--{!! Form::close() !!}--}}
+                            {{--</div>--}}
+                            {{----}}
+                        {{--</div>--}}
+
+                        {{--<div class="col-lg-4 col-md-6 col-sm-6 mt-md-0 grid-margin">--}}
+
+                            {{--@include('proyectos.partials.tipo-proyecto')--}}
+
+                        {{--</div>--}}
+
+
+
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
 
 
 
