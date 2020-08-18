@@ -12,18 +12,18 @@ Route::group(['middleware' => ['can:mostrar_usuarios']], function () {
         ]);
 
     });
-
-    Route::post('inscriptos/{id}/eliminar', [
-        'as' => 'users.remove.inscripto',
-        'uses' => 'UserController@removeInscripto'
-    ]);
-
+    
     Route::get('usuario-conectado', [
         'as' => 'users.is.connected',
         'uses' => 'UserController@isConnected'
     ]);
 
 });
+
+Route::post('inscriptos/{id}/eliminar', [
+    'as' => 'users.remove.inscripto',
+    'uses' => 'UserController@removeInscripto'
+])->middleware('can:eliminar_inscriptos');
 
 Route::group(['middleware' => ['can:cambiar_password']], function () {
 
