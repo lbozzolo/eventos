@@ -12,6 +12,16 @@ Route::group(['middleware' => ['can:mostrar_usuarios']], function () {
         ]);
 
     });
+
+    Route::get('usuarios-buscar', [
+        'as' => 'users.search',
+        'uses' => 'UserController@search'
+    ]);
+
+    Route::delete('usuarios/{id}/destruir', [
+        'as' => 'users.destruir',
+        'uses' => 'UserController@destruir'
+    ]);
     
     Route::get('usuario-conectado', [
         'as' => 'users.is.connected',

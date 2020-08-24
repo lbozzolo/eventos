@@ -35,7 +35,7 @@ class UserController extends AppBaseController
     public function index(Request $request)
     {
         $this->userRepository->pushCriteria(new RequestCriteria($request));
-        $users = $this->userRepository->all();
+        $users = User::paginate(10);
         $roles = $this->userRepository->getRolesExceptSuperadmin(Auth::user());
 
         return view('users.index')->with(['users' => $users, 'roles' => $roles]);
@@ -56,6 +56,32 @@ class UserController extends AppBaseController
         $this->data['proyectos'] = Proyecto::pluck('nombre', 'id');
 
         return view('users.inscripciones')->with($this->data);
+    }
+
+    public function search(Request $request)
+    {
+        $validator = Validator::make($request->input(), ['search' => 'max:25'], ['search.max' => 'La búsqueda no puede exceder los 25 caracteres']);
+
+        if ($validator->fails())
+            return redirect()->back()->withErrors($validator);
+
+        $search = $request['search'];
+
+        if($search != '' && $search != ' ' && $search != null){
+            $result = User::where('name', 'like', "%$search%")
+                ->orWhere(function ($query) use ($search) {
+                    $query->where('lastname', 'like', "%$search%")
+                        ->orWhere('dni', 'like', "%$search%")
+                        ->orWhere('email', 'like', "%$search%");
+                });
+        } else {
+            return redirect()->route('users.inscripciones');
+        }
+
+        $this->data['users'] = $result->paginate(10);
+        $this->data['roles'] = $this->userRepository->getRolesExceptSuperadmin(Auth::user());
+
+        return view('users.index')->with($this->data);
     }
 
     public function searchByUser(Request $request)
@@ -302,6 +328,21 @@ class UserController extends AppBaseController
             return redirect(route('users.index'))->withErrors('No puede eliminarse a sí mismo');
 
         $this->userRepository->delete($id);
+
+        return redirect()->back()->with('ok', 'Usuario eliminado con éxito');
+    }
+
+    public function destruir($id)
+    {
+        $user = $this->userRepository->findWithoutFail($id);
+
+        if (empty($user))
+            return redirect()->back()->withErrors('Usuario no encontrado');
+
+        if ($user->id == Auth::user()->id)
+            return redirect()->back()->withErrors('No puede eliminarse a sí mismo');
+
+        $user->forceDelete($id);
 
         return redirect()->back()->with('ok', 'Usuario eliminado con éxito');
     }

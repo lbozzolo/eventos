@@ -1,10 +1,11 @@
-<table class="table datatables">
+<table class="table table-condensed">
     <thead>
         <tr>
-            <th>Nombre/Email</th>
-            <th>Alta</th>
-            <th>Rol</th>
-            <th>Opciones</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th style="width: 140px">Alta</th>
+            <th style="width: 120px" class="text-center">Rol</th>
+            <th style="width: 280px" class="text-center">Opciones</th>
         </tr>
     </thead>
     <tbody>
@@ -13,12 +14,13 @@
             <tr>
                 <td title="{!! $user->id !!}">
                     <span>{!! $user->fullname !!}</span><br>
-                    <small>{!! $user->email !!}</small>
+{{--                    <small>{!! $user->email !!}</small>--}}
                 </td>
+                <td><span>{!! $user->email !!}</span></td>
                 <td>{!! $user->fecha_creado !!}</td>
-                <td>
+                <td class="text-center">
                     @foreach($user->roles as $role)
-                        <span class="badge badge-{!! strtolower($role->name) !!}">
+                        <span class=" badge badge-{!! strtolower($role->name) !!}">
                             {!! $role->name !!}
                         </span>
                     @endforeach
@@ -29,7 +31,12 @@
                         <a href="{!! route('users.show', [$user->id]) !!}" class='btn btn-secondary btn-xs' title="Ver detalles"><i class="mdi mdi-18px mdi-file-document-box"></i></a>
                         <a href="{!! route('users.edit', [$user->id]) !!}" class='btn btn-dark btn-xs' title="Editar"><i class="mdi mdi-18px mdi-pencil-box"></i></a>
                         @if(Auth::user()->id != $user->id)
-                        <button title="Eliminar" type="button" data-toggle="modal" data-target="#delete{!! $user->id !!}" class="btn btn-xs  btn-danger"><i class="mdi mdi-delete mdi-18px"></i></button>
+
+                            <button title="Eliminar" type="button" data-toggle="modal" data-target="#delete{!! $user->id !!}" class="btn btn-xs  btn-danger"><i class="mdi mdi-delete mdi-18px"></i></button>
+                            @role('Superadmin')
+                            <button title="Destruir" type="button" data-toggle="modal" data-target="#destroy{!! $user->id !!}" class="btn btn-xs text-white" style="background-color: black"><i class="mdi mdi-skull mdi-18px"></i></button>
+                            @endrole
+
                         @else
                         <button type="button" class="btn btn-xs  btn-danger" disabled><i class="mdi mdi-delete mdi-18px"></i></button>
                         @endif
@@ -95,6 +102,37 @@
                         </div>
                     </div>
 
+                    @role('Superadmin')
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="destroy{!! $user->id !!}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" ><i class="mdi mdi-skull text-danger"></i> Destruir Usuario</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-danger">¿Desea destruir este usuario?</p>
+                                    <p class="lead">{!! $user->fullname !!}</p>
+                                    <p>Una vez realizada la acción no se podrá deshacer.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    {!! Form::open(['route' => ['users.destruir', $user->id], 'method' => 'delete']) !!}
+
+                                    <button title="Eliminar" type="submit" class="btn btn-sm btn-danger">Destruir</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @endrole
+
                 </td>
             </tr>
         @else
@@ -144,3 +182,11 @@
     @endforeach
     </tbody>
 </table>
+
+@if($users instanceof \Illuminate\Pagination\LengthAwarePaginator )
+
+    <div class="card-body text-center customed-pagination">
+        {!! $users->appends(request()->input())->render() !!}
+    </div>
+
+@endif

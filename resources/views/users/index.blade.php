@@ -15,12 +15,16 @@
     <div class="card mt-3">
         <div class="card-body">
 
+            @include('users.partials.buscador-usuarios')
+
+            <hr>
+
             @if($users->count())
                 <div class="table-responsive">
                     @include('users.table')
                 </div>
             @else
-                <span class="text-muted">No hay ningún usuario cargado en el sistema.</span>
+                <span class="text-muted">No se encontró ningún resultado.</span>
             @endif
 
         </div>
