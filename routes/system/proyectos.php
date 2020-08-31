@@ -4,6 +4,17 @@ Route::group(['middleware' => ['can:editar_proyectos']], function () {
 
     Route::resource('proyectos', 'ProyectoController');
 
+    Route::get('proyectos/crear/grupo-de-eventos', [
+        'as' => 'proyectos.create.grupo',
+        'uses' => 'ProyectoController@createGrupo'
+    ]);
+
+    Route::post('proyectos/crear/grupo-de-eventos', [
+        'as' => 'proyectos.store.grupo',
+        'uses' => 'ProyectoController@storeGrupo'
+    ]);
+
+
     Route::post('proyectos/{id}/generar-codigos', [
         'as' => 'proyectos.store.codigos',
         'uses' => 'ProyectoController@storeCodigos'

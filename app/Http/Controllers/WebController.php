@@ -9,14 +9,16 @@ use Eventos\Http\Requests\RegistreUserRequest;
 use Eventos\Http\Requests\StoreIdentificacionRequest;
 use Eventos\Models\Codigo;
 use Eventos\Models\Encuesta;
+use Eventos\Models\Grupo;
 use Eventos\Models\Ocupacion;
-use Eventos\Models\Pregunta;
 use Eventos\Models\Proyecto;
-use Eventos\Models\Respuesta;
 use Eventos\Repositories\ProyectoRepository;
 use Eventos\Repositories\UserRepository;
 use Eventos\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -56,7 +58,16 @@ class WebController extends AppBaseController
 
     public function charlas()
     {
-        $this->data['proyectos'] = Proyecto::orderBy('fecha', 'DESC')->active()->paginate(6);
+//        $this->data['proyectos'] = Proyecto::orderBy('fecha', 'DESC')->active()->paginate(6);
+        $eventos = Proyecto::orderBy('fecha', 'DESC')->doesntHave('grupos')->active()->get();
+        $grupos = Grupo::orderBy('created_at', 'DESC')->has('proyectos')->get();
+
+        foreach($grupos as $grupo){
+            $eventos = $eventos->push($grupo);
+        }
+
+        $this->data['proyectos'] = $this->paginateEvents($eventos);
+
         return view('web.charlas')->with($this->data);
     }
 
@@ -72,6 +83,12 @@ class WebController extends AppBaseController
             return view('web.show-charla-finalizada')->with($this->data);
 
         return view('web.show-charla')->with($this->data);
+    }
+
+    public function showGrupo($cliente, $evento, $id)
+    {
+        $this->data['charla'] = Grupo::findOrFail($id);
+        return view('web.show-grupo')->with($this->data);
     }
 
     public function ingresarCharla($cliente, $evento, $id)
@@ -227,6 +244,12 @@ class WebController extends AppBaseController
 //        return view('web.charla-inscripcion')->with($this->data);
     }
 
+    public function gruposInscripcion($cliente, $evento, $id)
+    {
+        $this->data['charla'] = Grupo::findOrFail($id);
+        return redirect()->route('web.grupos.registro', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
+    }
+
     public function registro($cliente, $evento, $id)
     {
         $this->data['charla'] = Proyecto::active($id)->first();
@@ -239,6 +262,14 @@ class WebController extends AppBaseController
         return view('web.registro')->with($this->data);
     }
 
+    public function gruposRegistro($cliente, $evento, $id)
+    {
+        $this->data['charla'] = Grupo::findOrFail($id);
+        $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
+        $this->data['paises'] = $this->paises;
+        return view('web.registro-grupo')->with($this->data);
+    }
+
     public function postRegistro(RegistreUserRequest $request, $id)
     {
         $this->data['charla'] = Proyecto::active($id)->first();
@@ -247,6 +278,7 @@ class WebController extends AppBaseController
             return abort(404);
 
         $inputs = $request->input();
+
         $inputs['password'] = Hash::make($inputs['dni']);
 
         $userExist = $this->userRepository->userExists($request);
@@ -358,6 +390,70 @@ class WebController extends AppBaseController
         return redirect()->route('web.charlas.ingresar', $redirect)->with('ok', $this->messageInscription);
     }
 
+    public function postRegistroGrupo(RegistreUserRequest $request, $id)
+    {
+        $this->data['charla'] = Grupo::findOrFail($id);
+
+        $inputs = $request->input();
+
+        $validator = Validator::make($request->all(), [
+            'proyectos' => 'required',
+        ],[
+            'proyectos.required' => 'Debe seleccionar al menos un evento'
+        ]);
+
+        if ($validator->fails())
+            return redirect()->back()->withErrors($validator)->withInput();
+
+
+        $inputs['password'] = Hash::make($inputs['dni']);
+
+        $userExist = $this->userRepository->userExists($request);
+        $user = ($userExist)? $userExist : User::create($inputs);
+
+        $user->assignRole('Inscripto');
+        $user->save();
+
+        $proyectos = collect();
+        if(isset($inputs['proyectos'])){
+            foreach($inputs['proyectos'] as $proyectoId){
+                $user->proyectos()->syncWithoutDetaching($proyectoId);
+                $proyecto = Proyecto::find($proyectoId);
+                $proyectos = $proyectos->push($proyecto);
+            }
+        }
+
+        Auth::attempt(['email' => $user->email, 'password' => $user->dni]);
+
+        foreach($proyectos as $proyecto){
+
+            $data = array(
+
+                'fullname' => $user->fullname,
+                'evento' => $proyecto->nombre,
+                'cliente' => $proyecto->cliente->nombre,
+                'email' => $user->email,
+                'dni' => $user->dni,
+                'fecha' => $proyecto->fecha,
+                'hora' => $proyecto->hora,
+                'logo' => $proyecto->cliente->mainImage(),
+                'url' => route('web.charlas.ingresar',[
+                    'cliente' => $proyecto->cliente_slug,
+                    'evento' => $proyecto->nombre_slug,
+                    'id' => $proyecto->id])
+            );
+
+            Mail::send('emails.inscripcion', ['data' => $data], function($message) use ($data){
+                $message->to($data['email']);
+                $message->subject('Inscripción a evento online');
+                $message->from(config('mail.from.address'));
+            });
+
+        }
+
+        return redirect()->route('web.charlas')->with('ok', $this->messageInscription);
+    }
+
     public function getRegistro2($userId, $eventoId)
     {
         $this->data['charla'] = Proyecto::active($eventoId)->first();
@@ -440,25 +536,24 @@ class WebController extends AppBaseController
 
             } else {
 
-                return redirect()->route('web.charlas.registro', ['cliente' =>$this->data['charla']->cliente_slug, 'evento' => $this->data['charla']->nombre_slug,'id' => $this->data['charla']->id])->with('warning', 'Las credenciales no coinciden con los registros. Por favor regístrese en el sistema.');
+                if($this->data['charla']->grupos->count()){
+
+                    return redirect()->route('web.grupos.inscripcion', [
+                        'cliente' => $this->data['charla']->cliente_slug,
+                        'evento' => $this->data['charla']->nombre_slug,
+                        'id' => $this->data['charla']->grupos->first()->id])->with('warning', 'Las credenciales no coinciden con los registros. Por favor regístrese en el sistema.');
+
+                } else {
+
+                    return redirect()->route('web.charlas.registro', [
+                        'cliente' => $this->data['charla']->cliente_slug,
+                        'evento' => $this->data['charla']->nombre_slug,
+                        'id' => $this->data['charla']->id])->with('warning', 'Las credenciales no coinciden con los registros. Por favor regístrese en el sistema.');
+
+                }
+//                return redirect()->route('web.charlas.registro', ['cliente' => $this->data['charla']->cliente_slug, 'evento' => $this->data['charla']->nombre_slug,'id' => $this->data['charla']->id])->with('warning', 'Las credenciales no coinciden con los registros. Por favor regístrese en el sistema.');
 
             }
-
-//            // Convierto al dni en únicamente números quitando puntos y comas
-//            $request['password'] = preg_replace('/[^0-9]/', '', $request['password']);
-//
-//            // Creo el usuario y le asigno password = dni
-//            $password = Hash::make($request['password']);
-//            $this->data['user'] = User::create([
-//                'name' => $request['email'],
-//                'lastname' => $request['email'],
-//                'email' => $request['email'],
-//                'dni' => $request['password'],
-//                'password' => $password,
-//            ]);
-//
-//            // Redirecciono a vista para completar el resto de los datos
-//            return redirect()->route('web.get.registro', ['userId' => $this->data['user']->id, 'eventoId' => $this->data['charla']->id]);
 
         }
 
@@ -606,6 +701,28 @@ class WebController extends AppBaseController
         }
 
         return redirect()->back()->withErrors('Ocurrió un error. No se pudo suscribir.');
+    }
+
+    function paginateEvents($collection, $perPage = 6, $pageName = 'page', $fragment = null)
+    {
+        $currentPage = \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPage($pageName);
+        $currentPageItems = $collection->slice(($currentPage - 1) * $perPage, $perPage);
+        parse_str(request()->getQueryString(), $query);
+        unset($query[$pageName]);
+        $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
+            $currentPageItems,
+            $collection->count(),
+            $perPage,
+            $currentPage,
+            [
+                'pageName' => $pageName,
+                'path' => \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPath(),
+                'query' => $query,
+                'fragment' => $fragment
+            ]
+        );
+
+        return $paginator;
     }
 
     public function test(Request $request)

@@ -44,6 +44,11 @@ Route::get('eventos/{cliente}/{evento}/{id}', [
     'uses' => 'WebController@showCharla'
 ]);
 
+Route::get('events/{cliente}/{evento}/{id}', [
+    'as' => 'web.grupos.show',
+    'uses' => 'WebController@showGrupo'
+]);
+
 Route::get('eventos/{cliente}/{evento}/{id}/ingresar', [
     'as' => 'web.charlas.ingresar',
     'uses' => 'WebController@ingresarCharla'
@@ -74,14 +79,29 @@ Route::get('eventos/{cliente}/{evento}/{id}/inscripcion', [
     'uses' => 'WebController@inscripcion'
 ]);
 
+Route::get('eventos/{cliente}/{evento}/{id}/inscription', [
+    'as' => 'web.grupos.inscripcion',
+    'uses' => 'WebController@gruposInscripcion'
+]);
+
 Route::get('eventos/{cliente}/{evento}/{id}/registro', [
     'as' => 'web.charlas.registro',
     'uses' => 'WebController@registro'
 ]);
 
+Route::get('eventos/{cliente}/{evento}/{id}/register', [
+    'as' => 'web.grupos.registro',
+    'uses' => 'WebController@gruposRegistro'
+]);
+
 Route::post('eventos/{id}/registro', [
     'as' => 'web.post.registro',
     'uses' => 'WebController@postRegistro'
+]);
+
+Route::post('eventos/{id}/registro-grupo', [
+    'as' => 'web.post.registro.grupo',
+    'uses' => 'WebController@postRegistroGrupo'
 ]);
 
 Route::get('evento-inscripcion/{userId}/{eventoId}', [
@@ -144,7 +164,7 @@ Route::post('consultar', [
     'uses' => 'ProyectoController@storeConsulta'
 ]);
 
-Route::get('get-alert-message', [
+Route::post('get-alert-message', [
     'as' => 'proyectos.get.alert.message',
     'uses' => 'ProyectoController@getAlertMessage'
 ]);

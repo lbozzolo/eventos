@@ -320,6 +320,11 @@ class Proyecto extends Entity
         return $this->belongsTo(Cliente::class);
     }
 
+    public function grupos()
+    {
+        return $this->belongsToMany(Grupo::class);
+    }
+
     public function estado()
     {
         return $this->belongsTo(Estado::class);

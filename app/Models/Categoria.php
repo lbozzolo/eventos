@@ -23,4 +23,9 @@ class Categoria extends Entity
     {
         return $this->belongsToMany(Proyecto::class);
     }
+
+    public function grupos()
+    {
+        return $this->hasMany(Grupo::class);
+    }
 }

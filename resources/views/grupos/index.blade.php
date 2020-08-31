@@ -23,8 +23,8 @@
         <div class="card-body">
 
             <h2>
-                Eventos
-                <a class="btn btn-primary btn-sm" href="{!! route($modelPlural.'.create') !!}"><i class="mdi mdi-plus"> </i> Agregar</a>
+                Grupos de eventos
+                <a class="btn btn-primary btn-sm" href="{!! route('grupos.create') !!}"><i class="mdi mdi-plus"> </i> Agregar</a>
             </h2>
 
         </div>
@@ -32,12 +32,14 @@
     <div class="card mt-3">
         <div class="card-body">
 
-            @if($items->count())
-                <div class="table-responsive">
-                    @include($modelPlural.'.table')
-                </div>
-            @else
-                <span class="text-muted">No hay {!! $modelSpanishPlural !!} en el sistema.</span>
+            @can('mostrar_grupos')
+                @if($items->count())
+                    <div class="table-responsive">
+                        @include($modelPlural.'.table')
+                    </div>
+                @else
+                    <span class="text-muted">No hay {!! $modelSpanishPlural !!} en el sistema.</span>
+                @endif
             @endif
 
         </div>

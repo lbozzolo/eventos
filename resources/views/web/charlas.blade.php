@@ -20,9 +20,24 @@
             <div class="row">
 
                 @foreach($proyectos as $proyecto)
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        @include('web.components.proyecto-card')
-                    </div>
+
+                    @if($proyecto instanceof Eventos\Models\Proyecto)
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            @include('web.components.proyecto-card')
+                        </div>
+                    @else
+
+
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            @include('web.components.grupo-card')
+                        </div>
+                        {{--@if(!isset($loop) ?: $loop->first)--}}
+                            {{--<div class="col-sm-12 col-md-6 col-lg-4">--}}
+                                {{--@include('web.components.grupo-card')--}}
+                            {{--</div>--}}
+                        {{--@endif--}}
+
+                    @endif
                 @endforeach
 
             </div>
@@ -30,7 +45,16 @@
                 <div class="col-sm-12 col-md-12 col-lg-12 text-center">
                     <nav class="pagination-area" style="margin: 50px 0px">
 
-                        {!! $proyectos->render() !!}
+
+                        @if($proyectos instanceof \Illuminate\Pagination\LengthAwarePaginator )
+
+                            <div class="card-body text-center customed-pagination">
+                                {!! $proyectos->appends(request()->input())->render() !!}
+                            </div>
+
+                        @endif
+
+{{--                        {!! $proyectos->render() !!}--}}
 
                     </nav>
                 </div>

@@ -22,7 +22,7 @@
     <div class="card col-lg-6">
         <div class="card-body">
 
-            <h2>{!! ucfirst($modelSpanish) !!} / <span class="text-warning">Agregar</span></h2>
+            <h3>Crear nuevo <span class="text-warning">Evento</span></h3>
 
             {!! Form::open(['route' => $modelPlural.'.store', 'method' => 'post']) !!}
 
@@ -58,7 +58,7 @@
             enableTime: true,
             dateFormat: 'd-m-Y H:i',
             time_24hr: true
-        })
+        });
 
     </script>
 

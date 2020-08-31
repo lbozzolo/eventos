@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-1">
-                            <a href="{!! route('proyectos.edit', $item->proyecto->id) !!}" class="btn btn-secondary"><i class="mdi mdi-arrow-left"></i> Volver</a>
+                            <a href="{!! route('proyectos.show', $item->proyecto->id) !!}" class="btn btn-secondary"><i class="mdi mdi-arrow-left"></i> Volver</a>
                         </div>
                         <div class="col-lg-11">
                             <h2 class="ml-3">

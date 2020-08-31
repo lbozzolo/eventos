@@ -16,9 +16,18 @@
         <li class="{{ Request::is('proyectos*') ? 'active' : '' }} nav-item">
             <a href="{!! route('proyectos.index') !!}" class="nav-link">
                 <i class="mdi menu-icon {{ Request::is('proyectos*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>
-                <span class="menu-title">PROYECTOS</span>
+                <span class="menu-title">EVENTOS</span>
             </a>
         </li>
+        @endcan
+
+        @can('editar_proyectos')
+            <li class="{{ Request::is('grupos*') ? 'active' : '' }} nav-item">
+                <a href="{!! route('grupos.index') !!}" class="nav-link">
+                    <i class="mdi menu-icon {{ Request::is('grupos*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>
+                    <span class="menu-title">Grupos de eventos</span>
+                </a>
+            </li>
         @endcan
 
         @can('mostrar_inscriptos')
@@ -32,16 +41,8 @@
         @endrole
         @endcan
 
-        @can('mostrar_perfil_cliente')
-        <li class="{{ Request::is('perfil/*') ? 'active' : '' }} nav-item">
-            <a href="{!! route('clientes.profile', Auth::user()->id) !!}" class="nav-link">
-                <i class="mdi menu-icon {{ Request::is('perfil/*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>
-                <span class="menu-title">Perfil</span>
-            </a>
-        </li>
-        @endcan
-
         <li><hr></li>
+
 
         @can('mostrar_categorias')
         <li class="{{ Request::is('categorias*') ? 'active' : '' }} nav-item">

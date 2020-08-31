@@ -1,10 +1,10 @@
-<table class="table datatables">
+<table class="table ">
     <thead>
     <tr>
         <th style="width: 120px"></th>
         <th style="width: 200px">Nombre</th>
-        <th style="width: 80px">Fecha del evento</th>
-        <th class="text-center">Inscriptos</th>
+        <th style="width: 150px">Fecha del evento</th>
+        <th class="text-center" style="width: 80px">Inscriptos</th>
         <th style="width: 120px">Tipo</th>
         <th style="width: 120px">Estado</th>
         <th style="width: 150px">Opciones</th>
@@ -12,6 +12,7 @@
     </thead>
     <tbody>
     @foreach($items as $item)
+
         <tr>
             <td title="{!! $item->id !!}">
                 <a href="{!! route($modelPlural.'.show', $item->id) !!}">
@@ -20,6 +21,12 @@
             </td>
             <td>
                 <a href="{!! route($modelPlural.'.show', $item->id) !!}">
+                    @if($item->grupos->count())
+                        @foreach($item->grupos as $grupo)
+                            <span class="badge badge-danger">{!! $grupo->nombre !!}</span>
+                        @endforeach
+                        <br>
+                    @endif
                     <span class="text-primary">{!! ($item->cliente)? $item->cliente->nombre : '-' !!}</span> ·
                     <small style="color: gray">{!! $item->categorias->first()->nombre !!}</small><br>
                     <span class="lead text-black">{!! ($item->nombre)? $item->nombre : '-' !!}</span>
@@ -101,6 +108,7 @@
 
             </td>
         </tr>
+
     @endforeach
     </tbody>
 

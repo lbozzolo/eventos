@@ -17,6 +17,7 @@ use Eventos\Models\Cliente;
 use Eventos\Models\Codigo;
 use Eventos\Models\Consulta;
 use Eventos\Models\Estado;
+use Eventos\Models\Grupo;
 use Eventos\Models\Iframe;
 use Eventos\Models\Pdf;
 use Eventos\Models\Proyecto;
@@ -82,8 +83,8 @@ class ProyectoController extends AppBaseController
 
     public function index()
     {
-//        $this->data['items'] = Proyecto::all()->sortByDesc('id');
-        $this->data['items'] = Proyecto::orderBy('id', 'desc')->paginate(10);
+        $this->data['grupos'] = Grupo::orderBy('id', 'desc')->get();
+        $this->data['items'] = Proyecto::orderBy('id', 'desc')->paginate(5);
         return view($this->modelPlural.'.index')->with($this->data);
     }
 
