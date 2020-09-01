@@ -16,9 +16,6 @@ use Eventos\Repositories\ProyectoRepository;
 use Eventos\Repositories\UserRepository;
 use Eventos\User;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -58,12 +55,11 @@ class WebController extends AppBaseController
 
     public function charlas()
     {
-//        $this->data['proyectos'] = Proyecto::orderBy('fecha', 'DESC')->active()->paginate(6);
         $eventos = Proyecto::orderBy('fecha', 'DESC')->doesntHave('grupos')->active()->get();
         $grupos = Grupo::orderBy('created_at', 'DESC')->has('proyectos')->get();
 
         foreach($grupos as $grupo){
-            $eventos = $eventos->push($grupo);
+            $eventos = $eventos->push($grupo)->sortByDesc('created_at');
         }
 
         $this->data['proyectos'] = $this->paginateEvents($eventos);
@@ -101,7 +97,6 @@ class WebController extends AppBaseController
         $user = Auth::user();
 
         // Si la charla es pública lo envío a la charla
-//        if($this->data['charla']->publico)
         if($this->data['charla']->tipoProyecto() == 'Público')
             return view('web.ingresar-charla')->with($this->data);
 
