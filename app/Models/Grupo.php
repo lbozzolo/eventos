@@ -24,6 +24,17 @@ class Grupo extends Entity
         return str_slug($this->nombre);
     }
 
+    public function scopeActive($query)
+    {
+        $activo = Estado::where('slug', '=', 'activo')->first()->id;
+        $finalizado = Estado::where('slug', '=', 'finalizado')->first()->id;
+
+        return $this->whereHas('proyectos', function($q) use ($activo, $finalizado) {
+            $q->where('estado_id', $activo)->orWhere('estado_id', '=', $finalizado);
+
+        });
+    }
+
     // Relationships
 
     public function categoria()

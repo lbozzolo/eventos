@@ -56,7 +56,7 @@ class WebController extends AppBaseController
     public function charlas()
     {
         $eventos = Proyecto::orderBy('fecha', 'DESC')->doesntHave('grupos')->active()->get();
-        $grupos = Grupo::orderBy('created_at', 'DESC')->has('proyectos')->get();
+        $grupos = Grupo::orderBy('created_at', 'DESC')->has('proyectos')->active()->get();
 
         foreach($grupos as $grupo){
             $eventos = $eventos->push($grupo)->sortByDesc('created_at');

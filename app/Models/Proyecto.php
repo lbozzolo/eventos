@@ -122,6 +122,11 @@ class Proyecto extends Entity
         return $this->estado->slug == 'finalizado';
     }
 
+    public function isInactive()
+    {
+        return $this->estado->slug == 'inactivo';
+    }
+
     public function hasBegun()
     {
         return Carbon::now()->format('Y-m-d H:i') >= Carbon::parse($this->attributes['fecha'])->format('Y-m-d H:i');

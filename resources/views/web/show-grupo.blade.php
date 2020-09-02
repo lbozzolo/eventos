@@ -30,7 +30,9 @@
                     <div class="row">
 
                         @foreach($charla->proyectos as $proyecto)
-                            <div class="col-sm-12 col-md-4 col-lg-3">
+
+                            @if(!$proyecto->isInactive())
+                            <div class="col-sm-12 col-md-4 col-lg-4">
                                 <div class="blog-item">
                                     <a href="{!! route('web.iniciar-sesion', ['cliente' => $proyecto->cliente_slug, 'evento' => $proyecto->nombre_slug, 'id' => $proyecto->id]) !!}">
 
@@ -58,12 +60,20 @@
                                                class="btn btn__primary btn__bordered module__btn-request mr-3 mb-1">
                                                 <span>Ingresar</span>
                                             </a>
+
+                                            @forelse($proyecto->pdfs as $pdf)
+                                                <a href="{!! route('pdf.ver', $pdf->path) !!}" target="_blank" class="mr-3 mb-1 btn__bordered module__btn-request btn btn-outline-dark">Programa <i class="fa fa-file-text-o"></i> </a>
+                                            @empty
+                                            @endforelse
+
                                         </div>
 
                                     </a>
 
                                 </div>
                             </div>
+                            @endif
+
                         @endforeach
                     </div>
 
