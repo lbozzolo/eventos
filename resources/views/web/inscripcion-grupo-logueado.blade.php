@@ -5,11 +5,6 @@
     <img src="{!! $charla->proyectos->first()->header->mainImage() !!}" width="100%"/>
 
     <section class="blog blog-single pb-5 pt-5 bg-light">
-        {{--<div class="row">--}}
-            {{--<div class="col-lg-12">--}}
-                {{--@include('web.components.cerrar-sesion')--}}
-            {{--</div>--}}
-        {{--</div>--}}
 
         <div class="container">
             <div class="row">
@@ -45,70 +40,17 @@
                                 </div>
                             </div>
                         </div>
-                        {!! Form::open(['url' => route('web.post.registro.grupo', $charla->id), 'method' => 'post', 'class' => 'contact__form-panel']) !!}
+                        {!! Form::open(['url' => route('web.post.registro.grupo.logueado', $charla->id), 'method' => 'post', 'class' => 'contact__form-panel']) !!}
 
                         <div class="row">
                             <div class="col-lg-12">
                                 @include('vendor.flash.message')
                             </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <p class="text-right">
-                                    ¿Ya está registrado?
-                                    <a href="{!! route('web.iniciar.sesion.grupo', ['cliente' => $charla->proyectos->first()->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}">Inicie sesión</a>
-                                </p>
-                                <div class="form-group">
-                                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus']) !!}
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    {!! Form::text('lastname', null, ['class' => 'form-control', 'placeholder' => 'Apellido']) !!}
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    {!! Form::text('phone', null, ['class' => 'form-control', 'placeholder' => 'Teléfono']) !!}
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    {!! Form::text('dni', null, ['class' => 'form-control', 'placeholder' => 'DNI']) !!}
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    {!! Form::select('pais', $paises, null, ['class' => 'form-control']) !!}
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12" style="margin-top: 30px">
-                                <div class="form-group">
-                                    {!! Form::text('localidad', null, ['class' => 'form-control', 'placeholder' => 'Localidad, Provincia']) !!}
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12 mb-4" style="border: 1px solid lightgray; border-radius: 15px">
-                                <div class="form-group" style="margin-top: 10px; margin-bottom: 80px">
-                                    <p class="text-left pl-3" style="font-size: 1.2em">Ocupación</p>
-                                    {!! Form::select('ocupacion_id', $ocupaciones, null, ['class' => 'form-control', 'placeholder' => '', 'id' => 'ocupacionSelect']) !!}
-                                </div>
-                                <p id="otraOcupacion" class="text-primary pl-3" style="cursor: pointer">Otra ocupación</p>
-                                <div class="form-group" style="display: none" id="ocupacionTexto">
-                                    {!! Form::text('ocupacion', null, ['class' => 'form-control', 'placeholder' => 'Especifique otra...', 'id' => 'otraOcupacionInput']) !!}
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    {!! Form::text('institucion', null, ['class' => 'form-control', 'placeholder' => 'Institucion']) !!}
-                                </div>
-                            </div>
+                            <h3>¿A qué eventos querés inscribirte?</h3>
                             @if($charla->proyectos->count())
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        <p style="font-size: 1.2em">¿A qué eventos querés inscribirte?</p>
+                                        {{--<p style="font-size: 1.2em">¿A qué eventos querés inscribirte?</p>--}}
 
                                         <ul>
                                             @foreach($charla->proyectos as $proyecto)
@@ -131,8 +73,6 @@
                                                         </div>
                                                     </label>
                                                 </li>
-                                                {{--{!! Form::checkbox('proyectos[]', $proyecto->id) !!}--}}
-                                                {{--{!! Form::label('proyectos[]', $proyecto->nombre) !!}<br>--}}
                                             @endforeach
                                         </ul>
 
@@ -141,7 +81,7 @@
                             @endif
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <button type="submit" class="btn btn__primary btn__block">
-                                    <span>Enviar Informacion</span>
+                                    <span>Inscribirse</span>
                                 </button>
                             </div>
                         </div>

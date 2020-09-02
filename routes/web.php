@@ -104,6 +104,11 @@ Route::post('eventos/{id}/registro-grupo', [
     'uses' => 'WebController@postRegistroGrupo'
 ]);
 
+Route::post('eventos/{id}/registro-grupo-logueado', [
+    'as' => 'web.post.registro.grupo.logueado',
+    'uses' => 'WebController@postRegistroGrupoLogueado'
+]);
+
 Route::get('evento-inscripcion/{userId}/{eventoId}', [
     'as' => 'web.get.registro',
     'uses' => 'WebController@getRegistro2'
@@ -119,9 +124,19 @@ Route::get('iniciar-sesion/{cliente?}/{evento?}/{id?}', [
     'uses' => 'WebController@iniciarSesion'
 ]);
 
+Route::get('iniciarsesion/{cliente?}/{evento?}/{id?}', [
+    'as' => 'web.iniciar.sesion.grupo',
+    'uses' => 'WebController@iniciarSesionGrupo'
+]);
+
 Route::post('ingresar/{charla?}', [
     'as' => 'web.login',
     'uses' => 'WebController@login'
+]);
+
+Route::post('entrar/{charla?}', [
+    'as' => 'web.post.sesion.grupo',
+    'uses' => 'WebController@postSesionGrupo'
 ]);
 
 Route::get('eventos/{id}/encuestas', [

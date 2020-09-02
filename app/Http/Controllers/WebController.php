@@ -318,6 +318,59 @@ class WebController extends AppBaseController
         return redirect()->route('web.charlas.ingresar', $redirect)->with('ok', $this->messageInscription);
     }
 
+    public function postRegistroGrupoLogueado(Request $request, $id)
+    {
+        $this->data['charla'] = Grupo::active($id)->first();
+        $inputs = $request->input();
+
+        $user = Auth::user();
+        $user->assignRole('Inscripto');
+        $user->save();
+
+        $proyectos = collect();
+        if(isset($inputs['proyectos'])){
+            foreach($inputs['proyectos'] as $proyectoId){
+                $user->proyectos()->syncWithoutDetaching($proyectoId);
+                $proyecto = Proyecto::find($proyectoId);
+                $proyectos = $proyectos->push($proyecto);
+            }
+        }
+
+        Auth::attempt(['email' => $user->email, 'password' => $user->dni]);
+
+        foreach($proyectos as $proyecto){
+
+            $data = array(
+
+                'fullname' => $user->fullname,
+                'evento' => $proyecto->nombre,
+                'cliente' => $proyecto->cliente->nombre,
+                'email' => $user->email,
+                'dni' => $user->dni,
+                'fecha' => $proyecto->fecha,
+                'hora' => $proyecto->hora,
+                'logo' => $proyecto->cliente->mainImage(),
+                'url' => route('web.charlas.ingresar',[
+                    'cliente' => $proyecto->cliente_slug,
+                    'evento' => $proyecto->nombre_slug,
+                    'id' => $proyecto->id])
+            );
+
+            Mail::send('emails.inscripcion', ['data' => $data], function($message) use ($data){
+                $message->to($data['email']);
+                $message->subject('Inscripción a evento online');
+                $message->from(config('mail.from.address'));
+            });
+
+        }
+
+        return redirect()->route('web.grupos.show', [
+            'cliente' => $this->data['charla']->proyectos->first()->cliente_slug,
+            'evento' => $this->data['charla']->nombre_slug,
+            'id' => $id
+        ])->with('ok', $this->messageInscription);
+    }
+
     public function postRegistro2(RegisterUser2Request $request, $id)
     {
         $this->data['charla'] = Proyecto::active($id)->first();
@@ -536,7 +589,8 @@ class WebController extends AppBaseController
                     return redirect()->route('web.grupos.inscripcion', [
                         'cliente' => $this->data['charla']->cliente_slug,
                         'evento' => $this->data['charla']->nombre_slug,
-                        'id' => $this->data['charla']->grupos->first()->id])->with('warning', 'Las credenciales no coinciden con los registros. Por favor regístrese en el sistema.');
+                        'id' => $this->data['charla']->grupos->first()->id])
+                        ->with('warning', 'Las credenciales no coinciden con los registros. Por favor regístrese en el sistema.');
 
                 } else {
 
@@ -651,6 +705,49 @@ class WebController extends AppBaseController
 
         // Si la charla es privada y no está logueado lo envío al login
         return view('web.iniciar-sesion')->with($this->data);
+    }
+
+    public function iniciarSesionGrupo($cliente, $evento, $id)
+    {
+        $this->data['charla'] = Grupo::active($id)->first();
+        return view('web.iniciar-sesion-grupo')->with($this->data);
+    }
+
+    public function postSesionGrupo(Request $request, $id)
+    {
+        $this->data['charla'] = Grupo::active($id)->first();
+
+        if(!$request['password'])
+            return redirect()->back()->withErrors('Debe ingresar su DNI, pasaporte o Id');
+
+        $user = User::where('email', $request['email'])->first();
+
+        if($user) {
+
+            $this->validateLogin($request);
+            if ($this->hasTooManyLoginAttempts($request)) {
+                $this->fireLockoutEvent($request);
+                return $this->sendLockoutResponse($request);
+            }
+
+            if ($this->attemptLogin($request)){
+                Auth::login($user);
+                return view('web.inscripcion-grupo-logueado')->with(['charla'=> $this->data['charla']]);
+            }
+
+            $this->redirectTo = route('home');
+            $this->incrementLoginAttempts($request);
+            return $this->sendFailedLoginResponse($request);
+
+        } else {
+
+            return redirect()->route('web.grupos.registro', [
+                'cliente' => $this->data['charla']->proyectos->first()->cliente_slug,
+                'evento' => $this->data['charla']->nombre_slug,
+                'id' => $this->data['charla']->id])
+                ->withErrors('Las credenciales no coinciden con los registros. Por favor regístrese en el sistema.');
+        }
+
     }
 
     public function postContact(ContactoRequest $request)
