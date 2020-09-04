@@ -41,6 +41,17 @@
         @endrole
         @endcan
 
+        @can('mostrar_perfil_cliente')
+            @role('Cliente')
+            <li class="{{ Request::is('perfil/*') ? 'active' : '' }} nav-item">
+                <a href="{!! route('clientes.profile', Auth::user()->id) !!}" class="nav-link">
+                    <i class="mdi menu-icon {{ Request::is('perfil/*') ? 'mdi-circle' : 'mdi-circle-outline' }}"></i>
+                    <span class="menu-title">Perfil</span>
+                </a>
+            </li>
+            @endrole
+        @endcan
+
         <li><hr></li>
 
 
