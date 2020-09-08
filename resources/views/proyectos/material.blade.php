@@ -40,22 +40,23 @@
                         <table class="table table-condensed">
                             <thead>
                             <tr>
-                                <th class="text-center pb-3" style="width: 70px">#Id</th>
+                                {{--<th class="text-center pb-3" style="width: 70px">#Id</th>--}}
                                 <th class="pb-3">Archivo</th>
                                 {{--<th class="pb-3" style="width: 200px">Tipo de archivo</th>--}}
                                 <th class="pb-3">Tags</th>
                                 <th class="pb-3" style="width: 200px">Autor</th>
+                                <th class="pb-3 text-center" style="width: 100px">Comisión</th>
                                 <th class="pb-3">Área</th>
-                                <th class="pb-3" style="width: 200px">Fecha</th>
+                                <th class="pb-3 text-center" style="width: 200px">Fecha</th>
                                 <th class="pb-3" style="width: 200px">Opciones</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($items as $item)
                                 <tr>
-                                    <td class="text-right">
-                                        <span class="badge badge-dark">{!! $item->id !!}</span>
-                                    </td>
+                                    {{--<td class="text-right">--}}
+                                        {{--<span class="badge badge-dark">{!! $item->id !!}</span>--}}
+                                    {{--</td>--}}
                                     <td>
                                         <span title="{!! $item->name !!}">{!! $item->nombre !!}</span><br>
                                     </td>
@@ -67,8 +68,9 @@
                                         @endforelse
                                     </td>
                                     <td>{!! ($item->author)? $item->author : '-' !!}</td>
+                                    <td class="text-center">{!! ($item->comision_id)? $item->comision_id : '' !!}</td>
                                     <td>{!! ($item->area)? $item->area : '-' !!}</td>
-                                    <td>{!! $item->fecha_creado !!}</td>
+                                    <td class="text-center">{!! $item->fecha_creado !!}</td>
                                     <td>
                                         @include('proyectos.partials.acciones-table-material')
                                     </td>

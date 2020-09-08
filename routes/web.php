@@ -149,7 +149,12 @@ Route::post('eventos/{id}/encuestas-responder', [
     'uses' => 'WebController@encuestasResponder'
 ]);
 
-Route::get('eventos/{id}/material', [
+Route::get('eventos/{id}/comisiones', [
+    'as' => 'web.comisiones',
+    'uses' => 'WebController@comisiones'
+]);
+
+Route::get('eventos/{id}/comision/{comision}/material', [
     'as' => 'web.material',
     'uses' => 'WebController@material'
 ]);

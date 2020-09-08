@@ -659,9 +659,16 @@ class WebController extends AppBaseController
         return view('web.encuestas')->with($this->data);
     }
 
-    public function material($id, $items = null)
+    public function comisiones($id)
     {
         $this->data['charla'] = Proyecto::active($id)->first();
+        return view('web.comisiones')->with($this->data);
+    }
+
+    public function material($id, $comision = null)
+    {
+        $this->data['charla'] = Proyecto::active($id)->first();
+        $this->data['comision'] = $comision;
         return view('web.material')->with($this->data);
     }
 
@@ -675,6 +682,8 @@ class WebController extends AppBaseController
     {
         $proyecto = Proyecto::find($id);
         $this->data['charla'] = $proyecto;
+        $comision = $request['comision_id'];
+        $this->data['comision'] = $comision ;
 
         $validator = Validator::make($request->input(), ['search' => 'max:30'], ['search.max' => 'La búsqueda no puede exceder los 30 caracteres']);
 
@@ -685,7 +694,8 @@ class WebController extends AppBaseController
 
         if($search != '' && $search != ' ' && $search != null){
 
-            $result = $proyecto->materiales()->where('nombre', 'like', "%$search%")
+            $result = $proyecto->materiales()->where('comision_id', $comision)
+                ->where('nombre', 'like', "%$search%")
                 ->orWhere('author', 'like', "%$search%")
                 ->orWhere('area', 'like', "%$search%")
                 ->orWhereHas('tags', function ($query) use ($search) {
@@ -693,11 +703,12 @@ class WebController extends AppBaseController
             });
 
         } else {
-            return redirect()->route('web.material', $id);
+            return redirect()->route('web.material', ['id' => $id, 'comision' => $comision]);
         }
 
         $this->data['items'] = $result->get();
 
+//        return redirect()->route('web.material', ['id' => $id, 'comision' => $comision])->with($this->data);
         return view('web.material')->with($this->data);
     }
 

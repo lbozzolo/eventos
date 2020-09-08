@@ -33,6 +33,10 @@
                         {!! Form::text('area', $item->area, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group col-lg-12">
+                        {!! Form::label('comision_id', 'Comisión') !!}
+                        {!! Form::number('comision_id', $item->comision_id, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group col-lg-12">
                         {!! Form::label('tags[]', 'Etiquetas') !!}
                         {!! Form::select('tags[]', (isset($tags))? $tags : null, $item->tags, ['class' => 'form-control select-multiple', 'multiple', 'style' => 'width: 100%']) !!}
                     </div>

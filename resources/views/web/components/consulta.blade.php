@@ -9,13 +9,6 @@
         <div class="text-success" id="table" style="display: none;"></div>
     </div>
 
-    {{--@if($charla->iframes->count() > 1)--}}
-        {{--<div class="form-group" style="padding-bottom: 30px">--}}
-            {{--{!! Form::label('iframe_id', 'Seleccione la sala en la cual desea efectuar su consulta') !!}--}}
-            {{--{!! Form::select('iframe_id', $charla->iframes->pluck('title', 'id'), null, ['class' => 'form-control', 'id' => 'iframe']) !!}--}}
-        {{--</div>--}}
-    {{--@endif--}}
-
     @if($charla->tipoProyecto() == 'Público')
         <div class="form-group">
             {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email', 'id' => 'email']) !!}
@@ -36,7 +29,7 @@
         </a>
         @endif
         @if($charla->materiales->count())
-            <a href="{!! route('web.material', $charla->id) !!}" class="btn btn-xs btn-outline-info text-info">
+            <a href="{!! route('web.comisiones', $charla->id) !!}" class="btn btn-xs btn-outline-info text-info">
                 Material <i class="fa fa-file-pdf-o"></i>
             </a>
         @endif

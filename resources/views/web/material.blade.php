@@ -60,7 +60,7 @@
                         <div class="col-lg-4 col-md-5 col-sm-6">
                             {!! Form::open(['url' => route('web.material.search', $charla->id), 'method' => 'get', 'class' => 'form-inline']) !!}
 
-
+                            {!! Form::hidden('comision_id', $comision) !!}
                             {!! Form::text('search', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Buscar...', 'style' => 'width: 280px']) !!}
                             <button class="ml-3" type="submit" style="cursor: pointer"><i class="fa fa-search"></i> </button>
 
@@ -86,6 +86,7 @@
                             @if(isset($items))
 
                                 @forelse($items as $material)
+                                    @if($material->comision_id == $comision)
                                     <div class="col-lg-6">
                                         <div class="accordion-item opened material" style="min-height: 190px">
                                             <div class="accordion__item-header" data-toggle="collapse">
@@ -125,6 +126,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 @empty
                                     <div class="col-lg-12">
                                         <p>No se encontraron resultados</p>
@@ -133,7 +135,7 @@
 
                             @else
 
-                                @foreach($charla->materiales as $material)
+                                @foreach($charla->materiales()->where('comision_id', $comision)->get() as $material)
                                     <div class="col-lg-6">
                                         <div class="accordion-item opened material" style="min-height: 190px">
                                             <div class="accordion__item-header" data-toggle="collapse">
