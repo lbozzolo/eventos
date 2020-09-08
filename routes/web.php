@@ -149,6 +149,21 @@ Route::post('eventos/{id}/encuestas-responder', [
     'uses' => 'WebController@encuestasResponder'
 ]);
 
+Route::get('eventos/{id}/material', [
+    'as' => 'web.material',
+    'uses' => 'WebController@material'
+]);
+
+Route::get('material/{file}/descargar', [
+    'as' => 'material.download',
+    'uses' => 'WebController@downloadMaterial'
+]);
+
+Route::get('eventos/{id}/{search?}', [
+    'as' => 'web.material.search',
+    'uses' => 'WebController@materialSearch'
+]);
+
 Route::get('nosotros', [
     'as' => 'web.nosotros',
     'uses' => 'WebController@nosotros'

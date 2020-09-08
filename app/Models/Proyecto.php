@@ -395,4 +395,9 @@ class Proyecto extends Entity
         return $this->hasMany(Encuesta::class);
     }
 
+    public function materiales()
+    {
+        return $this->hasMany(Material::class);
+    }
+
 }

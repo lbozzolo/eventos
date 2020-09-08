@@ -183,6 +183,7 @@ return [
         Eventos\Providers\EventServiceProvider::class,
         Eventos\Providers\RouteServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        \Pion\Laravel\ChunkUpload\Providers\ChunkUploadServiceProvider::class,
 
     ],
 

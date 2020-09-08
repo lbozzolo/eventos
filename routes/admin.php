@@ -11,6 +11,8 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'HomeController@index'
         ]);
 
+        Route::post('/upload', 'UploadController@upload');
+
         require(__DIR__ . '/system/roles.php');
         require(__DIR__ . '/system/permissions.php');
         require(__DIR__ . '/system/usuarios.php');
@@ -28,6 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
         require(__DIR__ . '/system/opciones.php');
         require(__DIR__ . '/system/ocupaciones.php');
         require(__DIR__ . '/system/grupos.php');
+        require(__DIR__ . '/system/materiales.php');
 
     });
 

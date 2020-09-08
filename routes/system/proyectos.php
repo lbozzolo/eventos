@@ -105,6 +105,15 @@ Route::group(['middleware' => ['can:editar_proyectos']], function () {
         'uses' => 'ProyectoController@getOnlineTimeline'
     ]);
 
+    Route::get('proyecto/{id}/material-relacionado', [
+        'as' => 'proyectos.material.relacionado',
+        'uses' => 'ProyectoController@materialRelacionado'
+    ]);
+
+    Route::get('proyecto/{id}/material-relacionado', [
+        'as' => 'proyectos.material.relacionado',
+        'uses' => 'ProyectoController@materialRelacionado'
+    ]);
 
 });
 

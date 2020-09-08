@@ -35,48 +35,12 @@
                                 @endforelse
                                 <small>{!! ($item->cliente)? $item->cliente->nombre : '' !!}</small>
                                 <h2><span class="text-dark">{!! $item->nombre !!}</span></h2>
-{{--                                <p>{!! ($item->descripcion)? $item->descripcion : '' !!}</p>--}}
 
                                 <a href="{!! route($modelPlural.'.edit', ['id' => $item->id]) !!}" class="btn btn-outline-primary mb-1">
                                     <i class="mdi mdi-pencil"></i>
                                     Editar
                                 </a>
 
-                                {{--@if($item->tipoProyecto() == 'Público')--}}
-
-                                    {{--<button title="Reportes" type="button" data-toggle="modal" data-target="#reportesPublico" class="btn btn-behance mb-1">--}}
-                                        {{--<i class="mdi mdi-chart-bar"></i> Reportes--}}
-                                    {{--</button>--}}
-
-                                    {{--<!-- Modal -->--}}
-                                    {{--<div class="modal fade" id="reportesPublico" tabindex="-1" role="dialog" aria-hidden="true">--}}
-                                        {{--<div class="modal-dialog" role="document">--}}
-                                            {{--<div class="modal-content">--}}
-                                                {{--<div class="modal-header">--}}
-                                                    {{--<h5 class="modal-title" ><i class="mdi mdi-alert-circle text-danger"></i> Reportes no disponibles</h5>--}}
-                                                    {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-                                                        {{--<span aria-hidden="true">&times;</span>--}}
-                                                    {{--</button>--}}
-                                                {{--</div>--}}
-                                                {{--<div class="modal-body">--}}
-                                                    {{--<p>Este evento es público. La funcionalidad REPORTES está disponible únicamente para eventos privados.</p>--}}
-                                                {{--</div>--}}
-                                                {{--<div class="modal-footer">--}}
-
-                                                    {{--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>--}}
-
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-
-                                {{--@else--}}
-
-                                {{--<a href="{!! route($modelPlural.'.reportes', $item->id) !!}" class="btn btn-behance mb-1">--}}
-                                    {{--<i class="mdi mdi-chart-bar"></i> Reportes--}}
-                                {{--</a>--}}
-
-                                {{--@endif--}}
 
                                 <a href="{!! route($modelPlural.'.index') !!}" class="btn btn-outline-dark mb-1">Volver</a>
                             </div>
@@ -284,6 +248,7 @@
                         <div class="col-lg-6 col-md-6">@include('proyectos.partials.widget-pdf')</div>
                         <div class="col-lg-6 col-md-6">@include('proyectos.partials.widget-iframes')</div>
                         <div class="col-lg-6 col-md-6">@include('proyectos.partials.widget-videos')</div>
+                        <div class="col-lg-6 col-md-6">@include('proyectos.partials.widget-material')</div>
                     </div>
                 </div>
 

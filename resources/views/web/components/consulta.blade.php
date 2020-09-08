@@ -35,6 +35,11 @@
             Responder encuesta <i class="fa fa-file-text"></i>
         </a>
         @endif
+        @if($charla->materiales->count())
+            <a href="{!! route('web.material', $charla->id) !!}" class="btn btn-xs btn-outline-info text-info">
+                Material <i class="fa fa-file-pdf-o"></i>
+            </a>
+        @endif
     </div>
 
 {!! Form::close() !!}

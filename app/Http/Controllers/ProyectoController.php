@@ -21,6 +21,7 @@ use Eventos\Models\Grupo;
 use Eventos\Models\Iframe;
 use Eventos\Models\Pdf;
 use Eventos\Models\Proyecto;
+use Eventos\Models\Tag;
 use Eventos\Models\Tipo;
 use Eventos\Models\Video;
 use Eventos\Repositories\ClienteRepository;
@@ -738,6 +739,15 @@ class ProyectoController extends AppBaseController
     {
         $this->data['item'] = Proyecto::find($id);
         return view('proyectos.encuestas')->with($this->data);
+    }
+
+    public function materialRelacionado($id)
+    {
+        $this->data['proyecto'] = Proyecto::find($id);
+        $this->data['items'] = $this->data['proyecto']->materiales;
+        $this->data['tags'] = Tag::pluck('name', 'id');
+
+        return view('proyectos.material')->with($this->data);
     }
 
     public function changeFileNameIfExists($file)

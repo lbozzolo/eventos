@@ -10,6 +10,7 @@ use Eventos\Http\Requests\StoreIdentificacionRequest;
 use Eventos\Models\Codigo;
 use Eventos\Models\Encuesta;
 use Eventos\Models\Grupo;
+use Eventos\Models\Material;
 use Eventos\Models\Ocupacion;
 use Eventos\Models\Proyecto;
 use Eventos\Repositories\ProyectoRepository;
@@ -656,6 +657,48 @@ class WebController extends AppBaseController
     {
         $this->data['charla'] = Proyecto::active($id)->first();
         return view('web.encuestas')->with($this->data);
+    }
+
+    public function material($id, $items = null)
+    {
+        $this->data['charla'] = Proyecto::active($id)->first();
+        return view('web.material')->with($this->data);
+    }
+
+    public function downloadMaterial(Material $file)
+    {
+        $path = 'app/'.$file->path.$file->name;
+        return response()->download(storage_path($path), $file->nombre);
+    }
+
+    public function materialSearch(Request $request, $id)
+    {
+        $proyecto = Proyecto::find($id);
+        $this->data['charla'] = $proyecto;
+
+        $validator = Validator::make($request->input(), ['search' => 'max:30'], ['search.max' => 'La búsqueda no puede exceder los 30 caracteres']);
+
+        if ($validator->fails())
+            return view('proyectos.inscripciones')->withErrors($validator)->with($this->data);
+
+        $search = $request['search'];
+
+        if($search != '' && $search != ' ' && $search != null){
+
+            $result = $proyecto->materiales()->where('nombre', 'like', "%$search%")
+                ->orWhere('author', 'like', "%$search%")
+                ->orWhere('area', 'like', "%$search%")
+                ->orWhereHas('tags', function ($query) use ($search) {
+                    $query->where('name', 'like', "%$search%");
+            });
+
+        } else {
+            return redirect()->route('web.material', $id);
+        }
+
+        $this->data['items'] = $result->get();
+
+        return view('web.material')->with($this->data);
     }
 
     public function encuestasResponder(Request $request, $id)
