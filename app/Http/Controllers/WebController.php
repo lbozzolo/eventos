@@ -706,7 +706,7 @@ class WebController extends AppBaseController
             return redirect()->route('web.material', ['id' => $id, 'comision' => $comision]);
         }
 
-        $this->data['items'] = $result->get();
+        $this->data['items'] = $result->paginate(10);
 
 //        return redirect()->route('web.material', ['id' => $id, 'comision' => $comision])->with($this->data);
         return view('web.material')->with($this->data);
