@@ -54,6 +54,11 @@ Route::get('eventos/{cliente}/{evento}/{id}/ingresar', [
     'uses' => 'WebController@ingresarCharla'
 ]);
 
+Route::get('eventos/{cliente}/{evento}/{id}/ingresar-sala/{sala}', [
+    'as' => 'web.charlas.ingresar.sala',
+    'uses' => 'WebController@ingresarSala'
+]);
+
 Route::get('eventos/{cliente}/{evento}/{id}/ingresar-codigo', [
     'as' => 'web.charlas.ingresar.codigo',
     'uses' => 'WebController@ingresarCodigo'

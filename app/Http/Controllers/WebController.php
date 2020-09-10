@@ -10,6 +10,7 @@ use Eventos\Http\Requests\StoreIdentificacionRequest;
 use Eventos\Models\Codigo;
 use Eventos\Models\Encuesta;
 use Eventos\Models\Grupo;
+use Eventos\Models\Iframe;
 use Eventos\Models\Material;
 use Eventos\Models\Ocupacion;
 use Eventos\Models\Proyecto;
@@ -101,6 +102,7 @@ class WebController extends AppBaseController
         if($this->data['charla']->tipoProyecto() == 'Público')
             return view('web.ingresar-charla')->with($this->data);
 
+        // Si no está logueado lo mando al login
         if(!Auth::check())
             return redirect()->route('web.iniciar-sesion', ['cliente' => $this->data['charla']->cliente_slug, 'evento' => $this->data['charla']->nombre_slug, 'id' => $id]);
 
@@ -110,22 +112,26 @@ class WebController extends AppBaseController
             $this->userRepository->sendInscripcionEmail($user, $id);
         }
 
-//        if($this->data['charla']->isGoingOn()){
-//
-//            $inscripciones = Auth::user()->proyectos()->where('proyecto_id', $this->data['charla']->id)->get();
-//            foreach($inscripciones as $inscripcion){
-//                $inscripcion->pivot->attendment = 1;
-//                $inscripcion->pivot->save();
-//            }
-//        }
-
         // Si el evento está finalizado incremento las vistas en 1
         if($this->data['charla']->isFinished()){
             $this->data['charla']->vistas_finalizado++;
             $this->data['charla']->save();
         }
 
+        if($this->data['charla']->iframes->count() > 1)
+            return view('web.ingresar-antesala')->with($this->data);
+
         return view('web.ingresar-charla')->with($this->data);
+    }
+
+    public function ingresarSala($cliente, $evento, $id, $sala)
+    {
+        $this->data['charla'] = Proyecto::active($id)->first();
+        $this->data['sala'] = Iframe::find($sala);
+
+//        dd($this->data);
+
+        return view('web.ingresar-sala')->with($this->data);
     }
 
     public function ingresarCodigo($cliente, $evento, $id)
