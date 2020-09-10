@@ -45,12 +45,15 @@
 
                                 <div class="card-body">
 
-
+                                    <span class="float-right">
+                                        <a class="btn__small btn-danger" href="{!! route('web.charlas.ingresar', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}">
+                                            cambiar de sala</a>
+                                    </span>
 
                                     <h4>
                                         <span class="text-azul-claro">{!! $charla->categorias->first()->nombre !!}</span> -
                                         <span class="text-dark-green">{!! $sala->title !!}</span>
-                                        <a class="ml-3" style="display: inline-block; font-size: 0.5em; font-family: Roboto" href="{!! route('web.charlas.ingresar', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}">cambiar de sala</a>
+
                                         <br>
                                         <span>{!! $charla->nombre !!}  ({!! $charla->cliente->nombre !!})</span>
                                     </h4>
