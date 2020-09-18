@@ -4,10 +4,12 @@
 
     <img src="{!! $charla->proyectos->first()->header->mainImage() !!}" width="100%"/>
 
-    @include('vendor.flash.message')
 
     <section class="blog blog-single pb-5 pt-5 bg-light">
         <div class="container">
+
+            @include('vendor.flash.message')
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="pl-3">
@@ -25,6 +27,11 @@
                            class="btn btn__primary btn__bordered module__btn-request mr-3 mb-1">
                             <span>Inscribirse</span><i class="icon-arrow-right"></i>
                         </a>
+
+                        {{--<a href="{!! route('web.charlas') !!}"--}}
+                           {{--class="btn btn-outline-dark btn__bordered module__btn-request mr-3 mb-1">--}}
+                            {{--<span>Volver</span><i class="icon-arrow-right"></i>--}}
+                        {{--</a>--}}
 
                     </div>
                     <div class="row">

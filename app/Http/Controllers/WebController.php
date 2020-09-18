@@ -129,8 +129,6 @@ class WebController extends AppBaseController
         $this->data['charla'] = Proyecto::active($id)->first();
         $this->data['sala'] = Iframe::find($sala);
 
-//        dd($this->data);
-
         return view('web.ingresar-sala')->with($this->data);
     }
 
@@ -775,7 +773,7 @@ class WebController extends AppBaseController
 
     public function postSesionGrupo(Request $request, $id)
     {
-        $this->data['charla'] = Grupo::active($id)->first();
+        $this->data['charla'] = Grupo::find($id);
 
         if(!$request['password'])
             return redirect()->back()->withErrors('Debe ingresar su DNI, pasaporte o Id');

@@ -50,10 +50,10 @@
                             @if($charla->proyectos->count())
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        {{--<p style="font-size: 1.2em">¿A qué eventos querés inscribirte?</p>--}}
 
                                         <ul>
                                             @foreach($charla->proyectos as $proyecto)
+                                                @if(!$proyecto->isInactive())
                                                 <li class="list-group-item">
                                                     <label for="proyecto{!! $proyecto->id !!}">
                                                         <div class="row">
@@ -73,6 +73,7 @@
                                                         </div>
                                                     </label>
                                                 </li>
+                                                @endif
                                             @endforeach
                                         </ul>
 
