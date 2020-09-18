@@ -25,7 +25,12 @@
         @endif
 
         @if($material->author)
-            <p>De {!! $material->author !!}</p>
+            <p>
+                De {!! $material->author !!}
+                @if($material->email)
+                    <span class="text-dark ml-3"><i class="fa fa-envelope"></i> {!! $material->email !!}</span>
+                @endif
+            </p>
         @endif
 
         <small class="text-muted">palabras clave: </small>

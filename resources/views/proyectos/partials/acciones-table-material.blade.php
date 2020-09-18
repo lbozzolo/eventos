@@ -22,11 +22,15 @@
 
                     <div class="form-group col-lg-12">
                         {!! Form::label('nombre', 'Nombre') !!}
-                        {!! Form::text('nombre', $item->nombre, ['class' => 'form-control']) !!}
+                        {!! Form::text('nombre', ($item->nombre)? $item->nombre : null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group col-lg-12">
                         {!! Form::label('author', 'Autor') !!}
-                        {!! Form::text('author', $item->author, ['class' => 'form-control']) !!}
+                        {!! Form::text('author', ($item->author)? $item->author : null, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group col-lg-12">
+                        {!! Form::label('email', 'Email de contacto') !!}
+                        {!! Form::text('email', ($item->email)? $item->email : null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group col-lg-12">
                         {!! Form::label('area', 'Área') !!}
@@ -34,7 +38,7 @@
                     </div>
                     <div class="form-group col-lg-12">
                         {!! Form::label('comision_id', 'Comisión') !!}
-                        {!! Form::number('comision_id', $item->comision_id, ['class' => 'form-control']) !!}
+                        {!! Form::number('comision_id', ($item->comision_id)? $item->comision_id : null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group col-lg-12">
                         {!! Form::label('tags[]', 'Etiquetas') !!}

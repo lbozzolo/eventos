@@ -14,6 +14,7 @@ class Material extends Entity
         'nombre',
         'mime',
         'author',
+        'email',
         'area',
         'path',
         'proyecto_id',
@@ -23,6 +24,7 @@ class Material extends Entity
     public static $rules = [
         'nombre' => 'required|max:191',
         'author' => 'max:191',
+        'email' => 'max:191',
         'comision_id' => 'max: 200'
     ];
 

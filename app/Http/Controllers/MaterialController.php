@@ -62,8 +62,6 @@ class MaterialController extends AppBaseController
         if (!$this->data['item'])
             return redirect()->back()->withErrors($this->update_failure_message);
 
-//        dd($request['tags']);
-
         $tags = [];
 
         if(isset($request['tags'])){
