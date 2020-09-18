@@ -46,7 +46,7 @@
                                 <div class="card-body">
 
                                     <span class="float-right">
-                                        <a class="btn__small btn-danger" href="{!! route('web.charlas.ingresar', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}">
+                                        <a class="btn__small btn__primary" href="{!! route('web.charlas.ingresar', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}">
                                             cambiar de sala</a>
                                     </span>
 
