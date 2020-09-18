@@ -767,7 +767,7 @@ class WebController extends AppBaseController
 
     public function iniciarSesionGrupo($cliente, $evento, $id)
     {
-        $this->data['charla'] = Grupo::active($id)->first();
+        $this->data['charla'] = Grupo::find($id);
         return view('web.iniciar-sesion-grupo')->with($this->data);
     }
 
