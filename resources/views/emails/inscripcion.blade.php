@@ -20,7 +20,9 @@
             <div class="row">
 
                 <div class="col-lg-3 col-xs-12 col-sm-12" style="margin-bottom: 50px">
+                    @if($data['logo'])
                     <img src="{!! $data['logo'] !!}" />
+                    @endif
                 </div>
 
                 <div class="col-lg-9 col-xs-12 col-sm-12">

@@ -60,12 +60,12 @@ class UserRepository extends BaseRepository
 
             'fullname' => $user->fullname,
             'evento' => $charla->nombre,
-            'cliente' => $charla->cliente->nombre,
+            'cliente' => ($charla->cliente)? $charla->cliente->nombre : '-',
             'email' => $user->email,
             'dni' => $user->dni,
             'fecha' => $charla->fecha,
             'hora' => $charla->hora,
-            'logo' => $charla->cliente->mainImage(),
+            'logo' => ($charla->cliente)? $charla->cliente->mainImage() : null,
             'url' => route('web.charlas.ingresar',[
                 'cliente' => $charla->cliente_slug,
                 'evento' => $charla->nombre_slug,
