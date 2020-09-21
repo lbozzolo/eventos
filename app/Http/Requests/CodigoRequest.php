@@ -26,7 +26,7 @@ class CodigoRequest extends FormRequest
     {
         return [
             'code' => 'required',
-            'g-recaptcha-response' => 'required|recaptcha',
+//            'g-recaptcha-response' => 'required|recaptcha',
         ];
     }
 

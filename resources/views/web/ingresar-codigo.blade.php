@@ -32,9 +32,9 @@
                                 <div class="form-group">
                                     <input type="text" name="code" class="form-control" value="{{ old('code') }}" placeholder="Código" autofocus>
                                 </div>
-                                <div class="form-group">
-                                    {!! Recaptcha::render() !!}
-                                </div>
+                                {{--<div class="form-group">--}}
+                                    {{--{!! Recaptcha::render() !!}--}}
+                                {{--</div>--}}
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-4">
                                 <button type="submit" class="btn btn__primary btn__block">Siguiente</button>
