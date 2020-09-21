@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => ['can:mostrar_opciones']], function () {
+Route::group(['middleware' => ['can:mostrar_preguntas']], function () {
 
     Route::resource('opciones', 'OpcionController');
 
