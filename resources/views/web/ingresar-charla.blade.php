@@ -30,7 +30,9 @@
     @if(\Carbon\Carbon::now()->addHours(2)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
 
 {{--        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i') && !$charla->videos->count())--}}
-        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i'))
+
+{{--        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i'))--}}
+        @if(!$charla->isFinished())
 
             <section class="pb-0 pt-0">
                 <div class="pl-2 pr-2">
