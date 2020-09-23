@@ -64,6 +64,23 @@ a {
     transition: all 0.3s ease-in-out;
 }
 
+.btn__xs {
+    text-transform: capitalize;
+    position: relative;
+    font-size: 0.9em;
+    font-weight: 700;
+    border-radius: 50px;
+    border: 1px solid;
+    text-align: center;
+    padding: 5px 10px;
+    letter-spacing: 0.4px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
 .blog-item .blog__meta-cat a {
     color: #149EA6;
 }
@@ -306,6 +323,10 @@ h4 {
     width: 100%;
 }
 
+.card-encuesta {
+    padding: 20px 30px;
+}
+
 @media (min-width: 450px) and (max-width: 990px) {
 
     .logo-header {
@@ -316,10 +337,58 @@ h4 {
 
 }
 
+@media (min-width: 2100px) and (max-width: 2199px) {
+
+    .iframe {
+        height: 815px;
+    }
+
+}
+
+@media (min-width: 2000px) and (max-width: 2099px) {
+
+    .iframe {
+        height: 785px;
+    }
+
+}
+
+@media (min-width: 1900px) and (max-width: 1999px) {
+
+    .iframe {
+        height: 745px;
+    }
+
+}
+
+@media (min-width: 1800px) and (max-width: 1899px) {
+
+    .iframe {
+        height: 710px;
+    }
+
+}
+
+@media (min-width: 1700px) and (max-width: 1799px) {
+
+    .iframe {
+        height: 680px;
+    }
+
+}
+
+@media (min-width: 1600px) and (max-width: 1699px) {
+
+    .iframe {
+        height: 650px;
+    }
+
+}
+
 @media (min-width: 1500px) and (max-width: 1599px) {
 
     .iframe {
-        height: 550px;
+        height: 600px;
     }
 
 }
@@ -327,7 +396,7 @@ h4 {
 @media (min-width: 1400px) and (max-width: 1499px) {
 
     .iframe {
-        height: 500px;
+        height: 550px;
     }
 
 }
@@ -335,7 +404,7 @@ h4 {
 @media (min-width: 1300px) and (max-width: 1399px) {
 
     .iframe {
-        height: 450px;
+        height: 520px;
     }
 
 }
@@ -343,7 +412,7 @@ h4 {
 @media (min-width: 1200px) and (max-width: 1299px) {
 
     .iframe {
-        height: 420px;
+        height: 480px;
     }
 
 }
@@ -351,7 +420,7 @@ h4 {
 @media (min-width: 1086px) and (max-width: 1199px) {
 
     .iframe {
-        height: 400px;
+        height: 450px;
     }
 
 }
@@ -359,7 +428,7 @@ h4 {
 @media (min-width: 991px) and (max-width: 1085px) {
 
     .iframe {
-        height: 380px;
+        height: 420px;
     }
 
 }
@@ -423,7 +492,7 @@ h4 {
 @media (min-width: 400px) and (max-width: 449px) {
 
     .iframe {
-        height: 230px;
+        height: 260px;
     }
 
 }
@@ -431,7 +500,7 @@ h4 {
 @media (min-width: 300px) and (max-width: 399px) {
 
     .iframe {
-        height: 200px;
+        height: 220px;
     }
 
 }

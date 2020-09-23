@@ -32,15 +32,15 @@
 {{--        @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i') && !$charla->videos->count())--}}
         @if(\Carbon\Carbon::now()->format('Y-m-d H:i') < $charla->fecha_completa->addHours($charla->addHours)->format('Y-m-d H:i'))
 
-            <section class="pb-40 pt-2">
+            <section class="pb-0 pt-0">
                 <div class="pl-2 pr-2">
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-7">
+                        <div class="col-sm-12 col-md-12 col-lg-8">
 
                             @include('web.components.iframe')
 
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-4">
                             <div style="margin-top: 0px; padding-top: 0px">
 
                                 <div class="card-body">
@@ -73,7 +73,7 @@
 
         @else
 
-            <section class="pb-40 pt-2">
+            <section class="pb-0 pt-2">
                 <div class="pl-2 pr-2">
                     <div class="row">
                         <div class="container">
@@ -106,7 +106,7 @@
 
     @else
 
-        <section class="pb-40 pt-2">
+        <section class="pb-0 pt-2">
             <div class="pl-2 pr-2">
                 <div class="row">
                     <div class="container">
