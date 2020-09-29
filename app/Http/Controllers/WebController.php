@@ -159,6 +159,22 @@ class WebController extends AppBaseController
         return redirect()->route('web.charlas.identificacion', $this->data);
     }
 
+    public function checkCodigoGrupo(Request $request, $id)
+    {
+        $codigo = Codigo::where('code', $request['code'])->first();
+
+        if(!$codigo)
+            return redirect()->back()->withErrors('Código erróneo');
+
+        if($codigo->user)
+            return redirect()->back()->withErrors('El código especificado ya ha sido utilizado. Verifique si lo ingresó correctamente o comuníquese con soporte técnico');
+
+        $charla = Grupo::findOrFail($id);
+        $parameters = ['cliente' => $charla->proyectos->first()->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $id, 'code' => $request['code']];
+
+        return redirect()->route('web.grupos.registro', $parameters);
+    }
+
     public function identificacion($cliente, $evento, $id, $codigo)
     {
         $charla = Proyecto::find($id);
@@ -247,7 +263,25 @@ class WebController extends AppBaseController
     public function gruposInscripcion($cliente, $evento, $id)
     {
         $this->data['charla'] = Grupo::findOrFail($id);
-        return redirect()->route('web.grupos.registro', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
+        $parameters = ['cliente' => $cliente, 'evento' => $evento, 'id' => $id];
+
+        $isOnePaidProject = $this->data['charla']->proyectos->filter(function ($proyecto){
+            return $proyecto->tipo->slug == 'pago';
+        })->count();
+
+        $route = 'web.grupos.registro';
+
+        if($isOnePaidProject)
+            $route = 'web.grupos.ingresar.codigo.grupo';
+
+        return redirect()->route($route, $parameters);
+//        return redirect()->route('web.grupos.registro', ['cliente' => $cliente, 'evento' => $evento, 'id' => $id]);
+    }
+
+    public function ingresarCodigoGrupo($cliente, $evento, $id)
+    {
+        $charla = Grupo::find($id)->proyectos->first();
+        return view('web.ingresar-codigo-grupo')->with(['cliente' => $cliente, 'evento' => $evento, 'id' => $id, 'charla' => $charla]);
     }
 
     public function registro($cliente, $evento, $id)
@@ -262,11 +296,15 @@ class WebController extends AppBaseController
         return view('web.registro')->with($this->data);
     }
 
-    public function gruposRegistro($cliente, $evento, $id)
+    public function gruposRegistro($cliente, $evento, $id, $code = null)
     {
         $this->data['charla'] = Grupo::findOrFail($id);
         $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
         $this->data['paises'] = $this->paises;
+
+        if($code)
+            $this->data['code'] = $code;
+
         return view('web.registro-grupo')->with($this->data);
     }
 
@@ -446,8 +484,20 @@ class WebController extends AppBaseController
     public function postRegistroGrupo(RegistreUserRequest $request, $id)
     {
         $this->data['charla'] = Grupo::findOrFail($id);
-
         $inputs = $request->input();
+
+        if(isset($request['code'])){
+            $invalid = $this->projectRepository->invalidCode($request['code'], $request['email']);
+            if($invalid)
+                return redirect()->back()->withErrors($invalid);
+
+            $proyectosIds = $this->data['charla']->proyectos->pluck('id')->toArray();
+
+            $codigo = Codigo::where('code', $request['code'])->first();
+
+            if(!in_array($codigo->proyecto_id, $proyectosIds))
+                return redirect()->back()->withErrors('El código ingresado no pertenece al evento seleccionado');
+        }
 
         $validator = Validator::make($request->all(), [
             'proyectos' => 'required',
@@ -457,7 +507,6 @@ class WebController extends AppBaseController
 
         if ($validator->fails())
             return redirect()->back()->withErrors($validator)->withInput();
-
 
         $inputs['password'] = Hash::make($inputs['dni']);
 
@@ -475,6 +524,9 @@ class WebController extends AppBaseController
                 $proyectos = $proyectos->push($proyecto);
             }
         }
+
+        if(isset($request['code']))
+            $user->codigo()->save($codigo);
 
         Auth::attempt(['email' => $user->email, 'password' => $user->dni]);
 

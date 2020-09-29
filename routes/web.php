@@ -64,9 +64,19 @@ Route::get('eventos/{cliente}/{evento}/{id}/ingresar-codigo', [
     'uses' => 'WebController@ingresarCodigo'
 ]);
 
+Route::get('eventos/{cliente}/{evento}/{id}/ingresar-codigo-grupo', [
+    'as' => 'web.grupos.ingresar.codigo.grupo',
+    'uses' => 'WebController@ingresarCodigoGrupo'
+]);
+
 Route::post('eventos/{id}/ingresar-codigo', [
     'as' => 'web.charlas.check.codigo',
     'uses' => 'WebController@checkCodigo'
+]);
+
+Route::post('eventos/{id}/ingresar-codigo-grupo', [
+    'as' => 'web.charlas.check.codigo.grupo',
+    'uses' => 'WebController@checkCodigoGrupo'
 ]);
 
 Route::get('eventos/{cliente}/{evento}/{id}/{codigo}/identificacion', [
@@ -89,12 +99,17 @@ Route::get('eventos/{cliente}/{evento}/{id}/inscription', [
     'uses' => 'WebController@gruposInscripcion'
 ]);
 
+Route::get('eventos/check-identificacion-codigo', [
+    'as' => 'web.check.identificacion.grupo',
+    'uses' => 'WebController@checkIdentificacionGrupo'
+]);
+
 Route::get('eventos/{cliente}/{evento}/{id}/registro', [
     'as' => 'web.charlas.registro',
     'uses' => 'WebController@registro'
 ]);
 
-Route::get('eventos/{cliente}/{evento}/{id}/register', [
+Route::get('eventos/{cliente}/{evento}/{id}/register/{code?}', [
     'as' => 'web.grupos.registro',
     'uses' => 'WebController@gruposRegistro'
 ]);

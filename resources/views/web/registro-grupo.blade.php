@@ -47,6 +47,10 @@
                         </div>
                         {!! Form::open(['url' => route('web.post.registro.grupo', $charla->id), 'method' => 'post', 'class' => 'contact__form-panel']) !!}
 
+                        @if(isset($code))
+                            {!! Form::hidden('code', $code) !!}
+                        @endif
+
                         <div class="row">
                             <div class="col-lg-12">
                                 @include('vendor.flash.message')

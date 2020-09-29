@@ -33,7 +33,7 @@
 
     @endif
 
-    @if(\Carbon\Carbon::now()->addHours(1)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
+    @if(\Carbon\Carbon::now()->addHours(2)->format('Y-m-d H:i') >= $charla->fecha_formatted_view)
 
         @if($charla->encuestas->count())
         <section class="pb-40 pt-0">
