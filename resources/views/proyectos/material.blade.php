@@ -160,9 +160,8 @@
                 });
                 resumable.on('fileSuccess', function (file, message) {
                     // Reflect that the file upload has completed
-
+                    //location.reload();
                     $('.resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html('(completo)');
-                    location.reload();
                 });
                 resumable.on('fileError', function (file, message) {
                     // Reflect that the file upload has resulted in error
