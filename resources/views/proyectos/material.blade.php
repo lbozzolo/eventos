@@ -155,12 +155,14 @@
                     $uploadList.append('<li class="list-group-item resumable-file-' + file.uniqueIdentifier + '">Subiendo <span class="resumable-file-name"></span> <span class="resumable-file-progress"></span>');
                     $('.resumable-file-' + file.uniqueIdentifier + ' .resumable-file-name').html(file.fileName);
                     // Actually start the upload
+                    console.log('ARCHIVO', file);
                     resumable.upload();
                 });
                 resumable.on('fileSuccess', function (file, message) {
                     // Reflect that the file upload has completed
-                    location.reload();
+
                     $('.resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html('(completo)');
+                    location.reload();
                 });
                 resumable.on('fileError', function (file, message) {
                     // Reflect that the file upload has resulted in error
