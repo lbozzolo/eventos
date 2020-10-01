@@ -14,7 +14,8 @@
                     <a href="{!! route('web.comisiones', $charla->id) !!}" target="_blank" class="btn__xs btn-outline-dark float-right" style="width: 100px">
                         Ingresar
                     </a>
-                    <p class="text-celeste-oscuro">Sala de posters</p>
+                    <p class="text-celeste-oscuro">Material relacionado</p>
+                    {{--<p class="text-celeste-oscuro">Sala de posters</p>--}}
                 </li>
             @endif
         </ul>

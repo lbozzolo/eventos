@@ -6,8 +6,8 @@ Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
 
 });
 
-Route::get('material-pdf/{file}', [
-    'as' => 'material.pdf.ver',
-    'uses' => 'MaterialController@verPdf'
-]);
+//Route::get('material-pdf/{file}', [
+//    'as' => 'material.pdf.ver',
+//    'uses' => 'MaterialController@verPdf'
+//]);
 

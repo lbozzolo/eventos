@@ -55,7 +55,8 @@
                             </h3>
                         </div>
                         <div class="col-lg-8 col-md-7 col-sm-6">
-                            <h4>Sala de posters - <span class="text-dark-green">Comisiones</span> </h4>
+                            <h4>Material relacionado - <span class="text-dark-green">Comisiones</span> </h4>
+                            {{--<h4>Sala de posters - <span class="text-dark-green">Comisiones</span> </h4>--}}
                             <a class="btn btn-outline-secondary" href="{!! URL::previous() !!}">
                                 Volver</a>
                         </div>

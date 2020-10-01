@@ -189,6 +189,11 @@ Route::get('eventos/{id}/{search?}', [
     'uses' => 'WebController@materialSearch'
 ]);
 
+Route::get('material-pdf/{file}', [
+    'as' => 'material.pdf.ver',
+    'uses' => 'MaterialController@verPdf'
+]);
+
 Route::get('nosotros', [
     'as' => 'web.nosotros',
     'uses' => 'WebController@nosotros'
