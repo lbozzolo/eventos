@@ -61,7 +61,7 @@ class WebController extends AppBaseController
         $grupos = Grupo::orderBy('created_at', 'DESC')->has('proyectos')->active()->get();
 
         foreach($grupos as $grupo){
-            $eventos = $eventos->push($grupo)->sortByDesc('created_at');
+            $eventos = $eventos->push($grupo)->sortByDesc('fecha');
         }
 
         $this->data['proyectos'] = $this->paginateEvents($eventos);
