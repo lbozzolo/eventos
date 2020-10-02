@@ -61,10 +61,18 @@ class WebController extends AppBaseController
         $grupos = Grupo::orderBy('created_at', 'DESC')->has('proyectos')->active()->get();
 
         foreach($grupos as $grupo){
-            $eventos = $eventos->push($grupo)->sortByDesc('fecha');
+            $eventos = $eventos->push($grupo);
         }
 
-        $this->data['proyectos'] = $this->paginateEvents($eventos);
+        foreach($eventos as $evento){
+            if($evento->fecha){
+                $evento->timestamp = strtotime($evento->fecha);
+            } else {
+                $evento->timestamp = strtotime($evento->proyectos->last()->fecha);
+            }
+        }
+
+        $this->data['proyectos'] = $this->paginateEvents($eventos)->sortByDesc('timestamp');
 
         return view('web.charlas')->with($this->data);
     }
