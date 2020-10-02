@@ -110,6 +110,12 @@ class Proyecto extends Entity
 
         // Si la fecha es pasada (y existe el estado finalizado) le cambio el estado a finalizado
         if($this->dateIsPast() && $finalizado){
+
+            foreach ($this->getAttributes() as $key => $value) {
+                if(!in_array($key, array_keys($this->getOriginal())))
+                    unset($this->$key);
+            }
+
             $this->estado_id = $finalizado->id;
             $this->save();
         }

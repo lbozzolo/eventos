@@ -72,7 +72,10 @@ class WebController extends AppBaseController
             }
         }
 
-        $this->data['proyectos'] = $this->paginateEvents($eventos)->sortByDesc('timestamp');
+//        dd($eventos);
+        $this->data['proyectos'] = $this->paginateEvents($eventos->sortByDesc('timestamp'));
+
+//        dd($this->data['proyectos']);
 
         return view('web.charlas')->with($this->data);
     }
