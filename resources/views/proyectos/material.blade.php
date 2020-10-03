@@ -37,7 +37,7 @@
 
                     @if($items->count())
 
-                        <table class="table table-condensed datatables">
+                        <table class="table table-condensed">
                             <thead>
                             <tr>
                                 {{--<th class="text-center pb-3" style="width: 70px">#Id</th>--}}

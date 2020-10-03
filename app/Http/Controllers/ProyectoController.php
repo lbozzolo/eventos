@@ -744,7 +744,7 @@ class ProyectoController extends AppBaseController
     public function materialRelacionado($id)
     {
         $this->data['proyecto'] = Proyecto::find($id);
-        $this->data['items'] = $this->data['proyecto']->materiales;
+        $this->data['items'] = $this->data['proyecto']->materiales()->paginate(10);
         $this->data['tags'] = Tag::pluck('name', 'id');
 
         return view('proyectos.material')->with($this->data);
