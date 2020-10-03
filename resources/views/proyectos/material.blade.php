@@ -37,17 +37,17 @@
 
                     @if($items->count())
 
-                        <table class="table table-condensed">
+                        <table class="table table-condensed datatables">
                             <thead>
                             <tr>
                                 {{--<th class="text-center pb-3" style="width: 70px">#Id</th>--}}
                                 <th class="pb-3">Archivo</th>
                                 {{--<th class="pb-3" style="width: 200px">Tipo de archivo</th>--}}
-                                <th class="pb-3">Tags</th>
+                                {{--<th class="pb-3">Tags</th>--}}
                                 <th class="pb-3" style="width: 200px">Autor</th>
                                 <th class="pb-3 text-center" style="width: 100px">Comisión</th>
                                 <th class="pb-3">Área</th>
-                                <th class="pb-3 text-center" style="width: 200px">Fecha</th>
+                                {{--<th class="pb-3 text-center" style="width: 200px">Fecha</th>--}}
                                 <th class="pb-3" style="width: 200px">Opciones</th>
                             </tr>
                             </thead>
@@ -61,16 +61,16 @@
                                         <span title="{!! $item->name !!}">{!! $item->nombre !!}</span><br>
                                     </td>
 {{--                                    <td>{!! $item->mime !!}</td>--}}
-                                    <td>
-                                        @forelse($item->tags as $tag)
-                                            <span class="badge badge-primary">{!! $tag->name !!}</span>
-                                        @empty
-                                        @endforelse
-                                    </td>
+                                    {{--<td>--}}
+                                        {{--@forelse($item->tags as $tag)--}}
+                                            {{--<span class="badge badge-primary">{!! $tag->name !!}</span>--}}
+                                        {{--@empty--}}
+                                        {{--@endforelse--}}
+                                    {{--</td>--}}
                                     <td>{!! ($item->author)? $item->author : '-' !!}</td>
                                     <td class="text-center">{!! ($item->comision_id)? $item->comision_id : '' !!}</td>
                                     <td>{!! ($item->area)? $item->area : '-' !!}</td>
-                                    <td class="text-center">{!! $item->fecha_creado !!}</td>
+                                    {{--<td class="text-center">{!! $item->fecha_creado !!}</td>--}}
                                     <td>
                                         @include('proyectos.partials.acciones-table-material')
                                     </td>
