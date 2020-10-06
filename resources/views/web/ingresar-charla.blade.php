@@ -72,7 +72,7 @@
                                                         <div class="card-body">
                                                             <h5>Enlace a Reuniones de Comisión</h5>
                                                             @foreach($charla->iframes->first()->links as $link)
-                                                                <a href="{!! $link->url !!}" target="_blank" class="btn__xs btn-outline-dark" style="margin-bottom: 5px; display: inline-block">{!! $link->nombre !!}</a>
+                                                                <a href="{!! $link->url_link !!}" target="_blank" class="btn__xs btn-outline-dark" style="margin-bottom: 5px; display: inline-block">{!! $link->nombre !!}</a>
                                                             @endforeach
                                                         </div>
                                                     </div>

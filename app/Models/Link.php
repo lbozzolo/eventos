@@ -24,6 +24,11 @@ class Link extends Entity
         'url.max' => 'La URL no puede exceder los 255 caracteres',
     ];
 
+    public function getUrlLinkAttribute()
+    {
+        return $this->attributes['url'];
+    }
+
     // Relationships
     public function proyecto()
     {
