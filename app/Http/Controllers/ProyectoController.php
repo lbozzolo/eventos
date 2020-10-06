@@ -19,6 +19,7 @@ use Eventos\Models\Consulta;
 use Eventos\Models\Estado;
 use Eventos\Models\Grupo;
 use Eventos\Models\Iframe;
+use Eventos\Models\Link;
 use Eventos\Models\Pdf;
 use Eventos\Models\Proyecto;
 use Eventos\Models\Tag;
@@ -739,6 +740,50 @@ class ProyectoController extends AppBaseController
     {
         $this->data['item'] = Proyecto::find($id);
         return view('proyectos.encuestas')->with($this->data);
+    }
+
+    public function links($id)
+    {
+        $this->data['item'] = Proyecto::find($id);
+        return view('proyectos.links')->with($this->data);
+    }
+
+    public function linksStore(Request $request, $id)
+    {
+        $rules = array ('url' => 'required|max:255', 'nombre' => 'required');
+        $messages = array ('url.required' => 'La URL es obligatoria', 'url.max' => 'La URL no puede exceder los 255 caracteres', 'nombre.required' => 'El nombre es obligatorio');
+        $validator = Validator::make( $request->input(), $rules, $messages);
+
+        if($validator->fails())
+            return redirect()->back()->withErrors( $validator);
+
+        $this->data['item'] = Proyecto::find($id);
+
+        $arrayLink = [
+            'nombre' => $request['nombre'],
+            'url' => $request['url'],
+            'iframe_id' => ($request['iframe_id'])? $request['iframe_id'] : null
+        ];
+
+        if(!$arrayLink['iframe_id']){
+            foreach ($this->data['item']->iframes as $iframe){
+                $arrayLink['iframe_id'] = $iframe->id;
+                $link = Link::create($arrayLink);
+                $this->data['item']->links()->save($link);
+            }
+        } else {
+            $link = Link::create($arrayLink);
+            $this->data['item']->links()->save($link);
+        }
+
+        return redirect()->back()->with('ok', 'Enlace ingresado correctamente');
+    }
+
+    public function linksDestroy($id)
+    {
+        $link = Link::find($id);
+        $link->delete();
+        return redirect()->back()->with('ok', 'Enlace eliminado con éxito');
     }
 
     public function materialRelacionado($id)

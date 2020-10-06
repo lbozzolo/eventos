@@ -249,6 +249,7 @@
                         <div class="col-lg-6 col-md-6">@include('proyectos.partials.widget-iframes')</div>
                         <div class="col-lg-6 col-md-6">@include('proyectos.partials.widget-videos')</div>
                         <div class="col-lg-6 col-md-6">@include('proyectos.partials.widget-material')</div>
+                        <div class="col-lg-6 col-md-6">@include('proyectos.partials.widget-enlaces')</div>
                     </div>
                 </div>
 

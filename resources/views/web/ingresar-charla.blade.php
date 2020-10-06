@@ -65,6 +65,21 @@
 
                                     @include('web.components.consulta')
 
+                                        @if($charla->iframes->first()->links->count())
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h5>Enlace a Reuniones de Comisión</h5>
+                                                            @foreach($charla->iframes->first()->links as $link)
+                                                                <a href="{!! $link->url !!}" target="_blank" class="btn__xs btn-outline-dark" style="margin-bottom: 5px; display: inline-block">{!! $link->nombre !!}</a>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+
                                 </div>
 
                             </div>

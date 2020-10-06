@@ -5,6 +5,7 @@ namespace Eventos\Models;
 use Carbon\Carbon;
 use Eventos\Models\Entity as Entity;
 use Eventos\User;
+use Illuminate\Support\Facades\Auth;
 
 class Proyecto extends Entity
 {
@@ -369,6 +370,11 @@ class Proyecto extends Entity
     public function header()
     {
         return $this->hasOne(Header::class);
+    }
+
+    public function links()
+    {
+        return $this->hasMany(Link::class);
     }
 
     public function images()

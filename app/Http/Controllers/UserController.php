@@ -8,6 +8,7 @@ use Eventos\Http\Requests\CreateUserRequest;
 use Eventos\Http\Requests\UpdateInscriptoRequest;
 use Eventos\Http\Requests\UpdateUserRequest;
 use Eventos\Models\Auspiciante;
+use Eventos\Models\Cliente;
 use Eventos\Models\Ocupacion;
 use Eventos\Models\Proyecto;
 use Eventos\Repositories\UserRepository;
@@ -292,6 +293,7 @@ class UserController extends AppBaseController
     {
         $this->data['user'] = $this->userRepository->findOrFail($id);
         $this->data['roles'] = Role::pluck('name', 'id');
+        $this->data['clientes'] = Cliente::pluck('nombre', 'id');
 
         return view('users.edit')->with($this->data);
     }

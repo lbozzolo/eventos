@@ -35,12 +35,12 @@
             <section class="pb-40 pt-2">
                 <div class="pl-2 pr-2">
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-7">
+                        <div class="col-sm-12 col-md-12 col-lg-8">
 
                             @include('web.components.iframe-sala')
 
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-4">
                             <div style="margin-top: 0px; padding-top: 0px">
 
                                 <div class="card-body">
@@ -59,6 +59,21 @@
                                     </h4>
 
                                     @include('web.components.consulta')
+
+                                    @if($sala->links->count())
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5>Enlace a Reuniones de Comisión</h5>
+                                                    @foreach($sala->links as $link)
+                                                        <a href="{!! $link->url !!}" target="_blank" class="btn__xs btn-outline-dark" style="margin-bottom: 5px; display: inline-block">{!! $link->nombre !!}</a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
 
                                 </div>
 

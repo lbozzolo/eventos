@@ -19,6 +19,13 @@
     {!! Form::select('roles[]', (isset($roles))? $roles : [], null, ['class' => 'form-control select2', 'multiple']) !!}
 </div>
 
+{{--@if($user->hasRole('Moderador'))--}}
+    {{--<div class="form-group col-sm-12 col-lg-12">--}}
+        {{--{!! Form::label('cliente_id', 'Clientes:') !!}--}}
+        {{--{!! Form::select('cliente_id', (isset($clientes))? $clientes : [], ($user->cliente)? $user->cliente : null, ['class' => 'form-control select2']) !!}--}}
+    {{--</div>--}}
+{{--@endif--}}
+
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
     <a href="{!! route('users.index') !!}" class="btn btn-default">Cancelar</a>

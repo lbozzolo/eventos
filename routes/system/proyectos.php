@@ -205,6 +205,21 @@ Route::group(['middleware' => ['can:mostrar_proyectos']], function () {
         'uses' => 'ProyectoController@encuestas'
     ]);
 
+    Route::get('proyectos/{id}/links', [
+        'as' => 'proyectos.links',
+        'uses' => 'ProyectoController@links'
+    ]);
+
+    Route::post('proyectos/{id}/links-store', [
+        'as' => 'proyectos.links.store',
+        'uses' => 'ProyectoController@linksStore'
+    ]);
+
+    Route::delete('proyectos/{id}/eliminar-enlace', [
+        'as' => 'proyectos.links.destroy',
+        'uses' => 'ProyectoController@linksDestroy'
+    ]);
+
 //    Route::get('/exportacion-inscriptos/{id}', function () {
 //        return \Maatwebsite\Excel\Facades\Excel::download(new \Eventos\Exports\InscriptosExport(), 'inscriptos.xlsx');
 //    });

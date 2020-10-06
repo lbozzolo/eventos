@@ -41,6 +41,11 @@ class Iframe extends Entity
         return $this->hasMany(Consulta::class);
     }
 
+    public function links()
+    {
+        return $this->hasMany(Link::class);
+    }
+
     public function encuesta()
     {
         return $this->hasOne(Encuesta::class);
