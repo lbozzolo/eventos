@@ -759,6 +759,9 @@ class ProyectoController extends AppBaseController
 
         $this->data['item'] = Proyecto::find($id);
 
+        if($this->data['item']->iframes->count() == 0)
+            return redirect()->back()->withErrors('Para poder cargar los enlaces primero debe cargar un iframe al evento');
+
         $arrayLink = [
             'nombre' => $request['nombre'],
             'url' => $request['url'],
