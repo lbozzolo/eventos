@@ -12,7 +12,7 @@
                     <h2 class="text-black" style="display: inline-block">
                         <span class="text-azul-claro">Ingresar código de acceso</span>
                     </h2>
-                    <p class="text-black lead">{!! ($charla->cliente)? $charla->cliente->nombre.' - ' : ''  !!}  {!! $charla->nombre !!}</p>
+                    <p class="text-black lead">{!! ($charla->cliente)? $charla->cliente->nombre.' - ' : ''  !!}  {!! ($charla->grupos->first())? $charla->grupos->first()->nombre : '' !!}</p>
 
                 </div>
                 <div class="col-lg-12">
