@@ -25,7 +25,12 @@
         {!! Form::open(['url' => route('proyectos.store.message', $charla->id), 'method' => 'post', 'id' => 'form-consulta']) !!}
 
         {!! Form::hidden('proyecto_id', $charla->id) !!}
-        {!! Form::hidden('iframe', ($charla->iframes->count())? $charla->iframes->first()->id : null, ['id' => 'iframeid']) !!}
+
+        @if(isset($sala))
+            {!! Form::hidden('iframe', $sala->id, ['id' => 'iframeid']) !!}
+        @else
+            {!! Form::hidden('iframe', ($charla->iframes->count())? $charla->iframes->first()->id : null, ['id' => 'iframeid']) !!}
+        @endif
 
         <div class="form-group">
             <div id="error"></div>
