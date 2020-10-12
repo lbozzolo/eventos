@@ -98,7 +98,7 @@
                     <span class="float-right">
                         @foreach($item->iframes as $iframe)
                             <a href="{!! route('proyectos.consultas', ['id' => $item->id, 'sala' => $iframe->id]) !!}"
-                               class="btn btn-sm btn-outline-dark @if(isset($sala) && ($sala == $iframe->id)) active  @endif">{!! $iframe->title !!}</a>
+                               class="btn btn-sm btn-outline-dark mb-2 @if(isset($sala) && ($sala == $iframe->id)) active  @endif">{!! $iframe->title !!}</a>
                         @endforeach
                     </span>
                     @endif
