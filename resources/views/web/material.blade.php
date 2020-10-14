@@ -55,7 +55,7 @@
                             </h3>
                         </div>
                         <div class="col-lg-8 col-md-7 col-sm-6">
-                            <h4>Material relacionado</h4>
+                            <h4>Sala de posters</h4>
                         </div>
                         <div class="col-lg-4 col-md-5 col-sm-6">
                             {!! Form::open(['url' => route('web.material.search', $charla->id), 'method' => 'get', 'class' => 'form-inline']) !!}
