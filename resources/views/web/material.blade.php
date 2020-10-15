@@ -116,7 +116,7 @@
                                 @if($charla->materiales()->where('comision_id', $comision)->paginate(4) instanceof \Illuminate\Pagination\LengthAwarePaginator )
                                     <div class="col-lg-12">
                                         <div class="card-body text-center customed-pagination">
-                                            {!! $charla->materiales()->where('comision_id', $comision)->paginate(5)->appends(request()->input())->render() !!}
+                                            {!! $charla->materiales()->where('comision_id', $comision)->paginate(4)->appends(request()->input())->render() !!}
                                         </div>
                                     </div>
                                 @endif

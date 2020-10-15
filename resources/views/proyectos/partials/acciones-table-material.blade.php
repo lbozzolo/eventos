@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group col-lg-12">
                         {!! Form::label('comision_id', 'Comisión') !!}
-                        {!! Form::number('comision_id', ($item->comision_id)? $item->comision_id : null, ['class' => 'form-control']) !!}
+                        {!! Form::text('comision_id', ($item->comision_id)? $item->comision_id : null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group col-lg-12">
                         {!! Form::label('tags[]', 'Etiquetas') !!}
