@@ -298,7 +298,8 @@ class WebController extends AppBaseController
     public function registro($cliente, $evento, $id)
     {
         $this->data['charla'] = Proyecto::active($id)->first();
-        $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
+//        $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
+        $this->data['ocupaciones'] = $this->projectRepository->filterOcupaciones($this->data['charla']);
 
         if(!$this->data['charla'])
             return abort(404);
@@ -310,7 +311,8 @@ class WebController extends AppBaseController
     public function gruposRegistro($cliente, $evento, $id, $code = null)
     {
         $this->data['charla'] = Grupo::findOrFail($id);
-        $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
+//        $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
+        $this->data['ocupaciones'] = $this->projectRepository->filterOcupacionesGrupo($this->data['charla']);
         $this->data['paises'] = $this->paises;
 
         if($code)
@@ -573,7 +575,8 @@ class WebController extends AppBaseController
     public function getRegistro2($userId, $eventoId)
     {
         $this->data['charla'] = Proyecto::active($eventoId)->first();
-        $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
+//        $this->data['ocupaciones'] = Ocupacion::pluck('nombre', 'id');
+        $this->data['ocupaciones'] = $this->projectRepository->filterOcupaciones($this->data['charla']);
 
         if(!$this->data['charla'])
             return abort(404);

@@ -3,6 +3,7 @@
 namespace Eventos\Repositories;
 
 use Eventos\Models\Codigo;
+use Eventos\Models\Ocupacion;
 use Eventos\Models\Proyecto;
 use InfyOm\Generator\Common\BaseRepository;
 use Carbon\Carbon;
@@ -89,6 +90,38 @@ class ProyectoRepository extends BaseRepository
         }
 
         return $message;
+    }
+
+    public function filterOcupaciones($proyecto)
+    {
+        if($proyecto->id == config('sistema.conditionals.special-event')){
+            $ocupaciones = Ocupacion::where('nombre', 'like', '*%')->pluck('nombre', 'id');
+            foreach($ocupaciones as $key => $value){
+                $ocupaciones[$key] = substr($value,1);
+            }
+        } else {
+            $ocupaciones = Ocupacion::where('nombre', 'not like', '*%')->pluck('nombre', 'id');
+        }
+
+        return $ocupaciones;
+    }
+
+    public function filterOcupacionesGrupo($grupo)
+    {
+        $specialEvent = $grupo->proyectos->filter(function ($proyecto){
+            return $proyecto->id == config('sistema.conditionals.special-event');
+        });
+
+        if($specialEvent->count()){
+            $ocupaciones = Ocupacion::where('nombre', 'like', '*%')->pluck('nombre', 'id');
+            foreach($ocupaciones as $key => $value){
+                $ocupaciones[$key] = substr($value,1);
+            }
+        } else {
+            $ocupaciones = Ocupacion::where('nombre', 'not like', '*%')->pluck('nombre', 'id');
+        }
+
+        return $ocupaciones;
     }
 
 }
