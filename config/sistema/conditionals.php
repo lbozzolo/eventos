@@ -2,6 +2,6 @@
 
 return [
 
-    'special-event' => 14
+    'special-event' => 29
 
 ];
