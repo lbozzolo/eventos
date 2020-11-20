@@ -32,6 +32,10 @@ class OcupacionesTableSeeder extends Seeder
                 'nombre' => 'Estudiante',
                 'slug' => 'estudiante'
             ],
+            [
+                'nombre' => 'Empleado',
+                'slug' => 'empleado'
+            ],
         ]);
     }
 }
