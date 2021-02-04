@@ -21,6 +21,24 @@
                 </div>
             </div>
 
+            @if(Auth::user()->isSuperadmin())
+            <div class="row">
+                <div class="card-body">
+
+                    {!! Form::model($user, ['route' => ['users.change.password.other', $user->id], 'method' => 'put']) !!}
+                    <div class="form-group col-sm-12 col-lg-12">
+                        {!! Form::label('new_password', 'Blanqueo de contraseña:') !!}
+                        {!! Form::text('new_password', null, ['class' => 'form-control', 'placeholder' => 'Ingrese aquí la nueva contraseña']) !!}
+                    </div>
+                    <div class="form-group col-sm-12 col-lg-12">
+                        {!! Form::submit('Blanquear', ['class' => 'btn btn-danger']) !!}
+                    </div>
+                    {!! Form::close() !!}
+
+                </div>
+            </div>
+            @endif
+
         </div>
     </div>
 

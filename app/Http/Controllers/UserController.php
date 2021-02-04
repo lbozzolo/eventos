@@ -419,4 +419,14 @@ class UserController extends AppBaseController
 
         return redirect()->back()->with('ok', 'Contraseña cambiada con éxito');
     }
+
+    public function changePasswordOther($id, Request $request)
+    {
+        $user = User::find($id);
+        $password = ($request->new_password)? Hash::make($request->new_password) : null;
+        $user->password = $password;
+        $user->save();
+
+        return redirect()->back()->with('ok', 'Contraseña blanqueada con éxito');
+    }
 }

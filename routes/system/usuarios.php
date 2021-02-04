@@ -42,4 +42,9 @@ Route::group(['middleware' => ['can:cambiar_password']], function () {
         'uses' => 'UserController@changePassword'
     ]);
 
+    Route::put('usuarios/{id}/change-password', [
+        'as' => 'users.change.password.other',
+        'uses' => 'UserController@changePasswordOther'
+    ]);
+
 });
