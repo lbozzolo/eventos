@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        {!! Form::text('dni', null, ['class' => 'form-control', 'placeholder' => 'DNI']) !!}
+                                        {!! Form::number('dni', null, ['class' => 'form-control', 'placeholder' => 'DNI']) !!}
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">

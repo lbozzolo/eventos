@@ -96,7 +96,7 @@ class User extends Authenticatable
         'lastname' => 'required',
         'email' => 'required|email',
 //        'email' => 'required|email|unique:users,email',
-        'dni' => 'required|max:191',
+        'dni' => 'numeric|required|max:191',
         'institucion' => 'max:191',
         'phone' => 'required|max:191',
         'localidad' => 'required|max:255',

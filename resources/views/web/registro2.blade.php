@@ -77,7 +77,7 @@
                                         @if($user->dni)
                                             <p class="text-success">¿Es correcto este DNI, pasaporte o ID?</p>
                                         @endif
-                                        {!! Form::text('dni', ($user->dni)? $user->dni : null, ['class' => 'form-control', 'placeholder' => 'DNI, pasaporte o ID']) !!}
+                                        {!! Form::number('dni', ($user->dni)? $user->dni : null, ['class' => 'form-control', 'placeholder' => 'DNI, pasaporte o ID']) !!}
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
