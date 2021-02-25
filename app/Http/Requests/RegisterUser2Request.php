@@ -29,7 +29,7 @@ class RegisterUser2Request extends FormRequest
             'name' => 'required',
             'lastname' => 'required',
             'email' => 'required|email',
-            'dni' => 'numeric|required|max:191',
+            'dni' => 'numeric|required|max:99999999',
             'institucion' => 'max:191',
             'phone' => 'required|max:191',
             'localidad' => 'required|max:255',
