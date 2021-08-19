@@ -10,13 +10,15 @@
                             ==========================
                     --}}
 
-                    <iframe
-                            src="https://www.youtube.com/embed/{!! $sala->video_id !!}"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            class="iframe"
-                            allowfullscreen>
-                    </iframe>
+                    <div class="video-responsive">
+                        <iframe
+                                src="https://www.youtube.com/embed/{!! $sala->video_id !!}"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                class="video-responsive-item"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
 
                 @else
 
@@ -24,8 +26,9 @@
                             Si el iframe es de STWEB
                             ==========================
                     --}}
-
-                    <iframe width="100%" src="{!! $sala->path !!}" frameborder="0" allowfullscreen class="iframe"></iframe>
+                    <div class="video-responsive">
+                        <iframe width="100%" src="{!! $sala->path !!}" frameborder="0" allowfullscreen class="video-responsive-item"></iframe>
+                    </div>
 
                 @endif
 

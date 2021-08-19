@@ -14,20 +14,21 @@
                 <div class="card-body">
                     {!! Form::open(['url' => route($modelPlural.'.store.iframes', $item->id), 'method' => 'post']) !!}
 
+                        <div class="form-group mt-4 mb-5">
+                            {!! Form::label('type', 'Tipo de iframe') !!}<br>
+                            <span class="mr-3"> {!! Form::radio('type', 0, true, ['id' => 'stweb']) !!} STWEB</span>
+                            <span class="mr-3">{!! Form::radio('type', 1, false, ['id' => 'youtube']) !!} Youtube</span>
+                            <span class="mr-3">{!! Form::radio('type', 2, false, ['id' => 'vimeo']) !!} Vimeo</span>
+                        </div>
+
                         <div class="form-group">
                             {!! Form::label('title', 'Título o descripción') !!}
                             {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'SALA 1 / SALA 2 . . .']) !!}
                         </div>
 
                         <div class="form-group"  id="videos-input">
-                            {!! Form::label('iframe', 'URL del iframe de la charla') !!}
-                            {!! Form::text('path', null, ['class' => 'form-control', 'placeholder' => 'Coloque aquí la URL de su video...']) !!}
-                        </div>
-
-                        <div class="form-group mt-4 mb-5">
-                            {!! Form::label('type', 'Tipo de iframe') !!}<br>
-                            <span class="mr-3"> {!! Form::radio('type', 0, true) !!} STWEB</span>
-                            <span class="mr-3">{!! Form::radio('type', 1) !!} Youtube</span>
+                            {!! Form::label('iframe', 'URL del iframe de la charla', ['id' => 'label-videos']) !!}
+                            {!! Form::text('path', null, ['class' => 'form-control', 'id' => 'input-videos', 'placeholder' => 'Coloque aquí la URL de su video...']) !!}
                         </div>
 
                         <div class="form-group">
@@ -45,8 +46,8 @@
     <div class="row grid-margin">
         @forelse($item->iframes as $video)
 
-            <div class="col-lg-6">
-                <div class="card card-body">
+            <div class="col-lg-4">
+                <div class="card card-body mb-3">
                     @if($video->insecureURL())
                     <p class="bg-danger" style="padding: 5px 10px; border-radius: 5px">
                         <span class="text-white">LA URL DE ESTE IFRAME NO ES SEGURA</span><br>
@@ -56,16 +57,37 @@
                     <p>{!! ($video->title)? $video->title : '[SIN TÍTULO]' !!}</p>
 
                     @if($video->type == 1)
-                        <iframe
-                                id="video_primary"
-                                src="https://www.youtube.com/embed/{!! $video->video_id !!}"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                class="iframe"
-                                allowfullscreen>
-                        </iframe>
-                    @else
-                        <iframe src="{!! $video->path !!}" style="width: 100%; height: 370px"></iframe>
+
+                        <div class="video-responsive">
+                            <iframe
+                                    src="https://www.youtube.com/embed/{!! $video->video_id !!}"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    class="video-responsive-item"
+                                    allowfullscreen>
+                            </iframe>
+                            {{--<iframe--}}
+                                    {{--id="video_primary"--}}
+                                    {{--src="https://www.youtube.com/embed/{!! $video->video_id !!}"--}}
+                                    {{--frameborder="0"--}}
+                                    {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
+                                    {{--class="iframe"--}}
+                                    {{--allowfullscreen>--}}
+                            {{--</iframe>--}}
+                        </div>
+
+                    @elseif($video->type == 2)
+
+                        <div class="video-responsive">
+                            <iframe class="video-responsive-item" src="https://player.vimeo.com/video/{!! $video->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                        </div>
+
+                        @else
+
+                        <div class="video-responsive">
+                            <iframe src="{!! $video->path !!}" style="width: 100%; height: 370px"></iframe>
+                        </div>
+
                     @endif
 
                     <div class="row mt-3">
@@ -148,5 +170,39 @@
         </div>
 
     @endforeach
+
+@endsection
+
+@section('js')
+
+    <script>
+
+        $('#vimeo').click(function () {
+
+            $('#input-videos').attr('placeholder', 'Coloque aquí el ID de su video (ej: 548901118)...');
+            $('#input-videos').val('');
+            $('#label-videos').text('ID del video de Vimeo');
+
+        });
+
+        $('#youtube').click(function () {
+
+            $('#input-videos').attr('placeholder', 'Coloque aquí la URL de su video...');
+            $('#input-videos').val('');
+            $('#label-videos').text('URL del iframe de la charla');
+
+        });
+
+        $('#stweb').click(function () {
+
+            $('#input-videos').attr('placeholder', 'Coloque aquí la URL de su video...');
+            $('#input-videos').val('');
+            $('#label-videos').text('URL del iframe de la charla');
+
+        });
+
+
+
+    </script>
 
 @endsection

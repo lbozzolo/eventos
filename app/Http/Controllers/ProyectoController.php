@@ -227,6 +227,8 @@ class ProyectoController extends AppBaseController
     {
         $this->data['item'] = $this->repo->findWithoutFail($id);
 
+//        dd($request->all());
+
         if (empty($this->data['item']))
             return redirect()->back()->withErrors($this->show_failure_message);
 

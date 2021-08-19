@@ -2,14 +2,17 @@
     <div class="blog__img container-video">
 
             @if($charla->videos->count())
-                <iframe
-                        id="video_primary"
-                        src="https://www.youtube.com/embed/{!! $charla->videos->first()->video_id !!}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        class="iframe-video"
-                        allowfullscreen>
-                </iframe>
+                <div class="video-responsive">
+                    <iframe
+                            id="video_primary"
+                            src="https://www.youtube.com/embed/{!! $charla->videos->first()->video_id !!}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            class="video-responsive-item"
+                            {{--class="iframe-video"--}}
+                            allowfullscreen>
+                    </iframe>
+                </div>
             @endif
 
     </div>

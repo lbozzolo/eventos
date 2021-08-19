@@ -4,14 +4,17 @@
         @if($charla->videos->count())
 
             @if($charla->videos()->where('active', 1)->first())
-            <iframe
-                    id="video_primary"
-                    src="https://www.youtube.com/embed/{!! $charla->videos()->where('active', 1)->first()->video_id !!}"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    class="iframe-video"
-                    allowfullscreen>
-            </iframe>
+                <div class="video-responsive">
+                    <iframe
+                            id="video_primary"
+                            src="https://www.youtube.com/embed/{!! $charla->videos()->where('active', 1)->first()->video_id !!}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            class="video-responsive-item"
+                            {{--class="iframe-video"--}}
+                            allowfullscreen>
+                    </iframe>
+                </div>
             @endif
 
         @endif

@@ -9,14 +9,22 @@
                     ==========================
             --}}
 
+            <div class="video-responsive">
                 <iframe
                         id="video_primary"
                         src="https://www.youtube.com/embed/{!! $charla->iframes->first()->video_id !!}"
                         frameborder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        class="iframe"
+                        class="video-responsive-item"
                         allowfullscreen>
                 </iframe>
+            </div>
+
+            @elseif($charla->iframes->first()->type == 2)
+
+                <div class="video-responsive">
+                    <iframe class="video-responsive-item" src="https://player.vimeo.com/video/{!! $charla->iframes->first()->video->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                </div>
 
             @else
 
@@ -24,13 +32,15 @@
                     Si el iframe es de STWEB
                     ==========================
             --}}
-                <iframe
-                        width="100%"
-                        src="{!! $charla->iframes->first()->path !!}"
-                        frameborder="0"
-                        allowfullscreen
-                        class="iframe">
-                </iframe>
+                <div class="video-responsive">
+                    <iframe
+                            width="100%"
+                            src="{!! $charla->iframes->first()->path !!}"
+                            frameborder="0"
+                            allowfullscreen
+                            class="video-responsive-item">
+                    </iframe>
+                </div>
 
             @endif
 
@@ -50,14 +60,23 @@
                                     ==========================
                             --}}
 
-                            <iframe
-                                    src="https://www.youtube.com/embed/{!! $iframe->video_id !!}"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    class="iframe"
-                                    allowfullscreen>
-                            </iframe>
+                            <div class="video-responsive">
+                                <iframe
+                                        src="https://www.youtube.com/embed/{!! $iframe->video_id !!}"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                        class="video-responsive-item"
+                                        {{--class="iframe"--}}
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
 
+
+                        @elseif($iframe->type == 2)
+
+                            <div class="video-responsive">
+                                <iframe class="video-responsive-item" src="https://player.vimeo.com/video/{!! $iframe->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                            </div>
 
                         @else
 
@@ -66,7 +85,9 @@
                                     ==========================
                             --}}
 
-                            <iframe width="100%" src="{!! $iframe->path !!}" frameborder="0" allowfullscreen class="iframe"></iframe>
+                            <div class="video-responsive">
+                                <iframe width="100%" src="{!! $iframe->path !!}" frameborder="0" allowfullscreen class="video-responsive-item"></iframe>
+                            </div>
 
                         @endif
 
