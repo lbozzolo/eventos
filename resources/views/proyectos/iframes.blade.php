@@ -85,7 +85,7 @@
                         @else
 
                         <div class="video-responsive">
-                            <iframe src="{!! $video->path !!}" style="width: 100%; height: 370px"></iframe>
+                            <iframe src="{!! $video->path !!}"></iframe>
                         </div>
 
                     @endif
