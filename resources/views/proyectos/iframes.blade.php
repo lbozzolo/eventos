@@ -82,10 +82,10 @@
                             <iframe class="video-responsive-item" src="https://player.vimeo.com/video/{!! $video->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
                         </div>
 
-                        @else
+                    @else
 
                         <div class="video-responsive">
-                            <iframe src="{!! $video->path !!}"></iframe>
+                            <iframe src="{!! $video->path !!}" class="video-responsive-item"></iframe>
                         </div>
 
                     @endif
