@@ -17,7 +17,7 @@
                         <div class="blog-item">
                             <div class="blog__img">
                                 <a href="{!! route('web.charlas.show', ['cliente' => $charla->cliente_slug, 'evento' => $charla->nombre_slug, 'id' => $charla->id]) !!}">
-                                    <img src="{!! $charla->mainImage() !!}" alt="blog image">
+                                    <img src="{!! $charla->mainImage() !!}" alt="blog image" id="image-evento-del-dia">
                                 </a>
                             </div>
                         </div>

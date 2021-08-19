@@ -357,6 +357,46 @@ h4 {
     border: 0;
 }
 
+
+#slider1 {
+    height: 400px!important;
+}
+
+.slide-item {
+    height: 400px!important;
+}
+
+#carousel-slide {
+    height: 400px!important;
+}
+
+
+@media (max-width: 412px) {
+
+    #slider1 {
+        height: 200px!important;
+    }
+
+    .slide-item {
+        height: 200px!important;
+    }
+
+    #carousel-slide {
+        height: 200px!important;
+    }
+
+    #image-evento-del-dia {
+        height: 200px!important;
+    }
+}
+
+
+
+
+
+
+
+
 @media (min-width: 450px) and (max-width: 990px) {
 
     .logo-header {

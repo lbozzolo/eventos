@@ -2,7 +2,7 @@
 
     <div class="carousel owl-carousel carousel-arrows carousel-dots" data-slide="1" data-slide-md="1"
          data-slide-sm="1" data-autoplay="true" data-nav="true" data-dots="true" data-space="0" data-loop="true"
-         data-speed="3000" data-transition="fade" data-animate-out="fadeOut" data-animate-in="fadeIn">
+         data-speed="3000" data-transition="fade" data-animate-out="fadeOut" data-animate-in="fadeIn" id="carousel-slide">
         <div class="slide-item align-v-h bg-overlay">
             <div class="bg-img"><img src="{!! asset('template-web/assets/images/sliders/1.jpg') !!}" alt="slide img"></div>
             <div class="container">
