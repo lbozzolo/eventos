@@ -183,9 +183,9 @@
 
         $('#vimeo').click(function () {
 
-            $('#input-videos').attr('placeholder', 'Coloque aquí el ID de su video (ej: 548901118)...');
+            $('#input-videos').attr('placeholder', 'Coloque aquí la URL de su video (ej: https://player.vimeo.com/video/612910057?h=c60fd20fe4)...');
             $('#input-videos').val('');
-            $('#label-videos').text('ID del video de Vimeo');
+            $('#label-videos').text('URL del video de Vimeo');
 
         });
 
