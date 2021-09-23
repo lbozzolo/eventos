@@ -23,7 +23,7 @@
             @elseif($charla->iframes->first()->type == 2)
 
                 <div class="video-responsive">
-                    <iframe class="video-responsive-item" src="{!! $charla->iframes->first()->video->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                    <iframe class="video-responsive-item" src="{!! $charla->iframes->first()->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
                 </div>
                 {{--<div class="video-responsive">--}}
                     {{--<iframe class="video-responsive-item" src="https://player.vimeo.com/video/{!! $charla->iframes->first()->video->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>--}}
@@ -78,8 +78,11 @@
                         @elseif($iframe->type == 2)
 
                             <div class="video-responsive">
-                                <iframe class="video-responsive-item" src="https://player.vimeo.com/video/{!! $iframe->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                                <iframe class="video-responsive-item" src="{!! $iframe->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
                             </div>
+                            {{--<div class="video-responsive">--}}
+                                {{--<iframe class="video-responsive-item" src="https://player.vimeo.com/video/{!! $iframe->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>--}}
+                            {{--</div>--}}
 
                         @else
 
