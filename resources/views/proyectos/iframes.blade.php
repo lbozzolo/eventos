@@ -79,8 +79,12 @@
                     @elseif($video->type == 2)
 
                         <div class="video-responsive">
-                            <iframe class="video-responsive-item" src="https://player.vimeo.com/video/{!! $video->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                            <iframe class="video-responsive-item" src="{!! $video->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
                         </div>
+
+                        {{--<div class="video-responsive">--}}
+                            {{--<iframe class="video-responsive-item" src="https://player.vimeo.com/video/{!! $video->path !!}" frameborder="0" title="" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>--}}
+                        {{--</div>--}}
 
                     @else
 
