@@ -20,22 +20,25 @@
             <div class="row">
 
                 @foreach($proyectos as $proyecto)
+                    @if(!in_array($proyecto->nombre, config('sistema.proyectos.hidden')))
 
-                    @if($proyecto instanceof Eventos\Models\Proyecto)
-                        <div class="col-sm-12 col-md-6 col-lg-4">
-                            @include('web.components.proyecto-card')
-                        </div>
-                    @else
+                        @if($proyecto instanceof Eventos\Models\Proyecto)
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                @include('web.components.proyecto-card')
+                            </div>
+                        @else
 
 
-                        <div class="col-sm-12 col-md-6 col-lg-4">
-                            @include('web.components.grupo-card')
-                        </div>
-                        {{--@if(!isset($loop) ?: $loop->first)--}}
-                            {{--<div class="col-sm-12 col-md-6 col-lg-4">--}}
-                                {{--@include('web.components.grupo-card')--}}
-                            {{--</div>--}}
-                        {{--@endif--}}
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                @include('web.components.grupo-card')
+                            </div>
+                            {{--@if(!isset($loop) ?: $loop->first)--}}
+                                {{--<div class="col-sm-12 col-md-6 col-lg-4">--}}
+                                    {{--@include('web.components.grupo-card')--}}
+                                {{--</div>--}}
+                            {{--@endif--}}
+
+                        @endif
 
                     @endif
                 @endforeach
