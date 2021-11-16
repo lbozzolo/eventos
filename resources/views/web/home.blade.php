@@ -12,7 +12,7 @@
 
 
                 @foreach($charlas as $charla)
-                    @if(!in_array($proyecto->nombre, config('sistema.proyectos.hidden')))
+                    @if(!in_array($charla->nombre, config('sistema.proyectos.hidden')))
                         <div class="row">
                             <div class="col-lg-5 card-body">
                                 <div class="blog-item">
