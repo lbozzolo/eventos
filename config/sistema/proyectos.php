@@ -10,7 +10,7 @@ return [
 
     'hidden' => [
         'La familia CLAAS se renueva',
-        'Encuentro anual de inversones'
+        'Encuentro anual de inversores',
     ]
 
 ];
