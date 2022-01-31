@@ -11,6 +11,7 @@ return [
     'hidden' => [
         'La familia CLAAS se renueva',
         'Encuentro anual de inversores',
+        '2° Jornada a Campo M.A.S. Productor (PRESENCIAL)'
     ]
 
 ];
