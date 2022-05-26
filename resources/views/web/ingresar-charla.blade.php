@@ -16,7 +16,7 @@
         </div>
     </section>
 
-    <section class="blog blog-grid bg-dark-green" id="alert-message" style="background-color: orange; display: @if($charla->isAlertMessage()) block @else none @endif">
+    <section class="blog blog-grid bg-dark-green" id="alert-message" style="background-color: orange; display: @if($charla->isAlertMessage() && $charla->alert_message != 'reload') block @else none @endif">
         <div class="container">
             <div class="text__block">
                 <h2 class="text__block-title text-white">Eventum informa</h2>
@@ -239,8 +239,15 @@
                         if(data === 'off'){
                             $('#alert-message').hide();
                         } else {
-                            $('#alert-message').show();
-                            $('#alert_message_text').text(data);
+
+                            if(data === 'reload'){
+                                location.reload();
+                                $('#alert-message').hide();
+                            } else {
+                                $('#alert-message').show();
+                                $('#alert_message_text').text(data);
+                            }
+
                         }
 
                     }
